@@ -1,0 +1,11 @@
+{
+  "name": "tatue-se",
+  "version": "1.0.0",
+  "description": "Application for tattoo lovers seeking amazing tattoo professionals.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Leandro Costa",
+  "license": "ISC"
+}
