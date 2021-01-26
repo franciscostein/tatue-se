@@ -1,27 +1,30 @@
 const mongoose = require('mongoose');
 const TattooStyles = require('./tattooStyles');
+const Location = require('./location');
 const Image = require('./image');
+const User = require('./user');
 
-const tattooistSchema = new mongoose.Schema({
+const artistSchema = new mongoose.Schema({
+    user: {
+        type: User,
+        required: true
+    },
     fullName: {
         type: String,
         required: true,
         trim: true
     },
     profilePicture: {
-        type: String,
-        trim: true,
+        type: Image,
         required: true
     },
     location: {
-        type: String,
+        type: Location,
         required: true
     },
-    styles: {
-        type: [
-            TattooStyles
-        ]
-    },
+    styles: [
+        TattooStyles
+    ],
     portfolio: [
         Image
     ],
@@ -41,6 +44,6 @@ const tattooistSchema = new mongoose.Schema({
     timestamps: true
 });
 
-const Tattooist = mongoose.model('Studio', tattooistSchema);
+const Artist = mongoose.model('Artist', artistSchema);
 
-module.exports = Tattooist;
+module.exports = Artist;

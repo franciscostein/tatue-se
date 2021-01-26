@@ -1,12 +1,23 @@
 const mongoose = require('mongoose');
-const Tattooist = require('./tattooist');
+const Location = require('./location');
+const Artist = require('./artist');
 const Image = require('./image');
 
 const imageType = {
-    PROFILE: 'profile',
-    TATTOO: 'tattoo',
-    FLASH: 'flash',
-    WORKPLACE: 'workplace'
+    PROFILE: 'Profile',
+    TATTOO: 'Tattoo',
+    FLASH: 'Flash',
+    WORKPLACE: 'Workplace'
+}
+
+const weekDay = {
+    SUNDAY: 'Sunday',
+    MONDAY: 'Monday',
+    TUESDAY: 'Tuesday',
+    WEDNESDAY: 'Wednesday',
+    THURSDAY: 'Thursday',
+    FRIDAY: 'Friday',
+    SATURDAY: 'Saturday'
 }
 
 const studioSchema = new mongoose.Schema({
@@ -15,20 +26,25 @@ const studioSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    portfolio: [
+    portfolio: [{
         Image,
         imageType
-    ],
+    }],
     artists: [
-        Tattooist
+        Artist
     ],
     location: {
-        type: String,
+        type: Location,
         required: true
     },
     openTime: [{
         weekDay,
-        hour
+        initialHour: {
+            Date
+        },
+        finalHour: {
+            Date
+        }
     }],
     rating: {
         type: Number,

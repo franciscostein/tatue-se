@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-const User = require('./user');
 const TattooStyles = require('./tattooStyles');
+const Location = require('./location');
+const User = require('./user');
 
 const clientSchema = new mongoose.Schema({
     user: {
@@ -25,7 +26,7 @@ const clientSchema = new mongoose.Schema({
         TattooStyles
     ],
     location: {
-        type: String,
+        type: Location,
         required: true
     },
     notification: {

@@ -4,7 +4,7 @@ const validator = require('validator');
 
 const userType = {
     ADMIN: 'admin',
-    TATTOOIST: 'tattooist',
+    ARTIST: 'artist',
     CLIENT: 'client'
 }
 

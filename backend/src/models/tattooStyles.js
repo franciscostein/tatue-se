@@ -1,4 +1,4 @@
-const tattooStyles = [
+const TattooStyles = [
     { name: 'Any' },
     { name: 'Black & Gray' },
     { name: 'Blackwork' },
@@ -23,3 +23,5 @@ const tattooStyles = [
     { name: 'Cosmetic' },
     { name: 'Ignorant' },
 ];
+
+module.exports = TattooStyles;
