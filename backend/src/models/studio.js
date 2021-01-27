@@ -20,6 +20,8 @@ const weekDay = {
     SATURDAY: 'Saturday'
 }
 
+const 
+
 const studioSchema = new mongoose.Schema({
     about: {
         type: String,
@@ -31,7 +33,7 @@ const studioSchema = new mongoose.Schema({
         imageType
     }],
     artists: [
-        Artist
+        Artist.schema
     ],
     location: {
         type: Location,

@@ -2,10 +2,11 @@ const mongoose = require('mongoose');
 const TattooStyles = require('./tattooStyles');
 const Location = require('./location');
 const User = require('./user');
+const Image = require('./image');
 
 const clientSchema = new mongoose.Schema({
     user: {
-        type: User,
+        type: User.schema,
         required: true
     },
     fullName: {
@@ -14,8 +15,7 @@ const clientSchema = new mongoose.Schema({
         required: true
     },
     profilePicture: {
-        type: String,
-        trim: true,
+        type: Image.schema,
         required: true
     },
     tattooNumber: {
@@ -23,7 +23,7 @@ const clientSchema = new mongoose.Schema({
         default: 0
     },
     favoriteStyles: [
-        TattooStyles
+        TattooStyles.schema
     ],
     location: {
         type: Location,

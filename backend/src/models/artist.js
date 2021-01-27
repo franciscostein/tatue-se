@@ -6,7 +6,7 @@ const User = require('./user');
 
 const artistSchema = new mongoose.Schema({
     user: {
-        type: User,
+        type: User.schema,
         required: true
     },
     fullName: {
@@ -15,7 +15,7 @@ const artistSchema = new mongoose.Schema({
         trim: true
     },
     profilePicture: {
-        type: Image,
+        type: Image.schema,
         required: true
     },
     location: {
@@ -23,10 +23,10 @@ const artistSchema = new mongoose.Schema({
         required: true
     },
     styles: [
-        TattooStyles
+        TattooStyles.schema
     ],
     portfolio: [
-        Image
+        Image.schema
     ],
     instagram: {
         type: String,

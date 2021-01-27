@@ -3,11 +3,11 @@ const User = require('./user');
 
 const imageSchema = new mongoose.Schema({
     name: {
-        type: string,
+        type: String,
         trim: true,
     },
     description: {
-        type: string,
+        type: String,
         trim: true,
     },
     date: {
@@ -18,7 +18,9 @@ const imageSchema = new mongoose.Schema({
         data: Buffer,
         contentType: String
     },
-    owner: User
+    owner: {
+        type: User.schema
+    }
 }, {
     timestamps: true
 });
