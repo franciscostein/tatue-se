@@ -1,12 +1,11 @@
 const express = require('express');
 const auth = require('../utils/middleware/auth');
-const authAdmin = require('../utils/middleware/authAdmin');
 const Artist = require('../models/artist');
 const router = new express.Router();
 
 // get all
-// router.get('/artists', auth, async (req, res) => {
-router.get('/artists', async (req, res) => {
+router.get('/artists', auth, async (req, res) => {
+// router.get('/artists', async (req, res) => {
     try {
         const artists = await Artist.find();
 
@@ -21,8 +20,8 @@ router.get('/artists', async (req, res) => {
 });
 
 // get by id
-// router.get('/artists/:id', auth, async (req, res) => {
-router.get('/artists/:id', async (req, res) => {
+router.get('/artists/:id', auth, async (req, res) => {
+// router.get('/artists/:id', async (req, res) => {
         const _id = req.params.id;
 
     try {
@@ -51,3 +50,5 @@ router.post('/artists', async (req, res) => {
         res.status(400).send(e);
     }
 });
+
+module.exports = router;
