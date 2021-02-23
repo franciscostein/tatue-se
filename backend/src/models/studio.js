@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Location = require('./location');
-const Artist = require('./artist');
-const Image = require('./image');
+const Schema = mongoose.Schema;
 
 const imageType = {
     PROFILE: 'Profile',
@@ -22,19 +21,21 @@ const weekDay = {
 
 const 
 
-const studioSchema = new mongoose.Schema({
+const studioSchema = new Schema({
     about: {
         type: String,
         required: true,
         trim: true
     },
     portfolio: [{
-        Image,
+        type: Schema.Types.ObjectId,
+        ref: 'Image',
         imageType
     }],
-    artists: [
-        Artist.schema
-    ],
+    artists: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Artist'
+    }],
     location: {
         type: Location,
         required: true

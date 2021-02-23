@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const User = require('./user');
+const Schema = mongoose.Schema;
 
-const imageSchema = new mongoose.Schema({
+const imageSchema = new Schema({
     name: {
         type: String,
         trim: true,
@@ -19,7 +19,8 @@ const imageSchema = new mongoose.Schema({
         contentType: String
     },
     owner: {
-        type: User.schema
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
 }, {
     timestamps: true

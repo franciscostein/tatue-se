@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
-const TattooStyles = require('./tattooStyles');
 const Location = require('./location');
-const User = require('./user');
-const Image = require('./image');
+const Schema = mongoose.Schema;
 
-const clientSchema = new mongoose.Schema({
+const clientSchema = new Schema({
     user: {
-        type: User.schema,
+        type: Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     },
     fullName: {
@@ -15,16 +14,17 @@ const clientSchema = new mongoose.Schema({
         required: true
     },
     profilePicture: {
-        type: Image.schema,
-        required: true
+        type: Schema.Types.ObjectId,
+        ref: 'Image',
     },
     tattooNumber: {
         type: Number,
         default: 0
     },
-    favoriteStyles: [
-        TattooStyles.schema
-    ],
+    favoriteStyles: [{
+        type: Schema.Types.ObjectId,
+        ref: 'TattooStyles'
+    }],
     location: {
         type: Location,
         required: true
