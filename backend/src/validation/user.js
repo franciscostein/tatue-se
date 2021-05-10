@@ -1,9 +1,12 @@
-const validator = require('validator');
+const { check, validationResult } = require('express-validator');
 
-const userValidation = (email, password) => {
-	if (!validator.isEmail(email)) return 'Invalid e-mail address';
-	if (password.toLowerCase().includes('password')) return `Password shouldn't include 'password'`;
-	return null;
-}
+exports.userValidation = [
+	check('email', 'e-mail is required').not().isEmpty(),
+	(req, res, next) => {
+		const errors = validationResult(req);
 
-module.exports = userValidation;
+		if (!errors.isEmpty()) return res.status(422).json({ errors: errors.array() });
+
+		next();
+	}
+];
