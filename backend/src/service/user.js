@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-exports.save = async (email, password, userType) => {
+exports.save = async ({ email, password, userType }) => {
 	try {
 		let user = await User.findOne({ email });
 
