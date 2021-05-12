@@ -9,8 +9,8 @@ exports.generateToken = async (id, expiresIn = 3600) => {
 
 	return new Promise((resolve, reject) => {
 		jwt.sign(payload, process.env.JWT_SECRET, { expiresIn }, (err, token) => {
-			if (err) reject(formatMessageApi(500, [{ msg: err }], 'errors'));
-			else resolve(formatMessageApi(200, token, 'token'));
+			if (err) reject(formatMessageApi([{ msg: err }], 500, 'errors'));
+			else resolve(formatMessageApi(token, 200, 'token'));
 		});
 	});
 }

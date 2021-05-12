@@ -6,7 +6,7 @@ const artistSchema = new Schema({
         ref: 'User',
         required: true
     },
-    fullName: {
+    name: {
         type: String,
         required: true,
         trim: true

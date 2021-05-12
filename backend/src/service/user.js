@@ -6,7 +6,7 @@ exports.save = async ({ email, password, userType }) => {
 	try {
 		let user = await User.findOne({ email });
 
-		if (user) return formatMessageApi(400, [{ msg: 'User already exists' }], 'errors');
+		if (user) return formatMessageApi([{ msg: 'User already exists' }], 400, 'errors');
 
 		user = new User({ email, password, userType });
 		user.password = await hashPassword(password);
@@ -16,6 +16,6 @@ exports.save = async ({ email, password, userType }) => {
 		return await generateToken(user.id);
 	} catch (err) {
 		console.log(err.message);
-		return formatMessageApi(500, err)
+		return formatMessageApi(err, 500);
 	}
 }

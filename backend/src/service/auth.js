@@ -7,15 +7,15 @@ exports.authenticate = async ({ email, password }) => {
 	try {
 		let user = await User.findOne({ email });
 
-		if (!user) return formatMessageApi(400, [{ msg: 'Invalid credentials' }], 'errors');
+		if (!user) return formatMessageApi([{ msg: 'Invalid credentials' }], 400, 'errors');
 
 		const isMatch = await bcrypt.compare(password, user.password);
 
-		if (!isMatch) return formatMessageApi(400, [{ msg: 'Invalid credentials' }], 'errors');
+		if (!isMatch) return formatMessageApi([{ msg: 'Invalid credentials' }], 400, 'errors');
 
 		return await generateToken(user.id);
 	} catch (err) {
 		console.error(err);
-		return formatMessageApi(500, 'Server error');
+		return formatMessageApi('Server error', 500);
 	}
 }
