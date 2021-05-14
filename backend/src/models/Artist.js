@@ -1,52 +1,66 @@
 const { Schema, model } = require('mongoose');
 
 const artistSchema = new Schema({
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
-    name: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    profilePicture: {
-        type: String
-    },
-    location: {
-        type: String,
-        required: true
-    },
-    styles: [
-        { type: String }
-    ],
-    portfolio: [
-        { type: String }
-    ],
-    biography: {
-        type: String,
-        trim: true
-    },
-    social: {
-        youtube: {
-            type: String
-        },
-        twitter: {
-            type: String
-        },
-        facebook: {
-            type: String
-        },
-        instagram: {
-            type: String
-        },
-        website: {
-            type: String
-        }
-    }
+	user: {
+		type: Schema.Types.ObjectId,
+		ref: 'user',
+		required: true
+	},
+	fullName: {
+		type: String,
+		required: true,
+		trim: true
+	},
+	location: {
+		name: {
+			type: String
+		},
+		latitude: {
+			type: String
+		},
+		longitude: {
+			type: String
+		},
+		required: true
+	},
+	profilePicture: {
+		type: String
+	},
+	biography: {
+		type: String,
+		trim: true
+	},
+	styles: [{ 
+		type: Schema.Types.ObjectId,
+		ref: 'tattooStyles'
+	}],
+	portfolio: [{ 
+		publicId: String,
+		validate: [arrayLimit, '{Path} exceeds the limit of 50']
+	}],
+	social: {
+		facebook: {
+			type: String
+		},
+		instagram: {
+			type: String
+		},
+		website: {
+			type: String
+		}
+	},
+	pricing: {
+		value: {
+			type: Number
+		},
+		currency: {
+			type: String
+		}
+	}
 }, {
-    timestamps: true
+	timestamps: true
 });
 
-module.exports = Artist = model('Artist', artistSchema);
+const arrayLimit = value => value.length <= 50;
+
+module.exports = Artist = model('artist', artistSchema);
