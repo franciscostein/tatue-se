@@ -19,8 +19,6 @@ const weekDay = {
     SATURDAY: 'Saturday'
 }
 
-const 
-
 const studioSchema = new Schema({
     about: {
         type: String,

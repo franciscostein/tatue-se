@@ -12,25 +12,23 @@ const artistSchema = new Schema({
 		trim: true
 	},
 	location: {
-		name: {
-			type: String
-		},
-		latitude: {
-			type: String
-		},
-		longitude: {
-			type: String
-		},
+		city: String,
+		latitude: String,
+		longitude: String,
 		required: true
 	},
 	profilePicture: {
-		type: String
+		publicId: String
 	},
 	biography: {
 		type: String,
 		trim: true
 	},
-	styles: [{ 
+	workplace: [{
+		type: Schema.Types.ObjectId,
+		ref: 'studio'
+	}],
+	tattooStyles: [{ 
 		type: Schema.Types.ObjectId,
 		ref: 'tattooStyles'
 	}],
@@ -39,23 +37,13 @@ const artistSchema = new Schema({
 		validate: [arrayLimit, '{Path} exceeds the limit of 50']
 	}],
 	social: {
-		facebook: {
-			type: String
-		},
-		instagram: {
-			type: String
-		},
-		website: {
-			type: String
-		}
+		facebook: String,
+		instagram: String,
+		website: String
 	},
 	pricing: {
-		value: {
-			type: Number
-		},
-		currency: {
-			type: String
-		}
+		value: Number,
+		currency: String
 	}
 }, {
 	timestamps: true
