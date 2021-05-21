@@ -1,18 +1,12 @@
-const Artist = require('../models/Artist');
-const { buildArtistObject, update, create } = require('../service/artist');
+const { save } = require('../service/artist');
 
 exports.save = async (req, res, next) => {
-	const artistFields = buildArtistObject(body);
-	artistFields.user = userId;
+	const { fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing } = req.body;
 
 	try {
-		let artist = await Artist.findOne({ user: userId });
+		const { status, payload } = save(req.user.id, fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing);
 
-		if (artist) {
-			return await update(artist, artistFields, userId);
-		} else {
-			return await create(artist, artistFields);
-		}
+		res.status(status).json({ ...payload });
 	} catch (err) {
 		next(err);
 	}

@@ -1,7 +1,20 @@
 const { formatMessageApi } = require('../utils/messages');
 const Artist = require('../models/Artist');
 
-exports.buildArtistObject = ({ fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing }) => {
+exports.save = async (userId, fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing) => {
+	const artistFields = buildArtistObject(fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing);
+	artistFields.user = userId;
+
+	let artist = await Artist.findOne({ user: userId });
+
+	if (artist) {
+		return await update(artist, artistFields, userId);
+	} else {
+		return await create(artist, artistFields);
+	}
+}
+
+const buildArtistObject = (fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing) => {
 	const artistFields = {}
 	if (fullName) artistFields.name = fullName;
 	if (location) {
@@ -26,7 +39,7 @@ exports.buildArtistObject = ({ fullName, location, profilePicture, biography, wo
 	return artistFields;
 }
 
-exports.update = async (artist, artistFields, userId) => {
+const update = async (artist, artistFields, userId) => {
 	artist = await Artist.findOneAndUpdate(
 		{ user: userId },
 		{ $set: artistFields },
@@ -35,7 +48,7 @@ exports.update = async (artist, artistFields, userId) => {
 	return formatMessageApi(artist, 200, 'artist');
 }
 
-exports.create = async (artist, artistFields) => {
+const create = async (artist, artistFields) => {
 	artist = new Artist(artistFields);
 	await artist.save();
 
