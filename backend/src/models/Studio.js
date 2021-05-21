@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const { arrayLimit } = require('../utils/validation');
 
 const studioSchema = new Schema({
 	name: {
@@ -51,10 +52,12 @@ const studioSchema = new Schema({
 		},
 		required: true
 	},
-	photos: [{ 
-		publicId: String,
+	photos: {
+		type: [{ 
+			publicId: String,
+		}],
 		validate: [arrayLimit, '{Path} exceeds the limit of 30']
-	}],
+	},
 	reviews: [{
 		rating: Number,
 		description: String,
@@ -67,7 +70,5 @@ const studioSchema = new Schema({
 }, {
 	timestamps: true
 });
-
-const arrayLimit = value => value.length <= 30;
 
 module.exports = Studio = model('studio', studioSchema);

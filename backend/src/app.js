@@ -5,8 +5,6 @@ const auth = require('./routes/auth');
 const artist = require('./routes/artist');
 const errorMiddleware = require('./middleware/error/error');
 
-const PORT = process.env.PORT;
-
 const app = express();
 
 connectDB();
@@ -18,3 +16,5 @@ app.use('/api/auth', auth);
 app.use('/api/artists', artist);
 
 app.use(errorMiddleware);
+
+module.exports = app;

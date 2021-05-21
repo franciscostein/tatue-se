@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const { arrayLimit } = require('../utils/validation');
 
 const artistSchema = new Schema({
 	user: {
@@ -15,7 +16,7 @@ const artistSchema = new Schema({
 		city: String,
 		latitude: String,
 		longitude: String,
-		required: true
+		// required: true
 	},
 	profilePicture: {
 		publicId: String
@@ -32,10 +33,12 @@ const artistSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'tattooStyles'
 	}],
-	portfolio: [{ 
-		publicId: String,
+	portfolio: {
+		type: [{
+			publicId: String
+		}],
 		validate: [arrayLimit, '{Path} exceeds the limit of 50']
-	}],
+	},
 	social: {
 		facebook: String,
 		instagram: String,
@@ -48,7 +51,5 @@ const artistSchema = new Schema({
 }, {
 	timestamps: true
 });
-
-const arrayLimit = value => value.length <= 50;
 
 module.exports = Artist = model('artist', artistSchema);

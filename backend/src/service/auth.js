@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { formatMessageApi } = require('./messages');
+const { formatMessageApi } = require('../utils/messages');
 
 exports.generateToken = async (id, expiresIn = 3600) => {
 	const payload = {

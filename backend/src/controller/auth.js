@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const { formatMessageApi } = require('../utils/messages');
-const { generateToken } = require('../utils/auth');
+const { generateToken } = require('../service/auth');
 const User = require('../models/User');
 
 exports.authenticate = async ({ email, password }) => {
