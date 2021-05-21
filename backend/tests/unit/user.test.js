@@ -13,19 +13,20 @@ beforeEach(() => {
     next = jest.fn();
 });
 
-describe('userController.save', () => {
-    it('should have a save function', () => {
-        expect(typeof userController.save).toBe('function');
+describe('userController.register', () => {
+    it('should have a register function', () => {
+        expect(typeof userController.register).toBe('function');
     });
 
-    it('should 400 if user already exists', () => {
+    it('should return HTTP 400 if user already exists', async () => {
         userModel.findOne.mockReturnValue(newUser);
+        await userController.register(req, res, next);
 
         expect(res.statusCode).toBe(400);
     });
 
     it('should call userModel.save', async () => {
-        await userController.save(req, res, next);
+        await userController.register(req, res, next);
 
         expect(userModel.save).toBeCalledWith(newUser);
     });
