@@ -6,16 +6,13 @@ const httpMocks = require('node-mocks-http');
 const newUser = require('../mock/newUser.json');
 const insertedUser = require('../mock/insertedUser.json');
 
-// jest.mock('../../src/models/User');     // mock mongoose functions
-// jest.mock('../../src/service/auth');
 jest.mock('../../src/service/auth.js');
-jest.mock('../../src/models/User.js');
 
 const saveMock = jest.fn();
 userModel.prototype.save = saveMock;
 userModel.findOne = jest.fn();
-// authService.generateToken = jest.fn();
-// userService.create = jest.fn();
+
+const dummyToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9';
 
 let req, res, next;
 
@@ -43,10 +40,19 @@ describe('userController.register', () => {
     });
 
     it('should call userModel.save', async () => {
-		req.body = newUser;
-        authService.generateToken.mockReturnValue({ status: 200, payload: {}});
+		// req.body = newUser;
+        authService.generateToken.mockReturnValue({ error: null, dummyToken });
+        
         await userController.register(req, res, next);
 		
         expect(saveMock).toHaveBeenCalled();
+        expect(res.statusCode).toBe(201);
     });
+
+    it('should return HTTP 201 code and token', async () => {
+
+        await userController.register(req, res, next);
+
+        expect(res.statusCode).toBe(201);
+    })
 });

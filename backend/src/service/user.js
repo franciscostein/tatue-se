@@ -12,5 +12,11 @@ exports.create = async (email, password, userType) => {
     
     await user.save();
     
-    return await generateToken(user.id);
+    const { error, token } = await generateToken(user.id);
+	
+    if (token) {
+        return formatMessageApi(token, 201, 'token');
+    } else {
+        throw new Error(error);
+    }
 }

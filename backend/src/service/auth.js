@@ -12,7 +12,13 @@ exports.authenticate = async (email, password) => {
 
 	if (!isMatch) return formatMessageApi([{ msg: 'Invalid credentials' }], 400, 'errors');
 
-	return await generateToken(user.id);
+	const { error, token } = await generateToken(user.id);
+
+	if (token) {
+        return formatMessageApi(token, 200, 'token');
+    } else {
+        throw new Error(error);
+    }
 }
 
 exports.hashPassword = async (password, saltRounds = 13) => {
@@ -27,8 +33,8 @@ const generateToken = async (id, expiresIn = 3600) => {
 
 	return new Promise((resolve, reject) => {
 		jwt.sign(payload, process.env.JWT_SECRET, { expiresIn }, (err, token) => {
-			if (err) reject(formatMessageApi([{ msg: err }], 500, 'errors'));
-			else resolve(formatMessageApi(token, 200, 'token'));
+			if (err) reject({ error: err, token: null });
+			else resolve({ error: null, token });
 		});
 	});
 }
