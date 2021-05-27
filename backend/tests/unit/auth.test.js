@@ -1,13 +1,14 @@
-const insertedUser = require('../__mocks__/insertedUser.json');
+const insertedUser = require('../mocks/insertedUser.json');
 const authController = require('../../src/controller/auth');
 const authUtils = require('../../src/utils/auth');
 const userModel = require('../../src/models/User');
 const httpMocks = require('node-mocks-http');
 const bcrypt = require('bcryptjs');
 
+jest.mock('../../src/utils/auth.js');
+
 userModel.findOne = jest.fn();
 bcrypt.compare = jest.fn();
-authUtils.generateToken = jest.fn();
 
 let req, res, next;
 
@@ -55,5 +56,15 @@ describe('authController.authenticate', () => {
         expect(res.statusCode).toBe(200);
 		expect(res._isEndCalled()).toBeTruthy();
         expect(res._getJSONData()).toStrictEqual({ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9' });
+    });
+
+    it('should return error if token generation doesnt work', async () => {
+        userModel.findOne.mockReturnValue(insertedUser);
+        bcrypt.compare.mockReturnValue(true);
+        authUtils.generateToken.mockResolvedValue({ error: 'Server error', token: null });
+
+        await authController.authenticate(req, res, next);
+
+        expect(next).toHaveBeenCalled();
     });
 });

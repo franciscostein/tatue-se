@@ -5,7 +5,7 @@
 	"main": "src/server.js",
 	"scripts": {
 		"server": "env-cmd -f ./src/config/env/dev.env nodemon src/server.js",
-		"test": "env-cmd -f ./src/config/env/dev.env jest --watchAll"
+		"test": "jest --watchAll"
 	},
 	"repository": {
 		"type": "git",
