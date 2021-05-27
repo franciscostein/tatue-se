@@ -8,9 +8,11 @@ exports.save = async (userId, fullName, location, profilePicture, biography, wor
 	let artist = await Artist.findOne({ user: userId });
 
 	if (artist) {
-		return await update(artist, artistFields, userId);
+		artist = await update(artist, artistFields, userId);
+		return formatMessageApi(artist, 200, 'artist');
 	} else {
-		return await create(artist, artistFields);
+		artist = await create(artist, artistFields);
+		return formatMessageApi(artist, 201, 'artist');
 	}
 }
 
@@ -39,18 +41,15 @@ const buildArtistObject = (fullName, location, profilePicture, biography, workpl
 	return artistFields;
 }
 
-const update = async (artist, artistFields, userId) => {
-	artist = await Artist.findOneAndUpdate(
+const update = async (artistFields, userId) => {
+	return await Artist.findOneAndUpdate(
 		{ user: userId },
 		{ $set: artistFields },
 		{ new: false }
 	);
-	return formatMessageApi(artist, 200, 'artist');
 }
 
 const create = async (artist, artistFields) => {
 	artist = new Artist(artistFields);
-	await artist.save();
-
-	return formatMessageApi(artist, 200, 'artist');
+	return await artist.save();
 }
