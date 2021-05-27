@@ -4,7 +4,7 @@ exports.save = async (req, res, next) => {
 	const { fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing } = req.body;
 
 	try {
-		const { status, payload } = save(req.user.id, fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing);
+		const { status, payload } = await save(req.user._id, fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing);
 
 		res.status(status).json({ ...payload });
 	} catch (err) {
