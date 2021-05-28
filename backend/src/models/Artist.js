@@ -15,8 +15,7 @@ const artistSchema = new Schema({
 	location: {
 		city: String,
 		latitude: String,
-		longitude: String,
-		// required: true
+		longitude: String
 	},
 	profilePicture: {
 		publicId: String

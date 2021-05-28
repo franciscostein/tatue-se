@@ -4,7 +4,6 @@ const newArtist = require('../mocks/newArtist.json');
 const insertedArtist = require('../mocks/insertedArtist.json');
 const insertedUser = require('../mocks/insertedUser.json');
 const httpMocks = require('node-mocks-http');
-const { diffLinesUnified2 } = require('jest-diff');
 
 const saveMock = jest.fn();
 artistModel.prototype.save = saveMock;
@@ -38,9 +37,7 @@ describe('artistController.save', () => {
 
         expect(res.statusCode).toBe(200);
         expect(res._isEndCalled()).toBeTruthy();
-        // console.log(res._getJSONData());
-        diffLinesUnified2(res._getJSONData(), insertedArtist);
-        expect(res._getJSONData()).toMatchObject(insertedArtist);
+        expect(res._getJSONData()).toStrictEqual(insertedArtist);
     });
 
     it('should create artist if it doenst exists', async () => {
@@ -53,7 +50,7 @@ describe('artistController.save', () => {
 
         expect(res.statusCode).toBe(201);
         expect(res._isEndCalled()).toBeTruthy();
-        expect(res._getJSONData()).toMatchObject(insertedArtist);
+        expect(res._getJSONData()).toStrictEqual(insertedArtist);
         expect(saveMock).toHaveBeenCalled();
     });
 

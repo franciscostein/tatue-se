@@ -9,7 +9,7 @@ exports.userValidation = [
 ];
 
 exports.artistValidation = [
-	check('name', 'name is required').exists(),
+	check('fullName', 'name is required').exists(),
 	check('location', 'location is required').exists(),
 	(req, res, next) => errorHandler(req, res, next)
 ]

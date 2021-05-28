@@ -1,4 +1,18 @@
 {
-    "user": "60a8104986fb2cd9f997d334",
-    "fullName": "Inserted artist"
+    "artist": {
+        "workplace": [],
+        "tattooStyles": [],
+        "_id": "60b17c863e17506be228445f",
+        "fullName": "Inserted artist",
+        "location": {
+            "city": "Campinas",
+            "latitude": "13.7",
+            "longitude": "7.13"
+        },
+        "user": "60b12fcaf80b532715c9d241",
+        "portfolio": [],
+        "createdAt": "2021-05-28T23:28:06.214Z",
+        "updatedAt": "2021-05-28T23:28:06.214Z",
+        "__v": 0
+    }
 }

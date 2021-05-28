@@ -9,17 +9,18 @@ exports.save = async (userId, fullName, location, profilePicture, biography, wor
 
 	if (artist) {
 		artist = await update(artist, artistFields, userId);
-		return formatMessageApi(artist, 200, 'artist');
+		return formatMessageApi(artist, 200);
 	} else {
 		artist = await create(artist, artistFields);
-		return formatMessageApi(artist, 201, 'artist');
+		return formatMessageApi(artist, 201);
 	}
 }
 
 const buildArtistObject = (fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing) => {
-	const artistFields = {}
-	if (fullName) artistFields.name = fullName;
+	const artistFields = {};
+	if (fullName) artistFields.fullName = fullName;
 	if (location) {
+		artistFields.location = {};
 		if (location.city) artistFields.location.city = location.city;
 		if (location.latitude) artistFields.location.latitude = location.latitude;
 		if (location.longitude) artistFields.location.longitude = location.longitude;
@@ -30,11 +31,13 @@ const buildArtistObject = (fullName, location, profilePicture, biography, workpl
 	if (tattooStyles) artistFields.tattooStyles = tattooStyles;
 	if (portfolio) artistFields.portfolio = portfolio;
 	if (social) {
+		artistFields.social = {};
 		if (social.facebook) artistFields.social.facebook = social.facebook;
 		if (social.instagram) artistFields.social.instagram = social.instagram;
 		if (social.website) artistFields.social.website = social.website;
 	}
 	if (pricing) {
+		artistFields.pricing = {};
 		if (pricing.value) artistFields.pricing.value = pricing.value;
 		if (pricing.currency) artistFields.pricing.currency = pricing.currency;
 	}
