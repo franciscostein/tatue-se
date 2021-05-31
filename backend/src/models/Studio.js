@@ -7,19 +7,34 @@ const studioSchema = new Schema({
 		trim: true,
 		required: true
 	},
+	location: {
+		address: {
+			type: String,
+			required: true
+		},
+		city: {
+			type: String,
+			required: true
+		},
+		latitude: {
+			type: String,
+			required: true
+		},
+		longitude: {
+			type: String,
+			required: true
+		}
+	},
+	owner: {
+		type: Schema.Types.ObjectId,
+		ref: 'user'
+	},
 	logo: {
 		publicId: String
 	},
 	about: {
 		type: String,
 		trim: true
-	},
-	location: {
-		address: String,
-		city: String,
-		latitude: String,
-		longitude: String,
-		required: true
 	},
 	openTime: {
 		monday: {
@@ -39,11 +54,24 @@ const studioSchema = new Schema({
 			close: Date
 		},
 		friday: {
-			open: Date,
-			close: Date
-		},
-		saturday: {
-			open: Date,
+			location: {
+				address: {
+					type: String,
+					required: true
+				},
+				city: {
+					type: String,
+					required: true
+				},
+				latitude: {
+					type: String,
+					required: true
+				},
+				longitude: {
+					type: String,
+					required: true
+				}
+			},
 			close: Date
 		},
 		sunday: {
