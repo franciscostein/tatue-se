@@ -27,7 +27,7 @@ describe('artistController.save', () => {
         expect(typeof artistController.save).toBe('function');
     });
 
-    it('should should update artist if it already exists', async () => {
+    it('should update artist if it already exists', async () => {
         req.user = insertedUser;
         req.body = newArtist;
         artistModel.findOne.mockReturnValue(insertedArtist);

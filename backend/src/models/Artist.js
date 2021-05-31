@@ -13,9 +13,18 @@ const artistSchema = new Schema({
 		trim: true
 	},
 	location: {
-		city: String,
-		latitude: String,
-		longitude: String
+		city: {
+			type: String,
+			required: true
+		},
+		latitude: {
+			type: String,
+			required: true
+		},
+		longitude: {
+			type: String,
+			required: true
+		}
 	},
 	profilePicture: {
 		publicId: String
@@ -24,7 +33,7 @@ const artistSchema = new Schema({
 		type: String,
 		trim: true
 	},
-	workplace: [{
+	workplaces: [{
 		type: Schema.Types.ObjectId,
 		ref: 'studio'
 	}],

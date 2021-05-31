@@ -11,6 +11,9 @@ exports.userValidation = [
 exports.artistValidation = [
 	check('fullName', 'name is required').exists(),
 	check('location', 'location is required').exists(),
+	check('location.city', 'city is required').exists(),
+	check('location.latitude', 'latitude is required').exists(),
+	check('location.longitude', 'longitude is required').exists(),
 	(req, res, next) => errorHandler(req, res, next)
 ]
 
