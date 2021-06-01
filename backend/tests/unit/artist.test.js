@@ -38,6 +38,7 @@ describe('artistController.save', () => {
         expect(res.statusCode).toBe(200);
         expect(res._isEndCalled()).toBeTruthy();
         expect(res._getJSONData()).toStrictEqual(insertedArtist);
+        expect(artistModel.findOneAndUpdate).toHaveBeenCalled();
     });
 
     it('should create artist if it doenst exists', async () => {
