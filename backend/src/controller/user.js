@@ -1,10 +1,22 @@
 const { create } = require('../service/user');
 
 exports.register = async (req, res, next) => {
-	const { email, password, userType } = req.body;
+	const { email, password } = req.body;
 
 	try {
-		const { status, payload } = await create(email, password, userType);
+		const { status, payload } = await create(email, password);
+
+		res.status(status).json({ ...payload });
+	} catch (err) {
+		next(err);
+	}
+}
+
+exports.registerAdmin = async (req, res, next) => {
+	const { email, password } = req.body;
+
+	try {
+		const { status, payload } = await create(email, password, userType = 'admin');
 
 		res.status(status).json({ ...payload });
 	} catch (err) {
