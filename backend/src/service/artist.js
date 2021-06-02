@@ -2,21 +2,21 @@ const { formatMessageApi } = require('../utils/messages');
 const Artist = require('../models/Artist');
 
 exports.save = async (userId, fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing) => {
-	const artistFields = buildArtistObject(fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing);
+	const artist = await Artist.findOne({ user: userId });
+
+	const artistFields = buildObject(fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing);
 	artistFields.user = userId;
 
-	let artist = await Artist.findOne({ user: userId });
-
 	if (artist) {
-		artist = await update(artist, artistFields, userId);
-		return formatMessageApi(artist, 200);
+		const updated = await update(userId, artistFields);
+		return formatMessageApi(updated._doc, 200);
 	} else {
-		artist = await create(artist, artistFields);
-		return formatMessageApi(artist, 201);
+		const inserted = await create(artistFields);
+		return formatMessageApi(inserted._doc, 201);
 	}
 }
 
-const buildArtistObject = (fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing) => {
+const buildObject = (fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing) => {
 	const artistFields = {};
 	if (fullName) artistFields.fullName = fullName;
 	if (location) {
@@ -44,15 +44,15 @@ const buildArtistObject = (fullName, location, profilePicture, biography, workpl
 	return artistFields;
 }
 
-const update = async (artistFields, userId) => {
+const update = async (userId, fields) => {
 	return await Artist.findOneAndUpdate(
 		{ user: userId },
-		{ $set: artistFields },
-		{ new: false }
+		{ $set: fields },
+		{ new: true }
 	);
 }
 
-const create = async (artist, artistFields) => {
-	artist = new Artist(artistFields);
+const create = async artistFields => {
+	const artist = new Artist(artistFields);
 	return await artist.save();
 }

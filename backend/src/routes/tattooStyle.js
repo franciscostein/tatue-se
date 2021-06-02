@@ -1,5 +1,5 @@
 const express = require('express');
-const { save } = require('../controller/tattooStyles');
+const { save } = require('../controller/tattooStyle');
 const { tattooStylesValidation } = require('../middleware/validation/validation');
 const authAdmin = require('../middleware/auth/authAdmin');
 

@@ -28,7 +28,7 @@ describe('artistController.save', () => {
     });
 
     it('should update artist if it already exists', async () => {
-        req.user = insertedUser;
+        req.user.id = insertedUser._id;
         req.body = newArtist;
         artistModel.findOne.mockReturnValue(insertedArtist);
         artistModel.findOneAndUpdate.mockReturnValue(insertedArtist);
@@ -42,7 +42,7 @@ describe('artistController.save', () => {
     });
 
     it('should create artist if it doenst exists', async () => {
-        req.user = insertedUser;
+        req.user.id = insertedUser._id;
         req.body = newArtist;
         artistModel.findOne.mockReturnValue(undefined);
         saveMock.mockReturnValue(insertedArtist);
