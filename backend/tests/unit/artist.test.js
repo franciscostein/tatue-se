@@ -1,8 +1,8 @@
 const artistController = require('../../src/controller/artist');
 const artistModel = require('../../src/models/Artist');
-const newArtist = require('../mocks/newArtist.json');
-const insertedArtist = require('../mocks/insertedArtist.json');
-const insertedUser = require('../mocks/insertedUser.json');
+const newArtist = require('../mocks/new/artist.json');
+const insertedArtist = require('../mocks/inserted/artist.json');
+const insertedUser = require('../mocks/inserted/user.json');
 const httpMocks = require('node-mocks-http');
 
 const saveMock = jest.fn();

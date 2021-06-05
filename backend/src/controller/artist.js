@@ -1,9 +1,9 @@
 const { save } = require('../service/artist');
 
 exports.save = async (req, res, next) => {
-	const { fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing } = req.body;
-
 	try {
+		const { fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing } = req.body;
+
 		const { status, payload } = await save(req.user.id, fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing);
 
 		res.status(status).json({ ...payload });

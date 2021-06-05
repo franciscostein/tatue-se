@@ -1,4 +1,4 @@
-const insertedUser = require('../mocks/insertedUser.json');
+const insertedUser = require('../mocks/inserted/user.json');
 const authController = require('../../src/controller/auth');
 const authUtils = require('../../src/utils/auth');
 const userModel = require('../../src/models/User');

@@ -1,8 +1,8 @@
 const httpMocks = require('node-mocks-http');
 const tattooStyleController = require('../../src/controller/tattooStyle');
 const tattooStyleModel = require('../../src/models/TattooStyle');
-const newTattooStyle = require('../mocks/newTattooStyle.json');
-const insertedTattooStyle = require('../mocks/insertedTattooStyle.json');
+const newTattooStyle = require('../mocks/new/tattooStyle.json');
+const insertedTattooStyle = require('../mocks/inserted/tattooStyle.json');
 
 const saveMock = jest.fn();
 tattooStyleModel.prototype.save = saveMock;

@@ -22,6 +22,11 @@ exports.tattooStylesValidation = [
 	(req, res, next) => errorHandler(req, res, next)
 ]
 
+exports.clientValidation = [
+	check('fullName', 'fullName is required').exists(),
+	(req, res, next) => errorHandler(req, res, next)
+]
+
 const errorHandler = (req, res, next) => {
 	const errors = validationResult(req);
 

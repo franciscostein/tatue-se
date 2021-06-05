@@ -2,8 +2,9 @@ const express = require('express');
 const connectDB = require('./config/database/mongoDB');
 const users = require('./routes/user');
 const auth = require('./routes/auth');
-const artist = require('./routes/artist');
-const tattooStyle = require('./routes/tattooStyle');
+const artists = require('./routes/artist');
+const clients = require('./routes/client');
+const tattooStyles = require('./routes/tattooStyle');
 const errorMiddleware = require('./middleware/error/error');
 
 const app = express();
@@ -12,10 +13,11 @@ connectDB();
 
 app.use(express.json());
 
-app.use('/api/users', users);
 app.use('/api/auth', auth);
-app.use('/api/artists', artist);
-app.use('/api/tattoo-styles', tattooStyle);
+app.use('/api/users', users);
+app.use('/api/artists', artists);
+app.use('/api/clients', clients);
+app.use('/api/tattoo-styles', tattooStyles);
 
 app.use(errorMiddleware);
 
