@@ -1,11 +1,13 @@
 const httpMocks = require('node-mocks-http');
 const tattooStyleController = require('../../src/controller/tattooStyle');
 const tattooStyleModel = require('../../src/models/TattooStyle');
+const newTattooStyle = require('../mocks/newTattooStyle.json');
 const insertedTattooStyle = require('../mocks/insertedTattooStyle.json');
 
 const saveMock = jest.fn();
 tattooStyleModel.prototype.save = saveMock;
 tattooStyleModel.findOneAndUpdate = jest.fn();
+tattooStyleModel.findById = jest.fn();
 
 let req, res, next;
 
@@ -20,21 +22,29 @@ describe('tattooStylesController.save', () => {
         expect(typeof tattooStyleController.save).toBe('function');
     });
 
-    it('should create a new one if it doesnt exist yet', async () => {
-        await tattooStyleController.save(req, res, next);
+    it('should create a new tattoo style if it doesnt exist yet', async () => {
+        req.body = newTattooStyle;
+        tattooStyleModel.findById.mockReturnValue(undefined);
+        saveMock.mockReturnValue(insertedTattooStyle);
 
-        expect(res.statusCode).toBe(200);
-        expect(res._isEndCalled()).toBeTruthy();
-        expect(res._getJSONData()).toStrictEqual(insertedTattooStyle);
-        expect(tattooStyleModel.findOneAndUpdate).toHaveBeenCalled();
-    });
-
-    it('should update it if already exists', async () => {
         await tattooStyleController.save(req, res, next);
 
         expect(res.statusCode).toBe(201);
         expect(res._isEndCalled()).toBeTruthy();
-        expect(res._getJSONData()).toStrictEqual(insertedTattooStyle);
+        expect(res._getJSONData()).toStrictEqual(insertedTattooStyle._doc);
         expect(saveMock).toHaveBeenCalled();
+    });
+
+    it('should update the tattoo style if it already exists', async () => {
+        req.body = insertedTattooStyle._doc;
+        tattooStyleModel.findById.mockReturnValue(insertedTattooStyle);
+        tattooStyleModel.findOneAndUpdate.mockReturnValue(insertedTattooStyle);
+
+        await tattooStyleController.save(req, res, next);
+
+        expect(res.statusCode).toBe(200);
+        expect(res._isEndCalled()).toBeTruthy();
+        expect(res._getJSONData()).toStrictEqual(insertedTattooStyle._doc);
+        expect(tattooStyleModel.findOneAndUpdate).toHaveBeenCalled();
     });
 });

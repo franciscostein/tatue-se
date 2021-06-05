@@ -28,6 +28,7 @@ describe('artistController.save', () => {
     });
 
     it('should update artist if it already exists', async () => {
+        req.user = {};
         req.user.id = insertedUser._id;
         req.body = newArtist;
         artistModel.findOne.mockReturnValue(insertedArtist);
@@ -37,11 +38,12 @@ describe('artistController.save', () => {
 
         expect(res.statusCode).toBe(200);
         expect(res._isEndCalled()).toBeTruthy();
-        expect(res._getJSONData()).toStrictEqual(insertedArtist);
+        expect(res._getJSONData()).toStrictEqual(insertedArtist._doc);
         expect(artistModel.findOneAndUpdate).toHaveBeenCalled();
     });
 
     it('should create artist if it doenst exists', async () => {
+        req.user = {};
         req.user.id = insertedUser._id;
         req.body = newArtist;
         artistModel.findOne.mockReturnValue(undefined);
@@ -51,7 +53,7 @@ describe('artistController.save', () => {
 
         expect(res.statusCode).toBe(201);
         expect(res._isEndCalled()).toBeTruthy();
-        expect(res._getJSONData()).toStrictEqual(insertedArtist);
+        expect(res._getJSONData()).toStrictEqual(insertedArtist._doc);
         expect(saveMock).toHaveBeenCalled();
     });
 

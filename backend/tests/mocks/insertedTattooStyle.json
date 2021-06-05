@@ -1,4 +1,7 @@
 {
-    "_id": "507f1f77bcf86cd799439011",
-    "name": "Blackwork"
+    "_doc": {
+        "_id": "60bbd11475602535a6ceb50f",
+        "name": "Blackwork",
+        "__v": 0
+    }
 }
