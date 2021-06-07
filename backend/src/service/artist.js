@@ -35,6 +35,7 @@ const buildObject = (fullName, location, profilePicture, biography, workplace, t
 		if (social.facebook) artistFields.social.facebook = social.facebook;
 		if (social.instagram) artistFields.social.instagram = social.instagram;
 		if (social.website) artistFields.social.website = social.website;
+		if (social.phone) artistFields.social.phone = social.phone;
 	}
 	if (pricing) {
 		artistFields.pricing = {};

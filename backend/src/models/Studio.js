@@ -25,16 +25,24 @@ const studioSchema = new Schema({
 			required: true
 		}
 	},
-	owner: {
+	owners: [{
 		type: Schema.Types.ObjectId,
-		ref: 'user'
-	},
+		ref: 'user',
+		unique: true,
+		required: true
+	}],
 	logo: {
 		publicId: String
 	},
 	about: {
 		type: String,
 		trim: true
+	},
+	social: {
+		facebook: String,
+		instagram: String,
+		website: String,
+		phone: String
 	},
 	openTime: {
 		monday: {
@@ -54,31 +62,13 @@ const studioSchema = new Schema({
 			close: Date
 		},
 		friday: {
-			location: {
-				address: {
-					type: String,
-					required: true
-				},
-				city: {
-					type: String,
-					required: true
-				},
-				latitude: {
-					type: String,
-					required: true
-				},
-				longitude: {
-					type: String,
-					required: true
-				}
-			},
+			open: Date,
 			close: Date
 		},
 		sunday: {
 			open: Date,
 			close: Date
-		},
-		required: true
+		}
 	},
 	photos: {
 		type: [{ 

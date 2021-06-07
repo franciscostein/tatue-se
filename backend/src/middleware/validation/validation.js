@@ -27,6 +27,17 @@ exports.clientValidation = [
 	(req, res, next) => errorHandler(req, res, next)
 ]
 
+exports.studioValidation = [
+	check('name', 'name is required').exists(),
+	check('location', 'location is required').exists(),
+	check('location.address', 'address is required').exists(),
+	check('location.city', 'city is required').exists(),
+	check('location.latitude', 'latitude is required').exists(),
+	check('location.longitude', 'longitude is required').exists(),
+	check('owners', 'owners are required').isArray({ min: 1 }),
+	(req, res, next) => errorHandler(req, res, next)
+]
+
 const errorHandler = (req, res, next) => {
 	const errors = validationResult(req);
 

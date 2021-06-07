@@ -5,6 +5,7 @@ const artistSchema = new Schema({
 	user: {
 		type: Schema.Types.ObjectId,
 		ref: 'user',
+		unique: true,
 		required: true
 	},
 	fullName: {
@@ -50,7 +51,8 @@ const artistSchema = new Schema({
 	social: {
 		facebook: String,
 		instagram: String,
-		website: String
+		website: String,
+		phone: String
 	},
 	pricing: {
 		value: Number,

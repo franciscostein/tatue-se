@@ -4,6 +4,7 @@ const clientSchema = new Schema({
 	user: {
 		type: Schema.Types.ObjectId,
 		ref: 'user',
+		unique: true,
 		required: true
 	},
 	fullName: {
