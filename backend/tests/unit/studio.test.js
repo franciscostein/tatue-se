@@ -27,6 +27,18 @@ describe('studioController.save', () => {
         expect(typeof studioController.save).toBe('function');
     });
 
+    it('should reject if user is not one of the studio owners', async () => {
+        await studioController.save(req, res, next);
+
+        expect(res._isEndCalled()).toBeTruthy();
+    });
+
+    it('should accept if user is one of the studio owners', async () => {
+        await studioController.save(req, res, next);
+
+        expect(res._isEndCalled()).toBeTruthy();
+    });
+
     it('should update studio if it already exists', async () => {
         req.user = {};
         req.user.id = insertedUser._id;

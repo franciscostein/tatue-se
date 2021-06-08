@@ -65,6 +65,10 @@ const studioSchema = new Schema({
 			open: Date,
 			close: Date
 		},
+		saturday: {
+			open: Date,
+			close: Date
+		},
 		sunday: {
 			open: Date,
 			close: Date
