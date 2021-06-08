@@ -1,5 +1,20 @@
 {
     "_doc": {
+        "logo": {},
+        "social": {},
+        "openTime": {
+            "monday": {},
+            "tuesday": {},
+            "wednesday": {},
+            "thursday": {},
+            "friday": {},
+            "saturday": {},
+            "sunday": {}
+        },
+        "owners": [
+            "60b6d5df90c30f23f464f996"
+        ],
+        "_id": "60bfd3224f9a4c6bd97b242b",
         "name": "Studio 77",
         "location": {
             "address": "Kurfürstenstraße, 77",
@@ -7,10 +22,10 @@
             "latitude": "52.5200° N",
             "longitude": "13.4050° E"
         },
-        "owners": [
-            {
-                "_id": "60b6d5df90c30f23f464f996"
-            }
-        ]
+        "photos": [],
+        "reviews": [],
+        "createdAt": "2021-06-08T20:29:22.015Z",
+        "updatedAt": "2021-06-08T20:29:22.015Z",
+        "__v": 0
     }
 }

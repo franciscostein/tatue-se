@@ -28,12 +28,23 @@ describe('studioController.save', () => {
     });
 
     it('should reject if user is not one of the studio owners', async () => {
+        req.user = {};
+        req.user.id = '60bfc57ba18525abd95efd8a';
+        const error = new Error('User must be an owner');
+        studioModel.findOne.mockReturnValue(insertedStudio._doc);
+
         await studioController.save(req, res, next);
 
-        expect(res._isEndCalled()).toBeTruthy();
+        expect(next).toHaveBeenCalledWith(error);
     });
 
     it('should accept if user is one of the studio owners', async () => {
+        req.user = {};
+        req.user.id = newStudio.owners[0]._id;
+        req.body = newStudio;
+        req.body.owners[0] = newStudio.owners[0]._id;
+        saveMock.mockReturnValue(insertedStudio);
+
         await studioController.save(req, res, next);
 
         expect(res._isEndCalled()).toBeTruthy();
@@ -41,7 +52,7 @@ describe('studioController.save', () => {
 
     it('should update studio if it already exists', async () => {
         req.user = {};
-        req.user.id = insertedUser._id;
+        req.user.id = newStudio.owners[0]._id;
         req.body = newStudio;
         studioModel.findOne.mockReturnValue(insertedStudio);
         studioModel.findOneAndUpdate.mockReturnValue(insertedStudio);
@@ -56,7 +67,7 @@ describe('studioController.save', () => {
 
     it('should create studio if it doenst exists', async () => {
         req.user = {};
-        req.user.id = insertedUser._id;
+        req.user.id = newStudio.owners[0]._id;
         req.body = newStudio;
         studioModel.findOne.mockReturnValue(undefined);
         saveMock.mockReturnValue(insertedStudio);

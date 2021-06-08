@@ -4,7 +4,9 @@ const Studio = require('../models/Studio');
 exports.save = async (userId, studioId, name, location, owners, logo, about, social, openTime, photos, reviews) => {
 	const studio = await Studio.findOne({ _id: studioId });
 
-    if (!studio.owners.includes(userId) || !owners.includes(userId)) throw new Error('User must be an owner');
+    // if (!owners.includes(userId) && !studio.owners.includes(userId)) throw new Error('User must be an owner');
+
+	checkIsUserAnOwner(userId, owners, studio ? studio.owners : null);
 
 	const studioFields = buildObject(name, location, owners, logo, about, social, openTime, photos, reviews);
 
@@ -15,6 +17,21 @@ exports.save = async (userId, studioId, name, location, owners, logo, about, soc
 		const inserted = await create(studioFields);
 		return formatMessageApi(inserted._doc, 201);
 	}
+}
+
+const checkIsUserAnOwner = (userId, reqOwners, dbOwners) => {
+	const error = new Error('User must be an owner');
+
+	if (!reqOwners && !dbOwners) {
+		throw error;
+	} else {
+		if (reqOwners && !reqOwners.includes(userId)) {
+			throw error;
+		}
+		if (dbOwners && !dbOwners.includes(userId)) {
+			throw error;
+		}
+	} 
 }
 
 const buildObject = (name, location, owners, logo, about, social, openTime, photos, reviews) => {
