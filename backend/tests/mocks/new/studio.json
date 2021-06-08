@@ -1,0 +1,14 @@
+{
+    "name": "Studio 77",
+    "location": {
+        "address": "Kurfürstenstraße, 77",
+        "city": "Berlin, Deutschland",
+        "latitude": "52.5200° N",
+        "longitude": "13.4050° E"
+    },
+    "owners": [
+        {
+            "_id": "60b6d5df90c30f23f464f996"
+        }
+    ]
+}
