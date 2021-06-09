@@ -6,6 +6,7 @@ const insertedTattooStyle = require('../mocks/inserted/tattooStyle.json');
 
 const saveMock = jest.fn();
 tattooStyleModel.prototype.save = saveMock;
+tattooStyleModel.find = jest.fn();
 tattooStyleModel.findOneAndUpdate = jest.fn();
 tattooStyleModel.findById = jest.fn();
 
@@ -46,5 +47,32 @@ describe('tattooStylesController.save', () => {
         expect(res._isEndCalled()).toBeTruthy();
         expect(res._getJSONData()).toStrictEqual(insertedTattooStyle._doc);
         expect(tattooStyleModel.findOneAndUpdate).toHaveBeenCalled();
+    });
+});
+
+describe('tattooStyleController.getAll', () => {
+    beforeEach(() => {
+        jest.resetAllMocks();
+    });
+
+    it('should coutain a getAll function', () => {
+        expect(typeof tattooStyleController.getAll).toBe('function');
+    });
+
+    it('should retrieve all tattoo styles if there is any', async () => {
+        tattooStyleModel.find.mockReturnValue(insertedTattooStyle._doc);
+
+        await tattooStyleController.getAll(req, res, next);
+
+        expect(res.statusCode).toBe(200);
+        expect(res._isEndCalled()).toBeTruthy();
+        expect(res._getJSONData()).toStrictEqual(insertedTattooStyle._doc);
+    });
+
+    it('should not retrieve tattoo styles if there isnt', async () => {
+        await tattooStyleController.getAll(req, res, next);
+
+        expect(res.statusCode).toBe(204);
+        expect(res._isEndCalled()).toBeTruthy();
     });
 });

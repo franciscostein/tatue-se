@@ -15,6 +15,16 @@ exports.save = async (id, name) => {
     }
 }
 
+exports.getAll = async () => {
+    const tattooStyles = await TattooStyle.find();
+
+    if (tattooStyles) {
+        return formatMessageApi(tattooStyles);
+    } else {
+        return formatMessageApi({}, 204);
+    }
+}
+
 const buildObject = name => {
     const tattooStyle = {};
     tattooStyle.name = name;
