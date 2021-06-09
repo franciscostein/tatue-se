@@ -44,7 +44,7 @@ const studioSchema = new Schema({
 		website: String,
 		phone: String
 	},
-	openTime: {
+	businessHours: {
 		monday: {
 			opens: Date,
 			closes: Date

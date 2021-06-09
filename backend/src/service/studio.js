@@ -1,12 +1,12 @@
 const { formatMessageApi } = require('../utils/messages');
 const Studio = require('../models/Studio');
 
-exports.save = async (userId, studioId, name, location, owners, logo, about, social, openTime, photos, reviews) => {
+exports.save = async (userId, studioId, name, location, owners, logo, about, social, businessHours, photos, reviews) => {
 	const studio = await Studio.findOne({ _id: studioId });
 
 	checkIsUserAnOwner(userId, owners, studio ? studio.owners : null);
 
-	const studioFields = buildObject(name, location, owners, logo, about, social, openTime, photos, reviews);
+	const studioFields = buildObject(name, location, owners, logo, about, social, businessHours, photos, reviews);
 
 	if (studio) {
 		const updated = await update(studioId, studioFields);
@@ -29,7 +29,7 @@ const checkIsUserAnOwner = (userId, reqOwners, dbOwners) => {
 	} 
 }
 
-const buildObject = (name, location, owners, logo, about, social, openTime, photos, reviews) => {
+const buildObject = (name, location, owners, logo, about, social, businessHours, photos, reviews) => {
 	const studioFields = {};
 	if (name) studioFields.name = name;
 	if (location) {
@@ -52,35 +52,35 @@ const buildObject = (name, location, owners, logo, about, social, openTime, phot
 		if (social.website) studioFields.social.website = social.website;
 		if (social.phone) studioFields.social.phone = social.phone;
 	}
-    if (openTime) {
-        studioFields.openTime = {};
-        if (openTime.monday) {
-            studioFields.openTime.monday = {};
-            studioFields.openTime.monday = openTime.monday;
+    if (businessHours) {
+        studioFields.businessHours = {};
+        if (businessHours.monday) {
+            studioFields.businessHours.monday = {};
+            studioFields.businessHours.monday = businessHours.monday;
         }
-        if (openTime.tuesday) {
-            studioFields.openTime.tuesday = {};
-            studioFields.openTime.tuesday = openTime.tuesday;
+        if (businessHours.tuesday) {
+            studioFields.businessHours.tuesday = {};
+            studioFields.businessHours.tuesday = businessHours.tuesday;
         }
-        if (openTime.wednesday) {
-            studioFields.openTime.wednesday = {};
-            studioFields.openTime.wednesday = openTime.wednesday;
+        if (businessHours.wednesday) {
+            studioFields.businessHours.wednesday = {};
+            studioFields.businessHours.wednesday = businessHours.wednesday;
         }
-        if (openTime.thursday) {
-            studioFields.openTime.thursday = {};
-            studioFields.openTime.thursday = openTime.thursday;
+        if (businessHours.thursday) {
+            studioFields.businessHours.thursday = {};
+            studioFields.businessHours.thursday = businessHours.thursday;
         }
-        if (openTime.friday) {
-            studioFields.openTime.friday = {};
-            studioFields.openTime.friday = openTime.friday;
+        if (businessHours.friday) {
+            studioFields.businessHours.friday = {};
+            studioFields.businessHours.friday = businessHours.friday;
         }
-        if (openTime.saturday) {
-            studioFields.openTime.saturday = {};
-            studioFields.openTime.saturday = openTime.saturday;
+        if (businessHours.saturday) {
+            studioFields.businessHours.saturday = {};
+            studioFields.businessHours.saturday = businessHours.saturday;
         }
-        if (openTime.sunday) {
-            studioFields.openTime.sunday = {};
-            studioFields.openTime.sunday = openTime.sunday;
+        if (businessHours.sunday) {
+            studioFields.businessHours.sunday = {};
+            studioFields.businessHours.sunday = businessHours.sunday;
         }
     }
 	if (photos) {
