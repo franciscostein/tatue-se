@@ -10,7 +10,7 @@ exports.save = async (userId, studioId, name, location, owners, logo, about, soc
 
 	if (studio) {
 		const updated = await update(studioId, studioFields);
-		return formatMessageApi(updated._doc, 200);
+		return formatMessageApi(updated._doc);
 	} else {
 		const inserted = await create(studioFields);
 		return formatMessageApi(inserted._doc, 201);

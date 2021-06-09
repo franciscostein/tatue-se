@@ -10,7 +10,7 @@ const router = express.Router();
 // @access  private
 router.post('/', [auth, artistValidation], save);
 
-// @route   GET api/artists/
+// @route   GET api/artists
 // @desc    get all artists
 // @access  public
 router.get('/', getAll);

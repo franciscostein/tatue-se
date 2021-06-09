@@ -9,10 +9,20 @@ exports.save = async (userId, fullName, profilePicture, location) => {
 
     if (client) {
         const updated = await update(userId, clientFields);
-        return formatMessageApi(updated._doc, 200);
+        return formatMessageApi(updated._doc);
     } else {
         const inserted = await create(clientFields);
 		return formatMessageApi(inserted._doc, 201);
+    }
+}
+
+exports.getAll = async () => {
+    const clients = await Client.find();
+
+    if (clients) {
+        return formatMessageApi(clients);
+    } else {
+        return formatMessageApi({}, 204);
     }
 }
 

@@ -8,7 +8,7 @@ exports.save = async (id, name) => {
 
     if (tattooStyle) {
         const updated = await update(id, tattooStyleFields);
-        return formatMessageApi(updated._doc, 200);
+        return formatMessageApi(updated._doc);
     } else {
         const inserted = await create(tattooStyleFields);
         return formatMessageApi(inserted._doc, 201);

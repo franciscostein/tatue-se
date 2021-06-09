@@ -7,6 +7,7 @@ const httpMocks = require('node-mocks-http');
 
 const saveMock = jest.fn();
 clientModel.prototype.save = saveMock;
+clientModel.find = jest.fn();
 clientModel.findOne = jest.fn();
 clientModel.findOneAndUpdate = jest.fn();
 
@@ -61,5 +62,32 @@ describe('clientController.save', () => {
         await clientController.save(req, res, next);
 
         expect(next).toHaveBeenCalled();
+    });
+});
+
+describe('clientController.getAll', () => {
+    beforeEach(() => {
+        jest.resetAllMocks();
+    });
+
+    it('should coutain a getAll function', () => {
+        expect(typeof clientController.getAll).toBe('function');
+    });
+
+    it('should retrieve all clients if there is any', async () => {
+        clientModel.find.mockReturnValue(insertedClient._doc);
+
+        await clientController.getAll(req, res, next);
+
+        expect(res.statusCode).toBe(200);
+        expect(res._isEndCalled()).toBeTruthy();
+        expect(res._getJSONData()).toStrictEqual(insertedClient._doc);
+    });
+
+    it('should not retrieve clients if there isnt', async () => {
+        await clientController.getAll(req, res, next);
+
+        expect(res.statusCode).toBe(204);
+        expect(res._isEndCalled()).toBeTruthy();
     });
 });

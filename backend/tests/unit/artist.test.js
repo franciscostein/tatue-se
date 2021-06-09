@@ -74,7 +74,7 @@ describe('artistController.getAll', () => {
         expect(typeof artistController.getAll).toBe('function');
     });
 
-    it('should retrieve all artists if any', async () => {
+    it('should retrieve all artists if there is any', async () => {
         artistModel.find.mockReturnValue(insertedArtist._doc);
 
         await artistController.getAll(req, res, next);
@@ -90,4 +90,4 @@ describe('artistController.getAll', () => {
         expect(res.statusCode).toBe(204);
         expect(res._isEndCalled()).toBeTruthy();
     });
-})
+});
