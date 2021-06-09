@@ -1,7 +1,7 @@
 const express = require('express');
 const auth = require('../middleware/auth/auth');
 const { studioValidation } = require('../middleware/validation/validation');
-const { save } = require('../controller/studio');
+const { save, getAll } = require('../controller/studio');
 
 const router = express.Router();
 
@@ -9,5 +9,10 @@ const router = express.Router();
 // @desc    create or update studio
 // @access  private
 router.post('/', [auth, studioValidation], save);
+
+// @route   GET api/studios
+// @desc    get all studios
+// @access  public
+router.get('/', getAll);
 
 module.exports = router;

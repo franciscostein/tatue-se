@@ -6,6 +6,7 @@ const httpMocks = require('node-mocks-http');
 
 const saveMock = jest.fn();
 studioModel.prototype.save = saveMock;
+studioModel.find = jest.fn();
 studioModel.findOne = jest.fn();
 studioModel.findOneAndUpdate = jest.fn();
 
@@ -98,5 +99,32 @@ describe('studioController.save', () => {
         await studioController.save(req, res, next);
 
         expect(next).toHaveBeenCalled();
+    });
+});
+
+describe('studioController.getAll', () => {
+    beforeEach(() => {
+        jest.resetAllMocks();
+    });
+
+    it('should coutain a getAll function', () => {
+        expect(typeof studioController.getAll).toBe('function');
+    });
+
+    it('should retrieve all studios if there is any', async () => {
+        studioModel.find.mockReturnValue(insertedStudio._doc);
+
+        await studioController.getAll(req, res, next);
+
+        expect(res.statusCode).toBe(200);
+        expect(res._isEndCalled()).toBeTruthy();
+        expect(res._getJSONData()).toStrictEqual(insertedStudio._doc);
+    });
+
+    it('should not retrieve studios if there isnt', async () => {
+        await studioController.getAll(req, res, next);
+
+        expect(res.statusCode).toBe(204);
+        expect(res._isEndCalled()).toBeTruthy();
     });
 });
