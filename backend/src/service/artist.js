@@ -26,6 +26,16 @@ exports.getAll = async () => {
 	}
 }
 
+exports.getOne = async id => {
+	const artist = await Artist.findById(id);
+
+	if (artist) {
+		return formatMessageApi(artist._doc);
+	} else {
+		return formatMessageApi({}, 204);
+	}
+}
+
 const buildObject = (fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing) => {
 	const artistFields = {};
 	if (fullName) artistFields.fullName = fullName;

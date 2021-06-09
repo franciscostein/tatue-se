@@ -90,4 +90,14 @@ describe('clientController.getAll', () => {
         expect(res.statusCode).toBe(204);
         expect(res._isEndCalled()).toBeTruthy();
     });
+
+    it('should handle errors', async () => {
+		const errorMessage = { message: 'Error, something went wrong!' }
+		const rejectedPromise = Promise.reject(errorMessage);
+		clientModel.find.mockReturnValue(rejectedPromise);
+
+		await clientController.getAll(req, res, next);
+
+		expect(next).toBeCalledWith(errorMessage);
+	});
 });

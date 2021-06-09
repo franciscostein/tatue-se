@@ -75,4 +75,14 @@ describe('tattooStyleController.getAll', () => {
         expect(res.statusCode).toBe(204);
         expect(res._isEndCalled()).toBeTruthy();
     });
+
+    it('should handle errors', async () => {
+		const errorMessage = { message: 'Error, something went wrong!' }
+		const rejectedPromise = Promise.reject(errorMessage);
+		tattooStyleModel.find.mockReturnValue(rejectedPromise);
+
+		await tattooStyleController.getAll(req, res, next);
+
+		expect(next).toBeCalledWith(errorMessage);
+	});
 });

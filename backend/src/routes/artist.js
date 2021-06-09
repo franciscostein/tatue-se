@@ -1,6 +1,6 @@
 const express = require('express');
 const auth = require('../middleware/auth/auth');
-const { save, getAll } = require('../controller/artist');
+const { save, getAll, getOne } = require('../controller/artist');
 const { artistValidation } = require('../middleware/validation/validation');
 
 const router = express.Router();
@@ -14,5 +14,10 @@ router.post('/', [auth, artistValidation], save);
 // @desc    get all artists
 // @access  public
 router.get('/', getAll);
+
+// @route   GET api/artists/:id
+// @desc    get artist by id
+// @access  public
+router.get('/:id', getOne);
 
 module.exports = router;

@@ -8,8 +8,12 @@ const httpMocks = require('node-mocks-http');
 const saveMock = jest.fn();
 artistModel.prototype.save = saveMock;
 artistModel.find = jest.fn();
+artistModel.findById = jest.fn();
 artistModel.findOne = jest.fn();
 artistModel.findOneAndUpdate = jest.fn();
+
+const errorMessage = { message: 'Error, something went wrong!' }
+const rejectedPromiseWithErrorMessage = Promise.reject(errorMessage);
 
 let req, res, next;
 
@@ -21,6 +25,8 @@ beforeEach(() => {
 
 describe('artistController.save', () => {
     beforeEach(() => {
+        req.user = {};
+        req.user.id = insertedUser._id;
         jest.resetAllMocks();
     });
     
@@ -29,8 +35,6 @@ describe('artistController.save', () => {
     });
 
     it('should update artist if it already exists', async () => {
-        req.user = {};
-        req.user.id = insertedUser._id;
         req.body = newArtist;
         artistModel.findOne.mockReturnValue(insertedArtist);
         artistModel.findOneAndUpdate.mockReturnValue(insertedArtist);
@@ -44,8 +48,6 @@ describe('artistController.save', () => {
     });
 
     it('should create artist if it doenst exists', async () => {
-        req.user = {};
-        req.user.id = insertedUser._id;
         req.body = newArtist;
         artistModel.findOne.mockReturnValue(undefined);
         saveMock.mockReturnValue(insertedArtist);
@@ -83,11 +85,65 @@ describe('artistController.getAll', () => {
         expect(res._isEndCalled()).toBeTruthy();
         expect(res._getJSONData()).toStrictEqual(insertedArtist._doc);
     });
-
+    
     it('should not retrieve artists if there isnt', async () => {
         await artistController.getAll(req, res, next);
 
         expect(res.statusCode).toBe(204);
         expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual({});
+    });
+
+    it('should handle errors', async () => {
+		artistModel.find.mockReturnValue(rejectedPromiseWithErrorMessage);
+
+		await artistController.getAll(req, res, next);
+
+		expect(next).toBeCalledWith(errorMessage);
+	});
+});
+
+describe('artistController.getOne', () => {
+    beforeEach(() => {
+        jest.resetAllMocks();
+    });
+
+    it('should coutain a getOne function', () => {
+        expect(typeof artistController.getOne).toBe('function');
+    });
+
+    it('should call findById with requested id', async () => {
+        const artistId = insertedArtist._doc.artist._id;
+        req.params.id = artistId;
+
+        await artistController.getOne(req, res, next);
+
+        expect(artistModel.findById).toBeCalledWith(artistId);
+    });
+
+    it('should return requested artist if id matches', async () => {
+        artistModel.findById.mockReturnValue(insertedArtist);
+
+        await artistController.getOne(req, res, next);
+
+        expect(res.statusCode).toBe(200);
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual(insertedArtist._doc);
+    });
+
+    it('shouldnt return any artist if there isnt a match', async () => {
+        await artistController.getOne(req, res, next);
+
+        expect(res.statusCode).toBe(204);
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual({});
+    });
+
+    it('should handle errors', async () => {
+		artistModel.findById.mockReturnValue(rejectedPromiseWithErrorMessage);
+
+		await artistController.getOne(req, res, next);
+
+		expect(next).toHaveBeenCalledWith(errorMessage);
     });
 });

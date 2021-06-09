@@ -127,4 +127,14 @@ describe('studioController.getAll', () => {
         expect(res.statusCode).toBe(204);
         expect(res._isEndCalled()).toBeTruthy();
     });
+
+    it('should handle errors', async () => {
+		const errorMessage = { message: 'Error, something went wrong!' }
+		const rejectedPromise = Promise.reject(errorMessage);
+		studioModel.find.mockReturnValue(rejectedPromise);
+
+		await studioController.getAll(req, res, next);
+
+		expect(next).toBeCalledWith(errorMessage);
+	});
 });
