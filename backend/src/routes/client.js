@@ -1,7 +1,7 @@
 const express = require('express');
 const auth = require('../middleware/auth/auth');
 const { clientValidation } = require('../middleware/validation/validation');
-const { save, getAll } = require('../controller/client');
+const { save, getAll, getOne } = require('../controller/client');
 
 const router = express.Router();
 
@@ -14,5 +14,10 @@ router.post('/', [auth, clientValidation], save);
 // @desc    get all clients
 // @access  public
 router.get('/', getAll);
+
+// @route   GET api/clients/:id
+// @desc    get client by id
+// @access  public
+router.get('/:id', getOne);
 
 module.exports = router;

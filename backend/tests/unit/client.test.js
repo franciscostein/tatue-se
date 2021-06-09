@@ -8,8 +8,12 @@ const httpMocks = require('node-mocks-http');
 const saveMock = jest.fn();
 clientModel.prototype.save = saveMock;
 clientModel.find = jest.fn();
+clientModel.findById = jest.fn();
 clientModel.findOne = jest.fn();
 clientModel.findOneAndUpdate = jest.fn();
+
+const errorMessage = { message: 'Error, something went wrong!' }
+const rejectedPromiseWithErrorMessage = Promise.reject(errorMessage);
 
 let req, res, next;
 
@@ -21,6 +25,8 @@ beforeEach(() => {
 
 describe('clientController.save', () => {
     beforeEach(() => {
+        req.user = {};
+        req.user.id = insertedUser._id;
         jest.resetAllMocks();
     });
     
@@ -29,8 +35,6 @@ describe('clientController.save', () => {
     });
 
     it('should update client if it already exists', async () => {
-        req.user = {};
-        req.user.id = insertedUser._id;
         req.body = newClient;
         clientModel.findOne.mockReturnValue(insertedClient);
         clientModel.findOneAndUpdate.mockReturnValue(insertedClient);
@@ -44,8 +48,6 @@ describe('clientController.save', () => {
     });
 
     it('should create client if it doenst exists', async () => {
-        req.user = {};
-        req.user.id = insertedUser._id;
         req.body = newClient;
         clientModel.findOne.mockReturnValue(undefined);
         saveMock.mockReturnValue(insertedClient);
@@ -92,12 +94,55 @@ describe('clientController.getAll', () => {
     });
 
     it('should handle errors', async () => {
-		const errorMessage = { message: 'Error, something went wrong!' }
-		const rejectedPromise = Promise.reject(errorMessage);
-		clientModel.find.mockReturnValue(rejectedPromise);
+		clientModel.find.mockReturnValue(rejectedPromiseWithErrorMessage);
 
 		await clientController.getAll(req, res, next);
 
 		expect(next).toBeCalledWith(errorMessage);
 	});
+});
+
+describe('clientController.getOne', () => {
+    beforeEach(() => {
+        jest.resetAllMocks();
+    });
+
+    it('should coutain a getOne function', () => {
+        expect(typeof clientController.getOne).toBe('function');
+    });
+
+    it('should call findById with requested id', async () => {
+        const clientId = insertedClient._doc._id;
+        req.params.id = clientId;
+
+        await clientController.getOne(req, res, next);
+
+        expect(clientModel.findById).toBeCalledWith(clientId);
+    });
+
+    it('should return requested client if id matches', async () => {
+        clientModel.findById.mockReturnValue(insertedClient);
+
+        await clientController.getOne(req, res, next);
+
+        expect(res.statusCode).toBe(200);
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual(insertedClient._doc);
+    });
+
+    it('shouldnt return any client if there isnt a match', async () => {
+        await clientController.getOne(req, res, next);
+
+        expect(res.statusCode).toBe(204);
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual({});
+    });
+
+    it('should handle errors', async () => {
+		clientModel.findById.mockReturnValue(rejectedPromiseWithErrorMessage);
+
+		await clientController.getOne(req, res, next);
+
+		expect(next).toHaveBeenCalledWith(errorMessage);
+    });
 });

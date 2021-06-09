@@ -26,6 +26,16 @@ exports.getAll = async () => {
     }
 }
 
+exports.getOne = async id => {
+	const client = await Client.findById(id);
+
+	if (client) {
+		return formatMessageApi(client._doc);
+	} else {
+		return formatMessageApi({}, 204);
+	}
+}
+
 const buildObject = (fullName, profilePicture, location) => {
     const clientFields = {};
     if (fullName) clientFields.fullName = fullName;
