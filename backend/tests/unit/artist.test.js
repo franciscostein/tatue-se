@@ -7,6 +7,7 @@ const httpMocks = require('node-mocks-http');
 
 const saveMock = jest.fn();
 artistModel.prototype.save = saveMock;
+artistModel.find = jest.fn();
 artistModel.findOne = jest.fn();
 artistModel.findOneAndUpdate = jest.fn();
 
@@ -63,3 +64,30 @@ describe('artistController.save', () => {
         expect(next).toHaveBeenCalled();
     });
 });
+
+describe('artistController.getAll', () => {
+    beforeEach(() => {
+        jest.resetAllMocks();
+    });
+
+    it('should coutain a getAll function', () => {
+        expect(typeof artistController.getAll).toBe('function');
+    });
+
+    it('should retrieve all artists if any', async () => {
+        artistModel.find.mockReturnValue(insertedArtist._doc);
+
+        await artistController.getAll(req, res, next);
+
+        expect(res.statusCode).toBe(200);
+        expect(res._isEndCalled()).toBeTruthy();
+        expect(res._getJSONData()).toStrictEqual(insertedArtist._doc);
+    });
+
+    it('should not retrieve artists if there isnt', async () => {
+        await artistController.getAll(req, res, next);
+
+        expect(res.statusCode).toBe(204);
+        expect(res._isEndCalled()).toBeTruthy();
+    });
+})

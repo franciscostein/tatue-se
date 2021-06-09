@@ -46,32 +46,32 @@ const studioSchema = new Schema({
 	},
 	openTime: {
 		monday: {
-			open: Date,
-			close: Date
+			opens: Date,
+			closes: Date
 		},
 		tuesday: {
-			open: Date,
-			close: Date
+			opens: Date,
+			closes: Date
 		},
 		wednesday: {
-			open: Date,
-			close: Date
+			opens: Date,
+			closes: Date
 		},
 		thursday: {
-			open: Date,
-			close: Date
+			opens: Date,
+			closes: Date
 		},
 		friday: {
-			open: Date,
-			close: Date
+			opens: Date,
+			closes: Date
 		},
 		saturday: {
-			open: Date,
-			close: Date
+			opens: Date,
+			closes: Date
 		},
 		sunday: {
-			open: Date,
-			close: Date
+			opens: Date,
+			closes: Date
 		}
 	},
 	photos: {

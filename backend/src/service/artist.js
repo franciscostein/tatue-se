@@ -9,10 +9,20 @@ exports.save = async (userId, fullName, location, profilePicture, biography, wor
 
 	if (artist) {
 		const updated = await update(userId, artistFields);
-		return formatMessageApi(updated._doc, 200);
+		return formatMessageApi(updated._doc);
 	} else {
 		const inserted = await create(artistFields);
 		return formatMessageApi(inserted._doc, 201);
+	}
+}
+
+exports.getAll = async () => {
+	const artists = await Artist.find();
+
+	if (artists) {
+		return formatMessageApi(artists);
+	} else {
+		return formatMessageApi({}, 204);
 	}
 }
 

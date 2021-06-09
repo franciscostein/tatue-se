@@ -2,7 +2,6 @@ const studioController = require('../../src/controller/studio');
 const studioModel = require('../../src/models/Studio');
 const newStudio = require('../mocks/new/studio.json');
 const insertedStudio = require('../mocks/inserted/studio.json');
-const insertedUser = require('../mocks/inserted/user.json');
 const httpMocks = require('node-mocks-http');
 
 const saveMock = jest.fn();
