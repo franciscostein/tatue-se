@@ -27,6 +27,16 @@ exports.getAll = async () => {
     }
 }
 
+exports.getOne = async id => {
+	const studio = await Studio.findById(id);
+
+	if (studio) {
+		return formatMessageApi(studio._doc);
+	} else {
+		return formatMessageApi({}, 204);
+	}
+}
+
 const checkIsUserAnOwner = (userId, reqOwners, dbOwners) => {
 	const error = new Error('User must be an owner');
 

@@ -7,8 +7,12 @@ const httpMocks = require('node-mocks-http');
 const saveMock = jest.fn();
 studioModel.prototype.save = saveMock;
 studioModel.find = jest.fn();
+studioModel.findById = jest.fn();
 studioModel.findOne = jest.fn();
 studioModel.findOneAndUpdate = jest.fn();
+
+const errorMessage = { message: 'Error, something went wrong!' }
+const rejectedPromiseWithErrorMessage = Promise.reject(errorMessage);
 
 let req, res, next;
 
@@ -107,7 +111,7 @@ describe('studioController.getAll', () => {
         jest.resetAllMocks();
     });
 
-    it('should coutain a getAll function', () => {
+    it('should contain a getAll function', () => {
         expect(typeof studioController.getAll).toBe('function');
     });
 
@@ -137,4 +141,49 @@ describe('studioController.getAll', () => {
 
 		expect(next).toBeCalledWith(errorMessage);
 	});
+});
+
+describe('studioController.getOne', () => {
+    beforeEach(() => {
+        jest.resetAllMocks();
+    });
+
+    it('should contain a getOne function', () => {
+        expect(typeof studioController.getOne).toBe('function');
+    });
+
+    it('should call findById with requested id', async () => {
+        const studioId = insertedStudio._doc._id;
+        req.params.id = studioId;
+
+        await studioController.getOne(req, res, next);
+
+        expect(studioModel.findById).toBeCalledWith(studioId);
+    });
+
+    it('should return requested studio if id matches', async () => {
+        studioModel.findById.mockReturnValue(insertedStudio);
+
+        await studioController.getOne(req, res, next);
+
+        expect(res.statusCode).toBe(200);
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual(insertedStudio._doc);
+    });
+
+    it('shouldnt return any studio if there isnt a match', async () => {
+        await studioController.getOne(req, res, next);
+
+        expect(res.statusCode).toBe(204);
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual({});
+    });
+
+    it('should handle errors', async () => {
+		studioModel.findById.mockReturnValue(rejectedPromiseWithErrorMessage);
+
+		await studioController.getOne(req, res, next);
+
+		expect(next).toHaveBeenCalledWith(errorMessage);
+    });
 });

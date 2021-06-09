@@ -72,7 +72,7 @@ describe('clientController.getAll', () => {
         jest.resetAllMocks();
     });
 
-    it('should coutain a getAll function', () => {
+    it('should contain a getAll function', () => {
         expect(typeof clientController.getAll).toBe('function');
     });
 
@@ -107,7 +107,7 @@ describe('clientController.getOne', () => {
         jest.resetAllMocks();
     });
 
-    it('should coutain a getOne function', () => {
+    it('should contain a getOne function', () => {
         expect(typeof clientController.getOne).toBe('function');
     });
 

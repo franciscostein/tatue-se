@@ -55,7 +55,7 @@ describe('tattooStyleController.getAll', () => {
         jest.resetAllMocks();
     });
 
-    it('should coutain a getAll function', () => {
+    it('should contain a getAll function', () => {
         expect(typeof tattooStyleController.getAll).toBe('function');
     });
 

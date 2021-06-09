@@ -30,7 +30,7 @@ describe('artistController.save', () => {
         jest.resetAllMocks();
     });
     
-    it('should coutain a save function', () => {
+    it('should contain a save function', () => {
         expect(typeof artistController.save).toBe('function');
     });
 
@@ -72,7 +72,7 @@ describe('artistController.getAll', () => {
         jest.resetAllMocks();
     });
 
-    it('should coutain a getAll function', () => {
+    it('should contain a getAll function', () => {
         expect(typeof artistController.getAll).toBe('function');
     });
 
@@ -108,7 +108,7 @@ describe('artistController.getOne', () => {
         jest.resetAllMocks();
     });
 
-    it('should coutain a getOne function', () => {
+    it('should contain a getOne function', () => {
         expect(typeof artistController.getOne).toBe('function');
     });
 
