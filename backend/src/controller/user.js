@@ -6,7 +6,7 @@ exports.register = async (req, res, next) => {
 	try {
 		const { status, payload } = await create(email, password);
 
-		res.status(status).json({ ...payload });
+		res.status(status).json(payload);
 	} catch (err) {
 		next(err);
 	}
@@ -18,7 +18,7 @@ exports.registerAdmin = async (req, res, next) => {
 	try {
 		const { status, payload } = await create(email, password, userType = 'admin');
 
-		res.status(status).json({ ...payload });
+		res.status(status).json(payload);
 	} catch (err) {
 		next(err);
 	}

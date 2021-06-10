@@ -1,5 +1,5 @@
 const express = require('express');
-const { save, getAll } = require('../controller/tattooStyle');
+const { save, getAll, getMany } = require('../controller/tattooStyle');
 const { tattooStylesValidation } = require('../middleware/validation/validation');
 const authAdmin = require('../middleware/auth/authAdmin');
 
@@ -15,6 +15,9 @@ router.post('/', [authAdmin, tattooStylesValidation], save);
 // @access  public
 router.get('/', getAll);
 
-// @TODO implement getMany
+// @route   GET api/tattoo-styles
+// @desc    get tattoo styles by their ids
+// @access  public
+router.get('/', getMany);
 
 module.exports = router;

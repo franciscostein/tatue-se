@@ -1,11 +1,10 @@
-exports.formatMessageApi = (payloadValue, status = 200) => {
+exports.formatMessageApi = (payload, status = 200) => {
 	return {
 		status,
-		payload: {
-			...payloadValue
-		}
+		payload
 	}
 }
+
 
 exports.formatMessageApiPayloadName = (payloadValue, status = 200, payloadName = 'msg') => {
 	return {

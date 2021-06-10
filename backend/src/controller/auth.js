@@ -6,7 +6,7 @@ exports.authenticate = async (req, res, next) => {
 	try {
 		const { status, payload } = await authenticate(email, password);
 
-		res.status(status).json({ ...payload });
+		res.status(status).json(payload);
 	} catch (err) {
 		next(err);
 	}

@@ -6,7 +6,7 @@ exports.save = async (req, res, next) => {
 
         const { status, payload } = await save(req.user.id, _id, name, location, owners, logo, about, social, businessHours, photos, reviews);
 
-        res.status(status).json({ ...payload });
+        res.status(status).json(payload);
     } catch (err) {
         next(err);
     }
@@ -16,7 +16,7 @@ exports.getAll = async (req, res, next) => {
     try {
         const { status, payload } = await getAll();
 
-        res.status(status).json({ ...payload });
+        res.status(status).json(payload);
     } catch (err) {
         next(err);
     }
@@ -26,7 +26,7 @@ exports.getOne = async (req, res, next) => {
 	try {
 		const { status, payload } = await getOne(req.params.id);
 
-		res.status(status).json({ ...payload });
+		res.status(status).json(payload);
 	} catch (err) {
 		next(err);
 	}
