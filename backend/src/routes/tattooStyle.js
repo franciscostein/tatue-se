@@ -15,4 +15,6 @@ router.post('/', [authAdmin, tattooStylesValidation], save);
 // @access  public
 router.get('/', getAll);
 
+// @TODO implement getMany
+
 module.exports = router;

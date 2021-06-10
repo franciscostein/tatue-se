@@ -42,7 +42,8 @@ const studioSchema = new Schema({
 		facebook: String,
 		instagram: String,
 		website: String,
-		phone: String
+		phone: String,
+		email: String
 	},
 	businessHours: {
 		monday: {

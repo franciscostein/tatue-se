@@ -113,7 +113,7 @@ describe('artistController.getOne', () => {
     });
 
     it('should call findById with requested id', async () => {
-        const artistId = insertedArtist._doc.artist._id;
+        const artistId = insertedArtist._doc._id;
         req.params.id = artistId;
 
         await artistController.getOne(req, res, next);

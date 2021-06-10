@@ -56,10 +56,12 @@ const buildObject = (fullName, location, profilePicture, biography, workplace, t
 		if (social.instagram) artistFields.social.instagram = social.instagram;
 		if (social.website) artistFields.social.website = social.website;
 		if (social.phone) artistFields.social.phone = social.phone;
+		if (social.email) artistFields.social.email = social.email;
 	}
 	if (pricing) {
 		artistFields.pricing = {};
-		if (pricing.value) artistFields.pricing.value = pricing.value;
+		if (pricing.hourRate) artistFields.pricing.hourRate = pricing.hourRate;
+		if (pricing.minRate) artistFields.pricing.minRate = pricing.minRate;
 		if (pricing.currency) artistFields.pricing.currency = pricing.currency;
 	}
 	return artistFields;

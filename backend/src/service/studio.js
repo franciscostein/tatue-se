@@ -71,6 +71,7 @@ const buildObject = (name, location, owners, logo, about, social, businessHours,
 		if (social.instagram) studioFields.social.instagram = social.instagram;
 		if (social.website) studioFields.social.website = social.website;
 		if (social.phone) studioFields.social.phone = social.phone;
+		if (social.email) artistFields.social.email = social.email;
 	}
     if (businessHours) {
         studioFields.businessHours = {};

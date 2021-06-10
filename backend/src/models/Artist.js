@@ -52,10 +52,12 @@ const artistSchema = new Schema({
 		facebook: String,
 		instagram: String,
 		website: String,
-		phone: String
+		phone: String,
+		email: String
 	},
 	pricing: {
-		value: Number,
+		hourRate: Number,
+		minRate: Number,
 		currency: String
 	}
 }, {
