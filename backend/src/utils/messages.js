@@ -1,4 +1,4 @@
-exports.apiResponse = (payload, status = 200) => {
+exports.apiResponse = (payload = {}, status = 200) => {
 	return {
 		status,
 		payload

@@ -1,4 +1,4 @@
-const { save, getAll, getOne } = require('../service/artist');
+const { save, getAll, getOne, deleteByUserId } = require('../service/artist');
 
 exports.save = async (req, res, next) => {
 	try {
@@ -25,6 +25,16 @@ exports.getAll = async (req, res, next) => {
 exports.getOne = async (req, res, next) => {
 	try {
 		const { status, payload } = await getOne(req.params.id);
+
+		res.status(status).json(payload);
+	} catch (err) {
+		next(err);
+	}
+}
+
+exports.deleteOne = async (req, res, next) => {
+	try {
+		const { status, payload } = await deleteByUserId(req.user.id);
 
 		res.status(status).json(payload);
 	} catch (err) {

@@ -15,9 +15,9 @@ router.post('/', [authAdmin, tattooStylesValidation], save);
 // @access  public
 router.get('/', getAll);
 
-// @route   GET api/tattoo-styles
+// @route   GET api/tattoo-styles/many
 // @desc    get tattoo styles by their ids
 // @access  public
-router.get('/', getMany);
+router.get('/many', getMany);
 
 module.exports = router;

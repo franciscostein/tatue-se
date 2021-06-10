@@ -36,6 +36,16 @@ exports.getOne = async id => {
 	}
 }
 
+exports.deleteByUserId = async userId => {
+	const { deletedCount } = await Artist.deleteOne({ user: userId });
+
+	if (deletedCount > 0) {
+		return apiResponse();
+	} else {
+		return apiResponse({}, 204);
+	}
+}
+
 const buildObject = (fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing) => {
 	const artistFields = {};
 	if (fullName) artistFields.fullName = fullName;

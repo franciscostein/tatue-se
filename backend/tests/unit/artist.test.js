@@ -11,6 +11,7 @@ artistModel.find = jest.fn();
 artistModel.findById = jest.fn();
 artistModel.findOne = jest.fn();
 artistModel.findOneAndUpdate = jest.fn();
+artistModel.deleteOne = jest.fn();
 
 const errorMessage = { message: 'Error, something went wrong!' }
 const rejectedPromiseWithErrorMessage = Promise.reject(errorMessage);
@@ -143,6 +144,54 @@ describe('artistController.getOne', () => {
 		artistModel.findById.mockReturnValue(rejectedPromiseWithErrorMessage);
 
 		await artistController.getOne(req, res, next);
+
+		expect(next).toHaveBeenCalledWith(errorMessage);
+    });
+});
+
+describe('artistController.deleteOne', () => {
+    const userId = insertedArtist._doc.user;
+
+    beforeEach(() => {
+        req.user = {};
+        req.user.id = userId;
+        jest.resetAllMocks();
+    });
+
+    it('should contain a deleteOne function', () => {
+        expect(typeof artistController.deleteOne).toBe('function');
+    });
+
+    it('should call deleteOne on artistModel with the userId', async () => {
+        await artistController.deleteOne(req, res, next);
+
+        expect(artistModel.deleteOne).toBeCalledWith({ 'user': userId });
+    });
+
+    it('should return HTTP 200 if it was deleted', async () => {
+        artistModel.deleteOne.mockReturnValue({ deletedCount: 1 });
+
+        await artistController.deleteOne(req, res, next);
+
+        expect(res.statusCode).toBe(200);
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual({});
+    });
+
+    it('should return HTTP 204 if it wasnt deleted', async () => {
+        artistModel.deleteOne.mockReturnValue({ deletedCount: 0 });
+
+        await artistController.deleteOne(req, res, next);
+
+        expect(res.statusCode).toBe(204);
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual({});
+    });
+
+    it('should handle errors', async () => {
+		artistModel.deleteOne.mockReturnValue(rejectedPromiseWithErrorMessage);
+
+		await artistController.deleteOne(req, res, next);
 
 		expect(next).toHaveBeenCalledWith(errorMessage);
     });
