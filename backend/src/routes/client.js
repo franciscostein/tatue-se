@@ -1,7 +1,7 @@
 const express = require('express');
 const auth = require('../middleware/auth/auth');
 const { clientValidation } = require('../middleware/validation/validation');
-const { save, getAll, getOne } = require('../controller/client');
+const { save, getAll, getOne, deleteOne } = require('../controller/client');
 
 const router = express.Router();
 
@@ -19,5 +19,10 @@ router.get('/', getAll);
 // @desc    get client by id
 // @access  public
 router.get('/:id', getOne);
+
+// @route   DELETE api/clients
+// @desc    delete client by userId
+// @access  private
+router.delete('/', auth, deleteOne);
 
 module.exports = router;

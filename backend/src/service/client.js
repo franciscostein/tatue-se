@@ -36,6 +36,16 @@ exports.getOne = async id => {
 	}
 }
 
+exports.deleteByUserId = async userId => {
+	const { deletedCount } = await Client.deleteOne({ user: userId });
+
+	if (deletedCount > 0) {
+		return apiResponse();
+	} else {
+		return apiResponse({}, 204);
+	}
+}
+
 const buildObject = (fullName, profilePicture, location) => {
     const clientFields = {};
     if (fullName) clientFields.fullName = fullName;
