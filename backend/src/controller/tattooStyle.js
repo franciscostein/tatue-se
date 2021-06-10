@@ -1,4 +1,4 @@
-const { save, getAll, getMany } = require('../service/tattooStyle');
+const { save, getAll, getManyByIds } = require('../service/tattooStyle');
 
 exports.save = async (req, res, next) => {
     try {
@@ -26,7 +26,7 @@ exports.getMany = async (req, res, next) => {
     try {
         const { _ids } = req.body;
 
-        const { status, payload } = await getMany(_ids);
+        const { status, payload } = await getManyByIds(_ids);
 
         res.status(status).json(payload);
     } catch (err) {

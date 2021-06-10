@@ -25,6 +25,16 @@ exports.getAll = async () => {
     }
 }
 
+exports.getManyByIds = async ids => {
+    const tattooStyles = await TattooStyle.find({ '_id': ids });
+
+    if (tattooStyles) {
+        return apiResponse(tattooStyles);
+    } else {
+        return apiResponse({}, 204);
+    }
+}
+
 const buildObject = name => {
     const tattooStyle = {};
     tattooStyle.name = name;

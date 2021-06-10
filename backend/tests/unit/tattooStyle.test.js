@@ -3,12 +3,16 @@ const tattooStyleController = require('../../src/controller/tattooStyle');
 const tattooStyleModel = require('../../src/models/TattooStyle');
 const newTattooStyle = require('../mocks/new/tattooStyle.json');
 const insertedTattooStyle = require('../mocks/inserted/tattooStyle.json');
+const insertedTattooStyles = require('../mocks/inserted/tattooStyles.json');
 
 const saveMock = jest.fn();
 tattooStyleModel.prototype.save = saveMock;
 tattooStyleModel.find = jest.fn();
 tattooStyleModel.findOneAndUpdate = jest.fn();
 tattooStyleModel.findById = jest.fn();
+
+const errorMessage = { message: 'Error, something went wrong!' }
+const rejectedPromiseWithErrorMessage = Promise.reject(errorMessage);
 
 let req, res, next;
 
@@ -77,9 +81,7 @@ describe('tattooStyleController.getAll', () => {
     });
 
     it('should handle errors', async () => {
-		const errorMessage = { message: 'Error, something went wrong!' }
-		const rejectedPromise = Promise.reject(errorMessage);
-		tattooStyleModel.find.mockReturnValue(rejectedPromise);
+		tattooStyleModel.find.mockReturnValue(rejectedPromiseWithErrorMessage);
 
 		await tattooStyleController.getAll(req, res, next);
 
@@ -88,6 +90,8 @@ describe('tattooStyleController.getAll', () => {
 });
 
 describe('tattooStyleController.getMany', () => {
+    const tattooStyleIds = insertedTattooStyles.map(tattooStyle => tattooStyle._id);
+
     beforeEach(() => {
         jest.resetAllMocks();
     });
@@ -96,38 +100,39 @@ describe('tattooStyleController.getMany', () => {
         expect(typeof tattooStyleController.getMany).toBe('function');
     });
 
-    // it('should call findById with requested id', async () => {
-    //     const studioId = insertedStudio._doc._id;
-    //     req.params.id = studioId;
+    it('should call find with requested ids', async () => {
+        req.body._ids = tattooStyleIds;
 
-    //     await studioController.getOne(req, res, next);
+        await tattooStyleController.getMany(req, res, next);
 
-    //     expect(studioModel.findById).toBeCalledWith(studioId);
-    // });
+        expect(tattooStyleModel.find).toBeCalledWith({ '_id': tattooStyleIds });
+    });
 
-    // it('should return requested studio if id matches', async () => {
-    //     studioModel.findById.mockReturnValue(insertedStudio);
+    it('should return requested tattoo styles if ids match', async () => {
+        tattooStyleModel.find.mockReturnValue(insertedTattooStyles);
 
-    //     await studioController.getOne(req, res, next);
+        await tattooStyleController.getMany(req, res, next);
 
-    //     expect(res.statusCode).toBe(200);
-	// 	expect(res._isEndCalled()).toBeTruthy();
-	// 	expect(res._getJSONData()).toStrictEqual(insertedStudio._doc);
-    // });
+        expect(res.statusCode).toBe(200);
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual(insertedTattooStyles);
+    });
 
-    // it('shouldnt return any studio if there isnt a match', async () => {
-    //     await studioController.getOne(req, res, next);
+    it('shouldnt return any tattoo styles if there isnt a match', async () => {
+        req.body._ids = tattooStyleIds;
 
-    //     expect(res.statusCode).toBe(204);
-	// 	expect(res._isEndCalled()).toBeTruthy();
-	// 	expect(res._getJSONData()).toStrictEqual({});
-    // });
+        await tattooStyleController.getMany(req, res, next);
 
-    // it('should handle errors', async () => {
-	// 	studioModel.findById.mockReturnValue(rejectedPromiseWithErrorMessage);
+        expect(res.statusCode).toBe(204);
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual({});
+    });
 
-	// 	await studioController.getOne(req, res, next);
+    it('should handle errors', async () => {
+		tattooStyleModel.find.mockReturnValue(rejectedPromiseWithErrorMessage);
 
-	// 	expect(next).toHaveBeenCalledWith(errorMessage);
-    // });
+		await tattooStyleController.getMany(req, res, next);
+
+		expect(next).toHaveBeenCalledWith(errorMessage);
+    });
 });
