@@ -1,5 +1,5 @@
 const Client = require('../models/Client');
-const { formatMessageApi } = require('../utils/messages');
+const { apiResponse } = require('../utils/messages');
 
 exports.save = async (userId, fullName, profilePicture, location) => {
     const client = await Client.findOne({ user: userId });
@@ -9,10 +9,10 @@ exports.save = async (userId, fullName, profilePicture, location) => {
 
     if (client) {
         const updated = await update(userId, clientFields);
-        return formatMessageApi(updated._doc);
+        return apiResponse(updated._doc);
     } else {
         const inserted = await create(clientFields);
-		return formatMessageApi(inserted._doc, 201);
+		return apiResponse(inserted._doc, 201);
     }
 }
 
@@ -20,9 +20,9 @@ exports.getAll = async () => {
     const clients = await Client.find();
 
     if (clients) {
-        return formatMessageApi(clients);
+        return apiResponse(clients);
     } else {
-        return formatMessageApi({}, 204);
+        return apiResponse({}, 204);
     }
 }
 
@@ -30,9 +30,9 @@ exports.getOne = async id => {
 	const client = await Client.findById(id);
 
 	if (client) {
-		return formatMessageApi(client._doc);
+		return apiResponse(client._doc);
 	} else {
-		return formatMessageApi({}, 204);
+		return apiResponse({}, 204);
 	}
 }
 

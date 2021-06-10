@@ -1,11 +1,11 @@
 const User = require('../models/User');
 const { hashPassword, generateToken } = require('../utils/auth');
-const { formatMessageApiPayloadName } = require('../utils/messages');
+const { apiResponsePayloadName } = require('../utils/messages');
 
 exports.create = async (email, password, userType) => {
     let user = await User.findOne({ email });
 
-    if (user) return formatMessageApiPayloadName([{ msg: 'User already exists' }], 400, 'errors');
+    if (user) return apiResponsePayloadName('errors', [{ msg: 'User already exists' }], 400);
 
     user = new User({ email, password, userType });
     user.password = await hashPassword(password);
@@ -15,7 +15,7 @@ exports.create = async (email, password, userType) => {
     const { error, token } = await generateToken(user.id);
 	
     if (token) {
-        return formatMessageApiPayloadName(token, 201, 'token');
+        return apiResponsePayloadName('token', token, 201);
     } else {
         throw new Error(error);
     }

@@ -1,4 +1,4 @@
-const { formatMessageApi } = require('../utils/messages');
+const { apiResponse } = require('../utils/messages');
 const Artist = require('../models/Artist');
 
 exports.save = async (userId, fullName, location, profilePicture, biography, workplace, tattooStyles, portfolio, social, pricing) => {
@@ -9,10 +9,10 @@ exports.save = async (userId, fullName, location, profilePicture, biography, wor
 
 	if (artist) {
 		const updated = await update(userId, artistFields);
-		return formatMessageApi(updated._doc);
+		return apiResponse(updated._doc);
 	} else {
 		const inserted = await create(artistFields);
-		return formatMessageApi(inserted._doc, 201);
+		return apiResponse(inserted._doc, 201);
 	}
 }
 
@@ -20,9 +20,9 @@ exports.getAll = async () => {
 	const artists = await Artist.find();
 
 	if (artists) {
-		return formatMessageApi(artists);
+		return apiResponse(artists);
 	} else {
-		return formatMessageApi({}, 204);
+		return apiResponse({}, 204);
 	}
 }
 
@@ -30,9 +30,9 @@ exports.getOne = async id => {
 	const artist = await Artist.findById(id);
 
 	if (artist) {
-		return formatMessageApi(artist._doc);
+		return apiResponse(artist._doc);
 	} else {
-		return formatMessageApi({}, 204);
+		return apiResponse({}, 204);
 	}
 }
 

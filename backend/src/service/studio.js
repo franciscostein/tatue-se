@@ -1,4 +1,4 @@
-const { formatMessageApi } = require('../utils/messages');
+const { apiResponse } = require('../utils/messages');
 const Studio = require('../models/Studio');
 
 exports.save = async (userId, studioId, name, location, owners, logo, about, social, businessHours, photos, reviews) => {
@@ -10,10 +10,10 @@ exports.save = async (userId, studioId, name, location, owners, logo, about, soc
 
 	if (studio) {
 		const updated = await update(studioId, studioFields);
-		return formatMessageApi(updated._doc);
+		return apiResponse(updated._doc);
 	} else {
 		const inserted = await create(studioFields);
-		return formatMessageApi(inserted._doc, 201);
+		return apiResponse(inserted._doc, 201);
 	}
 }
 
@@ -21,9 +21,9 @@ exports.getAll = async () => {
     const studios = await Studio.find();
 
     if (studios) {
-        return formatMessageApi(studios);
+        return apiResponse(studios);
     } else {
-        return formatMessageApi({}, 204);
+        return apiResponse({}, 204);
     }
 }
 
@@ -31,9 +31,9 @@ exports.getOne = async id => {
 	const studio = await Studio.findById(id);
 
 	if (studio) {
-		return formatMessageApi(studio._doc);
+		return apiResponse(studio._doc);
 	} else {
-		return formatMessageApi({}, 204);
+		return apiResponse({}, 204);
 	}
 }
 

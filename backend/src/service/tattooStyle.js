@@ -1,5 +1,5 @@
 const TattooStyle = require('../models/TattooStyle');
-const { formatMessageApi } = require('../utils/messages');
+const { apiResponse } = require('../utils/messages');
 
 exports.save = async (id, name) => {
     let tattooStyle = await TattooStyle.findById(id);
@@ -8,10 +8,10 @@ exports.save = async (id, name) => {
 
     if (tattooStyle) {
         const updated = await update(id, tattooStyleFields);
-        return formatMessageApi(updated._doc);
+        return apiResponse(updated._doc);
     } else {
         const inserted = await create(tattooStyleFields);
-        return formatMessageApi(inserted._doc, 201);
+        return apiResponse(inserted._doc, 201);
     }
 }
 
@@ -19,9 +19,9 @@ exports.getAll = async () => {
     const tattooStyles = await TattooStyle.find();
 
     if (tattooStyles) {
-        return formatMessageApi(tattooStyles);
+        return apiResponse(tattooStyles);
     } else {
-        return formatMessageApi({}, 204);
+        return apiResponse({}, 204);
     }
 }
 
