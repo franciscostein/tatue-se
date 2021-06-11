@@ -1,5 +1,5 @@
 const express = require('express');
-const { save, getAll, getMany } = require('../controller/tattooStyle');
+const { save, getAll, getMany, deleteOne } = require('../controller/tattooStyle');
 const { tattooStylesValidation } = require('../middleware/validation/validation');
 const authAdmin = require('../middleware/auth/authAdmin');
 
@@ -19,5 +19,10 @@ router.get('/', getAll);
 // @desc    get tattoo styles by their ids
 // @access  public
 router.get('/many', getMany);
+
+// @route   DELETE api/tattoo-styles/:id
+// @desc    delete tattoo style by id if authenticated user is an admin
+// @access  private
+router.delete('/:id', authAdmin, deleteOne);
 
 module.exports = router;

@@ -35,6 +35,16 @@ exports.getManyByIds = async ids => {
     }
 }
 
+exports.deleteById = async tattooStyleId => {
+	const { deletedCount } = await TattooStyle.deleteOne({ '_id': tattooStyleId });
+
+	if (deletedCount > 0) {
+		return apiResponse();
+	} else {
+		return apiResponse({}, 204);
+	}
+}
+
 const buildObject = name => {
     const tattooStyle = {};
     tattooStyle.name = name;

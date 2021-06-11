@@ -10,6 +10,7 @@ tattooStyleModel.prototype.save = saveMock;
 tattooStyleModel.find = jest.fn();
 tattooStyleModel.findOneAndUpdate = jest.fn();
 tattooStyleModel.findById = jest.fn();
+tattooStyleModel.deleteOne = jest.fn();
 
 const errorMessage = { message: 'Error, something went wrong!' }
 const rejectedPromiseWithErrorMessage = Promise.reject(errorMessage);
@@ -132,6 +133,54 @@ describe('tattooStyleController.getMany', () => {
 		tattooStyleModel.find.mockReturnValue(rejectedPromiseWithErrorMessage);
 
 		await tattooStyleController.getMany(req, res, next);
+
+		expect(next).toHaveBeenCalledWith(errorMessage);
+    });
+});
+
+describe('tattooStyleController.deleteOne', () => {
+    const tattooStyleId = insertedTattooStyle._doc._id;
+
+    beforeEach(() => {
+        jest.resetAllMocks();
+    });
+
+    it('should contain a deleteOne function', () => {
+        expect(typeof tattooStyleController.deleteOne).toBe('function');
+    });
+
+    it('should call deleteOne on tattooStyleModel with the tattooStyleId', async () => {
+        req.params.id = tattooStyleId;
+
+        await tattooStyleController.deleteOne(req, res, next);
+
+        expect(tattooStyleModel.deleteOne).toBeCalledWith({ '_id': tattooStyleId });
+    });
+
+    it('should return HTTP 200 if it was deleted', async () => {
+        tattooStyleModel.deleteOne.mockReturnValue({ deletedCount: 1 });
+
+        await tattooStyleController.deleteOne(req, res, next);
+
+        expect(res.statusCode).toBe(200);
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual({});
+    });
+
+    it('should return HTTP 204 if it wasnt deleted', async () => {
+        tattooStyleModel.deleteOne.mockReturnValue({ deletedCount: 0 });
+
+        await tattooStyleController.deleteOne(req, res, next);
+
+        expect(res.statusCode).toBe(204);
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual({});
+    });
+
+    it('should handle errors', async () => {
+		tattooStyleModel.deleteOne.mockReturnValue(rejectedPromiseWithErrorMessage);
+
+		await tattooStyleController.deleteOne(req, res, next);
 
 		expect(next).toHaveBeenCalledWith(errorMessage);
     });

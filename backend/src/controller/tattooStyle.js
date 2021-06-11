@@ -1,4 +1,4 @@
-const { save, getAll, getManyByIds } = require('../service/tattooStyle');
+const { save, getAll, getManyByIds, deleteById } = require('../service/tattooStyle');
 
 exports.save = async (req, res, next) => {
     try {
@@ -32,4 +32,14 @@ exports.getMany = async (req, res, next) => {
     } catch (err) {
         next(err);
     }
+}
+
+exports.deleteOne = async (req, res, next) => {
+	try {
+		const { status, payload } = await deleteById(req.params.id);
+
+		res.status(status).json(payload);
+	} catch (err) {
+		next(err);
+	}
 }
