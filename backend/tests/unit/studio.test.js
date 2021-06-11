@@ -10,7 +10,10 @@ studioModel.find = jest.fn();
 studioModel.findById = jest.fn();
 studioModel.findOne = jest.fn();
 studioModel.findOneAndUpdate = jest.fn();
+studioModel.deleteOne = jest.fn();
 
+const userNotOwnerError = new Error('User must be an owner');
+const userIdNotInOwners = '60bfc57ba18525abd95efd8a';
 const errorMessage = { message: 'Error, something went wrong!' }
 const rejectedPromiseWithErrorMessage = Promise.reject(errorMessage);
 
@@ -23,9 +26,6 @@ beforeEach(() => {
 });
 
 describe('studioController.save', () => {
-    const userNotOwnerError = new Error('User must be an owner');
-    const userIdNotInOwners = '60bfc57ba18525abd95efd8a';
-
     beforeEach(() => {
         req.user = {};
         jest.resetAllMocks();
@@ -35,7 +35,7 @@ describe('studioController.save', () => {
         expect(typeof studioController.save).toBe('function');
     });
 
-    it('should reject if user is not one of the studio owners [request]', async () => {
+    it('should reject if user is not one of the studio owners [database]', async () => {
         req.user.id = userIdNotInOwners;
         studioModel.findOne.mockReturnValue(insertedStudio._doc);
 
@@ -44,7 +44,7 @@ describe('studioController.save', () => {
         expect(next).toHaveBeenCalledWith(userNotOwnerError);
     });
 
-    it('should reject if user is not one of the studio owners [database]', async () => {
+    it('should reject if user is not one of the studio owners [request]', async () => {
         req.user.id = userIdNotInOwners;
         req.body = newStudio;
 
@@ -183,6 +183,86 @@ describe('studioController.getOne', () => {
 		studioModel.findById.mockReturnValue(rejectedPromiseWithErrorMessage);
 
 		await studioController.getOne(req, res, next);
+
+		expect(next).toHaveBeenCalledWith(errorMessage);
+    });
+});
+
+describe('studioController.deleteOne', () => {
+    const userId = insertedStudio._doc.owners[0];
+    const studioId = insertedStudio._doc._id;
+
+    beforeEach(() => {
+        req.user = {};
+        jest.resetAllMocks();
+    });
+
+    it('should contain a deleteOne function', () => {
+        expect(typeof studioController.deleteOne).toBe('function');
+    });
+
+    it('should reject if user is not one of the studio owners', async () => {
+        req.user.id = userIdNotInOwners;
+        studioModel.findOne.mockReturnValue(insertedStudio._doc);
+
+        await studioController.deleteOne(req, res, next);
+
+        expect(next).toHaveBeenCalledWith(userNotOwnerError);
+    });
+
+    it('should accept if user is one of the studio owners', async () => {
+        req.user.id = userId;
+        studioModel.findOne.mockReturnValue(insertedStudio._doc);
+        studioModel.deleteOne.mockReturnValue(1);
+
+        await studioController.deleteOne(req, res, next);
+
+        expect(res._isEndCalled()).toBeTruthy();
+    });
+
+    it('should call deleteOne on studioModel with the studioId', async () => {
+        req.params.id = studioId;
+        req.user.id = userId;
+        studioModel.findOne.mockReturnValue(insertedStudio._doc);
+
+        await studioController.deleteOne(req, res, next);
+
+        expect(studioModel.deleteOne).toBeCalledWith({ '_id': studioId });
+    });
+
+    it('should return HTTP 200 if it was deleted', async () => {
+        req.params.id = studioId;
+        req.user.id = userId;
+        studioModel.findOne.mockReturnValue(insertedStudio._doc);
+        studioModel.deleteOne.mockReturnValue({ deletedCount: 1 });
+
+        await studioController.deleteOne(req, res, next);
+
+        expect(res.statusCode).toBe(200);
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual({});
+    });
+
+    it('should return HTTP 204 if it wasnt deleted', async () => {
+        req.params.id = studioId;
+        req.user.id = userId;
+        studioModel.findOne.mockReturnValue(insertedStudio._doc);
+        studioModel.deleteOne.mockReturnValue({ deletedCount: 0 });
+
+        await studioController.deleteOne(req, res, next);
+
+        expect(res.statusCode).toBe(204);
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual({});
+    });
+
+    it('should handle errors', async () => {
+        req.params.id = studioId;
+        req.user.id = userId;
+        studioModel.findOne.mockReturnValue(insertedStudio._doc);
+		studioModel.deleteOne.mockReturnValue(rejectedPromiseWithErrorMessage);
+
+		await studioController.deleteOne(req, res, next);
 
 		expect(next).toHaveBeenCalledWith(errorMessage);
     });

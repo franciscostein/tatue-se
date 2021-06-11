@@ -1,12 +1,12 @@
 const express = require('express');
 const auth = require('../middleware/auth/auth');
 const { studioValidation } = require('../middleware/validation/validation');
-const { save, getAll, getOne } = require('../controller/studio');
+const { save, getAll, getOne, deleteOne } = require('../controller/studio');
 
 const router = express.Router();
 
 // @route   POST api/studios
-// @desc    create or update studio
+// @desc    create or update studio if authenticated user is an owner
 // @access  private
 router.post('/', [auth, studioValidation], save);
 
@@ -19,5 +19,10 @@ router.get('/', getAll);
 // @desc    get studio by id
 // @access  public
 router.get('/:id', getOne);
+
+// @route   DELETE api/studios
+// @desc    delete studio by id if authenticated user is an owner
+// @access  private
+router.delete('/:id', auth, deleteOne);
 
 module.exports = router;

@@ -37,6 +37,22 @@ exports.getOne = async id => {
 	}
 }
 
+exports.deleteById = async (userId, studioId) => {
+	const studio = await Studio.findOne({ _id: studioId });
+
+	if (!studio) return apiResponse({}, 204);
+
+	checkIsUserAnOwner(userId, null, studio.owners);
+
+	const { deletedCount } = await Studio.deleteOne({ '_id': studioId });
+
+	if (deletedCount > 0) {
+		return apiResponse();
+	} else {
+		return apiResponse({}, 204);
+	}
+}
+
 const checkIsUserAnOwner = (userId, reqOwners, dbOwners) => {
 	const error = new Error('User must be an owner');
 
