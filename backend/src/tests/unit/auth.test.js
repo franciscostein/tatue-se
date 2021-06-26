@@ -1,11 +1,11 @@
 const insertedUser = require('../mocks/inserted/user.json');
-const authController = require('../../src/controller/auth');
-const authUtils = require('../../src/utils/auth');
-const userModel = require('../../src/models/User');
+const authController = require('../../controller/auth');
+const authUtils = require('../../utils/auth');
+const userModel = require('../../models/User');
 const httpMocks = require('node-mocks-http');
 const bcrypt = require('bcryptjs');
 
-jest.mock('../../src/utils/auth.js');
+jest.mock('../../utils/auth.js');
 
 userModel.findOne = jest.fn();
 bcrypt.compare = jest.fn();

@@ -1,10 +1,10 @@
-const userController = require('../../src/controller/user');
-const authUtils = require('../../src/utils/auth');
-const userModel = require('../../src/models/User');
+const userController = require('../../controller/user');
+const authUtils = require('../../utils/auth');
+const userModel = require('../../models/User');
 const httpMocks = require('node-mocks-http');
 const newUser = require('../mocks/new/user.json');
 
-jest.mock('../../src/utils/auth.js');
+jest.mock('../../utils/auth.js');
 
 const saveMock = jest.fn();
 userModel.prototype.save = saveMock;

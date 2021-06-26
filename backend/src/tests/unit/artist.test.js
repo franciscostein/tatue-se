@@ -1,5 +1,5 @@
-const artistController = require('../../src/controller/artist');
-const artistModel = require('../../src/models/Artist');
+const artistController = require('../../controller/artist');
+const artistModel = require('../../models/Artist');
 const newArtist = require('../mocks/new/artist.json');
 const insertedArtist = require('../mocks/inserted/artist.json');
 const insertedUser = require('../mocks/inserted/user.json');

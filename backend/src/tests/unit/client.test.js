@@ -1,5 +1,5 @@
-const clientController = require('../../src/controller/client');
-const clientModel = require('../../src/models/Client');
+const clientController = require('../../controller/client');
+const clientModel = require('../../models/Client');
 const newClient = require('../mocks/new/client.json');
 const insertedClient = require('../mocks/inserted/client.json');
 const insertedUser = require('../mocks/inserted/user.json');

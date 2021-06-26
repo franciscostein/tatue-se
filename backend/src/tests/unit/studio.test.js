@@ -1,5 +1,5 @@
-const studioController = require('../../src/controller/studio');
-const studioModel = require('../../src/models/Studio');
+const studioController = require('../../controller/studio');
+const studioModel = require('../../models/Studio');
 const newStudio = require('../mocks/new/studio.json');
 const insertedStudio = require('../mocks/inserted/studio.json');
 const httpMocks = require('node-mocks-http');
