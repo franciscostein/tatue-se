@@ -15,11 +15,16 @@ const NavbarComponent = () => {
                 <Nav.Link>Studios</Nav.Link>
             </Navbar.Collapse>
 
-            <Dropdown className="px-3">
+            <Dropdown className="px-4">
                 <Dropdown.Toggle variant="dark" id="dropdown-profile">
-                    <Image src={userSolid} rounded style={{ height: '20px' }} className="px-2"/>
+                    <Image src={userSolid} roundedCircle style={{ height: '20px' }} className="px-2"/>
                     <FaBars style={{ height: '20px' }} />
                 </Dropdown.Toggle>
+
+                <Dropdown.Menu style={{ backgroundColor: '#212529' }}>
+                    <Dropdown.Item className="text-white">Profile</Dropdown.Item>
+                    <Dropdown.Item className="text-white">Log out</Dropdown.Item>
+                </Dropdown.Menu>
             </Dropdown>
         </Navbar>
     );
