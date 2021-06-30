@@ -8,6 +8,20 @@ import userAvatar from './user_w.png';
 const Profile = () => {
     return (
         <Form>
+            <Row>
+                <Col xs={12} md={8}>
+                    <h1 style={{ textAlign: 'left' }}>Profile</h1>
+                </Col>
+                <Col xs={6} md={4}>
+                    <Button variant="secondary" style={{ borderRadius: '15px' }} className="px-3">
+                        Cancel
+                    </Button>
+                    <Button variant="success" style={{ borderRadius: '15px' }} className="px-3">
+                        Save
+                    </Button>
+                </Col>
+            </Row>
+            <hr />
             <Image src={userAvatar} roundedCircle style={{ height: '80px' }} />
             <Form.Group controlId="formProfileName">
                 <Form.Label>Name</Form.Label>
