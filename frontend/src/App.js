@@ -7,11 +7,11 @@ function App() {
     return (
         <div className="App">
             <Navbar />
-            <header className="App-header">
+            <div className="App-header">
                 <Container>
                     <SignUp />
                 </Container>
-            </header>
+            </div>
         </div>
     );
 }
