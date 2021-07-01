@@ -10,6 +10,20 @@ import profileAvatar from './user_w.png';
 const Artist = () => {
     return (
         <Form>
+            <Row>
+                <Col xs={12} md={8}>
+                    <h1 style={{ textAlign: 'left' }}>Artist</h1>
+                </Col>
+                <Col xs={6} md={4}>
+                    <Button variant="secondary" style={{ borderRadius: '15px' }} className="px-3">
+                        Cancel
+                    </Button>
+                    <Button variant="success" style={{ borderRadius: '15px' }} className="px-3">
+                        Save
+                    </Button>
+                </Col>
+            </Row>
+            <hr />
             <Image src={profileAvatar} roundedCircle style={{ height: '80px' }} />
             <Row>
                 <Col>
@@ -118,7 +132,7 @@ const Artist = () => {
                     </DropdownButton>
                 </Col>
             </Row>
-            <Row>
+            <Row style={{ marginBottom: '50px' }}>
                 <Col xs={12} md={8}>
                     <Form.Group controlId="formArtistPriceMin">
                         <Form.Label>Min rate</Form.Label>
@@ -134,6 +148,17 @@ const Artist = () => {
                     </DropdownButton>
                 </Col>
             </Row>
+            <hr/>
+            <p style={{ textAlign: 'left' }}>Delete account</p>
+            <p style={{ textAlign: 'left', fontSize: '15px' }}>
+                Deleting your Tattoodo account will permanently remove your profile, 
+                along with all data you have produced while on Tattoodo, 
+                including permanent removal of photos, comments, saved boards, workplace history, 
+                and subscription and billing info, booking history, your account information and settings.
+            </p>
+            <Button variant="danger" style={{ borderRadius: '15px', marginBottom: '50px' }} className="pull-left">
+                Delete my account
+            </Button>
         </Form>
     );
 }
