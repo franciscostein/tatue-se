@@ -1,9 +1,11 @@
 import './App.css';
 import Container from 'react-bootstrap/Container';
-import Navbar from "./components/navbar/Navbar";
+import Navbar from './layout/navbar/Navbar';
+import Footer from './layout/footer/Footer';
 // import SignUp from "./components/signup/SignUp";
 // import Profile from './components/profile/Profile';
-import Artist from './components/artist/Artist';
+// import Artist from './components/artist/Artist';
+import Studio from './components/studio/Studio';
 
 function App() {
     return (
@@ -13,9 +15,11 @@ function App() {
                 <Container>
                     {/* <SignUp /> */}
                     {/* <Profile /> */}
-                    <Artist />
+                    {/* <Artist /> */}
+                    <Studio />
                 </Container>
             </div>
+            <Footer />
         </div>
     );
 }
