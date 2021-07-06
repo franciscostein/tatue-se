@@ -2,10 +2,8 @@ import './App.css';
 import Container from 'react-bootstrap/Container';
 import Navbar from './layout/navbar/Navbar';
 import Footer from './layout/footer/Footer';
-// import SignUp from "./components/signup/SignUp";
-// import Profile from './components/profile/Profile';
-// import Artist from './components/artist/Artist';
-import Studio from './components/studio/Studio';
+// import Studios from './components/studios/Studios';
+import Artists from './components/artists/Artists';
 
 function App() {
     return (
@@ -13,10 +11,7 @@ function App() {
             <Navbar />
             <div className="App-header">
                 <Container>
-                    {/* <SignUp /> */}
-                    {/* <Profile /> */}
-                    {/* <Artist /> */}
-                    <Studio />
+                    <Artists />
                 </Container>
             </div>
             <Footer />

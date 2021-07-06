@@ -37,7 +37,7 @@ const Studio = () => {
                     </Form.Group>
                 </Col>
             </Row>
-            <Row>
+            <Row className="mt-2">
                 <Col>
                     <Form.Group controlId="formStudioWebsite">
                         <Form.Label>Website</Form.Label>
@@ -51,7 +51,7 @@ const Studio = () => {
                     </Form.Group>
                 </Col>
             </Row>
-            <Row>
+            <Row className="mt-2">
                 <Col>
                     <Form.Group controlId="formStudioFacebook">
                         <Form.Label>Facebook</Form.Label>
@@ -65,13 +65,13 @@ const Studio = () => {
                     </Form.Group>
                 </Col>
             </Row>
-            <Row>
+            <Row className="mt-2">
                 <Form.Group controlId="formStudioLocation">
                     <Form.Label>Location</Form.Label>
                     <Form.Control type="text" placeholder="Where it is?" />
                 </Form.Group>
             </Row>
-            <Row>
+            <Row className="mt-2">
                 <Form.Group controlId="formStudioAbout">
                     <Form.Label>About</Form.Label>
                     <Form.Control as="textarea" rows={3} />
