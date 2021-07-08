@@ -7,7 +7,7 @@ import userSolid from './user_w.png';
 
 const NavbarComponent = () => {
     return (
-        <Navbar bg="dark" expand="lg" fixed="top">
+        <Navbar bg="dark" expand="lg" sticky="top">
             <Navbar.Brand className="px-3 text-white">tatue-se</Navbar.Brand>
             <Navbar.Toggle aria-controls="navbar-nav" />
             <Navbar.Collapse id="navbar-nav">
