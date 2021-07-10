@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Image from 'react-bootstrap/Image';
 import { FaBars } from 'react-icons/fa';
-import userSolid from './user_w.png';
+import userSolid from '../../assets/user_w.png';
 
 const NavbarComponent = () => {
     return (

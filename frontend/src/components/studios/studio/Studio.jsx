@@ -3,7 +3,7 @@ import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import profileAvatar from './user_w.png';
+import profileAvatar from '../../../assets/user_w.png';
 
 const Studio = () => {
     return (
