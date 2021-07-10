@@ -12,7 +12,7 @@ import avatar from '../../assets/user_w.png';
 const Artists = () => {
     return (
         <div>
-            <h1>Artists</h1>
+            <h1 className="mt-5">Artists</h1>
             <p style={{ fontSize: '70%', color: 'gray' }}>Find your next tattoo artist.</p>
             <Row className="justify-content-md-center my-4">
                 <Col md={{ span: 4 }}>
