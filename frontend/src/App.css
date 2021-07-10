@@ -16,6 +16,19 @@
     font-size: calc(10px + 2vmin);
 }
 
-.form-control-custom {
-    background-color: yellowgreen;
+footer {
+    background-color: "#282c34";
+    color: "white";
+}
+
+.copy-left {
+    display: inline-block;
+    text-align: right;
+    margin: 0px;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: “FlipH”;
 }

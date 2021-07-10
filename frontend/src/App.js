@@ -13,7 +13,7 @@ function App() {
             <div className="App-content">
                 {/* <Container>
                 </Container> */}
-                {/* <Artists /> */}
+                <Artist />
 
             </div>
             <Footer />
