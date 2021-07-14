@@ -1,3 +1,8 @@
+footer {
+    background-color: "#282c34";
+    color: "white";
+}
+
 .App {
     text-align: center;
     background-color: #282c34;
@@ -16,11 +21,6 @@
     font-size: calc(10px + 2vmin);
 }
 
-footer {
-    background-color: "#282c34";
-    color: "white";
-}
-
 .copy-left {
     display: inline-block;
     text-align: right;
@@ -31,4 +31,13 @@ footer {
     transform: scaleX(-1);
     filter: FlipH;
     -ms-filter: “FlipH”;
+}
+
+.tattoo-style-badge {
+    border: 1px solid #ffffff30;
+    margin-bottom: 3px;
+    border-radius: 16px;
+    font-size: 10px;
+    padding: 7px;
+    white-space: nowrap;
 }

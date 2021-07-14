@@ -1,0 +1,12 @@
+#main {
+}
+
+#sidebar {
+    border: 1px solid;
+    border-radius: 16px;
+    background-color: #212529;
+}
+
+#content {
+    background-color: blue;
+}

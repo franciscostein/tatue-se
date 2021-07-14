@@ -1,5 +1,4 @@
 import './App.css';
-// import Container from 'react-bootstrap/Container';
 import Navbar from './layout/navbar/Navbar';
 import Footer from './layout/footer/Footer';
 // import Studios from './components/studios/Studios';
@@ -11,10 +10,7 @@ function App() {
         <div className="App">
             <Navbar />
             <div className="App-content">
-                {/* <Container>
-                </Container> */}
                 <Artist />
-
             </div>
             <Footer />
         </div>

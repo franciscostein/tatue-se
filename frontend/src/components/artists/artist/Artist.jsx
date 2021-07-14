@@ -1,4 +1,4 @@
-import Container from 'react-bootstrap/Container';
+import './Artist.css';
 import Image from 'react-bootstrap/Image';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -7,8 +7,8 @@ import { FaInstagram, FaGlobe } from 'react-icons/fa';
 
 const Artist = () => {
     return (
-        <Container>
-            <div style={{ border: '1px solid', borderRadius: '16px', width: 'calc(25% - 12px)' }} className="p-2">
+        <div id="main" className="d-flex m-5">
+            <Col id="sidebar" className="p-2 mx-5" sm={2}>
                 <div className="d-flex align-items-center mb-1">
                     <Image src={avatar} style={{ margin: '10px 25px 10px 0', height: '65px', width: '65px' }} roundedCircle />
                     <Col>
@@ -26,22 +26,62 @@ const Artist = () => {
                     </p>
                 </div>
                 <div className="d-flex justify-content-between p-2" style={{ borderBottom: '1px solid' }}>
-                    <span style={{ fontSize: '75%' }}>Instagrão</span>
+                    <span style={{ fontSize: '65%' }}>Instagrão</span>
                     <span className="d-flex">
                         <FaInstagram />
                     </span>
                 </div>
                 <div className="d-flex justify-content-between p-2" style={{ borderBottom: '1px solid' }}>
-                    <span style={{ fontSize: '75%' }}>Website</span>
+                    <span style={{ fontSize: '65%' }}>Website</span>
                     <span className="d-flex">
                         <FaGlobe />
                     </span>
                 </div>
-                <div>
-                    <h5 className="py-3">Worplace</h5>
+                <div style={{ borderBottom: '1px solid' }}>
+                    <h5 className="pt-3 pb-2">Worplace</h5>
+                    <div className="d-flex mb-1">
+                        <Image src={avatar} style={{ margin: '10px 25px 10px 0', height: '35px', width: '35px' }} roundedCircle />
+                        <Col>
+                            <Row style={{ fontSize: '60%' }}>Tattoo Studio</Row>
+                            <Row style={{ fontSize: '45%' }}>Campinas, SP</Row>
+                        </Col>
+                    </div>
                 </div>
-            </div>
-        </Container>
+                <div>
+                    <h5 className="d-flex pt-3">Styles</h5>
+                    <div className="d-flex flex-wrap py-1">
+                        <span className="tattoo-style-badge mx-1">Black &amp; Gray</span>
+                        <span className="tattoo-style-badge mx-1">Blackwork</span>
+                        <span className="tattoo-style-badge mx-1">Dotwork</span>
+                        <span className="tattoo-style-badge mx-1">Fineline</span>
+                        <span className="tattoo-style-badge mx-1">Ornamental</span>
+                    </div>
+
+                    <h5 className="d-flex pt-3">Pricing</h5>
+                    <div className="d-flex">
+                        <div style={{ backgroundColor: '#282c34', borderRadius: '16px', width: 'calc(50% - 8px)' }} className="py-1 mx-2 mb-3">
+                            <Row>
+                                <span style={{ color: '#ffffff30', fontSize: '50%' }}>Hour rate:</span>
+                            </Row>
+                            <Row>
+                                <span style={{ fontSize: '55%' }}>350 BRL</span>
+                            </Row>
+                        </div>
+                        <div style={{ backgroundColor: '#282c34', borderRadius: '16px', width: 'calc(50% - 8px)' }} className="py-1 mx-2 mb-3">
+                            <Row>
+                                <span style={{ color: '#ffffff30', fontSize: '50%' }}>Min. rate:</span>
+                            </Row>
+                            <Row>
+                                <span style={{ fontSize: '55%' }}>350 BRL</span>
+                            </Row>
+                        </div>
+                    </div>
+                </div>
+            </Col>
+            <Col id="content" className="" sm={9}>
+                a
+            </Col>
+        </div>
     );
 }
 
