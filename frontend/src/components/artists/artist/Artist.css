@@ -1,6 +1,3 @@
-#main {
-}
-
 #sidebar {
     border: 1px solid;
     border-radius: 16px;
@@ -8,7 +5,10 @@
     color: #cfd8dc;
 }
 
-#content {
+.artist-avatar {
+    margin: 10px 25px 10px 0;
+    height: 65px;
+    width: 65px;
 }
 
 .tattoo-img {

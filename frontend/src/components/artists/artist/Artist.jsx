@@ -61,34 +61,34 @@ const Artist = () => {
         <div id="main" className="d-flex align-items-start m-5">
             <Col id="sidebar" className="p-2 mx-4" sm={2}>
                 <div className="d-flex align-items-center mb-1">
-                    <Image src={avatar} style={{ margin: '10px 25px 10px 0', height: '65px', width: '65px' }} roundedCircle />
+                    <Image src={avatar} className="artist-avatar" roundedCircle />
                     <Col>
-                        <Row style={{ fontSize: '60%' }}>Tattoist 1</Row>
-                        <Row style={{ fontSize: '45%' }}>Tattoo Studio</Row>
+                        <Row className="font-60">Tattoist 1</Row>
+                        <Row className="font-45">Tattoo Studio</Row>
                     </Col>
                 </div>
-                <div style={{ borderTop: '1px dashed' }}>
+                <div className="dashed-top-border">
                     <h5 className="d-flex pt-2">Bio</h5>
-                    <p style={{ fontSize: '50%' }}>
+                    <p className="font-50">
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
                         Suscipit ex modi porro praesentium necessitatibus temporibus quae. 
                         Accusantium omnis cupiditate deserunt minima, praesentium sint nam amet? 
                         Numquam architecto accusantium suscipit enim dolores ab dicta quisquam nam expedita odio?
                     </p>
                 </div>
-                <div className="d-flex justify-content-between p-2" style={{ borderBottom: '1px solid' }}>
+                <div className="d-flex justify-content-between p-2 solid-bottom-border">
                     <span style={{ fontSize: '65%' }}>Instagrão</span>
                     <span className="d-flex">
                         <FaInstagram />
                     </span>
                 </div>
-                <div className="d-flex justify-content-between p-2" style={{ borderBottom: '1px solid' }}>
+                <div className="d-flex justify-content-between p-2 solid-bottom-border">
                     <span style={{ fontSize: '65%' }}>Website</span>
                     <span className="d-flex">
                         <FaGlobe />
                     </span>
                 </div>
-                <div style={{ borderBottom: '1px solid' }}>
+                <div className="solid-bottom-border">
                     <h5 className="pt-3 pb-2">Worplace</h5>
                     <div className="d-flex mb-1">
                         <Image src={avatar} style={{ margin: '10px 25px 10px 0', height: '35px', width: '35px' }} roundedCircle />
@@ -133,7 +133,7 @@ const Artist = () => {
                 <Row style={{ borderBottom: '1px solid #ffffff30' }}>
                     <h4 style={{ fontWeight: 300 }} className="d-flex mt-2">Tattoos</h4>
                 </Row>
-                <Row className="d-flex justify-content-center">
+                <div className="d-flex flex-wrap justify-content-center">
                     <Image src={tattoo} className="m-3 tattoo-img" />
                     <Image src={tattoo1} className="m-3 tattoo-img" />
                     <Image src={tattoo2} className="m-3 tattoo-img" />
@@ -184,7 +184,7 @@ const Artist = () => {
                     <Image src={tattoo47} className="m-3 tattoo-img" />
                     <Image src={tattoo48} className="m-3 tattoo-img" />
                     <Image src={tattoo49} className="m-3 tattoo-img" />
-                </Row>
+                </div>
             </Col>
         </div>
     );
