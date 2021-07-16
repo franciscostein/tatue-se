@@ -5,8 +5,16 @@
     border: 1px solid;
     border-radius: 16px;
     background-color: #212529;
+    color: #cfd8dc;
 }
 
 #content {
-    background-color: blue;
+}
+
+.tattoo-img {
+    width: 235px;
+    height: 350px;
+    padding: 0;
+    border-radius: 16px;
+    object-fit: cover;
 }

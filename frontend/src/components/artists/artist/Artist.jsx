@@ -5,10 +5,61 @@ import Row from 'react-bootstrap/Row';
 import avatar from '../../../assets/user_w.png';
 import { FaInstagram, FaGlobe } from 'react-icons/fa';
 
+import tattoo from '../../../assets/tattoos/0.jpeg';
+import tattoo1 from '../../../assets/tattoos/1.jpeg';
+import tattoo2 from '../../../assets/tattoos/2.jpeg';
+import tattoo3 from '../../../assets/tattoos/3.jpeg';
+import tattoo4 from '../../../assets/tattoos/4.jpeg';
+import tattoo5 from '../../../assets/tattoos/5.jpeg';
+import tattoo6 from '../../../assets/tattoos/6.jpeg';
+import tattoo7 from '../../../assets/tattoos/7.jpeg';
+import tattoo8 from '../../../assets/tattoos/8.jpeg';
+import tattoo9 from '../../../assets/tattoos/9.jpeg';
+import tattoo10 from '../../../assets/tattoos/10.jpeg';
+import tattoo11 from '../../../assets/tattoos/11.jpeg';
+import tattoo12 from '../../../assets/tattoos/12.jpeg';
+import tattoo13 from '../../../assets/tattoos/13.jpeg';
+import tattoo14 from '../../../assets/tattoos/14.jpeg';
+import tattoo15 from '../../../assets/tattoos/15.jpeg';
+import tattoo16 from '../../../assets/tattoos/16.jpeg';
+import tattoo17 from '../../../assets/tattoos/17.jpeg';
+import tattoo18 from '../../../assets/tattoos/18.jpeg';
+import tattoo19 from '../../../assets/tattoos/19.jpeg';
+import tattoo20 from '../../../assets/tattoos/20.jpeg';
+import tattoo21 from '../../../assets/tattoos/21.jpeg';
+import tattoo22 from '../../../assets/tattoos/22.jpeg';
+import tattoo23 from '../../../assets/tattoos/23.jpeg';
+import tattoo24 from '../../../assets/tattoos/24.jpeg';
+import tattoo25 from '../../../assets/tattoos/25.jpeg';
+import tattoo26 from '../../../assets/tattoos/26.jpeg';
+import tattoo27 from '../../../assets/tattoos/27.jpeg';
+import tattoo28 from '../../../assets/tattoos/28.jpeg';
+import tattoo29 from '../../../assets/tattoos/29.jpeg';
+import tattoo30 from '../../../assets/tattoos/30.jpeg';
+import tattoo31 from '../../../assets/tattoos/31.jpeg';
+import tattoo32 from '../../../assets/tattoos/32.jpeg';
+import tattoo33 from '../../../assets/tattoos/33.jpeg';
+import tattoo34 from '../../../assets/tattoos/34.jpeg';
+import tattoo35 from '../../../assets/tattoos/35.jpeg';
+import tattoo36 from '../../../assets/tattoos/36.jpeg';
+import tattoo37 from '../../../assets/tattoos/37.jpeg';
+import tattoo38 from '../../../assets/tattoos/38.jpeg';
+import tattoo39 from '../../../assets/tattoos/39.jpeg';
+import tattoo40 from '../../../assets/tattoos/40.jpeg';
+import tattoo41 from '../../../assets/tattoos/41.jpeg';
+import tattoo42 from '../../../assets/tattoos/42.jpeg';
+import tattoo43 from '../../../assets/tattoos/43.jpeg';
+import tattoo44 from '../../../assets/tattoos/44.jpeg';
+import tattoo45 from '../../../assets/tattoos/45.jpeg';
+import tattoo46 from '../../../assets/tattoos/46.jpeg';
+import tattoo47 from '../../../assets/tattoos/47.jpeg';
+import tattoo48 from '../../../assets/tattoos/48.jpeg';
+import tattoo49 from '../../../assets/tattoos/49.jpeg';
+
 const Artist = () => {
     return (
-        <div id="main" className="d-flex m-5">
-            <Col id="sidebar" className="p-2 mx-5" sm={2}>
+        <div id="main" className="d-flex align-items-start m-5">
+            <Col id="sidebar" className="p-2 mx-4" sm={2}>
                 <div className="d-flex align-items-center mb-1">
                     <Image src={avatar} style={{ margin: '10px 25px 10px 0', height: '65px', width: '65px' }} roundedCircle />
                     <Col>
@@ -78,8 +129,62 @@ const Artist = () => {
                     </div>
                 </div>
             </Col>
-            <Col id="content" className="" sm={9}>
-                a
+            <Col id="content" className="mx-4" sm={9}>
+                <Row style={{ borderBottom: '1px solid #ffffff30' }}>
+                    <h4 style={{ fontWeight: 300 }} className="d-flex mt-2">Tattoos</h4>
+                </Row>
+                <Row className="d-flex justify-content-center">
+                    <Image src={tattoo} className="m-3 tattoo-img" />
+                    <Image src={tattoo1} className="m-3 tattoo-img" />
+                    <Image src={tattoo2} className="m-3 tattoo-img" />
+                    <Image src={tattoo3} className="m-3 tattoo-img" />
+                    <Image src={tattoo4} className="m-3 tattoo-img" />
+                    <Image src={tattoo5} className="m-3 tattoo-img" />
+                    <Image src={tattoo6} className="m-3 tattoo-img" />
+                    <Image src={tattoo7} className="m-3 tattoo-img" />
+                    <Image src={tattoo8} className="m-3 tattoo-img" />
+                    <Image src={tattoo9} className="m-3 tattoo-img" />
+                    <Image src={tattoo10} className="m-3 tattoo-img" />
+                    <Image src={tattoo11} className="m-3 tattoo-img" />
+                    <Image src={tattoo12} className="m-3 tattoo-img" />
+                    <Image src={tattoo13} className="m-3 tattoo-img" />
+                    <Image src={tattoo14} className="m-3 tattoo-img" />
+                    <Image src={tattoo15} className="m-3 tattoo-img" />
+                    <Image src={tattoo16} className="m-3 tattoo-img" />
+                    <Image src={tattoo17} className="m-3 tattoo-img" />
+                    <Image src={tattoo18} className="m-3 tattoo-img" />
+                    <Image src={tattoo19} className="m-3 tattoo-img" />
+                    <Image src={tattoo20} className="m-3 tattoo-img" />
+                    <Image src={tattoo21} className="m-3 tattoo-img" />
+                    <Image src={tattoo22} className="m-3 tattoo-img" />
+                    <Image src={tattoo23} className="m-3 tattoo-img" />
+                    <Image src={tattoo24} className="m-3 tattoo-img" />
+                    <Image src={tattoo25} className="m-3 tattoo-img" />
+                    <Image src={tattoo26} className="m-3 tattoo-img" />
+                    <Image src={tattoo27} className="m-3 tattoo-img" />
+                    <Image src={tattoo28} className="m-3 tattoo-img" />
+                    <Image src={tattoo29} className="m-3 tattoo-img" />
+                    <Image src={tattoo30} className="m-3 tattoo-img" />
+                    <Image src={tattoo31} className="m-3 tattoo-img" />
+                    <Image src={tattoo32} className="m-3 tattoo-img" />
+                    <Image src={tattoo33} className="m-3 tattoo-img" />
+                    <Image src={tattoo34} className="m-3 tattoo-img" />
+                    <Image src={tattoo35} className="m-3 tattoo-img" />
+                    <Image src={tattoo36} className="m-3 tattoo-img" />
+                    <Image src={tattoo37} className="m-3 tattoo-img" />
+                    <Image src={tattoo38} className="m-3 tattoo-img" />
+                    <Image src={tattoo39} className="m-3 tattoo-img" />
+                    <Image src={tattoo40} className="m-3 tattoo-img" />
+                    <Image src={tattoo41} className="m-3 tattoo-img" />
+                    <Image src={tattoo42} className="m-3 tattoo-img" />
+                    <Image src={tattoo43} className="m-3 tattoo-img" />
+                    <Image src={tattoo44} className="m-3 tattoo-img" />
+                    <Image src={tattoo45} className="m-3 tattoo-img" />
+                    <Image src={tattoo46} className="m-3 tattoo-img" />
+                    <Image src={tattoo47} className="m-3 tattoo-img" />
+                    <Image src={tattoo48} className="m-3 tattoo-img" />
+                    <Image src={tattoo49} className="m-3 tattoo-img" />
+                </Row>
             </Col>
         </div>
     );
