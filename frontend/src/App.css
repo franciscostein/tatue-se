@@ -42,6 +42,14 @@ footer {
     white-space: nowrap;
 }
 
+.secondary-color {
+    color: #ffffff30;
+}
+
+.font-65 {
+    font-size: 65%;
+}
+
 .font-60 {
     font-size: 60%;
 }
@@ -54,10 +62,18 @@ footer {
     font-size: 45%;
 }
 
+.fontw-300 {
+    font-weight: 300;
+}
+
 .dashed-top-border {
     border-top: 1px dashed;
 }
 
 .solid-bottom-border {
     border-bottom: 1px solid;
+}
+
+.solid-bottom-border-secondary {
+    border-bottom: 1px solid #ffffff30;
 }

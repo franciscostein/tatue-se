@@ -77,13 +77,13 @@ const Artist = () => {
                     </p>
                 </div>
                 <div className="d-flex justify-content-between p-2 solid-bottom-border">
-                    <span style={{ fontSize: '65%' }}>Instagrão</span>
+                    <span className="font-65">Instagrão</span>
                     <span className="d-flex">
                         <FaInstagram />
                     </span>
                 </div>
                 <div className="d-flex justify-content-between p-2 solid-bottom-border">
-                    <span style={{ fontSize: '65%' }}>Website</span>
+                    <span className="font-65">Website</span>
                     <span className="d-flex">
                         <FaGlobe />
                     </span>
@@ -91,10 +91,10 @@ const Artist = () => {
                 <div className="solid-bottom-border">
                     <h5 className="pt-3 pb-2">Worplace</h5>
                     <div className="d-flex mb-1">
-                        <Image src={avatar} style={{ margin: '10px 25px 10px 0', height: '35px', width: '35px' }} roundedCircle />
+                        <Image src={avatar} className="studio-avatar" roundedCircle />
                         <Col>
-                            <Row style={{ fontSize: '60%' }}>Tattoo Studio</Row>
-                            <Row style={{ fontSize: '45%' }}>Campinas, SP</Row>
+                            <Row className="font-60">Tattoo Studio</Row>
+                            <Row className="font-45">Campinas, SP</Row>
                         </Col>
                     </div>
                 </div>
@@ -110,28 +110,28 @@ const Artist = () => {
 
                     <h5 className="d-flex pt-3">Pricing</h5>
                     <div className="d-flex">
-                        <div style={{ backgroundColor: '#282c34', borderRadius: '16px', width: 'calc(50% - 8px)' }} className="py-1 mx-2 mb-3">
+                        <div className="price-display py-1 mx-2 mb-3">
                             <Row>
-                                <span style={{ color: '#ffffff30', fontSize: '50%' }}>Hour rate:</span>
+                                <span className="secondary-color font-50">Hour rate:</span>
                             </Row>
                             <Row>
-                                <span style={{ fontSize: '55%' }}>350 BRL</span>
+                                <span className="font-50">350 BRL</span>
                             </Row>
                         </div>
-                        <div style={{ backgroundColor: '#282c34', borderRadius: '16px', width: 'calc(50% - 8px)' }} className="py-1 mx-2 mb-3">
+                        <div className="price-display py-1 mx-2 mb-3">
                             <Row>
-                                <span style={{ color: '#ffffff30', fontSize: '50%' }}>Min. rate:</span>
+                                <span className="secondary-color font-50">Min. rate:</span>
                             </Row>
                             <Row>
-                                <span style={{ fontSize: '55%' }}>350 BRL</span>
+                                <span className="font-50">350 BRL</span>
                             </Row>
                         </div>
                     </div>
                 </div>
             </Col>
             <Col id="content" className="mx-4" sm={9}>
-                <Row style={{ borderBottom: '1px solid #ffffff30' }}>
-                    <h4 style={{ fontWeight: 300 }} className="d-flex mt-2">Tattoos</h4>
+                <Row className="solid-bottom-border-secondary">
+                    <h4 className="d-flex mt-2 fontw-300">Tattoos</h4>
                 </Row>
                 <div className="d-flex flex-wrap justify-content-center">
                     <Image src={tattoo} className="m-3 tattoo-img" />
