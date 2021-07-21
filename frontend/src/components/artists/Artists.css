@@ -1,0 +1,19 @@
+.studio-card {
+    border-radius: 16px;
+    background-color: #212529;
+    flex: 0 0 400px;
+}
+
+.studio-card-img {
+    height: 215px;
+    padding: 0;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    object-fit: cover;
+}
+
+.studio-avatar-img {
+    margin: 10px 25px 10px 0;
+    height: 35px;
+    width: 35px;
+}

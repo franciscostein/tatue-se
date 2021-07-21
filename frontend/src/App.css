@@ -46,6 +46,10 @@ footer {
     color: #ffffff30;
 }
 
+.font-70 {
+    font-size: 70%;
+}
+
 .font-65 {
     font-size: 65%;
 }
@@ -68,6 +72,10 @@ footer {
 
 .dashed-top-border {
     border-top: 1px dashed;
+}
+
+.dashed-top-border-secondary {
+    border-top: 1px dashed #ffffff30;
 }
 
 .solid-bottom-border {
