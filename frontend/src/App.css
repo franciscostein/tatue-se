@@ -1,12 +1,26 @@
 footer {
     background-color: "#282c34";
-    color: "white";
+    color: #e0e0e0;
+}
+
+button {
+    border-radius: 16px !important;
+}
+
+input,
+textarea {
+    background-color: #dee2e6 !important;
+    color: #212529 !important;
+}
+
+p {
+    text-align: start;
 }
 
 .App {
     text-align: center;
     background-color: #282c34;
-    color: white;
+    color: #e0e0e0;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
@@ -42,8 +56,22 @@ footer {
     white-space: nowrap;
 }
 
+.tattoo-style-badge-selected {
+    border: 1px solid #ffffff30;
+    margin-bottom: 3px;
+    border-radius: 16px;
+    font-size: 10px;
+    padding: 7px;
+    white-space: nowrap;
+    background-color: #212529;
+}
+
 .secondary-color {
     color: #ffffff30;
+}
+
+.font-75 {
+    font-size: 75%;
 }
 
 .font-70 {
@@ -56,6 +84,10 @@ footer {
 
 .font-60 {
     font-size: 60%;
+}
+
+.font-55 {
+    font-size: 55%;
 }
 
 .font-50 {
