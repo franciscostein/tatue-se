@@ -66,6 +66,10 @@ p {
     background-color: #212529;
 }
 
+.profile-picture {
+    height: 75px;
+}
+
 .secondary-color {
     color: #ffffff30;
 }

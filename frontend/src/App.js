@@ -4,7 +4,8 @@ import Footer from './layout/footer/Footer';
 // import Studios from './components/studios/Studios';
 // import Artists from './components/artists/Artists';
 // import Artist from './components/artists/artist/Artist';
-import ArtistProfile from './components/artists/artistProfile/ArtistProfile';
+// import ArtistProfile from './components/artists/artistProfile/ArtistProfile';
+import Profile from './components/profile/Profile';
 
 function App() {
     return (
@@ -13,7 +14,8 @@ function App() {
             <div className="App-content">
                 {/* <Artists /> */}
                 {/* <Artist /> */}
-                <ArtistProfile />
+                {/* <ArtistProfile /> */}
+                <Profile />
             </div>
             <Footer />
         </div>
