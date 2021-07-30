@@ -1,3 +1,4 @@
+import './Navbar.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -17,11 +18,11 @@ const NavbarComponent = () => {
 
             <Dropdown className="px-4">
                 <Dropdown.Toggle variant="dark" id="dropdown-profile">
-                    <Image src={userSolid} roundedCircle style={{ height: '20px' }} className="px-2"/>
-                    <FaBars style={{ height: '20px' }} />
+                    <Image src={userSolid} className="min-user px-2" roundedCircle />
+                    <FaBars />
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu style={{ backgroundColor: '#212529' }}>
+                <Dropdown.Menu className="dropdown-menu">
                     <Dropdown.Item className="text-white">Profile</Dropdown.Item>
                     <Dropdown.Item className="text-white">Log out</Dropdown.Item>
                 </Dropdown.Menu>
