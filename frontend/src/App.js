@@ -5,7 +5,8 @@ import Footer from './layout/footer/Footer';
 // import Artists from './components/artists/Artists';
 // import Artist from './components/artists/artist/Artist';
 // import ArtistProfile from './components/artists/artistProfile/ArtistProfile';
-import Profile from './components/profile/Profile';
+// import Profile from './components/profile/Profile';
+import SignUp from './components/signup/SignUp';
 
 function App() {
     return (
@@ -15,7 +16,8 @@ function App() {
                 {/* <Artists /> */}
                 {/* <Artist /> */}
                 {/* <ArtistProfile /> */}
-                <Profile />
+                {/* <Profile /> */}
+                <SignUp />
             </div>
             <Footer />
         </div>
