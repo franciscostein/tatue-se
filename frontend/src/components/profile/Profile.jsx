@@ -44,8 +44,8 @@ const Profile = () => {
                 <hr/>
                 <h3 className="d-flex">Delete account</h3>
                 <p className="font-55">
-                    Deleting your Tattoodo account will permanently remove your profile, 
-                    along with all data you have produced while on Tattoodo, 
+                    Deleting your tatue-se account will permanently remove your profile, 
+                    along with all data you have produced while on tatue-se, 
                     including permanent removal of photos, comments, saved boards, workplace history, 
                     and subscription and billing info, booking history, your account information and settings.
                 </p>

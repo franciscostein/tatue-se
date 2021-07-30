@@ -6,7 +6,7 @@ const SignUp = () => {
     return (
         <Container>
             <div className="d-flex solid-bottom-border-secondary mb-5">
-                <h2>SignUp</h2>
+                <h1>SignUp</h1>
             </div>
             <Form>
                 <Form.Group controlId="formSignUpEmail" className="mb-3 px-5 mx-5">
