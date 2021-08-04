@@ -1,0 +1,12 @@
+#header {
+    border: 1px solid white;
+    border-radius: 16px;
+    min-width: 90vw;
+    background-color: #212529;
+}
+
+.studio-avatar {
+    margin: 35px;
+    height: 55px;
+    width: 55px;
+}
