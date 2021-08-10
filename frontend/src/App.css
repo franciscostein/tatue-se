@@ -27,7 +27,7 @@ p {
 }
 
 .App-content {
-    min-height: calc(100vh - 137px);
+    min-height: calc(100vh - 139px);
     display: flex;
     flex-direction: column;
     align-items: center;
