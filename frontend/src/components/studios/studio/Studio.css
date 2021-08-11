@@ -28,3 +28,18 @@
     height: 55px;
     width: 55px;
 }
+
+.map-img {
+    /* height: 357px; */
+    padding: 0;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    /* object-fit: cover; */
+}
+
+.map-card {
+    width: 45vw;
+    border-radius: 16px;
+    background-color: #212529;
+    flex: 0 0 300px;
+}
