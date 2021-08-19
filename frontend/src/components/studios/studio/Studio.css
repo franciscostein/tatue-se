@@ -1,6 +1,6 @@
 #cover {
     height: 350px;
-    width: 100vw;
+    width: 100%;
     overflow: hidden;
     position: absolute;
     top: 0;
@@ -29,17 +29,26 @@
     width: 55px;
 }
 
+.studio-card-img {
+    height: 215px;
+    padding: 0;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    object-fit: cover;
+}
+
+.map-card {
+    /* width: 45vw; */
+    border-radius: 16px;
+    background-color: #212529;
+    overflow: hidden;
+}
+
 .map-img {
-    /* height: 357px; */
+    height: 100%;
+    width: 100%;
     padding: 0;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
     /* object-fit: cover; */
-}
-
-.map-card {
-    width: 45vw;
-    border-radius: 16px;
-    background-color: #212529;
-    flex: 0 0 300px;
 }
