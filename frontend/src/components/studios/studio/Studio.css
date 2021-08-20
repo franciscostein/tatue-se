@@ -38,7 +38,6 @@
 }
 
 .map-card {
-    /* width: 45vw; */
     border-radius: 16px;
     background-color: #212529;
     overflow: hidden;
@@ -50,5 +49,8 @@
     padding: 0;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
-    /* object-fit: cover; */
+}
+
+.hours-dropdown {
+    display: inline-block;
 }
