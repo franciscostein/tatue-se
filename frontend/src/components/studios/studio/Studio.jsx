@@ -2,23 +2,12 @@ import './Studio.css';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-// import Select from 'react-select';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { FaStar, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaStar, FaMapMarkerAlt, FaCircle } from 'react-icons/fa';
 
 import cover from '../../../assets/studio/1.jpeg';
 import profileImg from '../../../assets/user_w.png';
 import map from '../../../assets/staticmap.png';
-
-// const options = [
-//     { valeu: 'Monday', label: <span dangerouslySetInnerHTML={{ __html: '<div className="select-option"><span>Monday</span> <span>12:00 - 20:00</span></div>'}} /> },
-//     { valeu: 'Tuesday', label: <span dangerouslySetInnerHTML={{ __html: '<div className="select-option"><span>Tuesday</span> <span>12:00 - 20:00</span></div>'}} /> },
-//     { valeu: 'Wednesday', label: <span dangerouslySetInnerHTML={{ __html: '<div className="select-option"><span>Wednesday</span> <span>12:00 - 20:00</span></div>'}} /> },
-//     { valeu: 'Thursday', label: <span dangerouslySetInnerHTML={{ __html: '<div className="select-option"><span>Thursday</span> <span>12:00 - 20:00</span></div>'}} /> },
-//     { valeu: 'Friday', label: <span dangerouslySetInnerHTML={{ __html: '<div className="select-option"><span>Friday</span> <span>12:00 - 20:00</span></div>'}} /> },
-//     { valeu: 'Saturday', label: <span dangerouslySetInnerHTML={{ __html: '<div className="select-option"><span>Saturday</span> <span>12:00 - 20:00</span></div>'}} /> },
-//     { valeu: 'Sunday', label: <span dangerouslySetInnerHTML={{ __html: '<div className="select-option"><span>Sunday</span> <span>12:00 - 20:00</span></div>'}} /> }
-// ]
 
 const Studios = () => {
     return (
@@ -70,17 +59,38 @@ const Studios = () => {
                         </p>
                     </Row>
                     <Row>
-                        {/* <Select options={options} option={3} /> */}
-
-                        <Dropdown className="hours-dropdown">
-                            <Dropdown.Toggle variant="dark">
-                                Day
-                            </Dropdown.Toggle>
-
-                            <Dropdown.Menu>
-                                <Dropdown.Item className="d-flex justify-content-between"><span>Monday</span><span>11:00 - 20:00</span></Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
+                        <Row>
+                            <Col className="d-flex justify-content-start font-75">
+                                <div className="open-hour"><FaCircle size={14} /></div>
+                                &nbsp;
+                                Thursday
+                            </Col>
+                            <Col md="auto" className="d-flex justify-content-end font-75">11:00 - 21:00</Col>
+                        </Row>
+                        <Row>
+                            <Col className="d-flex justify-content-start font-75">Friday</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-75">13:00 - 23:00</Col>
+                        </Row>
+                        <Row>
+                            <Col className="d-flex justify-content-start font-75">Saturday</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-75">13:00 - 23:00</Col>
+                        </Row>
+                        <Row>
+                            <Col className="d-flex justify-content-start font-75">Sunday</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-75">13:00 - 23:00</Col>
+                        </Row>
+                        <Row>
+                            <Col className="d-flex justify-content-start font-75">Monday</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-75">Closed</Col>
+                        </Row>
+                        <Row>
+                            <Col className="d-flex justify-content-start font-75">Tuesday</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-75">11:00 - 21:00</Col>
+                        </Row>
+                        <Row>
+                            <Col className="d-flex justify-content-start font-75">Wednesday</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-75">11:00 - 21:00</Col>
+                        </Row>
                     </Row>
                 </Col>
                 <Col className="map-card mx-4">

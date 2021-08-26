@@ -51,6 +51,10 @@
     border-top-right-radius: 16px;
 }
 
-.hours-dropdown {
-    display: inline-block;
+.open-hour {
+    color: #1b5e20;
+}
+
+.closed-hour {
+    color: #b71c1c;
 }
