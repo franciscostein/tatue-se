@@ -79,7 +79,7 @@ const studioSchema = new Schema({
 		type: [{ 
 			publicId: String,
 		}],
-		validate: [arrayLimit, '{Path} exceeds the limit of 30']
+		validate: [arrayLimit, '{Path} exceeds the limit of 10']
 	},
 	reviews: [{
 		rating: Number,

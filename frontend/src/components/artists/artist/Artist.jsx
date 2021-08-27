@@ -131,7 +131,7 @@ const Artist = () => {
             </Col>
             <Col id="content" className="mx-4" sm={9}>
                 <Row className="solid-bottom-border-secondary">
-                    <h4 className="d-flex mt-2 fontw-300">Tattoos</h4>
+                    <h4 className="d-flex mt-2 fonte-300">Tattoos</h4>
                 </Row>
                 <div className="d-flex flex-wrap justify-content-center">
                     <Image src={tattoo} className="m-3 tattoo-img" />

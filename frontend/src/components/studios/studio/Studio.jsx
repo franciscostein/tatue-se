@@ -2,12 +2,21 @@ import './Studio.css';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Dropdown from 'react-bootstrap/Dropdown';
 import { FaStar, FaMapMarkerAlt, FaCircle } from 'react-icons/fa';
 
 import cover from '../../../assets/studio/1.jpeg';
 import profileImg from '../../../assets/user_w.png';
 import map from '../../../assets/staticmap.png';
+import tattoo from '../../../assets/tattoos/0.jpeg';
+import tattoo1 from '../../../assets/tattoos/1.jpeg';
+import tattoo2 from '../../../assets/tattoos/2.jpeg';
+import tattoo3 from '../../../assets/tattoos/3.jpeg';
+import tattoo4 from '../../../assets/tattoos/4.jpeg';
+import tattoo5 from '../../../assets/tattoos/5.jpeg';
+import tattoo6 from '../../../assets/tattoos/6.jpeg';
+import tattoo7 from '../../../assets/tattoos/7.jpeg';
+import tattoo8 from '../../../assets/tattoos/8.jpeg';
+import tattoo9 from '../../../assets/tattoos/9.jpeg';
 
 const Studios = () => {
     return (
@@ -59,37 +68,37 @@ const Studios = () => {
                         </p>
                     </Row>
                     <Row>
-                        <Row>
-                            <Col className="d-flex justify-content-start font-75">
+                        <Row className="mb-1">
+                            <Col className="d-flex justify-content-start font-65">
                                 <div className="open-hour"><FaCircle size={14} /></div>
                                 &nbsp;
                                 Thursday
                             </Col>
-                            <Col md="auto" className="d-flex justify-content-end font-75">11:00 - 21:00</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-65">11:00 - 21:00</Col>
                         </Row>
-                        <Row>
-                            <Col className="d-flex justify-content-start font-75">Friday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-75">13:00 - 23:00</Col>
+                        <Row className="mb-1">
+                            <Col className="d-flex justify-content-start font-65">Friday</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-65">13:00 - 23:00</Col>
                         </Row>
-                        <Row>
-                            <Col className="d-flex justify-content-start font-75">Saturday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-75">13:00 - 23:00</Col>
+                        <Row className="mb-1">
+                            <Col className="d-flex justify-content-start font-65">Saturday</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-65">13:00 - 23:00</Col>
                         </Row>
-                        <Row>
-                            <Col className="d-flex justify-content-start font-75">Sunday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-75">13:00 - 23:00</Col>
+                        <Row className="mb-1">
+                            <Col className="d-flex justify-content-start font-65">Sunday</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-65">13:00 - 23:00</Col>
                         </Row>
-                        <Row>
-                            <Col className="d-flex justify-content-start font-75">Monday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-75">Closed</Col>
+                        <Row className="mb-1">
+                            <Col className="d-flex justify-content-start font-65">Monday</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-65">Closed</Col>
                         </Row>
-                        <Row>
-                            <Col className="d-flex justify-content-start font-75">Tuesday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-75">11:00 - 21:00</Col>
+                        <Row className="mb-1">
+                            <Col className="d-flex justify-content-start font-65">Tuesday</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-65">11:00 - 21:00</Col>
                         </Row>
-                        <Row>
-                            <Col className="d-flex justify-content-start font-75">Wednesday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-75">11:00 - 21:00</Col>
+                        <Row className="mb-1">
+                            <Col className="d-flex justify-content-start font-65">Wednesday</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-65">11:00 - 21:00</Col>
                         </Row>
                     </Row>
                 </Col>
@@ -102,6 +111,23 @@ const Studios = () => {
                         <span className="font-65 px-1">Avenida Paulista 2073, São Paulo, São Paulo</span>
                     </div>
                 </Col>
+            </div>
+            <div className="m-5 px-4">
+                <Row className="solid-bottom-border-secondary">
+                    <h4 className="d-flex mt-2 fonte-300">Studio</h4>
+                </Row>
+                <div className="d-flex flex-wrap justify-content-center mt-3">
+                    <Image src={tattoo} className="m-3 studio-img" />
+                    <Image src={tattoo1} className="m-3 studio-img" />
+                    <Image src={tattoo2} className="m-3 studio-img" />
+                    <Image src={tattoo3} className="m-3 studio-img" />
+                    <Image src={tattoo4} className="m-3 studio-img" />
+                    <Image src={tattoo5} className="m-3 studio-img" />
+                    <Image src={tattoo6} className="m-3 studio-img" />
+                    <Image src={tattoo7} className="m-3 studio-img" />
+                    <Image src={tattoo8} className="m-3 studio-img" />
+                    <Image src={tattoo9} className="m-3 studio-img" />
+                </div>
             </div>
         </div>
     );
