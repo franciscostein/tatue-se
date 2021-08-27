@@ -4,19 +4,19 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { FaStar, FaMapMarkerAlt, FaCircle } from 'react-icons/fa';
 
-import cover from '../../../assets/studio/1.jpeg';
+import cover from '../../../assets/studio/cover/1.jpeg';
 import profileImg from '../../../assets/user_w.png';
 import map from '../../../assets/staticmap.png';
-import tattoo from '../../../assets/tattoos/0.jpeg';
-import tattoo1 from '../../../assets/tattoos/1.jpeg';
-import tattoo2 from '../../../assets/tattoos/2.jpeg';
-import tattoo3 from '../../../assets/tattoos/3.jpeg';
-import tattoo4 from '../../../assets/tattoos/4.jpeg';
-import tattoo5 from '../../../assets/tattoos/5.jpeg';
-import tattoo6 from '../../../assets/tattoos/6.jpeg';
-import tattoo7 from '../../../assets/tattoos/7.jpeg';
-import tattoo8 from '../../../assets/tattoos/8.jpeg';
-import tattoo9 from '../../../assets/tattoos/9.jpeg';
+import studio from '../../../assets/studio/0.jpeg';
+import studio1 from '../../../assets/studio/1.jpeg';
+import studio2 from '../../../assets/studio/2.jpeg';
+import studio3 from '../../../assets/studio/3.jpeg';
+import studio4 from '../../../assets/studio/4.jpeg';
+import studio5 from '../../../assets/studio/5.jpeg';
+import studio6 from '../../../assets/studio/6.jpeg';
+import studio7 from '../../../assets/studio/7.jpeg';
+import studio8 from '../../../assets/studio/8.jpeg';
+import studio9 from '../../../assets/studio/9.jpeg';
 
 const Studios = () => {
     return (
@@ -117,16 +117,16 @@ const Studios = () => {
                     <h4 className="d-flex mt-2 fonte-300">Studio</h4>
                 </Row>
                 <div className="d-flex flex-wrap justify-content-center mt-3">
-                    <Image src={tattoo} className="m-3 studio-img" />
-                    <Image src={tattoo1} className="m-3 studio-img" />
-                    <Image src={tattoo2} className="m-3 studio-img" />
-                    <Image src={tattoo3} className="m-3 studio-img" />
-                    <Image src={tattoo4} className="m-3 studio-img" />
-                    <Image src={tattoo5} className="m-3 studio-img" />
-                    <Image src={tattoo6} className="m-3 studio-img" />
-                    <Image src={tattoo7} className="m-3 studio-img" />
-                    <Image src={tattoo8} className="m-3 studio-img" />
-                    <Image src={tattoo9} className="m-3 studio-img" />
+                    <Image src={studio} className="m-3 studio-img" />
+                    <Image src={studio1} className="m-3 studio-img" />
+                    <Image src={studio2} className="m-3 studio-img" />
+                    <Image src={studio3} className="m-3 studio-img" />
+                    <Image src={studio4} className="m-3 studio-img" />
+                    <Image src={studio5} className="m-3 studio-img" />
+                    <Image src={studio6} className="m-3 studio-img" />
+                    <Image src={studio7} className="m-3 studio-img" />
+                    <Image src={studio8} className="m-3 studio-img" />
+                    <Image src={studio9} className="m-3 studio-img" />
                 </div>
             </div>
         </div>
