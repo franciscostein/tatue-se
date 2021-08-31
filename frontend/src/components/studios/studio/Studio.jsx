@@ -2,7 +2,8 @@ import './Studio.css';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { FaStar, FaMapMarkerAlt, FaCircle } from 'react-icons/fa';
+import Button from 'react-bootstrap/Button';
+import { FaStar, FaRegStar, FaMapMarkerAlt, FaCircle } from 'react-icons/fa';
 
 import cover from '../../../assets/studio/cover/1.jpeg';
 import profileImg from '../../../assets/user_w.png';
@@ -26,7 +27,7 @@ const Studios = () => {
             </div>
             <div id="header" className="d-flex justify-content-between">
                 <div className="d-flex">
-                    <Image src={profileImg} className="studio-avatar" roundedCircle />
+                    <Image src={profileImg} className="avatar" roundedCircle />
                     <div className="align-self-center">
                         <Row>
                             <div>
@@ -39,7 +40,7 @@ const Studios = () => {
                     </div>
                 </div>
                 <div className="my-4 mx-5">
-                    <div className="font-75 d-flex align-items-center">
+                    <div className="font-75 d-flex align-items-center mt-2">
                         <FaStar />
                         <FaStar />
                         <FaStar />
@@ -52,6 +53,7 @@ const Studios = () => {
                     </div>
                 </div>
             </div>
+
             <div className="d-flex justify-content-between m-5">
                 <Col xs={7} className="mx-4">
                     <Row className="mb-5">
@@ -112,11 +114,12 @@ const Studios = () => {
                     </div>
                 </Col>
             </div>
+
             <div className="m-5 px-4">
                 <Row className="solid-bottom-border-secondary">
                     <h4 className="d-flex mt-2 fonte-300">Studio</h4>
                 </Row>
-                <div className="d-flex flex-wrap justify-content-center mt-3">
+                <div className="d-flex flex-wrap justify-content-center my-3">
                     <Image src={studio} className="m-3 studio-img" />
                     <Image src={studio1} className="m-3 studio-img" />
                     <Image src={studio2} className="m-3 studio-img" />
@@ -127,6 +130,46 @@ const Studios = () => {
                     <Image src={studio7} className="m-3 studio-img" />
                     <Image src={studio8} className="m-3 studio-img" />
                     <Image src={studio9} className="m-3 studio-img" />
+                </div>
+            </div>
+
+            <div className="m-5">
+                <div className="d-flex justify-content-between">
+                    <h3 className="mt-5 mx-4">Reviews</h3>
+                    <Button variant="dark" className="mt-5 mx-4">View all</Button>
+                </div>
+                <div className="d-flex justify-content-between align-items-center solid-bottom-border-secondary mx-4">
+                    <Image src={profileImg} className="avatar" roundedCircle />
+                    <span className="d-flex font-60">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae in minus ut magnam?</span>
+                    <div className="d-flex nowrap">
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                        <FaRegStar />
+                        <FaRegStar />
+                    </div>
+                </div>
+                <div className="d-flex justify-content-between align-items-center solid-bottom-border-secondary mx-4">
+                    <Image src={profileImg} className="avatar" roundedCircle />
+                    <span className="d-flex font-60">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius debitis ipsam corporis iste quo delectus.</span>
+                    <div className="d-flex nowrap">
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                        <FaStar />
+                    </div>
+                </div>
+                <div className="d-flex justify-content-between align-items-center solid-bottom-border-secondary mx-4">
+                    <Image src={profileImg} className="avatar" roundedCircle />
+                    <span className="d-flex font-60">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus, quam mollitia itaque velit at dignissimos. Nobis, nemo? Quaerat, tenetur. Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem dolorum itaque repellendus suscipit.</span>
+                    <div className="d-flex nowrap">
+                        <FaStar />
+                        <FaRegStar />
+                        <FaRegStar />
+                        <FaRegStar />
+                        <FaRegStar />
+                    </div>
                 </div>
             </div>
         </div>
