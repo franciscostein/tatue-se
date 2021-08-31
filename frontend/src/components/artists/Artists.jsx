@@ -13,25 +13,28 @@ import avatar from '../../assets/user_w.png';
 const Artists = () => {
     return (
         <div>
-            <div className="d-flex justify-content-center">
-                <Row>
-                    <h1 className="mt-5">Artists</h1>
-                </Row>
-                <Row>
-                    <p className="font-70 secondary-color">Find your next tattoo artist.</p>
-                </Row>
-                <Row className="my-4">
-                    <Col md={{ span: 4 }}>
-                        <Form.Group controlId="formArtistLocation">
-                            <Form.Control type="text" placeholder="In which city?" />
-                        </Form.Group>
-                    </Col>
-                </Row>
+            <div className="header">
+                <h1 className="mt-5">Artists</h1>
+                <p className="font-70 secondary-color">Find your next tattoo artist.</p>
+                <Form.Group controlId="formArtistLocation">
+                    <Form.Control type="text" placeholder="In which city?" />
+                </Form.Group>
+                <div>
+                    <span className="tattoo-style-badge mx-1">Black &amp; Gray</span>
+                    <span className="tattoo-style-badge mx-1">Blackwork</span>
+                    <span className="tattoo-style-badge mx-1">Dotwork</span>
+                    <span className="tattoo-style-badge mx-1">Fineline</span>
+                    <span className="tattoo-style-badge mx-1">Illustrative</span>
+                    <span className="tattoo-style-badge mx-1">Neo-Traditional</span>
+                    <span className="tattoo-style-badge mx-1">Ornamental</span>
+                    <span className="tattoo-style-badge mx-1">Realism</span>
+                    <span className="tattoo-style-badge mx-1">Surrealism</span>
+                </div>
             </div>
 
-            <hr className="mb-3" />
+            <hr className="my-3" />
 
-            <Row className="d-flex justify-content-center">
+            <Row className="d-flex justify-content-center mx-5">
                 <Col className="studio-card m-3">
                     <Row>
                         <Image src={img1} className="studio-card-img" />
