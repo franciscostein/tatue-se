@@ -13,16 +13,24 @@ import avatar from '../../assets/user_w.png';
 const Artists = () => {
     return (
         <div>
-            <h1 className="mt-5">Artists</h1>
-            <p className="font-70 secondary-color">Find your next tattoo artist.</p>
-            <Row className="justify-content-md-center my-4">
-                <Col md={{ span: 4 }}>
-                    <Form.Group controlId="formArtistLocation">
-                        <Form.Control type="text" placeholder="In which city?" />
-                    </Form.Group>
-                </Col>
-            </Row>
+            <div className="d-flex justify-content-center">
+                <Row>
+                    <h1 className="mt-5">Artists</h1>
+                </Row>
+                <Row>
+                    <p className="font-70 secondary-color">Find your next tattoo artist.</p>
+                </Row>
+                <Row className="my-4">
+                    <Col md={{ span: 4 }}>
+                        <Form.Group controlId="formArtistLocation">
+                            <Form.Control type="text" placeholder="In which city?" />
+                        </Form.Group>
+                    </Col>
+                </Row>
+            </div>
+
             <hr className="mb-3" />
+
             <Row className="d-flex justify-content-center">
                 <Col className="studio-card m-3">
                     <Row>
