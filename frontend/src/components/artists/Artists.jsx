@@ -20,22 +20,22 @@ const Artists = () => {
                     <Form.Control type="text" placeholder="In which city?" />
                 </Form.Group>
                 <div>
-                    <span className="tattoo-style-badge mx-1">Black &amp; Gray</span>
-                    <span className="tattoo-style-badge mx-1">Blackwork</span>
-                    <span className="tattoo-style-badge mx-1">Dotwork</span>
-                    <span className="tattoo-style-badge mx-1">Fineline</span>
-                    <span className="tattoo-style-badge mx-1">Illustrative</span>
-                    <span className="tattoo-style-badge mx-1">Neo-Traditional</span>
-                    <span className="tattoo-style-badge mx-1">Ornamental</span>
-                    <span className="tattoo-style-badge mx-1">Realism</span>
-                    <span className="tattoo-style-badge mx-1">Surrealism</span>
+                    <span className="tattoo-style-badge font-45 mx-1">Black &amp; Gray</span>
+                    <span className="tattoo-style-badge font-45 mx-1">Blackwork</span>
+                    <span className="tattoo-style-badge font-45 mx-1">Dotwork</span>
+                    <span className="tattoo-style-badge font-45 mx-1">Fineline</span>
+                    <span className="tattoo-style-badge font-45 mx-1">Illustrative</span>
+                    <span className="tattoo-style-badge font-45 mx-1">Neo-Traditional</span>
+                    <span className="tattoo-style-badge font-45 mx-1">Ornamental</span>
+                    <span className="tattoo-style-badge font-45 mx-1">Realism</span>
+                    <span className="tattoo-style-badge font-45 mx-1">Surrealism</span>
                 </div>
             </div>
 
             <hr className="my-3" />
 
-            <Row className="d-flex justify-content-center mx-5">
-                <Col className="studio-card m-3">
+            <div className="d-flex flex-wrap justify-content-center mx-5">
+                <div className="studio-card m-3">
                     <Row>
                         <Image src={img1} className="studio-card-img" />
                     </Row>
@@ -50,8 +50,8 @@ const Artists = () => {
                         <span className="tattoo-style-badge mx-1">Blackwork</span>
                         <span className="tattoo-style-badge mx-1">Dotwork</span>
                     </div>
-                </Col>
-                <Col className="studio-card m-3">
+                </div>
+                <div className="studio-card m-3">
                     <Row>
                         <Image src={img2} className="studio-card-img" />
                     </Row>
@@ -68,8 +68,8 @@ const Artists = () => {
                         <span className="tattoo-style-badge mx-1">Realism</span>
                         <span className="tattoo-style-badge mx-1">Illustrative</span>
                     </div>
-                </Col>
-                <Col className="studio-card m-3">
+                </div>
+                <div className="studio-card m-3">
                     <Row>
                         <Image src={img3} className="studio-card-img" />
                     </Row>
@@ -87,8 +87,8 @@ const Artists = () => {
                         <span className="tattoo-style-badge mx-1">Fineline</span>
                         <span className="tattoo-style-badge mx-1">Ornamental</span>
                     </div>
-                </Col>
-                <Col className="studio-card m-3">
+                </div>
+                <div className="studio-card m-3">
                     <Row>
                         <Image src={img4} className="studio-card-img" />
                     </Row>
@@ -106,8 +106,8 @@ const Artists = () => {
                         <span className="tattoo-style-badge mx-1">Illustrative</span>
                         <span className="tattoo-style-badge mx-1">Surrealism</span>
                     </div>
-                </Col>
-                <Col className="studio-card m-3">
+                </div>
+                <div className="studio-card m-3">
                     <Row>
                         <Image src={img5} className="studio-card-img" />
                     </Row>
@@ -125,8 +125,8 @@ const Artists = () => {
                         <span className="tattoo-style-badge mx-1">Illustrative</span>
                         <span className="tattoo-style-badge mx-1">Surrealism</span>
                     </div>
-                </Col>
-            </Row>
+                </div>
+            </div>
         </div>
     );
 }
