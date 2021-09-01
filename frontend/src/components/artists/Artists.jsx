@@ -13,7 +13,7 @@ import avatar from '../../assets/user_w.png';
 const Artists = () => {
     return (
         <div>
-            <div className="header">
+            <div className="search-header">
                 <h1 className="mt-5">Artists</h1>
                 <p className="font-70 secondary-color">Find your next tattoo artist.</p>
                 <Form.Group controlId="formArtistLocation">

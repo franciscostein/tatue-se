@@ -1,8 +1,8 @@
 import './App.css';
 import Navbar from './layout/navbar/Navbar';
 import Footer from './layout/footer/Footer';
-import Studio from './components/studios/studio/Studio';
-// import Studios from './components/studios/Studios';
+// import Studio from './components/studios/studio/Studio';
+import Studios from './components/studios/Studios';
 // import Artists from './components/artists/Artists';
 // import Artist from './components/artists/artist/Artist';
 // import ArtistProfile from './components/artists/artistProfile/ArtistProfile';
@@ -19,7 +19,8 @@ function App() {
                 {/* <ArtistProfile /> */}
                 {/* <Profile /> */}
                 {/* <SignUp /> */}
-                <Studio />
+                {/* <Studio /> */}
+                <Studios />
             </div>
             <Footer />
         </div>

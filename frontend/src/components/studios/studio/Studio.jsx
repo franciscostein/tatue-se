@@ -23,7 +23,6 @@ import img1 from '../../../assets/artist/2.jpeg';
 import img2 from '../../../assets/artist/3.jpeg';
 import img3 from '../../../assets/artist/4.jpeg';
 import img4 from '../../../assets/artist/5.jpeg';
-import img5 from '../../../assets/artist/1.jpeg';
 
 const Studios = () => {
     return (
