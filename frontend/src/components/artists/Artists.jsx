@@ -3,11 +3,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
-import img1 from './img/2.jpeg';
-import img2 from './img/3.jpeg';
-import img3 from './img/4.jpeg';
-import img4 from './img/5.jpeg';
-import img5 from './img/1.jpeg';
+import img1 from '../../assets/artist/2.jpeg';
+import img2 from '../../assets/artist/3.jpeg';
+import img3 from '../../assets/artist/4.jpeg';
+import img4 from '../../assets/artist/5.jpeg';
+import img5 from '../../assets/artist/1.jpeg';
 import avatar from '../../assets/user_w.png';
 
 const Artists = () => {

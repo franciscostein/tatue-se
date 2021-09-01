@@ -3,27 +3,3 @@
     flex-direction: column;
     align-items: center;
 }
-
-.studio-card {
-    display: flex;
-    flex-direction: column;
-    border-radius: 16px;
-    background-color: #212529;
-    flex: 0 0 375px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    overflow: hidden;
-}
-
-.studio-card-img {
-    height: 200px;
-    width: 100%;
-    padding: 0 !important;
-    object-fit: cover;
-}
-
-.studio-avatar-img {
-    margin: 10px 25px 10px 10px;
-    height: 35px;
-    width: 35px;
-}

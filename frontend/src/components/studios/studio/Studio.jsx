@@ -19,6 +19,12 @@ import studio7 from '../../../assets/studio/7.jpeg';
 import studio8 from '../../../assets/studio/8.jpeg';
 import studio9 from '../../../assets/studio/9.jpeg';
 
+import img1 from '../../../assets/artist/2.jpeg';
+import img2 from '../../../assets/artist/3.jpeg';
+import img3 from '../../../assets/artist/4.jpeg';
+import img4 from '../../../assets/artist/5.jpeg';
+import img5 from '../../../assets/artist/1.jpeg';
+
 const Studios = () => {
     return (
         <div>
@@ -169,6 +175,84 @@ const Studios = () => {
                         <FaRegStar />
                         <FaRegStar />
                         <FaRegStar />
+                    </div>
+                </div>
+            </div>
+
+            <div className="ms-4">
+                <h3 className="d-flex mt-5 ms-5">Artists</h3>
+                <div className="d-flex flex-wrap justify-content-center mx-5">
+                    <div className="studio-card m-3">
+                        <Row>
+                            <Image src={img1} className="studio-card-img" />
+                        </Row>
+                        <div className="d-flex align-items-center mb-1">
+                            <Image src={profileImg} className="studio-avatar-img" roundedCircle />
+                            <Col>
+                                <Row className="font-60">Tattoist 1</Row>
+                                <Row className="font-45">Tattoo Studio</Row>
+                            </Col>
+                        </div>
+                        <div className="dashed-top-border-secondary d-flex flex-wrap pt-2 pb-1">
+                            <span className="tattoo-style-badge mx-1">Blackwork</span>
+                            <span className="tattoo-style-badge mx-1">Dotwork</span>
+                        </div>
+                    </div>
+                    <div className="studio-card m-3">
+                        <Row>
+                            <Image src={img2} className="studio-card-img" />
+                        </Row>
+                        <div className="d-flex align-items-center mb-1">
+                            <Image src={profileImg} className="studio-avatar-img" roundedCircle />
+                            <Col>
+                                <Row className="font-60">Tattoist 2</Row>
+                                <Row className="font-45">Tattoo Studio</Row>
+                            </Col>
+                        </div>
+                        <div className="dashed-top-border-secondary d-flex flex-wrap pt-2 pb-1">
+                            <span className="tattoo-style-badge mx-1">Blackwork</span>
+                            <span className="tattoo-style-badge mx-1">Neo-Tradicional</span>
+                            <span className="tattoo-style-badge mx-1">Realism</span>
+                            <span className="tattoo-style-badge mx-1">Illustrative</span>
+                        </div>
+                    </div>
+                    <div className="studio-card m-3">
+                        <Row>
+                            <Image src={img3} className="studio-card-img" />
+                        </Row>
+                        <div className="d-flex align-items-center mb-1">
+                            <Image src={profileImg} className="studio-avatar-img" roundedCircle />
+                            <Col>
+                                <Row className="font-60">Tattoist 3</Row>
+                                <Row className="font-45">Tattoo Studio</Row>
+                            </Col>
+                        </div>
+                        <div className="dashed-top-border-secondary d-flex flex-wrap pt-2 pb-1">
+                            <span className="tattoo-style-badge mx-1">Black &amp; Gray</span>
+                            <span className="tattoo-style-badge mx-1">Blackwork</span>
+                            <span className="tattoo-style-badge mx-1">Dotwork</span>
+                            <span className="tattoo-style-badge mx-1">Fineline</span>
+                            <span className="tattoo-style-badge mx-1">Ornamental</span>
+                        </div>
+                    </div>
+                    <div className="studio-card m-3">
+                        <Row>
+                            <Image src={img4} className="studio-card-img" />
+                        </Row>
+                        <div className="d-flex align-items-center mb-1">
+                            <Image src={profileImg} className="studio-avatar-img" roundedCircle />
+                            <Col>
+                                <Row className="font-60">Tattoist 4</Row>
+                                <Row className="font-45">Tattoo Studio</Row>
+                            </Col>
+                        </div>
+                        <div className="dashed-top-border-secondary d-flex flex-wrap pt-2 pb-1">
+                            <span className="tattoo-style-badge mx-1">Blackwork</span>
+                            <span className="tattoo-style-badge mx-1">Fineline</span>
+                            <span className="tattoo-style-badge mx-1">Neo-Tradition</span>
+                            <span className="tattoo-style-badge mx-1">Illustrative</span>
+                            <span className="tattoo-style-badge mx-1">Surrealism</span>
+                        </div>
                     </div>
                 </div>
             </div>
