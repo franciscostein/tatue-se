@@ -19,9 +19,13 @@ const NavbarComponent = () => {
             <Navbar.Brand className="px-3 text-white">tatue-se</Navbar.Brand>
             <Navbar.Toggle aria-controls="navbar-nav" />
             <Navbar.Collapse id="navbar-nav">
-                <Nav.Link>Artists</Nav.Link>
-                <Nav.Link>Studios</Nav.Link>
+                <Nav.Link href="/">Artists</Nav.Link>
+                <Nav.Link href="/studios">Studios</Nav.Link>
             </Navbar.Collapse>
+            {/* <Nav>
+                <Nav.Link href="/">Artists 1</Nav.Link>
+                <Nav.Link href="/studios">Studios</Nav.Link>
+            </Nav> */}
 
             <Dropdown className="px-4">
                 <Dropdown.Toggle variant="dark" id="dropdown-profile">
