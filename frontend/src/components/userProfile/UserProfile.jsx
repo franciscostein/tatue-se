@@ -4,7 +4,7 @@ import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 import userAvatar from '../../assets/user_w.png';
 
-const Profile = () => {
+const UserProfile = () => {
     return (
         <Container>
             <Form>
@@ -57,4 +57,4 @@ const Profile = () => {
     );
 }
 
-export default Profile;
+export default UserProfile;

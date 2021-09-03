@@ -21,6 +21,13 @@ describe('navbar links', () => {
     });
 
     test('clicking on studios link', () => {
+        const history = createMemoryHistory();
+        render(
+            <Router history={history}>
+                <App />
+            </Router>
+        );
+        
         userEvent.click(screen.getByText(/studios/i).closest('a'));
         expect(screen.getByText(/>find tattoo studios near you/i)).toBeInTheDocument();
     });

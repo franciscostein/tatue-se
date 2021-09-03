@@ -1,4 +1,3 @@
-import './ArtistProfile.css';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
@@ -21,7 +20,7 @@ const Artist = () => {
                         <Button variant="secondary" className="px-3 mx-2">
                             Cancel
                         </Button>
-                        <Button variant="success" className="px-3 mx-2">
+                        <Button variant="primary" className="px-3 mx-2">
                             Save
                         </Button>
                     </div>

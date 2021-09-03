@@ -4,13 +4,14 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Navbar from './layout/navbar/Navbar';
 import Footer from './layout/footer/Footer';
-// import Studio from './components/studios/studio/Studio';
 import Studios from './components/studios/Studios';
+import Studio from './components/studios/studio/Studio';
+import StudioProfile from './components/studios/studioProfile/StudioProfile';
 import Artists from './components/artists/Artists';
-// import Artist from './components/artists/artist/Artist';
-// import ArtistProfile from './components/artists/artistProfile/ArtistProfile';
-// import Profile from './components/profile/Profile';
-// import SignUp from './components/signup/SignUp';
+import Artist from './components/artists/artist/Artist';
+import ArtistProfile from './components/artists/artistProfile/ArtistProfile';
+import UserProfile from './components/userProfile/UserProfile';
+import SignUp from './components/signup/SignUp';
 
 function App() {
     return (
@@ -22,17 +23,29 @@ function App() {
                         <Route exact path="/">
                             <Artists />
                         </Route>
+                        <Route exact path="/artists/profile">
+                            <ArtistProfile />
+                        </Route>
+                        <Route path="/artists/:id">
+                            <Artist />
+                        </Route>
                         <Route path="/studios">
                             <Studios />
                         </Route>
+                        <Route exact path="/studios/profile">
+                            <StudioProfile />
+                        </Route>
+                        <Route path="/studios/:id">
+                            <Studio />
+                        </Route>
+                        <Route path="/user/profile">
+                            <UserProfile />
+                        </Route>
+                        <Route path="/signup">
+                            <SignUp />
+                        </Route>
                     </Switch>
                 </BrowserRouter>
-                {/* <Artist /> */}
-                {/* <ArtistProfile /> */}
-                {/* <Profile /> */}
-                {/* <SignUp /> */}
-                {/* <Studio /> */}
-                {/* <Studios /> */}
             </div>
             <Footer />
         </div>
