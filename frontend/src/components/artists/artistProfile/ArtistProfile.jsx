@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getCurrentProfile, saveProfile } from '../../../actions/artist';
+
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
@@ -7,10 +12,10 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { FaPlus } from 'react-icons/fa';
-import profileAvatar from '../../../assets/user_w.png';
-import { getCurrentProfile, saveProfile } from '../../../actions/artist';
 
-const Artist = ({ match, history }) => {
+import profileAvatar from '../../../assets/user_w.png';
+
+const ArtistProfile = ({ saveProfile, match, history }) => {
     const [formData, setFormData] = useState({
         user: '',
         fullName: '',
@@ -197,4 +202,8 @@ const Artist = ({ match, history }) => {
     );
 }
 
-export default Artist;
+ArtistProfile.propTypes = {
+    saveProfile: PropTypes.func.isRequired
+}
+
+export default connect(null, { saveProfile })(withRouter(ArtistProfile));

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { setAlert } from './alert';
 
 import {
-    GET_ARIST_PROFILE,
+    GET_ARTIST_PROFILE,
     ARTIST_PROFILE_ERROR
 } from './types';
 
@@ -11,7 +11,7 @@ export const getCurrentProfile = artistId => async dispatch => {
         const res = await axios.get(`/api/artists/${artistId}`);
 
         dispatch({
-            type: GET_ARIST_PROFILE,
+            type: GET_ARTIST_PROFILE,
             payload: res.data
         });
     } catch (error) {
