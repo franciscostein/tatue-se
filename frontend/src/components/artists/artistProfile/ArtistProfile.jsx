@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
@@ -7,8 +8,47 @@ import Button from 'react-bootstrap/Button';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { FaPlus } from 'react-icons/fa';
 import profileAvatar from '../../../assets/user_w.png';
+import { getCurrentProfile, saveProfile } from '../../../actions/artist';
 
-const Artist = () => {
+const Artist = ({ match, history }) => {
+    const [formData, setFormData] = useState({
+        user: '',
+        fullName: '',
+        city: '',
+        latitude: '',
+        longitude: '',
+        profilePicture: '',
+        biography: '',
+        workplaces: [],
+        tattooStyles: [],
+        portfolio: [],
+        facebook: '',
+        instagram: '',
+        website: '',
+        phone: '',
+        email: '',
+        hourRate: '',
+        minRate: '',
+        currency: ''
+    });
+
+    useEffect(() => {
+        getCurrentProfile(match.params.id);
+
+        setFormData({
+
+        });
+    }, []);
+
+    const { user, fullName, city, latitude, longitude, profilePicture, biography, workplaces, tattooStyles, portfolio, facebook, instagram, website, phone, email, hourRate, minRate, currency } = formData;
+
+    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    const onSubmit = e => {
+        e.preventDefault();
+        saveProfile(formData, history);
+    }
+
     return (
         <Container>
             <Form>

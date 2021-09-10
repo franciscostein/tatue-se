@@ -1,0 +1,4 @@
+export const GET_ARIST_PROFILE = 'GET_ARIST_PROFILE';
+export const ARTIST_PROFILE_ERROR = 'ARTIST_PROFILE_ERROR';
+export const SET_ALERT = 'SET_ALERT';
+export const REMOVE_ALERT = 'REMOVE_ALERT';
