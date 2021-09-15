@@ -1,6 +1,8 @@
 import './App.css';
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './store';
 
 import Navbar from './layout/navbar/Navbar';
 import Footer from './layout/footer/Footer';
@@ -18,34 +20,36 @@ function App() {
         <div className="App">
             <Navbar />
             <div className="App-content">
-                <BrowserRouter>
-                    <Switch>
-                        <Route exact path="/">
-                            <Artists />
-                        </Route>
-                        <Route exact path="/artists/profile">
-                            <ArtistProfile />
-                        </Route>
-                        <Route path="/artists/:id">
-                            <Artist />
-                        </Route>
-                        <Route path="/studios">
-                            <Studios />
-                        </Route>
-                        <Route exact path="/studios/profile">
-                            <StudioProfile />
-                        </Route>
-                        <Route path="/studios/:id">
-                            <Studio />
-                        </Route>
-                        <Route path="/user/profile">
-                            <UserProfile />
-                        </Route>
-                        <Route path="/signup">
-                            <SignUp />
-                        </Route>
-                    </Switch>
-                </BrowserRouter>
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <Switch>
+                            <Route exact path="/">
+                                <Artists />
+                            </Route>
+                            <Route exact path="/artists/profile">
+                                <ArtistProfile />
+                            </Route>
+                            <Route path="/artists/:id">
+                                <Artist />
+                            </Route>
+                            <Route path="/studios">
+                                <Studios />
+                            </Route>
+                            <Route exact path="/studios/profile">
+                                <StudioProfile />
+                            </Route>
+                            <Route path="/studios/:id">
+                                <Studio />
+                            </Route>
+                            <Route path="/user/profile">
+                                <UserProfile />
+                            </Route>
+                            <Route path="/signup">
+                                <SignUp />
+                            </Route>
+                        </Switch>
+                    </BrowserRouter>
+                </Provider>
             </div>
             <Footer />
         </div>

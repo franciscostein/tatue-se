@@ -75,7 +75,12 @@ const ArtistProfile = ({ saveProfile, match, history }) => {
                     <Col>
                         <Form.Group controlId="formArtistName">
                             <Form.Label className="font-75">Name</Form.Label>
-                            <Form.Control type="text" placeholder="Full name" />
+                            <Form.Control 
+                                type="text" 
+                                placeholder="Full name"
+                                valeu={fullName}
+                                onChange={e => onChange(e)}
+                            />
                         </Form.Group>
                     </Col>
                     <Col>
