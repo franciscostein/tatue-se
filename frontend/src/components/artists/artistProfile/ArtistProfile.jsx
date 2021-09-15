@@ -51,7 +51,8 @@ const ArtistProfile = ({ saveProfile, match, history }) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        saveProfile(formData, history);
+        console.log(formData);
+        // saveProfile(formData, history);
     }
 
     return (
@@ -65,7 +66,7 @@ const ArtistProfile = ({ saveProfile, match, history }) => {
                         <Button variant="secondary" className="px-3 mx-2">
                             Cancel
                         </Button>
-                        <Button variant="primary" className="px-3 mx-2">
+                        <Button variant="primary" className="px-3 mx-2" onClick={e => onSubmit(e)}>
                             Save
                         </Button>
                     </div>
@@ -78,6 +79,7 @@ const ArtistProfile = ({ saveProfile, match, history }) => {
                             <Form.Control 
                                 type="text" 
                                 placeholder="Full name"
+                                name="fullName"
                                 valeu={fullName}
                                 onChange={e => onChange(e)}
                             />
@@ -86,7 +88,13 @@ const ArtistProfile = ({ saveProfile, match, history }) => {
                     <Col>
                         <Form.Group controlId="formArtistEmail">
                             <Form.Label className="font-75">Email</Form.Label>
-                            <Form.Control type="email" placeholder="example@email.com" />
+                            <Form.Control
+                                type="email"
+                                placeholder="example@email.com"
+                                name="email"
+                                value={email}
+                                onChange={e => onChange(e)}
+                            />
                         </Form.Group>
                     </Col>
                 </Row>
@@ -94,13 +102,25 @@ const ArtistProfile = ({ saveProfile, match, history }) => {
                     <Col>
                         <Form.Group controlId="formArtistWebsite">
                             <Form.Label className="font-75">Website</Form.Label>
-                            <Form.Control type="text" placeholder="example.com" />
+                            <Form.Control 
+                                type="text" 
+                                placeholder="example.com"
+                                name="website"
+                                value={website}
+                                onChange={e => onChange(e)}
+                            />
                         </Form.Group>
                     </Col>
                     <Col>
                         <Form.Group controlId="formArtistPhone">
                             <Form.Label className="font-75">Phone</Form.Label>
-                            <Form.Control type="tel" placeholder="Phone number" />
+                            <Form.Control 
+                                type="tel" 
+                                placeholder="Phone number"
+                                name="phone"
+                                value={phone}
+                                onChange={e => onChange(e)}
+                            />
                         </Form.Group>
                     </Col>
                 </Row>
@@ -108,26 +128,50 @@ const ArtistProfile = ({ saveProfile, match, history }) => {
                     <Col>
                         <Form.Group controlId="formArtistFacebook">
                             <Form.Label className="font-75">Facebook</Form.Label>
-                            <Form.Control type="text" placeholder="Facebook" />
+                            <Form.Control 
+                                type="text" 
+                                placeholder="Facebook" 
+                                name="facebook"
+                                value={facebook}
+                                onChange={e => onChange(e)}
+                            />
                         </Form.Group>
                     </Col>
                     <Col>
                         <Form.Group controlId="formArtistInstagram">
                             <Form.Label className="font-75">Instagram</Form.Label>
-                            <Form.Control type="tel" placeholder="Instagram" />
+                            <Form.Control 
+                                type="tel" 
+                                placeholder="Instagram" 
+                                name="instagram"
+                                value={instagram}
+                                onChange={e => onChange(e)}
+                            />
                         </Form.Group>
                     </Col>
                 </Row>
                 <Row className="mb-3">
                     <Form.Group controlId="formArtistLocation">
                         <Form.Label className="font-75">City</Form.Label>
-                        <Form.Control type="text" placeholder="Where do you live?" />
+                        <Form.Control 
+                            type="text" 
+                            placeholder="Where do you live?" 
+                            name="city"
+                            value={city}
+                            onChange={e => onChange(e)}
+                        />
                     </Form.Group>
                 </Row>
                 <Row className="pb-3">
                     <Form.Group controlId="formArtistBiography">
                         <Form.Label className="font-75">Biography</Form.Label>
-                        <Form.Control as="textarea" rows={3} />
+                        <Form.Control 
+                            as="textarea" 
+                            rows={3}
+                            name="biography"
+                            value={biography}
+                            onChange={e => onChange(e)}
+                        />
                     </Form.Group>
                 </Row>
 
@@ -162,7 +206,12 @@ const ArtistProfile = ({ saveProfile, match, history }) => {
                         <Col md={{ span: 10 }}>
                             <Form.Group controlId="formArtistPriceHour">
                                 <Form.Label className="d-flex font-75">Price per hour</Form.Label>
-                                <Form.Control type="number" />
+                                <Form.Control 
+                                    type="number"
+                                    name="hourRate"
+                                    value={hourRate}
+                                    onChange={e => onChange(e)}
+                                />
                             </Form.Group>
                         </Col>
                         <Col>
@@ -178,7 +227,12 @@ const ArtistProfile = ({ saveProfile, match, history }) => {
                         <Col md={{ span: 10 }}>
                             <Form.Group controlId="formArtistPriceMin">
                                 <Form.Label className="d-flex font-75">Min rate</Form.Label>
-                                <Form.Control type="number" />
+                                <Form.Control 
+                                    type="number"
+                                    name="minRate"
+                                    value={minRate}
+                                    onChange={e => onChange(e)}
+                                />
                             </Form.Group>
                         </Col>
                         <Col>

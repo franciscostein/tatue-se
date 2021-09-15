@@ -36,6 +36,11 @@ export const saveProfile = (formData, history, edit = false) => async dispatch =
 
         const res = await axios.post('/api/artists', formData, config);
 
+        dispatch({
+            type: GET_ARTIST_PROFILE,
+            payload: res.data
+        });
+
         dispatch(setAlert(edit ? 'Profile updated' : 'Profile created', 'success'));
 
         if (!edit) {
