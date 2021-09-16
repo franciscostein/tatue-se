@@ -1,5 +1,6 @@
 const express = require('express');
 const connectDB = require('./config/database/mongoDB');
+const cors = require('cors');
 const users = require('./routes/user');
 const auth = require('./routes/auth');
 const artists = require('./routes/artist');
@@ -12,6 +13,7 @@ const app = express();
 
 connectDB();
 
+app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', auth);

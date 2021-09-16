@@ -1,3 +1,6 @@
+import React, { useEffect } from 'react';
+import axios from 'axios';
+
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -10,6 +13,16 @@ import img5 from '../../assets/artist/1.jpeg';
 import avatar from '../../assets/user_w.png';
 
 const Artists = () => {
+    useEffect(() => {
+        fetchTattooStyles();
+    }, []);
+
+    const fetchTattooStyles = async () => {
+        const res = await axios.get('/api/tattoo-styles');
+
+        console.log(res.data);
+    }
+
     return (
         <div>
             <div className="search-header">
