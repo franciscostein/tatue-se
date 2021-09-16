@@ -2,22 +2,17 @@ import './Artists.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Image from 'react-bootstrap/Image';
-import img1 from '../../assets/artist/2.jpeg';
-import img2 from '../../assets/artist/3.jpeg';
-import img3 from '../../assets/artist/4.jpeg';
-import img4 from '../../assets/artist/5.jpeg';
-import img5 from '../../assets/artist/1.jpeg';
-import avatar from '../../assets/user_w.png';
+
+import ArtistCard from './fragments/ArtistCard';
 
 const Artists = () => {
     const [tattooStyles, setTattooStyles] = useState([]);
+    const [artists, setArtists] = useState([]);
 
     useEffect(() => {
         fetchTattooStyles();
+        fetchArtists();
     }, []);
 
     const fetchTattooStyles = async () => {
@@ -25,6 +20,16 @@ const Artists = () => {
 
         if (res.data) {
             buildTattooStyles(res.data);
+        } else {
+            console.log(res.error);
+        }
+    }
+
+    const fetchArtists = async () => {
+        const res = await axios.get('/api/artists');
+
+        if (res.data) {
+            buildArtists(res.data);
         } else {
             console.log(res.error);
         }
@@ -38,6 +43,16 @@ const Artists = () => {
         });
 
         setTattooStyles(names);
+    }
+
+    const buildArtists = artists => {
+        const artistsArray = [];
+
+        artists.forEach(artist => {
+            artistsArray.push(artist);
+        });
+
+        setArtists(artistsArray);
     }
 
     return (
@@ -60,9 +75,16 @@ const Artists = () => {
             </div>
 
             <hr className="my-2" />
-
-            <div className="d-flex flex-wrap justify-content-center mx-5">
-                <div className="studio-card m-3">
+            {
+                artists ?
+                <div className="d-flex flex-wrap justify-content-center mx-5">
+                    {
+                        artists.map(artist => <ArtistCard artist={artist} />)
+                    }
+                </div>
+                : null
+            }
+                {/* <div className="studio-card m-3">
                     <Row>
                         <Image src={img1} className="studio-card-img" />
                     </Row>
@@ -152,8 +174,7 @@ const Artists = () => {
                         <span className="tattoo-style-badge mx-1">Illustrative</span>
                         <span className="tattoo-style-badge mx-1">Surrealism</span>
                     </div>
-                </div>
-            </div>
+                </div> */}
         </div>
     );
 }
