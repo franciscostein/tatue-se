@@ -3,8 +3,6 @@ import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 
 const ArtistCard = ({ artist, artist: { coverPicture, profilePicture, fullName, workplaces, tattooStyles } }) => {
-    console.log('here', artist);
-
     return (
         <div className="studio-card m-3">
             <Row>

@@ -30,7 +30,6 @@ const Artists = () => {
 
 
         if (res.data) {
-            console.log(res.data);
             buildArtists(res.data);
         } else {
             console.log(res.error);
@@ -55,8 +54,6 @@ const Artists = () => {
                 ...artist
             });
         });
-
-        console.log(artistsArray);
 
         setArtists(artistsArray);
     }
