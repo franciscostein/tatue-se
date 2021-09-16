@@ -28,7 +28,9 @@ const Artists = () => {
     const fetchArtists = async () => {
         const res = await axios.get('/api/artists');
 
+
         if (res.data) {
+            console.log(res.data);
             buildArtists(res.data);
         } else {
             console.log(res.error);
@@ -49,8 +51,12 @@ const Artists = () => {
         const artistsArray = [];
 
         artists.forEach(artist => {
-            artistsArray.push(artist);
+            artistsArray.push({
+                ...artist
+            });
         });
+
+        console.log(artistsArray);
 
         setArtists(artistsArray);
     }

@@ -24,6 +24,10 @@ p {
     text-align: start;
 }
 
+/* .form-control {
+    border-radius: 16px !important;
+} */
+
 .App {
     text-align: center;
     background-color: #282c34;

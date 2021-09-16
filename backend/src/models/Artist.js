@@ -30,6 +30,9 @@ const artistSchema = new Schema({
 	profilePicture: {
 		publicId: String
 	},
+	coverPicture: {
+		publicId: String
+	},
 	biography: {
 		type: String,
 		trim: true
