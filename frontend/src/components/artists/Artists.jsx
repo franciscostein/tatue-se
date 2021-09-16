@@ -19,15 +19,15 @@ const Artists = () => {
                     <Form.Control type="text" placeholder="In which city?" />
                 </Form.Group>
                 <div>
-                    <span className="tattoo-style-badge font-45 mx-1">Black &amp; Gray</span>
-                    <span className="tattoo-style-badge font-45 mx-1">Blackwork</span>
-                    <span className="tattoo-style-badge font-45 mx-1">Dotwork</span>
-                    <span className="tattoo-style-badge font-45 mx-1">Fineline</span>
-                    <span className="tattoo-style-badge font-45 mx-1">Illustrative</span>
-                    <span className="tattoo-style-badge font-45 mx-1">Neo-Traditional</span>
-                    <span className="tattoo-style-badge font-45 mx-1">Ornamental</span>
-                    <span className="tattoo-style-badge font-45 mx-1">Realism</span>
-                    <span className="tattoo-style-badge font-45 mx-1">Surrealism</span>
+                    <span className="tattoo-style-badge font-50 mx-1">Black &amp; Gray</span>
+                    <span className="tattoo-style-badge font-50 mx-1">Blackwork</span>
+                    <span className="tattoo-style-badge font-50 mx-1">Dotwork</span>
+                    <span className="tattoo-style-badge font-50 mx-1">Fineline</span>
+                    <span className="tattoo-style-badge font-50 mx-1">Illustrative</span>
+                    <span className="tattoo-style-badge font-50 mx-1">Neo-Traditional</span>
+                    <span className="tattoo-style-badge font-50 mx-1">Ornamental</span>
+                    <span className="tattoo-style-badge font-50 mx-1">Realism</span>
+                    <span className="tattoo-style-badge font-50 mx-1">Surrealism</span>
                 </div>
             </div>
 

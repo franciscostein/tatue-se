@@ -6,7 +6,7 @@
 	"scripts": {
 		"server": "env-cmd -f ./src/config/env/dev.env nodemon src/server.js",
 		"test": "jest --watchAll",
-        "dev": "concurrently \"yarn ../frontend/start\" \"yarn server\""
+        "dev": "concurrently \"npm run server\" \"npm start --prefix ../frontend\""
 	},
 	"repository": {
 		"type": "git",
