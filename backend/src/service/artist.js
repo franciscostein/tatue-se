@@ -1,10 +1,10 @@
 const { apiResponse } = require('../utils/messages');
 const Artist = require('../models/Artist');
 
-exports.save = async (userId, fullName, location, profilePicture, coverPicture, biography, workplace, tattooStyles, portfolio, social, pricing) => {
+exports.save = async (userId, { fullName, location, profilePicture, coverPicture, biography, workplaces, tattooStyles, portfolio, social, pricing }) => {
 	const artist = await Artist.findOne({ user: userId });
 
-	const artistFields = buildObject(fullName, location, profilePicture, coverPicture, biography, workplace, tattooStyles, portfolio, social, pricing);
+	const artistFields = buildObject(fullName, location, profilePicture, coverPicture, biography, workplaces, tattooStyles, portfolio, social, pricing);
 	artistFields.user = userId;
 
 	if (artist) {
@@ -17,7 +17,10 @@ exports.save = async (userId, fullName, location, profilePicture, coverPicture, 
 }
 
 exports.getAll = async () => {
-	const artists = await Artist.find();
+	const artists = await Artist.find({})
+									.populate('workplaces')
+									.populate('tattooStyles')
+									.exec();
 
 	if (artists) {
 		return apiResponse(artists);
@@ -46,7 +49,7 @@ exports.deleteByUserId = async userId => {
 	}
 }
 
-const buildObject = (fullName, location, profilePicture, coverPicture, biography, workplace, tattooStyles, portfolio, social, pricing) => {
+const buildObject = (fullName, location, profilePicture, coverPicture, biography, workplaces, tattooStyles, portfolio, social, pricing) => {
 	const artistFields = {};
 	if (fullName) artistFields.fullName = fullName;
 	if (location) {
@@ -58,7 +61,7 @@ const buildObject = (fullName, location, profilePicture, coverPicture, biography
 	if (profilePicture) artistFields.profilePicture = profilePicture;
 	if (coverPicture) artistFields.coverPicture = coverPicture;
 	if (biography) artistFields.biography = biography;
-	if (workplace) artistFields.workplace = workplace;
+	if (workplaces) artistFields.workplaces = workplaces;
 	if (tattooStyles) artistFields.tattooStyles = tattooStyles;
 	if (portfolio) artistFields.portfolio = portfolio;
 	if (social) {

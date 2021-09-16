@@ -43,7 +43,7 @@ const artistSchema = new Schema({
 	}],
 	tattooStyles: [{ 
 		type: Schema.Types.ObjectId,
-		ref: 'tattooStyles'
+		ref: 'tattooStyle'
 	}],
 	portfolio: {
 		type: [{
