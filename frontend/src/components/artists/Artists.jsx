@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import './Artists.css';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import Row from 'react-bootstrap/Row';
@@ -13,6 +14,8 @@ import img5 from '../../assets/artist/1.jpeg';
 import avatar from '../../assets/user_w.png';
 
 const Artists = () => {
+    const [tattooStyles, setTattooStyles] = useState([]);
+
     useEffect(() => {
         fetchTattooStyles();
     }, []);
@@ -20,7 +23,21 @@ const Artists = () => {
     const fetchTattooStyles = async () => {
         const res = await axios.get('/api/tattoo-styles');
 
-        console.log(res.data);
+        if (res.data) {
+            buildTattooStyles(res.data);
+        } else {
+            console.log(res.error);
+        }
+    }
+
+    const buildTattooStyles = tattooStyles => {
+        const names = [];
+
+        tattooStyles.forEach(tattooStyle => {
+            names.push(tattooStyle.name);
+        });
+
+        setTattooStyles(names);
     }
 
     return (
@@ -31,20 +48,18 @@ const Artists = () => {
                 <Form.Group controlId="formArtistLocation">
                     <Form.Control type="text" placeholder="In which city?" />
                 </Form.Group>
-                <div>
-                    <span className="tattoo-style-badge font-50 mx-1">Black &amp; Gray</span>
-                    <span className="tattoo-style-badge font-50 mx-1">Blackwork</span>
-                    <span className="tattoo-style-badge font-50 mx-1">Dotwork</span>
-                    <span className="tattoo-style-badge font-50 mx-1">Fineline</span>
-                    <span className="tattoo-style-badge font-50 mx-1">Illustrative</span>
-                    <span className="tattoo-style-badge font-50 mx-1">Neo-Traditional</span>
-                    <span className="tattoo-style-badge font-50 mx-1">Ornamental</span>
-                    <span className="tattoo-style-badge font-50 mx-1">Realism</span>
-                    <span className="tattoo-style-badge font-50 mx-1">Surrealism</span>
-                </div>
+                {
+                    tattooStyles ?
+                    <div className="tattoo-styles-header">
+                        {
+                            tattooStyles.map(tattooStyle => <span className="tattoo-style-badge font-50 mx-1 mb-2">{tattooStyle}</span>)
+                        }
+                    </div>
+                    : null
+                }
             </div>
 
-            <hr className="my-3" />
+            <hr className="my-2" />
 
             <div className="d-flex flex-wrap justify-content-center mx-5">
                 <div className="studio-card m-3">
@@ -54,8 +69,8 @@ const Artists = () => {
                     <div className="d-flex align-items-center mb-1">
                         <Image src={avatar} className="studio-avatar-img" roundedCircle />
                         <Col>
-                            <Row className="font-60">Tattoist 1</Row>
-                            <Row className="font-45">Tattoo Studio</Row>
+                            <Row className="font-60 ps-2">Tattoist 1</Row>
+                            <Row className="font-45 ps-2">Tattoo Studio</Row>
                         </Col>
                     </div>
                     <div className="dashed-top-border-secondary d-flex flex-wrap pt-2 pb-1">
@@ -70,8 +85,8 @@ const Artists = () => {
                     <div className="d-flex align-items-center mb-1">
                         <Image src={avatar} className="studio-avatar-img" roundedCircle />
                         <Col>
-                            <Row className="font-60">Tattoist 2</Row>
-                            <Row className="font-45">Tattoo Studio</Row>
+                            <Row className="font-60 ps-2">Tattoist 2</Row>
+                            <Row className="font-45 ps-2">Tattoo Studio</Row>
                         </Col>
                     </div>
                     <div className="dashed-top-border-secondary d-flex flex-wrap pt-2 pb-1">
@@ -88,8 +103,8 @@ const Artists = () => {
                     <div className="d-flex align-items-center mb-1">
                         <Image src={avatar} className="studio-avatar-img" roundedCircle />
                         <Col>
-                            <Row className="font-60">Tattoist 3</Row>
-                            <Row className="font-45">Tattoo Studio</Row>
+                            <Row className="font-60 ps-2">Tattoist 3</Row>
+                            <Row className="font-45 ps-2">Tattoo Studio</Row>
                         </Col>
                     </div>
                     <div className="dashed-top-border-secondary d-flex flex-wrap pt-2 pb-1">
@@ -107,8 +122,8 @@ const Artists = () => {
                     <div className="d-flex align-items-center mb-1">
                         <Image src={avatar} className="studio-avatar-img" roundedCircle />
                         <Col>
-                            <Row className="font-60">Tattoist 4</Row>
-                            <Row className="font-45">Tattoo Studio</Row>
+                            <Row className="font-60 ps-2">Tattoist 4</Row>
+                            <Row className="font-45 ps-2">Tattoo Studio</Row>
                         </Col>
                     </div>
                     <div className="dashed-top-border-secondary d-flex flex-wrap pt-2 pb-1">
@@ -126,8 +141,8 @@ const Artists = () => {
                     <div className="d-flex align-items-center mb-1">
                         <Image src={avatar} className="studio-avatar-img" roundedCircle />
                         <Col>
-                            <Row className="font-60">Tattoist 5</Row>
-                            <Row className="font-45">Tattoo Studio</Row>
+                            <Row className="font-60 ps-2">Tattoist 5</Row>
+                            <Row className="font-45 ps-2">Tattoo Studio</Row>
                         </Col>
                     </div>
                     <div className="dashed-top-border-secondary d-flex flex-wrap pt-2 pb-1">
