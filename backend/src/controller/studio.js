@@ -32,7 +32,7 @@ exports.getOne = async (req, res, next) => {
 
 exports.deleteOne = async (req, res, next) => {
 	try {
-		const { status, payload } = await deleteById(req.user.id, req.params.id);
+		const { status, payload } = await deleteById(req.user.id);
 
 		res.status(status).json(payload);
 	} catch (err) {

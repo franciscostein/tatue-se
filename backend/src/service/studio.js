@@ -1,15 +1,14 @@
 const { apiResponse } = require('../utils/messages');
 const Studio = require('../models/Studio');
 
-exports.save = async (userId, { studioId, name, location, owners, logo, coverImage, about, social, businessHours, photos, reviews }) => {
+exports.save = async (userId, { studioId, name, location, logo, coverImage, about, social, businessHours, photos, reviews }) => {
 	const studio = await Studio.findOne({ _id: studioId });
 
-	checkIsUserAnOwner(userId, owners, studio ? studio.owners : null);
-
-	const studioFields = buildObject(name, location, owners, logo, coverImage, about, social, businessHours, photos, reviews);
+	const studioFields = buildObject(name, location, logo, coverImage, about, social, businessHours, photos, reviews);
+	studioFields.owner = userId;
 
 	if (studio) {
-		const updated = await update(studioId, studioFields);
+		const updated = await update(userId, studioFields);
 		return apiResponse(updated._doc);
 	} else {
 		const inserted = await create(studioFields);
@@ -37,14 +36,8 @@ exports.getOne = async id => {
 	}
 }
 
-exports.deleteById = async (userId, studioId) => {
-	const studio = await Studio.findOne({ _id: studioId });
-
-	if (!studio) return apiResponse({}, 204);
-
-	checkIsUserAnOwner(userId, null, studio.owners);
-
-	const { deletedCount } = await Studio.deleteOne({ '_id': studioId });
+exports.deleteById = async userId => {
+	const { deletedCount } = await Studio.deleteOne({ owner: userId });
 
 	if (deletedCount > 0) {
 		return apiResponse();
@@ -53,19 +46,7 @@ exports.deleteById = async (userId, studioId) => {
 	}
 }
 
-const checkIsUserAnOwner = (userId, reqOwners, dbOwners) => {
-	const error = new Error('User must be an owner');
-
-	if (!reqOwners && !dbOwners) {
-		throw error;
-	} else {
-		if ((reqOwners && !reqOwners.includes(userId)) || (dbOwners && !dbOwners.includes(userId))) {
-			throw error;
-		}
-	} 
-}
-
-const buildObject = (name, location, owners, logo, coverImage, about, social, businessHours, photos, reviews) => {
+const buildObject = (name, location, logo, coverImage, about, social, businessHours, photos, reviews) => {
 	const studioFields = {};
 	if (name) studioFields.name = name;
 	if (location) {
@@ -75,10 +56,6 @@ const buildObject = (name, location, owners, logo, coverImage, about, social, bu
 		if (location.latitude) studioFields.location.latitude = location.latitude;
 		if (location.longitude) studioFields.location.longitude = location.longitude;
 	}
-	if (owners) {
-        studioFields.owners = [];
-        studioFields.owners = owners;
-    }
 	if (logo) studioFields.logo = logo;
 	if (coverImage) studioFields.coverImage = coverImage;
 	if (about) studioFields.about = about;
@@ -134,9 +111,9 @@ const buildObject = (name, location, owners, logo, coverImage, about, social, bu
 	return studioFields;
 }
 
-const update = async (studioId, fields) => {
+const update = async (userId, fields) => {
 	return await Studio.findOneAndUpdate(
-		{ _id: studioId },
+		{ owner: userId },
 		{ $set: fields },
 		{ new: true }
 	);
