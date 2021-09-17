@@ -1,8 +1,8 @@
 const { apiResponse } = require('../utils/messages');
 const Studio = require('../models/Studio');
 
-exports.save = async (userId, { studioId, name, location, logo, coverImage, about, social, businessHours, photos, reviews }) => {
-	const studio = await Studio.findOne({ _id: studioId });
+exports.save = async (userId, { name, location, logo, coverImage, about, social, businessHours, photos, reviews }) => {
+	const studio = await Studio.findOne({ owner: userId });
 
 	const studioFields = buildObject(name, location, logo, coverImage, about, social, businessHours, photos, reviews);
 	studioFields.owner = userId;
