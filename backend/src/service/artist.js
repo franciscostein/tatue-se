@@ -1,10 +1,10 @@
 const { apiResponse } = require('../utils/messages');
 const Artist = require('../models/Artist');
 
-exports.save = async (userId, { fullName, location, profilePicture, coverPicture, biography, workplaces, tattooStyles, portfolio, social, pricing }) => {
+exports.save = async (userId, { fullName, location, profilePicture, coverImage, biography, workplaces, tattooStyles, portfolio, social, pricing }) => {
 	const artist = await Artist.findOne({ user: userId });
 
-	const artistFields = buildObject(fullName, location, profilePicture, coverPicture, biography, workplaces, tattooStyles, portfolio, social, pricing);
+	const artistFields = buildObject(fullName, location, profilePicture, coverImage, biography, workplaces, tattooStyles, portfolio, social, pricing);
 	artistFields.user = userId;
 
 	if (artist) {
@@ -49,7 +49,7 @@ exports.deleteByUserId = async userId => {
 	}
 }
 
-const buildObject = (fullName, location, profilePicture, coverPicture, biography, workplaces, tattooStyles, portfolio, social, pricing) => {
+const buildObject = (fullName, location, profilePicture, coverImage, biography, workplaces, tattooStyles, portfolio, social, pricing) => {
 	const artistFields = {};
 	if (fullName) artistFields.fullName = fullName;
 	if (location) {
@@ -59,7 +59,7 @@ const buildObject = (fullName, location, profilePicture, coverPicture, biography
 		if (location.longitude) artistFields.location.longitude = location.longitude;
 	}
 	if (profilePicture) artistFields.profilePicture = profilePicture;
-	if (coverPicture) artistFields.coverPicture = coverPicture;
+	if (coverImage) artistFields.coverImage = coverImage;
 	if (biography) artistFields.biography = biography;
 	if (workplaces) artistFields.workplaces = workplaces;
 	if (tattooStyles) artistFields.tattooStyles = tattooStyles;

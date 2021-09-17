@@ -5,11 +5,11 @@ import Image from 'react-bootstrap/Image';
 import coverPlaceholder from '../../../assets/cover.jpg';
 import avatarPlaceholder from '../../../assets/user_w.png';
 
-const ArtistCard = ({ artist: { coverPicture = { publicId: null }, profilePicture = { publicId: null }, fullName, workplaces, tattooStyles } }) => {
+const ArtistCard = ({ artist: { coverImage = { publicId: null }, profilePicture = { publicId: null }, fullName, workplaces, tattooStyles } }) => {
     return (
         <div className="studio-card m-3">
             <Row>
-                <Image src={coverPicture.publicId ?? coverPlaceholder} className="studio-card-img" />
+                <Image src={coverImage.publicId ?? coverPlaceholder} className="studio-card-img" />
             </Row>
             <div className="d-flex align-items-center mb-1">
                 <Image src={profilePicture.publicId ?? avatarPlaceholder} className="studio-avatar-img" roundedCircle />

@@ -1,16 +1,5 @@
 import './Studios.css';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Image from 'react-bootstrap/Image';
-import { FaMapMarkerAlt } from 'react-icons/fa';
-
-import img1 from '../../assets/studio/0.jpeg';
-import img2 from '../../assets/studio/3.jpeg';
-import img3 from '../../assets/studio/9.jpeg';
-import img4 from '../../assets/studio/5.jpeg';
-import img5 from '../../assets/studio/1.jpeg';
-import avatar from '../../assets/user_w.png';
 
 const Studios = () => {
     return (
@@ -26,7 +15,7 @@ const Studios = () => {
             <hr className="my-3" />
 
             <div className="d-flex flex-wrap justify-content-center mx-5">
-                <div className="studio-card m-3">
+                {/* <div className="studio-card m-3">
                     <Row>
                         <Image src={img1} className="studio-card-img" />
                     </Row>
@@ -100,7 +89,7 @@ const Studios = () => {
                             </div>
                         </Col>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     );

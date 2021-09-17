@@ -34,6 +34,9 @@ const studioSchema = new Schema({
 	logo: {
 		publicId: String
 	},
+	coverImage: {
+		publicId: String
+	},
 	about: {
 		type: String,
 		trim: true

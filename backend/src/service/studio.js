@@ -1,12 +1,12 @@
 const { apiResponse } = require('../utils/messages');
 const Studio = require('../models/Studio');
 
-exports.save = async (userId, studioId, name, location, owners, logo, about, social, businessHours, photos, reviews) => {
+exports.save = async (userId, { studioId, name, location, owners, logo, coverImage, about, social, businessHours, photos, reviews }) => {
 	const studio = await Studio.findOne({ _id: studioId });
 
 	checkIsUserAnOwner(userId, owners, studio ? studio.owners : null);
 
-	const studioFields = buildObject(name, location, owners, logo, about, social, businessHours, photos, reviews);
+	const studioFields = buildObject(name, location, owners, logo, coverImage, about, social, businessHours, photos, reviews);
 
 	if (studio) {
 		const updated = await update(studioId, studioFields);
@@ -65,7 +65,7 @@ const checkIsUserAnOwner = (userId, reqOwners, dbOwners) => {
 	} 
 }
 
-const buildObject = (name, location, owners, logo, about, social, businessHours, photos, reviews) => {
+const buildObject = (name, location, owners, logo, coverImage, about, social, businessHours, photos, reviews) => {
 	const studioFields = {};
 	if (name) studioFields.name = name;
 	if (location) {
@@ -80,6 +80,7 @@ const buildObject = (name, location, owners, logo, about, social, businessHours,
         studioFields.owners = owners;
     }
 	if (logo) studioFields.logo = logo;
+	if (coverImage) studioFields.coverImage = coverImage;
 	if (about) studioFields.about = about;
 	if (social) {
 		studioFields.social = {};
