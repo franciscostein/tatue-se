@@ -2,6 +2,12 @@ const { Schema, model } = require('mongoose');
 const { arrayLimit } = require('../utils/validation');
 
 const studioSchema = new Schema({
+	owner: {
+		type: Schema.Types.ObjectId,
+		ref: 'user',
+		unique: true,
+		required: true
+	},
 	name: {
 		type: String,
 		trim: true,
@@ -25,12 +31,6 @@ const studioSchema = new Schema({
 			required: true
 		}
 	},
-	owners: [{
-		type: Schema.Types.ObjectId,
-		ref: 'user',
-		unique: true,
-		required: true
-	}],
 	logo: {
 		publicId: String
 	},

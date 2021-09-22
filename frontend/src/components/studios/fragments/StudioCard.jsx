@@ -6,11 +6,11 @@ import { FaMapMarkerAlt } from 'react-icons/fa';
 import coverPlaceholder from '../../../assets/cover.jpg';
 import avatarPlaceholder from '../../../assets/user_w.png';
 
-const StudioCard = ({ studio: { coverImg = { publicId: null }, logo = { publicId: null }, name, location } }) => {
+const StudioCard = ({ studio: { coverImage = { publicId: null }, logo = { publicId: null }, name, location } }) => {
     return (
         <div className="studio-card m-3">
             <Row>
-                <Image src={coverImg.publicId ?? coverPlaceholder} className="studio-card-img" />
+                <Image src={coverImage.publicId ?? coverPlaceholder} className="studio-card-img" />
             </Row>
             <div className="d-flex align-items-center mb-1">
                 <Image src={logo.publicId ?? avatarPlaceholder} className="studio-avatar-img" roundedCircle />

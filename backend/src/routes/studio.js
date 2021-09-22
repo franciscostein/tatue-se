@@ -6,7 +6,7 @@ const { save, getAll, getOne, deleteOne } = require('../controller/studio');
 const router = express.Router();
 
 // @route   POST api/studios
-// @desc    create or update studio if authenticated user is an owner
+// @desc    create or update studio for authenticated user
 // @access  private
 router.post('/', [auth, studioValidation], save);
 
@@ -21,7 +21,7 @@ router.get('/', getAll);
 router.get('/:id', getOne);
 
 // @route   DELETE api/studios
-// @desc    delete studio by id if authenticated user is an owner
+// @desc    delete studio by userId
 // @access  private
 router.delete('/:id', auth, deleteOne);
 

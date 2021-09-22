@@ -6,7 +6,7 @@ const { artistValidation } = require('../middleware/validation/validation');
 const router = express.Router();
 
 // @route   POST api/artists
-// @desc    create or update artist
+// @desc    create or update artist for authenticated user
 // @access  private
 router.post('/', [auth, artistValidation], save);
 
