@@ -5,3 +5,7 @@
 .dropdown-menu {
     background-color: #212529 !important;
 }
+
+.dropdown-item:hover {
+    background-color: #282c34 !important;
+}

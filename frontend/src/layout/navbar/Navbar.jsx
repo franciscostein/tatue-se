@@ -34,8 +34,8 @@ const NavbarComponent = () => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu className="dropdown-menu">
-                    <Dropdown.Item className="text-white">Profile</Dropdown.Item>
-                    <Dropdown.Item className="text-white">Log out</Dropdown.Item>
+                    <Dropdown.Item className="dropdown-item text-white">Profile</Dropdown.Item>
+                    <Dropdown.Item className="dropdown-item text-white">Log out</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
         </Navbar>
