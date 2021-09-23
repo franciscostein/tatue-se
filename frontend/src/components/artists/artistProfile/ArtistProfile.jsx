@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getCurrentProfile, saveProfile } from '../../../actions/artist';
+import { fetchArtistProfile, saveProfile } from '../../../actions/artist';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -16,7 +15,7 @@ import { FaPlus } from 'react-icons/fa';
 
 import profileAvatar from '../../../assets/user_w.png';
 
-const ArtistProfile = ({ saveProfile, match, history }) => {
+const ArtistProfile = ({ artist, history, location, fetchArtistProfile, saveProfile }) => {
     const [formData, setFormData] = useState({
         user: '',
         fullName: '',
@@ -40,21 +39,16 @@ const ArtistProfile = ({ saveProfile, match, history }) => {
 
     useEffect(() => {
         fetchArtistProfile();
-    }, []);
 
-    const fetchArtistProfile = async () => {
-        const response = await axios.get('/api/artists/profile/me');
+        console.log(artist);
 
-        if (response.data) {
-            const { fullName } = response.data[0];
+        // if (profile !== null) {
+        //     setFormData({
+        //         fullName: loading || !profile.fullName ? '' : profile.fullName
+        //     });
+        // }
+    }, [artist, fetchArtistProfile]);
 
-            setFormData({
-                fullName
-            });
-        } else {
-            console.log(response.error);
-        }
-    }
 
     const { fullName, city, biography, facebook, instagram, website, phone, email, hourRate, minRate } = formData;
 
@@ -273,7 +267,13 @@ const ArtistProfile = ({ saveProfile, match, history }) => {
 }
 
 ArtistProfile.propTypes = {
-    saveProfile: PropTypes.func.isRequired
+    fetchArtistProfile: PropTypes.func.isRequired,
+    saveProfile: PropTypes.func.isRequired,
+    profile: PropTypes.object.isRequired
 }
 
-export default connect(null, { saveProfile })(withRouter(ArtistProfile));
+const mapStateToProps = state => ({
+    profile: state.profile
+});
+
+export default connect(mapStateToProps, { fetchArtistProfile, saveProfile })(withRouter(ArtistProfile));

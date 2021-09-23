@@ -6,9 +6,10 @@ import {
     ARTIST_PROFILE_ERROR
 } from './types';
 
-export const getCurrentProfile = artistId => async dispatch => {
+export const fetchArtistProfile = artistId => async dispatch => {
     try {
-        const res = await axios.get(`/api/artists/${artistId}`);
+        const url = artistId ? `/api/artists/${artistId}` : '/api/artists/profile/me';
+        const res = await axios.get(url);
 
         dispatch({
             type: GET_ARTIST_PROFILE,
@@ -21,7 +22,7 @@ export const getCurrentProfile = artistId => async dispatch => {
                 msg: error.response.statusText, 
                 status: error.response.status
             }
-        })
+        });
     }
 }
 
