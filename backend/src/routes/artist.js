@@ -1,6 +1,6 @@
 const express = require('express');
 const auth = require('../middleware/auth/auth');
-const { save, getAll, getOne, deleteOne } = require('../controller/artist');
+const { save, getAll, getOne, getOwnProfile, deleteOne } = require('../controller/artist');
 const { artistValidation } = require('../middleware/validation/validation');
 
 const router = express.Router();
@@ -19,6 +19,11 @@ router.get('/', getAll);
 // @desc    get artist by id
 // @access  public
 router.get('/:id', getOne);
+
+// @route   GET api/artists/me
+// @desc    get artist own profile by its token
+// @access  private
+router.get('/me', auth, getOwnProfile);
 
 // @route   DELETE api/artists
 // @desc    delete artist by userId

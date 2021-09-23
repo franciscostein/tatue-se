@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -38,12 +39,19 @@ const ArtistProfile = ({ saveProfile, match, history }) => {
     });
 
     useEffect(() => {
-        getCurrentProfile(match.params.id);
-
-        setFormData({
-
-        });
+        fetchArtistProfile();
     }, []);
+
+    const fetchArtistProfile = async () => {
+        const response = await axios.get('/api/artists/me');
+
+        if (response.data) {
+            console.log(response.data);
+            setFormData(...response.data);
+        } else {
+            console.log(response.error);
+        }
+    }
 
     const { user, fullName, city, latitude, longitude, profilePicture, biography, workplaces, tattooStyles, portfolio, facebook, instagram, website, phone, email, hourRate, minRate, currency } = formData;
 

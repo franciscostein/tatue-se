@@ -29,8 +29,18 @@ exports.getAll = async () => {
 	}
 }
 
-exports.getOne = async id => {
-	const artist = await Artist.findById(id);
+exports.getOne = async artistId => {
+	const artist = await Artist.findById(artistId);
+
+	if (artist) {
+		return apiResponse(artist._doc);
+	} else {
+		return apiResponse({}, 204);
+	}
+}
+
+exports.getOwnProfile = async userId => {
+	const artist = await Artist.find({ user: userId });
 
 	if (artist) {
 		return apiResponse(artist._doc);
