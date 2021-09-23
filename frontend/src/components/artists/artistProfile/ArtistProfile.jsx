@@ -43,17 +43,20 @@ const ArtistProfile = ({ saveProfile, match, history }) => {
     }, []);
 
     const fetchArtistProfile = async () => {
-        const response = await axios.get('/api/artists/me');
+        const response = await axios.get('/api/artists/profile/me');
 
         if (response.data) {
-            console.log(response.data);
-            setFormData(...response.data);
+            const { fullName } = response.data[0];
+
+            setFormData({
+                fullName
+            });
         } else {
             console.log(response.error);
         }
     }
 
-    const { user, fullName, city, latitude, longitude, profilePicture, biography, workplaces, tattooStyles, portfolio, facebook, instagram, website, phone, email, hourRate, minRate, currency } = formData;
+    const { fullName, city, biography, facebook, instagram, website, phone, email, hourRate, minRate } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 

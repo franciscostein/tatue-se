@@ -43,7 +43,7 @@ exports.getOwnProfile = async userId => {
 	const artist = await Artist.find({ user: userId });
 
 	if (artist) {
-		return apiResponse(artist._doc);
+		return apiResponse(artist);
 	} else {
 		return apiResponse({}, 204);
 	}

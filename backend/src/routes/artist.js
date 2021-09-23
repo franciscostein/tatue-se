@@ -23,7 +23,7 @@ router.get('/:id', getOne);
 // @route   GET api/artists/me
 // @desc    get artist own profile by its token
 // @access  private
-router.get('/me', auth, getOwnProfile);
+router.get('/profile/me', auth, getOwnProfile);
 
 // @route   DELETE api/artists
 // @desc    delete artist by userId
