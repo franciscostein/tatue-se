@@ -1,29 +1,24 @@
 import './Artists.css';
 import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchTattooStyles } from '../../actions/tattooStyles';
 
 import Form from 'react-bootstrap/Form';
 
 import ArtistCard from './fragments/ArtistCard';
 
-const Artists = () => {
-    const [tattooStyles, setTattooStyles] = useState([]);
+const Artists = ({ tattooStyles: { tattooStyles, loading }, fetchTattooStyles }) => {
+    const [tattooStylesArray, setTattooStyles] = useState([]);
     const [artists, setArtists] = useState([]);
 
     useEffect(() => {
         fetchTattooStyles();
+        buildTattooStyles();
         fetchArtists();
-    }, []);
-
-    const fetchTattooStyles = async () => {
-        const res = await axios.get('/api/tattoo-styles');
-
-        if (res.data) {
-            buildTattooStyles(res.data);
-        } else {
-            console.log(res.error);
-        }
-    }
+    }, [fetchTattooStyles, loading]);
 
     const fetchArtists = async () => {
         const res = await axios.get('/api/artists');
@@ -36,7 +31,7 @@ const Artists = () => {
         }
     }
 
-    const buildTattooStyles = tattooStyles => {
+    const buildTattooStyles = () => {
         const names = [];
 
         tattooStyles.forEach(tattooStyle => {
@@ -67,10 +62,10 @@ const Artists = () => {
                     <Form.Control type="text" placeholder="In which city?" />
                 </Form.Group>
                 {
-                    tattooStyles ?
+                    tattooStylesArray ?
                     <div className="tattoo-styles-header">
                         {
-                            tattooStyles.map(tattooStyle => <span className="tattoo-style-badge font-50 mx-1 mb-2">{tattooStyle}</span>)
+                            tattooStylesArray.map(tattooStyle => <span className="tattoo-style-badge font-50 mx-1 mb-2">{tattooStyle}</span>)
                         }
                     </div>
                     : null
@@ -90,4 +85,12 @@ const Artists = () => {
     );
 }
 
-export default Artists;
+Artists.propTypes = {
+    fetchTattooStyles: PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => ({
+    tattooStyles: state.tattooStyles
+})
+
+export default connect(mapStateToProps, { fetchTattooStyles })(withRouter(Artists));

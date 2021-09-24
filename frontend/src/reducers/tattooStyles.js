@@ -1,11 +1,11 @@
 /* eslint-disable import/no-anonymous-default-export */
 import {
-    GET_ARTIST_PROFILE,
-    ARTIST_PROFILE_ERROR
+    GET_TATTOO_STYLES,
+    TATTOO_STYLES_ERROR
 } from '../actions/types';
 
 const initialState = {
-    profile: null,
+    tattooStyles: [],
     loading: true,
     error: {}
 }
@@ -14,18 +14,18 @@ export default function(state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
-        case GET_ARTIST_PROFILE:
+        case GET_TATTOO_STYLES:
             return {
                 ...state,
-				profile: payload,
+                tattooStyles: payload,
                 loading: false
             }
-        case ARTIST_PROFILE_ERROR:
+        case TATTOO_STYLES_ERROR:
             return {
                 ...state,
                 error: payload,
                 loading: false,
-                profile: null
+                tattooStyles: null
             }
         default:
             return state;
