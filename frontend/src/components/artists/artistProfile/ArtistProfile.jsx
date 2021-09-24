@@ -13,7 +13,7 @@ import Button from 'react-bootstrap/Button';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { FaPlus } from 'react-icons/fa';
 
-import profileAvatar from '../../../assets/user_w.png';
+import avatarPlaceholder from '../../../assets/user_w.png';
 
 const ArtistProfile = ({ artist: { profile, loading }, history, location, fetchArtistProfile, saveProfile }) => {
     const [formData, setFormData] = useState({
@@ -43,6 +43,7 @@ const ArtistProfile = ({ artist: { profile, loading }, history, location, fetchA
         setFormData({
             fullName: loading || !profile.fullName ? '' : profile.fullName,
             city: loading || !profile.location.city ? '' : profile.location.city,
+            profilePicture: loading || !profile.profilePicture ? null : profile.profilePicture.publicId,
             biography: loading || !profile.biography ? '' : profile.biography,
             facebook: loading || !profile.social.facebook ? '' : profile.social.facebook,
             instagram: loading || !profile.social.instagram ? '' : profile.social.instagram,
@@ -56,7 +57,7 @@ const ArtistProfile = ({ artist: { profile, loading }, history, location, fetchA
     }, [fetchArtistProfile, loading]);
 
 
-    const { fullName, city, biography, facebook, instagram, website, phone, email, hourRate, minRate } = formData;
+    const { fullName, city, profilePicture, biography, facebook, instagram, website, phone, email, hourRate, minRate } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -82,7 +83,7 @@ const ArtistProfile = ({ artist: { profile, loading }, history, location, fetchA
                         </Button>
                     </div>
                 </div>
-                <Image src={profileAvatar} className="profile-picture my-4" roundedCircle />
+                <Image src={profilePicture ?? avatarPlaceholder} className="profile-picture my-4" roundedCircle />
                 <Row className="mb-3">
                     <Col>
                         <Form.Group controlId="formArtistName">

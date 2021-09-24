@@ -6,9 +6,9 @@ export const loadUser = () => async dispatch => {
         setAuthToken(localStorage.token);
     }
 
-    try {
-        const res = await axios.post('/api/auth');
-    } catch (err) {
+    // try {
+    //     const res = await axios.post('/api/auth');
+    // } catch (err) {
         
-    }
+    // }
 }
