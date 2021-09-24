@@ -1,9 +1,10 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 import { setAuthToken } from './utils/authToken';
+import { loadUser } from './actions/auth';
 
 import Navbar from './layout/navbar/Navbar';
 import Footer from './layout/footer/Footer';
@@ -21,6 +22,10 @@ if (localStorage.token) {
 }
 
 function App() {
+    useEffect(() => {
+        store.dispatch(loadUser());
+    }, []);
+
     return (
         <div className="App">
             <Navbar />

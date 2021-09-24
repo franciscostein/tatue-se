@@ -15,7 +15,7 @@ import { FaPlus } from 'react-icons/fa';
 
 import profileAvatar from '../../../assets/user_w.png';
 
-const ArtistProfile = ({ artist, history, location, fetchArtistProfile, saveProfile }) => {
+const ArtistProfile = ({ artist: { profile, loading }, history, location, fetchArtistProfile, saveProfile }) => {
     const [formData, setFormData] = useState({
         user: '',
         fullName: '',
@@ -40,14 +40,11 @@ const ArtistProfile = ({ artist, history, location, fetchArtistProfile, saveProf
     useEffect(() => {
         fetchArtistProfile();
 
-        console.log(artist);
-
-        // if (profile !== null) {
-        //     setFormData({
-        //         fullName: loading || !profile.fullName ? '' : profile.fullName
-        //     });
-        // }
-    }, [artist, fetchArtistProfile]);
+        setFormData({
+            fullName: loading || !profile.fullName ? '' : profile.fullName
+        });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [fetchArtistProfile, loading]);
 
 
     const { fullName, city, biography, facebook, instagram, website, phone, email, hourRate, minRate } = formData;
@@ -269,11 +266,11 @@ const ArtistProfile = ({ artist, history, location, fetchArtistProfile, saveProf
 ArtistProfile.propTypes = {
     fetchArtistProfile: PropTypes.func.isRequired,
     saveProfile: PropTypes.func.isRequired,
-    profile: PropTypes.object.isRequired
+    artist: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-    profile: state.profile
+    artist: state.artist
 });
 
 export default connect(mapStateToProps, { fetchArtistProfile, saveProfile })(withRouter(ArtistProfile));

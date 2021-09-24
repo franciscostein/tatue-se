@@ -40,7 +40,7 @@ exports.getOne = async artistId => {
 }
 
 exports.getOwnProfile = async userId => {
-	const artist = await Artist.find({ user: userId });
+	const artist = await Artist.findOne({ user: userId });
 
 	if (artist) {
 		return apiResponse(artist);
