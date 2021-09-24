@@ -18,11 +18,11 @@ const Artists = ({ tattooStyles: { tattooStyles, loading }, fetchTattooStyles })
         fetchTattooStyles();
         buildTattooStyles();
         fetchArtists();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fetchTattooStyles, loading]);
 
     const fetchArtists = async () => {
         const res = await axios.get('/api/artists');
-
 
         if (res.data) {
             buildArtists(res.data);
