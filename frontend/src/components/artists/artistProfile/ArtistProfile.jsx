@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchArtistProfile, saveProfile } from '../../../actions/artist';
+import { fetchTattooStyles } from '../../../actions/tattooStyles';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -15,7 +16,7 @@ import { FaPlus } from 'react-icons/fa';
 
 import avatarPlaceholder from '../../../assets/user_w.png';
 
-const ArtistProfile = ({ artist: { profile, loading }, history, location, fetchArtistProfile, saveProfile }) => {
+const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooStyles }, history, location, fetchArtistProfile, fetchTattooStyles, saveProfile }) => {
     const [formData, setFormData] = useState({
         user: '',
         fullName: '',
@@ -36,25 +37,30 @@ const ArtistProfile = ({ artist: { profile, loading }, history, location, fetchA
         minRate: '',
         currency: ''
     });
+    const [tattooStylesArray, setTattooStyles] = useState([]);
 
     useEffect(() => {
         fetchArtistProfile();
+        fetchTattooStyles();
 
-        setFormData({
-            fullName: loading || !profile.fullName ? '' : profile.fullName,
-            city: loading || !profile.location.city ? '' : profile.location.city,
-            profilePicture: loading || !profile.profilePicture ? null : profile.profilePicture.publicId,
-            biography: loading || !profile.biography ? '' : profile.biography,
-            facebook: loading || !profile.social.facebook ? '' : profile.social.facebook,
-            instagram: loading || !profile.social.instagram ? '' : profile.social.instagram,
-            website: loading || !profile.social.website ? '' : profile.social.website,
-            phone: loading || !profile.social.phone ? '' : profile.social.phone,
-            email: loading || !profile.social.email ? '' : profile.social.email,
-            hourRate: loading || !profile.hourRate ? '' : profile.hourRate,
-            minRate: loading || !profile.minRate ? '' : profile.minRate
-        });
+        if (profile) {
+            setFormData({
+                fullName: loading || !profile.fullName ? '' : profile.fullName,
+                city: loading || !profile.location.city ? '' : profile.location.city,
+                profilePicture: loading || !profile.profilePicture ? null : profile.profilePicture.publicId,
+                biography: loading || !profile.biography ? '' : profile.biography,
+                facebook: loading || !profile.social.facebook ? '' : profile.social.facebook,
+                instagram: loading || !profile.social.instagram ? '' : profile.social.instagram,
+                website: loading || !profile.social.website ? '' : profile.social.website,
+                phone: loading || !profile.social.phone ? '' : profile.social.phone,
+                email: loading || !profile.social.email ? '' : profile.social.email,
+                hourRate: loading || !profile.hourRate ? '' : profile.hourRate,
+                minRate: loading || !profile.minRate ? '' : profile.minRate
+            });
+        }
+        setTattooStyles(tattooStyles);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [fetchArtistProfile, loading]);
+    }, [fetchArtistProfile, fetchTattooStyles, loading]);
 
 
     const { fullName, city, profilePicture, biography, facebook, instagram, website, phone, email, hourRate, minRate } = formData;
@@ -199,18 +205,18 @@ const ArtistProfile = ({ artist: { profile, loading }, history, location, fetchA
                     </div>
                 </div>
 
-                <div className="mb-5">
-                    <h3 className="d-flex">Styles</h3>
-                    <div className="d-flex flex-wrap py-1">
-                        <span className="tattoo-style-badge font-50 mx-1">{`Black & Gray`}</span>
-                        <span className="tattoo-style-badge-selected font-50 mx-1">Blackwork</span>
-                        <span className="tattoo-style-badge font-50 mx-1">Chicano</span>
-                        <span className="tattoo-style-badge font-50 mx-1">Cosmetic</span>
-                        <span className="tattoo-style-badge-selected font-50 mx-1">Dark Art</span>
-                        <span className="tattoo-style-badge font-50 mx-1">Dotwork</span>
-                        <span className="tattoo-style-badge font-50 mx-1">Fineline</span>
-                    </div>
-                </div>
+                {
+                    tattooStylesArray > 0 ?
+                        <div className="mb-5">
+                            <h3 className="d-flex">Styles</h3>
+                            <div className="d-flex flex-wrap py-1">
+                                {
+                                    tattooStylesArray.map(tattooStyle => <span className="tattoo-style-badge font-50 mx-1">{tattooStyle.name}</span>)
+                                }
+                            </div>
+                        </div>
+                    : null
+                }
 
                 <div className="mb-5">
                     <h3 className="mb-3">Pricing</h3>
@@ -275,12 +281,14 @@ const ArtistProfile = ({ artist: { profile, loading }, history, location, fetchA
 
 ArtistProfile.propTypes = {
     fetchArtistProfile: PropTypes.func.isRequired,
+    fetchTattooStyles: PropTypes.func.isRequired,
     saveProfile: PropTypes.func.isRequired,
     artist: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-    artist: state.artist
+    artist: state.artist,
+    tattooStyles: state.tattooStyles
 });
 
-export default connect(mapStateToProps, { fetchArtistProfile, saveProfile })(withRouter(ArtistProfile));
+export default connect(mapStateToProps, { fetchArtistProfile, fetchTattooStyles, saveProfile })(withRouter(ArtistProfile));
