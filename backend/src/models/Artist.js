@@ -52,11 +52,26 @@ const artistSchema = new Schema({
 		validate: [arrayLimit, '{Path} exceeds the limit of 50']
 	},
 	social: {
-		facebook: String,
-		instagram: String,
-		website: String,
-		phone: String,
-		email: String
+		facebook: {
+			type: String,
+			default: null
+		},
+		instagram: {
+			type: String,
+			default: null
+		},
+		website: {
+			type: String,
+			default: null
+		},
+		phone: {
+			type: String,
+			default: null
+		},
+		email: {
+			type: String,
+			default: null
+		}
 	},
 	pricing: {
 		hourRate: Number,

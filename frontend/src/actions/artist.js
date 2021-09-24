@@ -29,13 +29,13 @@ export const fetchArtistProfile = artistId => async dispatch => {
 // create or update profile
 export const saveProfile = (formData, history, edit = false) => async dispatch => {
     try {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
+        // const config = {
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     }
+        // }
 
-        const res = await axios.post('/api/artists', formData, config);
+        const res = await axios.post('/api/artists', formData);
 
         dispatch({
             type: GET_ARTIST_PROFILE,

@@ -41,7 +41,16 @@ const ArtistProfile = ({ artist: { profile, loading }, history, location, fetchA
         fetchArtistProfile();
 
         setFormData({
-            fullName: loading || !profile.fullName ? '' : profile.fullName
+            fullName: loading || !profile.fullName ? '' : profile.fullName,
+            city: loading || !profile.location.city ? '' : profile.location.city,
+            biography: loading || !profile.biography ? '' : profile.biography,
+            facebook: loading || !profile.social.facebook ? '' : profile.social.facebook,
+            instagram: loading || !profile.social.instagram ? '' : profile.social.instagram,
+            website: loading || !profile.social.website ? '' : profile.social.website,
+            phone: loading || !profile.social.phone ? '' : profile.social.phone,
+            email: loading || !profile.social.email ? '' : profile.social.email,
+            hourRate: loading || !profile.hourRate ? '' : profile.hourRate,
+            minRate: loading || !profile.minRate ? '' : profile.minRate
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fetchArtistProfile, loading]);
@@ -82,7 +91,7 @@ const ArtistProfile = ({ artist: { profile, loading }, history, location, fetchA
                                 type="text" 
                                 placeholder="Full name"
                                 name="fullName"
-                                valeu={fullName}
+                                value={fullName}
                                 onChange={e => onChange(e)}
                             />
                         </Form.Group>
