@@ -209,7 +209,7 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
                             <h3 className="d-flex">Styles</h3>
                             <div className="d-flex flex-wrap py-1">
                                 {
-                                    tattooStyles.map(tattooStyle => <span className="tattoo-style-badge font-50 mx-1">{tattooStyle.name}</span>)
+                                    tattooStyles.map(tattooStyle => <span className="tattoo-style-badge font-50 m-1">{tattooStyle.name}</span>)
                                 }
                             </div>
                         </div>
