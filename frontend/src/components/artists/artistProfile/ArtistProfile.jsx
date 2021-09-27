@@ -16,7 +16,7 @@ import { FaPlus } from 'react-icons/fa';
 
 import avatarPlaceholder from '../../../assets/user_w.png';
 
-const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooStyles }, history, location, fetchArtistProfile, fetchTattooStyles, saveProfile }) => {
+const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooStyles, loading: tattooStylesLoading }, history, location, fetchArtistProfile, fetchTattooStyles, saveProfile }) => {
     const [formData, setFormData] = useState({
         user: '',
         fullName: '',
@@ -37,7 +37,6 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
         minRate: '',
         currency: ''
     });
-    const [tattooStylesArray, setTattooStyles] = useState([]);
 
     useEffect(() => {
         fetchArtistProfile();
@@ -58,8 +57,7 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
                 minRate: loading || !profile.minRate ? '' : profile.minRate
             });
         }
-        setTattooStyles(tattooStyles);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fetchArtistProfile, fetchTattooStyles, loading]);
 
 
@@ -206,12 +204,12 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
                 </div>
 
                 {
-                    tattooStylesArray > 0 ?
+                    tattooStyles ?
                         <div className="mb-5">
                             <h3 className="d-flex">Styles</h3>
                             <div className="d-flex flex-wrap py-1">
                                 {
-                                    tattooStylesArray.map(tattooStyle => <span className="tattoo-style-badge font-50 mx-1">{tattooStyle.name}</span>)
+                                    tattooStyles.map(tattooStyle => <span className="tattoo-style-badge font-50 mx-1">{tattooStyle.name}</span>)
                                 }
                             </div>
                         </div>
