@@ -17,7 +17,7 @@ exports.save = async (userId, { name, location, logo, coverImage, about, social,
 }
 
 exports.getAll = async () => {
-    const studios = await Studio.find();
+    const studios = await Studio.find().select('-owner');
 
     if (studios) {
         return apiResponse(studios);
@@ -26,11 +26,21 @@ exports.getAll = async () => {
     }
 }
 
-exports.getOne = async id => {
-	const studio = await Studio.findById(id);
+exports.getOneByStudioId = async studioId => {
+	const studio = await Studio.findById(studioId).select('-owner');
 
 	if (studio) {
 		return apiResponse(studio._doc);
+	} else {
+		return apiResponse({}, 204);
+	}
+}
+
+exports.getOwnByUserId = async userId => {
+	const studio = await Studio.findOne({ 'owner': userId }).select('-owner');
+
+	if (studio) {
+		return apiResponse(studio);
 	} else {
 		return apiResponse({}, 204);
 	}

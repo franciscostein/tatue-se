@@ -1,7 +1,7 @@
 const express = require('express');
 const auth = require('../middleware/auth/auth');
 const { clientValidation } = require('../middleware/validation/validation');
-const { save, getAll, getOne, deleteOne } = require('../controller/client');
+const { save, getAll, getOne, getOwn, deleteOne } = require('../controller/client');
 
 const router = express.Router();
 
@@ -19,6 +19,11 @@ router.get('/', getAll);
 // @desc    get client by id
 // @access  public
 router.get('/:id', getOne);
+
+// @route   GET api/clients/profile/me
+// @desc    get own client by userId from token
+// @access  private
+router.get('/profile/me', auth, getOwn);
 
 // @route   DELETE api/clients
 // @desc    delete client by userId

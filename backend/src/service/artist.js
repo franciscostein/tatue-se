@@ -18,6 +18,7 @@ exports.save = async (userId, { fullName, location, profilePicture, coverImage, 
 
 exports.getAll = async () => {
 	const artists = await Artist.find({})
+									.select('-user')
 									.populate('workplaces')
 									.populate('tattooStyles')
 									.exec();
@@ -30,7 +31,7 @@ exports.getAll = async () => {
 }
 
 exports.getOne = async artistId => {
-	const artist = await Artist.findById(artistId);
+	const artist = await Artist.findById(artistId).select('-user');
 
 	if (artist) {
 		return apiResponse(artist._doc);
@@ -40,7 +41,7 @@ exports.getOne = async artistId => {
 }
 
 exports.getOwnProfile = async userId => {
-	const artist = await Artist.findOne({ user: userId });
+	const artist = await Artist.findOne({ user: userId }).select('-user');
 
 	if (artist) {
 		return apiResponse(artist);

@@ -20,7 +20,7 @@ router.get('/', getAll);
 // @access  public
 router.get('/:id', getOne);
 
-// @route   GET api/artists/me
+// @route   GET api/artists/profile/me
 // @desc    get artist own profile by its token
 // @access  private
 router.get('/profile/me', auth, getOwnProfile);

@@ -17,7 +17,7 @@ exports.save = async (userId, fullName, profilePicture, location) => {
 }
 
 exports.getAll = async () => {
-    const clients = await Client.find();
+    const clients = await Client.find().select('-user');
 
     if (clients) {
         return apiResponse(clients);
@@ -27,13 +27,23 @@ exports.getAll = async () => {
 }
 
 exports.getOne = async id => {
-	const client = await Client.findById(id);
+	const client = await Client.findById(id).select('-user');
 
 	if (client) {
 		return apiResponse(client._doc);
 	} else {
 		return apiResponse({}, 204);
 	}
+}
+
+exports.getOwnByUserId = async userId => {
+    const client = await Client.find({ 'user': userId }).select('-user');
+
+    if (client) {
+        return apiResponse(client);
+    } else {
+        return apiResponse({}, 204);
+    }
 }
 
 exports.deleteByUserId = async userId => {

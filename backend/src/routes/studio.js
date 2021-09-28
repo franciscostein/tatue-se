@@ -1,7 +1,7 @@
 const express = require('express');
 const auth = require('../middleware/auth/auth');
 const { studioValidation } = require('../middleware/validation/validation');
-const { save, getAll, getOne, deleteOne } = require('../controller/studio');
+const { save, getAll, getOne, getOwn, deleteOne } = require('../controller/studio');
 
 const router = express.Router();
 
@@ -19,6 +19,11 @@ router.get('/', getAll);
 // @desc    get studio by id
 // @access  public
 router.get('/:id', getOne);
+
+// @route   GET api/studios/profile/me
+// @desc    get own studio by userId in token
+// @access  private
+router.get('/profile/me', auth, getOwn);
 
 // @route   DELETE api/studios
 // @desc    delete studio by userId
