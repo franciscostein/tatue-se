@@ -224,11 +224,11 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
                     : null
                 }
                 <div className="mb-5">
-                    <h3 className="mb-3">Pricing</h3>
+                    <h3>Pricing</h3>
                     <Row>
-                        <Col md={{ span: 10 }}>
+                        <Col md={{ span: 5 }}>
                             <Form.Group controlId="formArtistPriceHour">
-                                <Form.Label className="d-flex font-75">Price per hour</Form.Label>
+                                <Form.Label className="font-75">Per hour</Form.Label>
                                 <Form.Control 
                                     type="number"
                                     name="hourRate"
@@ -237,19 +237,9 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
                                 />
                             </Form.Group>
                         </Col>
-                        <Col>
-                            <span className="font-75">Currency</span>
-                            <DropdownButton id="dropdownPriceHour" title="BRL">
-                                <DropdownButton.Item>USD</DropdownButton.Item>
-                                <DropdownButton.Item>EUR</DropdownButton.Item>
-                                <DropdownButton.Item>BRL</DropdownButton.Item>
-                            </DropdownButton>
-                        </Col>
-                    </Row>
-                    <Row className="mt-3">
-                        <Col md={{ span: 10 }}>
+                        <Col md={{ span: 5 }}>
                             <Form.Group controlId="formArtistPriceMin">
-                                <Form.Label className="d-flex font-75">Min rate</Form.Label>
+                                <Form.Label className="font-75">Min rate</Form.Label>
                                 <Form.Control 
                                     type="number"
                                     name="minRate"
@@ -260,7 +250,7 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
                         </Col>
                         <Col>
                             <span className="font-75">Currency</span>
-                            <DropdownButton id="dropdownPriceMin" title="BRL">
+                            <DropdownButton id="dropdownPriceHour" title="BRL">
                                 <DropdownButton.Item>USD</DropdownButton.Item>
                                 <DropdownButton.Item>EUR</DropdownButton.Item>
                                 <DropdownButton.Item>BRL</DropdownButton.Item>
