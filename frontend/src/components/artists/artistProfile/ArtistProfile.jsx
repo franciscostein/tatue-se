@@ -232,7 +232,7 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
 
                 {
                     tattooStyles ?
-                        <div className="mb-5">
+                        <div className="my-5">
                             <h3 className="d-flex">Styles</h3>
                             <div className="d-flex flex-wrap py-1">
                                 {
