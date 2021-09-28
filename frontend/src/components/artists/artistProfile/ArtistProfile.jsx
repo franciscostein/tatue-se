@@ -47,8 +47,9 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
             setFormData({
                 fullName: loading || !profile.fullName ? '' : profile.fullName,
                 city: loading || !profile.location.city ? '' : profile.location.city,
-                profilePicture: loading || !profile.profilePicture ? null : profile.profilePicture.publicId,
+                profilePicture: loading || !profile.profilePicture ? '' : profile.profilePicture.publicId,
                 biography: loading || !profile.biography ? '' : profile.biography,
+                workplaces: loading || !profile.workplaces ? [] : profile.workplaces,
                 facebook: loading || !profile.social.facebook ? '' : profile.social.facebook,
                 instagram: loading || !profile.social.instagram ? '' : profile.social.instagram,
                 website: loading || !profile.social.website ? '' : profile.social.website,
@@ -62,7 +63,7 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
     }, [fetchArtistProfile, fetchTattooStyles, loading]);
 
 
-    const { fullName, city, profilePicture, biography, facebook, instagram, website, phone, email, hourRate, minRate } = formData;
+    const { fullName, city, profilePicture, biography, workplaces, facebook, instagram, website, phone, email, hourRate, minRate } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -204,32 +205,12 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
                     </div>
                 </div>
                 <div className="d-flex">
-                    <StudioMiniCard 
-                        studio={{
-                            name: 'Studio test',
-                            location: {
-                                address: `Dick's house`
-                            }
-                        }}
-                    />
-                    <StudioMiniCard 
-                        studio={{
-                            name: 'Studio test',
-                            location: {
-                                address: `Dick's house 7`
-                            }
-                        }}
-                    />
-                    <StudioMiniCard 
-                        studio={{
-                            name: 'Studio test test',
-                            location: {
-                                address: `Dick's house 7`
-                            }
-                        }}
-                    />
+                    {
+                        workplaces ?
+                            workplaces.map(studio => <StudioMiniCard studio={studio} />)
+                        : null
+                    }
                 </div>
-
                 {
                     tattooStyles ?
                         <div className="my-5">
@@ -242,7 +223,6 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
                         </div>
                     : null
                 }
-
                 <div className="mb-5">
                     <h3 className="mb-3">Pricing</h3>
                     <Row>

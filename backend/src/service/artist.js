@@ -19,9 +19,9 @@ exports.save = async (userId, { fullName, location, profilePicture, coverImage, 
 exports.getAll = async () => {
 	const artists = await Artist.find({})
 									.select('-user')
-									.populate('workplaces')
-									.populate('tattooStyles')
-									.exec();
+									.populate([ 'workplaces', 'tattooStyles' ]).exec();
+									// .populate('tattooStyles')
+									// .exec();
 
 	if (artists) {
 		return apiResponse(artists);
@@ -41,7 +41,10 @@ exports.getOne = async artistId => {
 }
 
 exports.getOwnProfile = async userId => {
-	const artist = await Artist.findOne({ user: userId }).select('-user');
+	const artist = await Artist.findOne({ user: userId })
+												.select('-user')
+												.populate('workplaces', [ 'logo', 'name', 'location' ])
+												.exec();
 
 	if (artist) {
 		return apiResponse(artist);
