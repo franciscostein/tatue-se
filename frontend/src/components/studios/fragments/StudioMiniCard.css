@@ -1,0 +1,17 @@
+.studio-card {
+    display: flex;
+    flex-direction: row;
+    border-radius: 16px;
+    background-color: #212529;
+    flex: 0 1 auto;
+    overflow: hidden;
+}
+
+.studio-avatar-img-mini {
+    width: 3rem;
+}
+
+.remover {
+    margin: -0.5rem 0 0 0.7rem;
+    color: #dc3545;
+}

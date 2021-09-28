@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchArtistProfile, saveProfile } from '../../../actions/artist';
 import { fetchTattooStyles } from '../../../actions/tattooStyles';
+import StudioMiniCard from '../../studios/fragments/StudioMiniCard';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -191,7 +192,7 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
                     </Form.Group>
                 </Row>
 
-                <div className="d-flex justify-content-between mt-5 pb-5">
+                <div className="d-flex justify-content-between mt-5">
                     <div>
                         <h3>Workplaces</h3>
                     </div>
@@ -201,6 +202,32 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
                             <span className="px-2">Add workplace</span>
                         </Button>
                     </div>
+                </div>
+                <div className="d-flex">
+                    <StudioMiniCard 
+                        studio={{
+                            name: 'Studio test',
+                            location: {
+                                address: `Dick's house`
+                            }
+                        }}
+                    />
+                    <StudioMiniCard 
+                        studio={{
+                            name: 'Studio test',
+                            location: {
+                                address: `Dick's house 7`
+                            }
+                        }}
+                    />
+                    <StudioMiniCard 
+                        studio={{
+                            name: 'Studio test test',
+                            location: {
+                                address: `Dick's house 7`
+                            }
+                        }}
+                    />
                 </div>
 
                 {
