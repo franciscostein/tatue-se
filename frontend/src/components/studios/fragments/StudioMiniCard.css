@@ -14,4 +14,5 @@
 .remover {
     margin: -0.5rem 0 0 0.7rem;
     color: #dc3545;
+    cursor: pointer;
 }

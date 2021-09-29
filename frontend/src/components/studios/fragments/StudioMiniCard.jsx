@@ -1,11 +1,14 @@
 import './StudioMiniCard.css';
+
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import { FaTimes } from 'react-icons/fa';
 
 import avatarPlaceholder from '../../../assets/user_w.png';
 
-const StudioMiniCard = ({ studio: { logo = { publicId: null }, name, location } }) => {
+const StudioMiniCard = ({ studio: { logo = { publicId: null }, name, location }, setRemove }) => {
+
+
     return (
         <div className="studio-card m-3 p-2">
             <div className="d-flex align-items-center mb-1">
@@ -19,7 +22,9 @@ const StudioMiniCard = ({ studio: { logo = { publicId: null }, name, location } 
                 </Col>
             </div>
             <div className="remover">
-                <FaTimes />
+                <span onClick={alert('alert!')}>
+                    <FaTimes />
+                </span>
             </div>
         </div>
     );

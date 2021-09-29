@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { fetchArtistProfile, saveProfile } from '../../../actions/artist';
 import { fetchTattooStyles } from '../../../actions/tattooStyles';
 import StudioMiniCard from '../../studios/fragments/StudioMiniCard';
+import ConfirmModal from '../../../layout/modals/ConfirmModal';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -38,6 +39,7 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
         minRate: '',
         currency: ''
     });
+    const [remove, setRemove] = useState(false);
 
     useEffect(() => {
         fetchArtistProfile();
@@ -208,6 +210,17 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
                     {
                         workplaces ?
                             workplaces.map(studio => <StudioMiniCard studio={studio} />)
+                        : null
+                    }
+                    {
+                        remove ?
+                            <ConfirmModal
+                                headerTitle='Remove?'
+                                bodyText='Are you sure?'
+                                secondaryButtonText='No'
+                                primaryButtonText='Yes'
+                                setRemove={() => {alert('true')}}
+                            />
                         : null
                     }
                 </div>
