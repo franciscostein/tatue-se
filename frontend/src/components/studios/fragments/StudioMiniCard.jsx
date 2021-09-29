@@ -10,7 +10,7 @@ const StudioMiniCard = ({ studio: { logo = { publicId: null }, name, location },
 
 
     return (
-        <div className="studio-card m-3 p-2">
+        <div className="studio-card-mini m-3 p-2">
             <div className="d-flex align-items-center mb-1">
                 <Image src={logo.publicId ?? avatarPlaceholder} className="studio-avatar-img-mini" roundedCircle />
                 <Col>
