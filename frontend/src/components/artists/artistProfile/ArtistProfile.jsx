@@ -21,7 +21,21 @@ import { FaPlus } from 'react-icons/fa';
 
 import avatarPlaceholder from '../../../assets/user_w.png';
 
-const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooStyles, loading: tattooStylesLoading }, history, location, fetchArtistProfile, fetchTattooStyles, saveProfile }) => {
+const ArtistProfile = ({ 
+    artist: { 
+        profile, 
+        loading 
+    }, 
+    tattooStyles: { 
+        tattooStyles, 
+        loading: tattooStylesLoading 
+    }, 
+    history, 
+    location, 
+    fetchArtistProfile, 
+    fetchTattooStyles, 
+    saveProfile 
+}) => {
     const [formData, setFormData] = useState({
         fullName: '',
         city: '',
@@ -224,7 +238,7 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
                     <ConfirmationModal
                         show={showRemoveWorkplaceModal}
                         closeFunction={() => setShowRemoveWorkplaceModal(false)}
-                        confirmationFunction={() => alert('workplace removed!')}
+                        acceptFunction={() => alert('workplace removed!')}
                     />
                 </div>
                 {
@@ -288,7 +302,8 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
                 <ConfirmationModal
                     show={showDeleteAccountModal}
                     closeFunction={() => setShowDeleteAccountModal(false)}
-                    confirmationFunction={() => alert('Account deleted!')}
+                    acceptVariant="danger"
+                    acceptFunction={() => alert('Account deleted!')}
                 />
             </Form>
         </Container>

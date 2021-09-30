@@ -1,16 +1,40 @@
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-const ConfirmationModal = ({ show, closeFunction, confirmationFunction }) => {
+const ConfirmationModal = ({
+    centered = false,
+    show,
+    closeFunction,
+    title,
+    bodyText,
+    declineVariant = 'secondary', 
+    declineFunction = closeFunction, 
+    declineText = 'No', 
+    acceptVariant = 'primary', 
+    acceptFunction, 
+    acceptText = 'Yes' 
+}) => {
     return  (
-        <Modal show={show} onHide={closeFunction}>
-            <Modal.Header>
-                <Modal.Title>Remove?</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>Are you sure?</Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={closeFunction}>No</Button>
-                <Button variant="primary" onClick={confirmationFunction}>Yes</Button>
+        <Modal centered={centered} show={show} onHide={closeFunction}>
+            {
+                title ?
+                    <Modal.Header>
+                        <Modal.Title>{title}</Modal.Title>
+                    </Modal.Header>
+                : null
+            }
+            {
+                bodyText ?
+                    <Modal.Body>{bodyText}</Modal.Body>
+                : null
+            }
+            <Modal.Footer className={!title && !bodyText ? 'd-flex justify-content-center' : ''}>
+                <Button variant={declineVariant} onClick={declineFunction}>
+                    {declineText}
+                </Button>
+                <Button variant={acceptVariant} onClick={acceptFunction}>
+                    {acceptText}
+                </Button>
             </Modal.Footer>
         </Modal>
     );
