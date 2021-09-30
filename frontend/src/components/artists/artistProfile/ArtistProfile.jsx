@@ -7,13 +7,14 @@ import { fetchArtistProfile, saveProfile } from '../../../actions/artist';
 import { fetchTattooStyles } from '../../../actions/tattooStyles';
 
 import StudioMiniCard from '../../studios/fragments/StudioMiniCard';
+import ConfirmationModal from '../../modals/ConfirmationModal';
+import AddWorkplaceModal from './AddWorkplaceModal';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { FaPlus } from 'react-icons/fa';
@@ -40,7 +41,9 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
         minRate: '',
         currency: ''
     });
-    const [showWorkplaceRemoveModal, setShowWorkplaceRemoveModal] = useState(false);
+    const [showAddWorkplaceModal, setShowAddWorkplaceModal] = useState(false);
+    const [showRemoveWorkplaceModal, setShowRemoveWorkplaceModal] = useState(false);
+    const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
 
     useEffect(() => {
         fetchArtistProfile();
@@ -201,28 +204,28 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
                         <h3>Workplaces</h3>
                     </div>
                     <div>
-                        <Button onClick={() => alert('Add workplace?')}>
+                        <Button onClick={() => setShowAddWorkplaceModal(true)}>
                             <FaPlus size={23} />
                             <span className="ps-2">Add workplace</span>
                         </Button>
                     </div>
+                    <AddWorkplaceModal
+                        show={showAddWorkplaceModal}
+                        closeFunction={() => setShowAddWorkplaceModal(false)}
+                        confirmationFunction={() => alert('workplace added!')}
+                    />
                 </div>
                 <div className="d-flex">
                     {
                         workplaces ?
-                            workplaces.map(studio => <StudioMiniCard studio={studio} removeFunction={() => setShowWorkplaceRemoveModal(true)} />)
+                            workplaces.map(studio => <StudioMiniCard studio={studio} removeFunction={() => setShowRemoveWorkplaceModal(true)} />)
                         : null
                     }
-                    <Modal show={showWorkplaceRemoveModal} onHide={() => setShowWorkplaceRemoveModal(false)}>
-                        <Modal.Header>
-                            <Modal.Title>Remove?</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>Are you sure?</Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={() => setShowWorkplaceRemoveModal(false)}>No</Button>
-                            <Button variant="primary" onClick={() => alert('removed')}>Yes</Button>
-                        </Modal.Footer>
-                    </Modal>
+                    <ConfirmationModal
+                        show={showRemoveWorkplaceModal}
+                        closeFunction={() => setShowRemoveWorkplaceModal(false)}
+                        confirmationFunction={() => alert('workplace removed!')}
+                    />
                 </div>
                 {
                     tattooStyles ?
@@ -279,9 +282,14 @@ const ArtistProfile = ({ artist: { profile, loading }, tattooStyles: { tattooSty
                     including permanent removal of photos, comments, saved boards, workplace history, 
                     and subscription and billing info, booking history, your account information and settings.
                 </p>
-                <Button variant="danger" className="d-flex mt-3 mb-5" onClick={() => alert('Delete profile?')}>
+                <Button variant="danger" className="d-flex mt-3 mb-5" onClick={() => setShowDeleteAccountModal(true)}>
                     Delete my account
                 </Button>
+                <ConfirmationModal
+                    show={showDeleteAccountModal}
+                    closeFunction={() => setShowDeleteAccountModal(false)}
+                    confirmationFunction={() => alert('Account deleted!')}
+                />
             </Form>
         </Container>
     );
