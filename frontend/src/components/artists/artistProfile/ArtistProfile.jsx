@@ -238,6 +238,10 @@ const ArtistProfile = ({
                     <ConfirmationModal
                         show={showRemoveWorkplaceModal}
                         closeFunction={() => setShowRemoveWorkplaceModal(false)}
+                        title="Remove workplace"
+                        titleColor="text-danger"
+                        bodyText="Are you sure you want to remove it?"
+                        acceptVariant="danger"
                         acceptFunction={() => alert('workplace removed!')}
                     />
                 </div>
@@ -302,8 +306,13 @@ const ArtistProfile = ({
                 <ConfirmationModal
                     show={showDeleteAccountModal}
                     closeFunction={() => setShowDeleteAccountModal(false)}
+                    title="Delete account"
+                    titleColor="text-danger"
+                    bodyText="Are you sure? It can't be undone!"
+                    declineText="Cancel"
                     acceptVariant="danger"
                     acceptFunction={() => alert('Account deleted!')}
+                    acceptText="Yes, delete it"
                 />
             </Form>
         </Container>

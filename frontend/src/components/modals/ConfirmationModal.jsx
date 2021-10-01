@@ -6,7 +6,9 @@ const ConfirmationModal = ({
     show,
     closeFunction,
     title,
+    titleColor,
     bodyText,
+    bodyColor,
     declineVariant = 'secondary', 
     declineFunction = closeFunction, 
     declineText = 'No', 
@@ -19,13 +21,13 @@ const ConfirmationModal = ({
             {
                 title ?
                     <Modal.Header>
-                        <Modal.Title>{title}</Modal.Title>
+                        <Modal.Title className={titleColor}>{title}</Modal.Title>
                     </Modal.Header>
                 : null
             }
             {
                 bodyText ?
-                    <Modal.Body>{bodyText}</Modal.Body>
+                    <Modal.Body className={bodyColor}>{bodyText}</Modal.Body>
                 : null
             }
             <Modal.Footer className={!title && !bodyText ? 'd-flex justify-content-center' : ''}>
