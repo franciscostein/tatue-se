@@ -7,18 +7,16 @@ import { FaBars } from 'react-icons/fa';
 import userSolid from '../../assets/user_w.png';
 
 const NavbarComponent = () => {
+    const pathname = window.location.pathname;
+    
     return (
         <Navbar bg="dark" expand="lg" sticky="top">
             <Navbar.Brand className="px-3 text-white">tatue-se</Navbar.Brand>
             <Navbar.Toggle aria-controls="navbar-nav" />
             <Navbar.Collapse id="navbar-nav">
-                <Nav.Link href="/">Artists</Nav.Link>
-                <Nav.Link href="/studios">Studios</Nav.Link>
+                <Nav.Link className={pathname === '/' && 'selected-link'} href="/">Artists</Nav.Link>
+                <Nav.Link className={pathname === '/studios' && 'selected-link'} href="/studios">Studios</Nav.Link>
             </Navbar.Collapse>
-            {/* <Nav>
-                <Nav.Link href="/">Artists 1</Nav.Link>
-                <Nav.Link href="/studios">Studios</Nav.Link>
-            </Nav> */}
 
             <Dropdown className="px-4">
                 <Dropdown.Toggle variant="dark" id="dropdown-profile">

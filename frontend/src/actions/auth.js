@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import { setAuthToken } from "../utils/authToken"
 
 export const loadUser = () => async dispatch => {

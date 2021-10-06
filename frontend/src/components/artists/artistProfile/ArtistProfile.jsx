@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { fetchArtistProfile, saveProfile } from '../../../actions/artist';
-import { fetchTattooStyles } from '../../../actions/tattooStyles';
 
 import StudioMiniCard from '../../studios/fragments/StudioMiniCard';
 import ConfirmationModal from '../../modals/ConfirmationModal';
 import AddWorkplaceModal from './AddWorkplaceModal';
+import TattooStyles from '../../tattooStyles/TattooStyles';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -25,15 +25,10 @@ const ArtistProfile = ({
     artist: { 
         profile, 
         loading 
-    }, 
-    tattooStyles: { 
-        tattooStyles, 
-        loading: tattooStylesLoading 
-    }, 
+    },
     history, 
     location, 
-    fetchArtistProfile, 
-    fetchTattooStyles, 
+    fetchArtistProfile,
     saveProfile 
 }) => {
     const [formData, setFormData] = useState({
@@ -44,7 +39,7 @@ const ArtistProfile = ({
         profilePicture: '',
         biography: '',
         workplaces: [],
-        tattooStyles: [],
+        selectedTattooStyles: [],
         portfolio: [],
         facebook: '',
         instagram: '',
@@ -61,7 +56,6 @@ const ArtistProfile = ({
 
     useEffect(() => {
         fetchArtistProfile();
-        fetchTattooStyles();
 
         if (profile) {
             setFormData({
@@ -70,6 +64,7 @@ const ArtistProfile = ({
                 profilePicture: loading || !profile.profilePicture ? '' : profile.profilePicture.publicId,
                 biography: loading || !profile.biography ? '' : profile.biography,
                 workplaces: loading || !profile.workplaces ? [] : profile.workplaces,
+                selectedTattooStyles: loading || !profile.tattooStyles ? [] : profile.tattooStyles,
                 facebook: loading || !profile.social.facebook ? '' : profile.social.facebook,
                 instagram: loading || !profile.social.instagram ? '' : profile.social.instagram,
                 website: loading || !profile.social.website ? '' : profile.social.website,
@@ -80,10 +75,9 @@ const ArtistProfile = ({
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [fetchArtistProfile, fetchTattooStyles, loading]);
+    }, [fetchArtistProfile, loading]);
 
-
-    const { fullName, city, profilePicture, biography, workplaces, facebook, instagram, website, phone, email, hourRate, minRate } = formData;
+    const { fullName, city, profilePicture, biography, workplaces, selectedTattooStyles, facebook, instagram, website, phone, email, hourRate, minRate } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -245,18 +239,16 @@ const ArtistProfile = ({
                         acceptFunction={() => alert('workplace removed!')}
                     />
                 </div>
-                {
-                    tattooStyles ?
+                {/* {
+                    tattooStyles ? */}
                         <div className="my-5">
                             <h3 className="d-flex">Styles</h3>
                             <div className="d-flex flex-wrap py-1">
-                                {
-                                    tattooStyles.map(tattooStyle => <span className="tattoo-style-badge font-50 m-1">{tattooStyle.name}</span>)
-                                }
+                                <TattooStyles selectedTattooStyles={selectedTattooStyles} />
                             </div>
                         </div>
-                    : null
-                }
+                    {/* : null
+                } */}
                 <div className="mb-5">
                     <h3>Pricing</h3>
                     <Row>
@@ -327,8 +319,7 @@ ArtistProfile.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    artist: state.artist,
-    tattooStyles: state.tattooStyles
+    artist: state.artist
 });
 
-export default connect(mapStateToProps, { fetchArtistProfile, fetchTattooStyles, saveProfile })(withRouter(ArtistProfile));
+export default connect(mapStateToProps, { fetchArtistProfile, saveProfile })(withRouter(ArtistProfile));
