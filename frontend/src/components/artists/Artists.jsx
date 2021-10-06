@@ -9,6 +9,7 @@ import { fetchTattooStyles } from '../../actions/tattooStyles';
 import Form from 'react-bootstrap/Form';
 
 import ArtistCard from './fragments/ArtistCard';
+import TattooStyles from '../tattooStyles/TattooStyles';
 
 const Artists = ({ tattooStyles: { tattooStyles, loading }, fetchTattooStyles }) => {
     const [tattooStylesArray, setTattooStyles] = useState([]);
@@ -16,7 +17,6 @@ const Artists = ({ tattooStyles: { tattooStyles, loading }, fetchTattooStyles })
 
     useEffect(() => {
         fetchTattooStyles();
-        buildTattooStyles();
         fetchArtists();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fetchTattooStyles, loading]);
@@ -29,16 +29,6 @@ const Artists = ({ tattooStyles: { tattooStyles, loading }, fetchTattooStyles })
         } else {
             console.log(res.error);
         }
-    }
-
-    const buildTattooStyles = () => {
-        const names = [];
-
-        tattooStyles.forEach(tattooStyle => {
-            names.push(tattooStyle.name);
-        });
-
-        setTattooStyles(names);
     }
 
     const buildArtists = artists => {
@@ -61,15 +51,15 @@ const Artists = ({ tattooStyles: { tattooStyles, loading }, fetchTattooStyles })
                 <Form.Group controlId="formArtistLocation">
                     <Form.Control type="text" placeholder="In which city?" />
                 </Form.Group>
-                {
-                    tattooStylesArray ?
+                {/* {
+                    tattooStylesArray ? */}
                     <div className="tattoo-styles-header">
                         {
-                            tattooStylesArray.map(tattooStyle => <span className="tattoo-style-badge font-50 mx-1 mb-2">{tattooStyle}</span>)
+                            <TattooStyles selectedTattooStyles={tattooStylesArray} />
                         }
                     </div>
-                    : null
-                }
+                    {/* : null
+                } */}
             </div>
             <hr className="my-2" />
             {

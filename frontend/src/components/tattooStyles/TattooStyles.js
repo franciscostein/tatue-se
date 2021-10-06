@@ -13,7 +13,10 @@ const TattooStyles = ({ tattooStyles: { tattooStyles, loading }, fetchTattooStyl
     useEffect(() => {
         fetchTattooStyles();
         setLocalTattooStyles(tattooStyles);
-        selectTattooStyles();
+
+        if (selectedTattooStyles) {
+            selectTattooStyles();
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fetchTattooStyles, loading, selectedTattooStyles]);
 
