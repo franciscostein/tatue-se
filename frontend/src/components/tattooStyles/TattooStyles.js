@@ -7,33 +7,46 @@ import { fetchTattooStyles } from '../../actions/tattooStyles';
 
 import TattooStyle from './tattooStyle/TattooStyle';
 
-const TattooStyles = ({ tattooStyles: { tattooStyles, loading }, fetchTattooStyles, selectedTattooStyles }) => {
+const TattooStyles = ({ tattooStyles: { tattooStyles, loading }, fetchTattooStyles, selectedTattooStylesIds }) => {
     const [localTattooStyles, setLocalTattooStyles] = useState([]);
 
     useEffect(() => {
         fetchTattooStyles();
-        setLocalTattooStyles(tattooStyles);
 
-        if (selectedTattooStyles) {
-            selectTattooStyles();
+        if (tattooStyles) {
+            setLocalTattooStyles(tattooStyles);
+
+            if (selectedTattooStylesIds) {
+                selectTattooStyles();
+            }
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [fetchTattooStyles, loading, selectedTattooStyles]);
+    }, [fetchTattooStyles, loading, selectedTattooStylesIds]);
 
     const selectTattooStyles = () => {
         const newArray = [];
-        
+
         tattooStyles.forEach(tattooStyle => {
             newArray.push({
                 ...tattooStyle,
-                selected: selectedTattooStyles.some(_id => _id === tattooStyle._id)
+                selected: selectedTattooStylesIds.some(_id => _id === tattooStyle._id)
             })
         });
 
         setLocalTattooStyles(newArray);
     }
 
-    return localTattooStyles.map(tattooStyle => <TattooStyle tattooStyle={tattooStyle} />);
+    const handleTattooStyleClick = tattooStyleId => {
+        if (selectedTattooStylesIds.some(_id => _id === tattooStyleId)) {
+            selectedTattooStylesIds.splice(selectedTattooStylesIds.indexOf(tattooStyleId), 1);
+        } else {
+            selectedTattooStylesIds.push(tattooStyleId);
+        }
+
+        selectTattooStyles();
+    }
+
+    return localTattooStyles.map(tattooStyle => <TattooStyle tattooStyle={tattooStyle} onClick={() => handleTattooStyleClick(tattooStyle._id)} />);
 }
 
 TattooStyles.propTypes = {

@@ -55,7 +55,7 @@ const Artists = ({ tattooStyles: { tattooStyles, loading }, fetchTattooStyles })
                     tattooStylesArray ? */}
                     <div className="tattoo-styles-header">
                         {
-                            <TattooStyles selectedTattooStyles={tattooStylesArray} />
+                            <TattooStyles selectedTattooStylesIds={tattooStylesArray} />
                         }
                     </div>
                     {/* : null

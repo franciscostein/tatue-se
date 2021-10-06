@@ -244,7 +244,7 @@ const ArtistProfile = ({
                         <div className="my-5">
                             <h3 className="d-flex">Styles</h3>
                             <div className="d-flex flex-wrap py-1">
-                                <TattooStyles selectedTattooStyles={selectedTattooStyles} />
+                                <TattooStyles selectedTattooStylesIds={selectedTattooStyles} />
                             </div>
                         </div>
                     {/* : null
