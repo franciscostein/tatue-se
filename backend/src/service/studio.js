@@ -16,8 +16,14 @@ exports.save = async (userId, { name, location, logo, coverImage, about, social,
 	}
 }
 
-exports.getAll = async () => {
-    const studios = await Studio.find().select('-owner');
+exports.getAll = async search => {
+    let studios = {};
+	
+	if (!search) {
+		studios = await Studio.find().select('-owner');
+	} else if (search === 'idAndName') {
+		studios = await Studio.find().select(['_id', 'name']);
+	}
 
     if (studios) {
         return apiResponse(studios);

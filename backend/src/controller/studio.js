@@ -12,7 +12,7 @@ exports.save = async (req, res, next) => {
 
 exports.getAll = async (req, res, next) => {
     try {
-        const { status, payload } = await getAll();
+        const { status, payload } = await getAll(req.query.search);
 
         res.status(status).json(payload);
     } catch (err) {
