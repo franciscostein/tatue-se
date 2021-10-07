@@ -12,36 +12,10 @@ label {
     color: #dee2e6;
 }
 
-/* .header {
-    background-color: #282c34;
-    color: #dee2e6;
-}
-
-.modal {
-    background-color: #282c34;
-} */
-
-/* .search input {
-    background-color: #dee2e6;
-    border: 0;
-    border-radius: 0.25rem;
-    padding: 15px;
-    height: 30px;
-    width: 300px;
-}
-
-.search-input {
-    margin-top: 108px;
-    display: flex;
-} */
-
 .data-result {
     margin-top: 5px;
-    /* width: 300px; */
-    height: 200px;
+    height: 275px;
     border-radius: 0.25rem;
-    /* background-color: #dee2e6; */
-    /* box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px; */
     overflow: hidden;
     overflow-y: auto;
     display: flex;
@@ -50,8 +24,4 @@ label {
 
 .data-result::-webkit-scrollbar {
     display: none;
-}
-
-.data-item {
-    margin-left: 10px;
 }

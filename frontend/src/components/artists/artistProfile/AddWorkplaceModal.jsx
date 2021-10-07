@@ -3,11 +3,10 @@ import { useState, useEffect } from 'react';
 // import axios from 'axios';
 
 import Modal from 'react-bootstrap/Modal';
-import Image from 'react-bootstrap/Image';
-// import Button from 'react-bootstrap/Button';
+
+import SearchResultStudio from './SearchResultStudio';
 
 import studiosData from './studioData.json';
-import avatarPlaceholder from '../../../assets/user_w.png';
 
 const AddWorkplaceModal = ({ show, closeFunction, confirmationFunction}) => {
     const [searchInput, setSearchInput] = useState('');
@@ -36,11 +35,12 @@ const AddWorkplaceModal = ({ show, closeFunction, confirmationFunction}) => {
         setSearchInput(search);
     }
 
+    const handleSearchClick = studio => {
+        console.log(studio);
+    }
+
     return (
         <Modal centered show={show} onHide={closeFunction}>
-            {/* <Modal.Header className="header">
-                <Modal.Title>Add workplace</Modal.Title>
-            </Modal.Header> */}
             <Modal.Body id="body">
                     <div className="search-input">
                         <label htmlFor="search-input">Add workplace</label>
@@ -49,18 +49,10 @@ const AddWorkplaceModal = ({ show, closeFunction, confirmationFunction}) => {
                     {
                         studios && 
                         <div className="data-result">
-                            { studios.map(studio => <span className="search-item">{studio.name}</span>) }
+                            { studios.map(studio => <SearchResultStudio studio={studio} onClick={() => handleSearchClick(studio._id)} />) }
                         </div>
                     }
             </Modal.Body>
-            {/* <Modal.Footer id="footer">
-                <Button variant="secondary" onClick={closeFunction}>
-                    Cancel
-                </Button>
-                <Button variant="primary" onClick={confirmationFunction}>
-                    Add
-                </Button>
-            </Modal.Footer> */}
         </Modal>
     );
 }

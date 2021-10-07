@@ -14,7 +14,7 @@
             "address": "Kurfürstenstraße, 77"
         },
         "logo": {
-            "publicId": "https://res.cloudinary.com/leandro94costa/image/upload/v1631909557/Screenshot_from_2021-09-17_17-11-13_xaguhc.png"
+            "publicId": null
         },
         "_id": "2",
         "name": "Studio 2"
@@ -34,7 +34,7 @@
             "address": "Kurfürstenstraße, 77"
         },
         "logo": {
-            "publicId": "https://res.cloudinary.com/leandro94costa/image/upload/v1631909557/Screenshot_from_2021-09-17_17-11-13_xaguhc.png"
+            "publicId": null
         },
         "_id": "4",
         "name": "Studio 4"
@@ -44,7 +44,7 @@
             "address": "Kurfürstenstraße, 77"
         },
         "logo": {
-            "publicId": "https://res.cloudinary.com/leandro94costa/image/upload/v1631909557/Screenshot_from_2021-09-17_17-11-13_xaguhc.png"
+            "publicId": null
         },
         "_id": "5",
         "name": "Studio 5"
@@ -64,7 +64,7 @@
             "address": "Kurfürstenstraße, 77"
         },
         "logo": {
-            "publicId": "https://res.cloudinary.com/leandro94costa/image/upload/v1631909557/Screenshot_from_2021-09-17_17-11-13_xaguhc.png"
+            "publicId": null
         },
         "_id": "7",
         "name": "Studio 7"
@@ -84,7 +84,7 @@
             "address": "Kurfürstenstraße, 77"
         },
         "logo": {
-            "publicId": "https://res.cloudinary.com/leandro94costa/image/upload/v1631909557/Screenshot_from_2021-09-17_17-11-13_xaguhc.png"
+            "publicId": null
         },
         "_id": "9",
         "name": "Studio 9"
@@ -104,7 +104,7 @@
             "address": "Kurfürstenstraße, 77"
         },
         "logo": {
-            "publicId": "https://res.cloudinary.com/leandro94costa/image/upload/v1631909557/Screenshot_from_2021-09-17_17-11-13_xaguhc.png"
+            "publicId": null
         },
         "_id": "11",
         "name": "Studio 11"
@@ -124,7 +124,7 @@
             "address": "Kurfürstenstraße, 77"
         },
         "logo": {
-            "publicId": "https://res.cloudinary.com/leandro94costa/image/upload/v1631909557/Screenshot_from_2021-09-17_17-11-13_xaguhc.png"
+            "publicId": null
         },
         "_id": "13",
         "name": "Studio 13"
@@ -144,7 +144,7 @@
             "address": "Kurfürstenstraße, 77"
         },
         "logo": {
-            "publicId": "https://res.cloudinary.com/leandro94costa/image/upload/v1631909557/Screenshot_from_2021-09-17_17-11-13_xaguhc.png"
+            "publicId": null
         },
         "_id": "15",
         "name": "Studio 15"
