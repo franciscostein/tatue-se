@@ -81,6 +81,6 @@ Artists.propTypes = {
 
 const mapStateToProps = state => ({
     tattooStyles: state.tattooStyles
-})
+});
 
 export default connect(mapStateToProps, { fetchTattooStyles })(withRouter(Artists));

@@ -87,6 +87,18 @@ const ArtistProfile = ({
         // saveProfile(formData, history);
     }
 
+    const handleAddWorkplace = workplace => {
+        const newArray = workplaces;
+        setShowAddWorkplaceModal(false);
+
+        newArray.push(workplace);
+
+        setFormData({
+            ...formData,
+            workplaces: newArray
+        });
+    }
+
     return (
         <Container>
             <Form>
@@ -220,10 +232,11 @@ const ArtistProfile = ({
                     <AddWorkplaceModal
                         show={showAddWorkplaceModal}
                         closeFunction={() => setShowAddWorkplaceModal(false)}
-                        confirmationFunction={() => alert('workplace added!')}
+                        addWorkplace={handleAddWorkplace}
+                        selectedWorplaces={workplaces}
                     />
                 </div>
-                <div className="d-flex">
+                <div className="d-flex flex-wrap">
                     {
                         workplaces ?
                             workplaces.map(studio => <StudioMiniCard studio={studio} removeFunction={() => setShowRemoveWorkplaceModal(true)} />)

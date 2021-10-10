@@ -8,13 +8,13 @@ import SearchResultStudio from './SearchResultStudio';
 
 import studiosData from './studioData.json';
 
-const AddWorkplaceModal = ({ show, closeFunction, confirmationFunction}) => {
+const AddWorkplaceModal = ({ show, closeFunction, addWorkplace, selectedWorplaces }) => {
     const [searchInput, setSearchInput] = useState('');
     const [studios, setSudios] = useState([]);
 
     useEffect(() => {
         getStudios();
-    }, []);
+    }, [selectedWorplaces]);
 
     const getStudios = async () => {
         // const res = await axios.get('/api/studios?search=idAndName');
@@ -28,6 +28,10 @@ const AddWorkplaceModal = ({ show, closeFunction, confirmationFunction}) => {
         //     console.log(res.error);
         // }
         setSudios(studiosData);
+
+        const newArray = studios.filter(studio => !selectedWorplaces.some(selected => selected._id === studio._id));
+
+        setSudios(newArray);
     }
 
     const handleFilter = event => {
@@ -36,7 +40,7 @@ const AddWorkplaceModal = ({ show, closeFunction, confirmationFunction}) => {
     }
 
     const handleSearchClick = studio => {
-        console.log(studio);
+        addWorkplace(studio);
     }
 
     return (
@@ -49,7 +53,7 @@ const AddWorkplaceModal = ({ show, closeFunction, confirmationFunction}) => {
                     {
                         studios && 
                         <div className="data-result">
-                            { studios.map(studio => <SearchResultStudio studio={studio} onClick={() => handleSearchClick(studio._id)} />) }
+                            { studios.map(studio => <SearchResultStudio studio={studio} onClick={() => handleSearchClick(studio)} />) }
                         </div>
                     }
             </Modal.Body>
