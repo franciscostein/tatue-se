@@ -27,7 +27,11 @@ const AddWorkplaceModal = ({ show, closeFunction, addWorkplace, selectedWorplace
         // } else {
         //     console.log(res.error);
         // }
+        console.log('selectedWorplaces', selectedWorplaces);
+
         setSudios(studiosData);
+
+        console.log('studios', studios);
 
         const newArray = studios.filter(studio => !selectedWorplaces.some(selected => selected._id === studio._id));
 

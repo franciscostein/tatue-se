@@ -46,7 +46,7 @@ const TattooStyles = ({ tattooStyles: { tattooStyles, loading }, fetchTattooStyl
         selectTattooStyles();
     }
 
-    return localTattooStyles.map(tattooStyle => <TattooStyle tattooStyle={tattooStyle} onClick={() => handleTattooStyleClick(tattooStyle._id)} />);
+    return localTattooStyles.map(tattooStyle => <TattooStyle key={tattooStyle._id} tattooStyle={tattooStyle} onClick={() => handleTattooStyleClick(tattooStyle._id)} />);
 }
 
 TattooStyles.propTypes = {

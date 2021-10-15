@@ -17,6 +17,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
 import { FaPlus } from 'react-icons/fa';
 
 import avatarPlaceholder from '../../../assets/user_w.png';
@@ -239,7 +240,7 @@ const ArtistProfile = ({
                 <div className="d-flex flex-wrap">
                     {
                         workplaces ?
-                            workplaces.map(studio => <StudioMiniCard studio={studio} removeFunction={() => setShowRemoveWorkplaceModal(true)} />)
+                            workplaces.map(studio => <StudioMiniCard key={studio._id} studio={studio} removeFunction={() => setShowRemoveWorkplaceModal(true)} />)
                         : null
                     }
                     <ConfirmationModal
@@ -290,9 +291,9 @@ const ArtistProfile = ({
                         <Col>
                             <span className="font-75">Currency</span>
                             <DropdownButton id="dropdownPriceHour" title="BRL">
-                                <DropdownButton.Item>USD</DropdownButton.Item>
-                                <DropdownButton.Item>EUR</DropdownButton.Item>
-                                <DropdownButton.Item>BRL</DropdownButton.Item>
+                                <Dropdown.Item className="text-white">USD</Dropdown.Item>
+                                <Dropdown.Item className="text-white">EUR</Dropdown.Item>
+                                <Dropdown.Item className="text-white">BRL</Dropdown.Item>
                             </DropdownButton>
                         </Col>
                     </Row>
@@ -326,7 +327,6 @@ const ArtistProfile = ({
 
 ArtistProfile.propTypes = {
     fetchArtistProfile: PropTypes.func.isRequired,
-    fetchTattooStyles: PropTypes.func.isRequired,
     saveProfile: PropTypes.func.isRequired,
     artist: PropTypes.object.isRequired
 }
