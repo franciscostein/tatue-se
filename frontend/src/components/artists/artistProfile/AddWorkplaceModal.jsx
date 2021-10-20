@@ -1,50 +1,62 @@
 import './AddWorkplaceModal.css';
-import { useState, useEffect } from 'react';
-// import axios from 'axios';
+import { useState, useEffect, Fragment } from 'react';
+import axios from 'axios';
 
 import Modal from 'react-bootstrap/Modal';
 
 import SearchResultStudio from './SearchResultStudio';
 
-import studiosData from './studioData.json';
+// import studiosData from './studioData.json';
 
 const AddWorkplaceModal = ({ show, closeFunction, addWorkplace, selectedWorplaces }) => {
     const [searchInput, setSearchInput] = useState('');
     const [studios, setStudios] = useState([]);
     const [filteredStudios, setFilteredStudios] = useState([]);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         getStudios();
     }, [addWorkplace, selectedWorplaces]);
 
     const getStudios = async () => {
-        // const res = await axios.get('/api/studios?search=idAndName');
+        const res = await axios.get('/api/studios?search=idNameLogoAddress');
 
-        // console.log(res);
+        console.log('data', res.data);
 
-        // if (res.data) {
-        //     console.log(res.data)
-        //     setSudios(res.data);
-        // } else {
-        //     console.log(res.error);
-        // }
+        if (res.data) {
+            setStudios(res.data);
+            setError(false);
+        } else {
+            setError(true);
+            console.log(res.error);
+        }
+
         setSearchInput('');
-        setStudios(studiosData);
         setFilteredStudios(filterSelectedStudios(studios));
     }
 
-    const filterSelectedStudios = studios => studios.filter(studio => !selectedWorplaces.some(selected => selected._id === studio._id));
+    const filterSelectedStudios = studios => {
+        if (studios.length > 0) {
+            return studios.filter(studio => !selectedWorplaces.some(selected => selected._id === studio._id));
+        } else {
+            setError(true);
+        }
+    }
 
     const handleFilter = event => {
-        const search = event.target.value;
-        setSearchInput(search);
+        if (studios.length > 0) {
+            const search = event.target.value;
+            setSearchInput(search);
 
-        const newFilter = studios.filter(studio => studio.name.toLowerCase().includes(search.toLowerCase()));
+            const newFilter = studios.filter(studio => studio.name.toLowerCase().includes(search.toLowerCase()));
 
-        if (search === '') {
-            setFilteredStudios([]);
+            if (search === '') {
+                setFilteredStudios([]);
+            } else {
+                setFilteredStudios(filterSelectedStudios(newFilter));
+            }
         } else {
-            setFilteredStudios(filterSelectedStudios(newFilter));
+            setError(true);
         }
     }
 
@@ -55,15 +67,21 @@ const AddWorkplaceModal = ({ show, closeFunction, addWorkplace, selectedWorplace
     return (
         <Modal centered show={show} onHide={closeFunction}>
             <Modal.Body id="body">
-                    <div className="search-input">
-                        <label htmlFor="search-input">Add workplace</label>
-                        <input id="search-input" type="text" placeholder="Studio name" className="form-control" value={searchInput} onChange={handleFilter} />
-                    </div>
-                    {
-                        filteredStudios && 
-                        <div className="data-result">
-                            { filteredStudios.slice(0, 13).map(studio => <SearchResultStudio studio={studio} onClick={() => handleSearchClick(studio)} />) }
-                        </div>
+                    { error ?
+                        <h1 className="text-danger">Error, please try again later.</h1>
+                        :
+                        <Fragment>
+                            <div className="search-input">
+                                <label htmlFor="search-input">Add workplace</label>
+                                <input id="search-input" type="text" placeholder="Studio name" className="form-control" value={searchInput} onChange={handleFilter} />
+                            </div>
+                            {
+                                filteredStudios && 
+                                <div className="data-result">
+                                    { filteredStudios.slice(0, 13).map(studio => <SearchResultStudio studio={studio} onClick={() => handleSearchClick(studio)} />) }
+                                </div>
+                            }
+                        </Fragment>
                     }
             </Modal.Body>
         </Modal>
