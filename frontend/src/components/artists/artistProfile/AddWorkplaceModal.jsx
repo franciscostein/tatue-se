@@ -14,7 +14,7 @@ const AddWorkplaceModal = ({ show, closeFunction, addWorkplace, selectedWorplace
 
     useEffect(() => {
         getStudios();
-    }, [selectedWorplaces]);
+    }, [addWorkplace, selectedWorplaces]);
 
     const getStudios = async () => {
         // const res = await axios.get('/api/studios?search=idAndName');
@@ -27,13 +27,7 @@ const AddWorkplaceModal = ({ show, closeFunction, addWorkplace, selectedWorplace
         // } else {
         //     console.log(res.error);
         // }
-        console.log('selectedWorplaces', selectedWorplaces);
-
-        setSudios(studiosData);
-
-        console.log('studios', studios);
-
-        const newArray = studios.filter(studio => !selectedWorplaces.some(selected => selected._id === studio._id));
+        const newArray = studiosData.filter(studio => !selectedWorplaces.some(selected => selected._id === studio._id));
 
         setSudios(newArray);
     }

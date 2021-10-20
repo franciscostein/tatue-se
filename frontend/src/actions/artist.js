@@ -11,6 +11,8 @@ export const fetchArtistProfile = artistId => async dispatch => {
         const url = artistId ? `/api/artists/${artistId}` : '/api/artists/profile/me';
         const res = await axios.get(url);
 
+        console.log('fetchArtistProfile');
+
         dispatch({
             type: GET_ARTIST_PROFILE,
             payload: res.data

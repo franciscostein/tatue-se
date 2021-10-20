@@ -89,14 +89,19 @@ const ArtistProfile = ({
     }
 
     const handleAddWorkplace = workplace => {
-        const newArray = workplaces;
         setShowAddWorkplaceModal(false);
 
-        newArray.push(workplace);
+        console.log('workplace', workplace);
+
+        if (!workplaces.some(item => item._id === workplace._id)) {
+            workplaces.push(workplace);
+        }
+
+        console.log('workplaces', workplaces);
 
         setFormData({
             ...formData,
-            workplaces: newArray
+            workplaces
         });
     }
 
