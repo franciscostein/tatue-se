@@ -10,7 +10,8 @@ import studiosData from './studioData.json';
 
 const AddWorkplaceModal = ({ show, closeFunction, addWorkplace, selectedWorplaces }) => {
     const [searchInput, setSearchInput] = useState('');
-    const [studios, setSudios] = useState([]);
+    const [studios, setStudios] = useState([]);
+    const [filteredStudios, setFilteredStudios] = useState([]);
 
     useEffect(() => {
         getStudios();
@@ -27,14 +28,24 @@ const AddWorkplaceModal = ({ show, closeFunction, addWorkplace, selectedWorplace
         // } else {
         //     console.log(res.error);
         // }
-        const newArray = studiosData.filter(studio => !selectedWorplaces.some(selected => selected._id === studio._id));
-
-        setSudios(newArray);
+        setSearchInput('');
+        setStudios(studiosData);
+        setFilteredStudios(filterSelectedStudios(studios));
     }
+
+    const filterSelectedStudios = studios => studios.filter(studio => !selectedWorplaces.some(selected => selected._id === studio._id));
 
     const handleFilter = event => {
         const search = event.target.value;
         setSearchInput(search);
+
+        const newFilter = studios.filter(studio => studio.name.toLowerCase().includes(search.toLowerCase()));
+
+        if (search === '') {
+            setFilteredStudios([]);
+        } else {
+            setFilteredStudios(filterSelectedStudios(newFilter));
+        }
     }
 
     const handleSearchClick = studio => {
@@ -49,9 +60,9 @@ const AddWorkplaceModal = ({ show, closeFunction, addWorkplace, selectedWorplace
                         <input id="search-input" type="text" placeholder="Studio name" className="form-control" value={searchInput} onChange={handleFilter} />
                     </div>
                     {
-                        studios && 
+                        filteredStudios && 
                         <div className="data-result">
-                            { studios.map(studio => <SearchResultStudio studio={studio} onClick={() => handleSearchClick(studio)} />) }
+                            { filteredStudios.slice(0, 13).map(studio => <SearchResultStudio studio={studio} onClick={() => handleSearchClick(studio)} />) }
                         </div>
                     }
             </Modal.Body>
