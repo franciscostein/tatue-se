@@ -1,3 +1,5 @@
+import { useHistory } from 'react-router-dom';
+
 import './Navbar.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -8,6 +10,11 @@ import userSolid from '../../assets/user_w.png';
 
 const NavbarComponent = () => {
     const pathname = window.location.pathname;
+    const history = useHistory();
+
+    const handleProfileClick = () => {
+        history.push('/artists/profile');
+    }
     
     return (
         <Navbar bg="dark" expand="lg" sticky="top">
@@ -25,7 +32,7 @@ const NavbarComponent = () => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu className="dropdown-menu">
-                    <Dropdown.Item className="dropdown-item text-white">Profile</Dropdown.Item>
+                    <Dropdown.Item className="dropdown-item text-white" onClick={handleProfileClick}>Profile</Dropdown.Item>
                     <Dropdown.Item className="dropdown-item text-white">Log out</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>

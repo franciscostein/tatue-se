@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 import { setAuthToken } from './utils/authToken';
@@ -28,10 +28,10 @@ function App() {
 
     return (
         <div className="App">
-            <Navbar />
-            <div className="App-content">
+            <Router>
                 <Provider store={store}>
-                    <BrowserRouter>
+                    <Navbar />
+                    <div className="App-content">
                         <Switch>
                             <Route exact path="/">
                                 <Artists />
@@ -58,10 +58,10 @@ function App() {
                                 <SignUp />
                             </Route>
                         </Switch>
-                    </BrowserRouter>
+                    </div>
+                    <Footer />
                 </Provider>
-            </div>
-            <Footer />
+            </Router>
         </div>
     );
 }
