@@ -16,8 +16,6 @@ import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown';
 import { FaPlus } from 'react-icons/fa';
 
 import avatarPlaceholder from '../../../assets/user_w.png';
@@ -54,6 +52,7 @@ const ArtistProfile = ({
     const [showAddWorkplaceModal, setShowAddWorkplaceModal] = useState(false);
     const [showRemoveWorkplaceModal, setShowRemoveWorkplaceModal] = useState(false);
     const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
+    const [idToRemove, setIdToRemove] = useState('');
 
     useEffect(() => {
         fetchArtistProfile();
@@ -91,18 +90,34 @@ const ArtistProfile = ({
     const handleAddWorkplace = workplace => {
         setShowAddWorkplaceModal(false);
 
-        console.log('workplace', workplace);
-
         if (!workplaces.some(item => item._id === workplace._id)) {
             workplaces.push(workplace);
+
+            setFormData({
+                ...formData,
+                workplaces
+            });
+        }
+    }
+
+    const handleRemoveWorkplace = workplaceId => {
+        setIdToRemove(workplaceId);
+        setShowRemoveWorkplaceModal(true);
+    }
+
+    const handleRemoveWorkplaceConfirmation = () => {
+        setShowRemoveWorkplaceModal(false);
+
+        if (workplaces.some(workplace => workplace._id === idToRemove)) {
+            const filteredWorkplaces = workplaces.filter(workplace => workplace._id !== idToRemove);
+
+            setFormData({
+                ...formData,
+                workplaces: filteredWorkplaces
+            });
         }
 
-        console.log('workplaces', workplaces);
-
-        setFormData({
-            ...formData,
-            workplaces
-        });
+        setIdToRemove('');
     }
 
     return (
@@ -245,17 +260,18 @@ const ArtistProfile = ({
                 <div className="d-flex flex-wrap">
                     {
                         workplaces ?
-                            workplaces.map(studio => <StudioMiniCard key={studio._id} studio={studio} removeFunction={() => setShowRemoveWorkplaceModal(true)} />)
+                            workplaces.map(studio => <StudioMiniCard key={studio._id} studio={studio} removeFunction={() => handleRemoveWorkplace(studio._id)} />)
                         : null
                     }
                     <ConfirmationModal
                         show={showRemoveWorkplaceModal}
+                        objectId={idToRemove}
                         closeFunction={() => setShowRemoveWorkplaceModal(false)}
                         title="Remove workplace"
                         titleColor="text-danger"
                         bodyText="Are you sure you want to remove it?"
                         acceptVariant="danger"
-                        acceptFunction={() => alert('workplace removed!')}
+                        acceptFunction={handleRemoveWorkplaceConfirmation}
                     />
                 </div>
                 {/* {
