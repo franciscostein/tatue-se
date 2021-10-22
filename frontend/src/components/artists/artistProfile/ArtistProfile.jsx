@@ -9,6 +9,7 @@ import StudioMiniCard from '../../studios/fragments/StudioMiniCard';
 import ConfirmationModal from '../../modals/ConfirmationModal';
 import AddWorkplaceModal from './AddWorkplaceModal';
 import TattooStyles from '../../tattooStyles/TattooStyles';
+import LocationInput from '../../fragments/LocationInput';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -216,7 +217,7 @@ const ArtistProfile = ({
                     </Col>
                 </Row>
                 <Row className="mb-3">
-                    <Form.Group controlId="formArtistLocation">
+                    {/* <Form.Group controlId="formArtistLocation">
                         <Form.Label className="font-75">City</Form.Label>
                         <Form.Control 
                             type="text" 
@@ -225,7 +226,8 @@ const ArtistProfile = ({
                             value={city}
                             onChange={e => onChange(e)}
                         />
-                    </Form.Group>
+                    </Form.Group> */}
+                    <LocationInput />
                 </Row>
                 <Row className="pb-3">
                     <Form.Group controlId="formArtistBiography">

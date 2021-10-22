@@ -15,7 +15,8 @@ button {
 }
 
 input,
-textarea {
+textarea,
+select {
     background-color: #dee2e6 !important;
     color: #212529 !important;
 }
