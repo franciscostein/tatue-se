@@ -227,7 +227,9 @@ const ArtistProfile = ({
                             onChange={e => onChange(e)}
                         />
                     </Form.Group> */}
-                    <LocationInput />
+                    <LocationInput
+                        searchOptions={{ types: ['(cities)'] }}
+                    />
                 </Row>
                 <Row className="pb-3">
                     <Form.Group controlId="formArtistBiography">

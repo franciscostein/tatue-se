@@ -3,7 +3,7 @@ import PlacesAutoComplete, { geocodeByAddress, getLatLng } from 'react-places-au
 
 import Form from 'react-bootstrap/Form';
 
-const LocationInput = () => {
+const LocationInput = ({ searchOptions = null }) => {
     const [address, setAddress] = useState('');
     const [coordinates, setCoordinates] = useState({
         lat: null,
@@ -23,6 +23,7 @@ const LocationInput = () => {
             value={address} 
             onChange={setAddress}
             onSelect={handleSelect}
+            searchOptions={searchOptions}
         >
             {
                 ({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
