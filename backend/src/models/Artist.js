@@ -13,20 +13,6 @@ const artistSchema = new Schema({
 		required: true,
 		trim: true
 	},
-	location: {
-		city: {
-			type: String,
-			required: true
-		},
-		latitude: {
-			type: String,
-			required: true
-		},
-		longitude: {
-			type: String,
-			required: true
-		}
-	},
 	profilePicture: {
 		publicId: String
 	},
@@ -39,7 +25,8 @@ const artistSchema = new Schema({
 	},
 	workplaces: [{
 		type: Schema.Types.ObjectId,
-		ref: 'studio'
+		ref: 'studio',
+		required: true
 	}],
 	tattooStyles: [{ 
 		type: Schema.Types.ObjectId,

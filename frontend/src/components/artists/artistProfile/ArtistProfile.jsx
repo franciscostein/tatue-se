@@ -228,7 +228,7 @@ const ArtistProfile = ({
                         />
                     </Form.Group> */}
                     <LocationInput
-                        searchOptions={{ types: ['(cities)'] }}
+                        // searchOptions={{ types: ['(cities)'] }}
                     />
                 </Row>
                 <Row className="pb-3">
