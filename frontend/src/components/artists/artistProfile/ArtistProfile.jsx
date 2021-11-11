@@ -9,17 +9,14 @@ import StudioMiniCard from '../../studios/fragments/StudioMiniCard';
 import ConfirmationModal from '../../modals/ConfirmationModal';
 import AddWorkplaceModal from './AddWorkplaceModal';
 import TattooStyles from '../../tattooStyles/TattooStyles';
-import LocationInput from '../../fragments/LocationInput';
+import ImageUploader from '../../fragments/ImageUploader';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
-import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { FaPlus } from 'react-icons/fa';
-
-import avatarPlaceholder from '../../../assets/user_w.png';
 
 const ArtistProfile = ({ 
     artist: { 
@@ -33,10 +30,7 @@ const ArtistProfile = ({
 }) => {
     const [formData, setFormData] = useState({
         fullName: '',
-        city: '',
-        latitude: '',
-        longitude: '',
-        profilePicture: '',
+        profilePicture: null,
         biography: '',
         workplaces: [],
         selectedTattooStyles: [],
@@ -61,7 +55,6 @@ const ArtistProfile = ({
         if (profile) {
             setFormData({
                 fullName: loading || !profile.fullName ? '' : profile.fullName,
-                city: loading || !profile.location.city ? '' : profile.location.city,
                 profilePicture: loading || !profile.profilePicture ? '' : profile.profilePicture.publicId,
                 biography: loading || !profile.biography ? '' : profile.biography,
                 workplaces: loading || !profile.workplaces ? [] : profile.workplaces,
@@ -78,7 +71,7 @@ const ArtistProfile = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fetchArtistProfile, loading]);
 
-    const { fullName, city, profilePicture, biography, workplaces, selectedTattooStyles, facebook, instagram, website, phone, email, hourRate, minRate } = formData;
+    const { fullName, profilePicture, biography, workplaces, selectedTattooStyles, facebook, instagram, website, phone, email, hourRate, minRate } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -137,7 +130,7 @@ const ArtistProfile = ({
                         </Button>
                     </div>
                 </div>
-                <Image src={profilePicture ?? avatarPlaceholder} className="profile-picture my-4" roundedCircle />
+                <ImageUploader />
                 <Row className="mb-3">
                     <Col>
                         <Form.Group controlId="formArtistName">
@@ -215,21 +208,6 @@ const ArtistProfile = ({
                             />
                         </Form.Group>
                     </Col>
-                </Row>
-                <Row className="mb-3">
-                    {/* <Form.Group controlId="formArtistLocation">
-                        <Form.Label className="font-75">City</Form.Label>
-                        <Form.Control 
-                            type="text" 
-                            placeholder="Where do you live?" 
-                            name="city"
-                            value={city}
-                            onChange={e => onChange(e)}
-                        />
-                    </Form.Group> */}
-                    <LocationInput
-                        // searchOptions={{ types: ['(cities)'] }}
-                    />
                 </Row>
                 <Row className="pb-3">
                     <Form.Group controlId="formArtistBiography">
