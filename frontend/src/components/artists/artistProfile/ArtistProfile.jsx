@@ -130,7 +130,7 @@ const ArtistProfile = ({
                         </Button>
                     </div>
                 </div>
-                <ImageUploader />
+                <ImageUploader profilePicture={profilePicture} />
                 <Row className="mb-3">
                     <Col>
                         <Form.Group controlId="formArtistName">

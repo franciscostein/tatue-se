@@ -1,23 +1,40 @@
-import { Fragment, useState, useRef } from 'react';
+import './ImageUploader.css';
+import { Fragment, useState, useEffect, useRef } from 'react';
 import Image from 'react-bootstrap/Image';
 
 import avatarPlaceholder from '../../assets/user_w.png';
 
 const ImageUploader = ({ profilePicture }) => {
     const [image, setImage] = useState('');
+    const [previewSource, setPreviewSource] = useState('');
     const inputFile = useRef(null);
 
-    const handleFileUpload = event => {
+    useEffect(() => {
+        console.log(previewSource);
+    }, [previewSource]);
+
+    const handleFileInputChange = event => {
         const { files } = event.target;
 
         if (files && files.length) {
-            const fileName = files[0].name;
+            const file = files[0];
+            const fileName = file.name;
+
+            previewFile(file);
 
             const parts = fileName.split('.');
             const fileType = parts[parts.length - 1];
             console.log('fileType', fileType);
 
-            setImage(files[0]);
+            setImage(file);
+        }
+    }
+
+    const previewFile = file => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setPreviewSource(reader.result);
         }
     }
 
@@ -29,14 +46,13 @@ const ImageUploader = ({ profilePicture }) => {
         <Fragment>
             <input 
                 type="file" 
-                style={{ display: 'none' }} 
                 accept="image/*"
                 ref={inputFile} 
-                onChange={handleFileUpload} 
+                onChange={handleFileInputChange} 
             />
             <Image 
                 src={profilePicture ?? avatarPlaceholder} 
-                className="profile-picture my-4" 
+                className="profile-picture my-4 image-uploader" 
                 roundedCircle
                 onClick={onImageClick}
             />
