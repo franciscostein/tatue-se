@@ -12,7 +12,9 @@ const ImageUploader = ({ profilePicture }) => {
     const inputFile = useRef(null);
 
     useEffect(() => {
-
+        if (profilePicture) {
+            setPreviewSource(profilePicture);
+        }
     }, [profilePicture]);
 
     const handleFileInputChange = event => {
@@ -32,8 +34,6 @@ const ImageUploader = ({ profilePicture }) => {
         reader.readAsDataURL(file);
         reader.onloadend = () => {
             setPreviewSource(reader.result);
-            profilePicture = reader.result;
-            console.log(profilePicture);
         }
     }
 

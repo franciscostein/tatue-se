@@ -16,7 +16,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import { FaPlus } from 'react-icons/fa';
+import { FaPlus, FaTrashAlt } from 'react-icons/fa';
 
 const ArtistProfile = ({ 
     artist: { 
@@ -229,7 +229,7 @@ const ArtistProfile = ({
                     <div>
                         <Button onClick={() => setShowAddWorkplaceModal(true)}>
                             <FaPlus size={23} />
-                            <span className="ps-2">Add workplace</span>
+                            {/* <span className="ps-2">Add workplace</span> */}
                         </Button>
                     </div>
                     <AddWorkplaceModal
@@ -331,7 +331,8 @@ const ArtistProfile = ({
                     and subscription and billing info, booking history, your account information and settings.
                 </p>
                 <Button variant="danger" className="d-flex mt-3 mb-5" onClick={() => setShowDeleteAccountModal(true)}>
-                    Delete my account
+                    <FaTrashAlt size={19} />
+                    <span className="ps-2">Delete my account</span>
                 </Button>
                 <ConfirmationModal
                     show={showDeleteAccountModal}
