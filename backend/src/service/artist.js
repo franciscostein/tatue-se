@@ -1,3 +1,4 @@
+const { cloudinary } = require('../utils/cloudinary');
 const { apiResponse } = require('../utils/messages');
 const Artist = require('../models/Artist');
 
@@ -14,6 +15,14 @@ exports.save = async (userId, { fullName, profilePicture, coverImage, biography,
 		const inserted = await create(artistFields);
 		return apiResponse(inserted._doc, 201);
 	}
+}
+
+exports.uploadProfilePicture = async fileString => {
+	const uploadResponse = await cloudinary.uploader.upload(fileString.base, {
+		upload_preset: 'ml_default'
+	});
+
+	return apiResponse(uploadResponse);
 }
 
 exports.getAll = async () => {

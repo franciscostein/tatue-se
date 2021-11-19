@@ -1,5 +1,6 @@
 import './ImageUploader.css';
-import { Fragment, useState, useEffect, useRef } from 'react';
+import { Fragment, useState, useRef } from 'react';
+import axios from 'axios';
 import Image from 'react-bootstrap/Image';
 
 import avatarPlaceholder from '../../assets/user_w.png';
@@ -9,10 +10,6 @@ const ImageUploader = ({ profilePicture }) => {
     const [previewSource, setPreviewSource] = useState('');
     const [selectedFile, setSelectedFile] = useState();
     const inputFile = useRef(null);
-
-    useEffect(() => {
-        console.log(previewSource);
-    }, [previewSource]);
 
     const handleFileInputChange = event => {
         const { files } = event.target;
@@ -51,14 +48,11 @@ const ImageUploader = ({ profilePicture }) => {
 
     const uploadImage = async base64EncodedImage => {
         try {
-            await fetch('/api/upload', {
-                method: 'POST',
-                body: JSON.stringify({ base: base64EncodedImage })
-            });
+            const res = await axios.post('/api/artists/image/upload', { base: base64EncodedImage });
             
             setFileInputState('');
             setPreviewSource('');
-            console.log('Success!!!');
+            console.log(res);
         } catch (err) {
             console.error(err);
         }
@@ -74,6 +68,7 @@ const ImageUploader = ({ profilePicture }) => {
                 type="file" 
                 accept="image/*"
                 ref={inputFile} 
+                value={fileInputState}
                 onChange={handleFileInputChange} 
             />
             <Image 
