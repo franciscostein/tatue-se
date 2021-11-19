@@ -1,5 +1,5 @@
 import './ImageUploader.css';
-import { Fragment, useState, useRef } from 'react';
+import { Fragment, useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Image from 'react-bootstrap/Image';
 
@@ -7,9 +7,13 @@ import avatarPlaceholder from '../../assets/user_w.png';
 
 const ImageUploader = ({ profilePicture }) => {
     const [fileInputState, setFileInputState] = useState('');
-    const [previewSource, setPreviewSource] = useState('');
+    const [previewSource, setPreviewSource] = useState(null);
     const [selectedFile, setSelectedFile] = useState();
     const inputFile = useRef(null);
+
+    useEffect(() => {
+
+    }, [profilePicture]);
 
     const handleFileInputChange = event => {
         const { files } = event.target;
@@ -28,6 +32,8 @@ const ImageUploader = ({ profilePicture }) => {
         reader.readAsDataURL(file);
         reader.onloadend = () => {
             setPreviewSource(reader.result);
+            profilePicture = reader.result;
+            console.log(profilePicture);
         }
     }
 
@@ -51,7 +57,7 @@ const ImageUploader = ({ profilePicture }) => {
             const res = await axios.post('/api/artists/image/upload', { base: base64EncodedImage });
             
             setFileInputState('');
-            setPreviewSource('');
+            setPreviewSource(null);
             console.log(res);
         } catch (err) {
             console.error(err);
@@ -72,7 +78,7 @@ const ImageUploader = ({ profilePicture }) => {
                 onChange={handleFileInputChange} 
             />
             <Image 
-                src={profilePicture ?? avatarPlaceholder} 
+                src={previewSource ?? avatarPlaceholder} 
                 className="profile-picture my-4 image-uploader" 
                 roundedCircle
                 onClick={onImageClick}
@@ -80,11 +86,6 @@ const ImageUploader = ({ profilePicture }) => {
             <button className="btn text-white" type="button" onClick={handleSubmitFile}>
                 upload!
             </button>
-            {
-                previewSource && (
-                    <img src={previewSource} alt="profile" style={{ height: '300px' }} />
-                )
-            }
         </Fragment>
     );
 }
