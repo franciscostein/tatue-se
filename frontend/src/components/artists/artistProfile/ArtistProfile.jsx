@@ -31,6 +31,7 @@ const ArtistProfile = ({
     const [formData, setFormData] = useState({
         fullName: '',
         profilePicture: null,
+        profilePictureBase64: null,
         biography: '',
         workplaces: [],
         selectedTattooStyles: [],
@@ -71,7 +72,7 @@ const ArtistProfile = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fetchArtistProfile, loading]);
 
-    const { fullName, profilePicture, biography, workplaces, selectedTattooStyles, facebook, instagram, website, phone, email, hourRate, minRate } = formData;
+    const { fullName, profilePicture, profilePictureBase64, biography, workplaces, selectedTattooStyles, facebook, instagram, website, phone, email, hourRate, minRate } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -130,7 +131,10 @@ const ArtistProfile = ({
                         </Button>
                     </div>
                 </div>
-                <ImageUploader profilePicture={profilePicture} />
+                <ImageUploader 
+                    profilePicture={profilePicture}
+                    selectedImageBase64={profilePictureBase64}
+                />
                 <Row className="mb-3">
                     <Col>
                         <Form.Group controlId="formArtistName">

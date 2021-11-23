@@ -5,7 +5,7 @@ import Image from 'react-bootstrap/Image';
 
 import avatarPlaceholder from '../../assets/user_w.png';
 
-const ImageUploader = ({ profilePicture }) => {
+const ImageUploader = ({ profilePicture, selectedImageBase64 }) => {
     const [fileInputState, setFileInputState] = useState('');
     const [previewSource, setPreviewSource] = useState(null);
     const [selectedFile, setSelectedFile] = useState();
@@ -45,7 +45,9 @@ const ImageUploader = ({ profilePicture }) => {
         const reader = new FileReader();
         reader.readAsDataURL(selectedFile);
         reader.onloadend = () => {
-            uploadImage(reader.result);
+            const result = reader.result;
+            uploadImage(result);
+            selectedImageBase64(result);
         }
         reader.onerror = () => {
             console.error('something went very wrong indeed!');
