@@ -1,14 +1,13 @@
 import './ImageUploader.css';
 import { Fragment, useState, useEffect, useRef } from 'react';
-import axios from 'axios';
 import Image from 'react-bootstrap/Image';
 
 import avatarPlaceholder from '../../assets/user_w.png';
 
-const ImageUploader = ({ profilePicture, selectedImageBase64 }) => {
+const ImageUploader = ({ profilePicture, setImageBase64 }) => {
     const [fileInputState, setFileInputState] = useState('');
     const [previewSource, setPreviewSource] = useState(null);
-    const [selectedFile, setSelectedFile] = useState();
+    // const [selectedFile, setSelectedFile] = useState();
     const inputFile = useRef(null);
 
     useEffect(() => {
@@ -24,7 +23,7 @@ const ImageUploader = ({ profilePicture, selectedImageBase64 }) => {
             const file = files[0];
 
             previewFile(file);
-            setSelectedFile(file);
+            // setSelectedFile(file);
             setFileInputState(event.target.value);
         }
     }
@@ -34,37 +33,25 @@ const ImageUploader = ({ profilePicture, selectedImageBase64 }) => {
         reader.readAsDataURL(file);
         reader.onloadend = () => {
             setPreviewSource(reader.result);
+            setImageBase64(reader.result);
         }
     }
 
-    const handleSubmitFile = event => {
-        event.preventDefault();
+    // const handleSubmitFile = event => {
+    //     event.preventDefault();
 
-        if (!selectedFile) return;
+    //     if (!selectedFile) return;
 
-        const reader = new FileReader();
-        reader.readAsDataURL(selectedFile);
-        reader.onloadend = () => {
-            const result = reader.result;
-            uploadImage(result);
-            selectedImageBase64(result);
-        }
-        reader.onerror = () => {
-            console.error('something went very wrong indeed!');
-        }
-    }
-
-    const uploadImage = async base64EncodedImage => {
-        try {
-            const res = await axios.post('/api/artists/image/upload', { base: base64EncodedImage });
-            
-            setFileInputState('');
-            setPreviewSource(null);
-            console.log(res);
-        } catch (err) {
-            console.error(err);
-        }
-    }
+    //     const reader = new FileReader();
+    //     reader.readAsDataURL(selectedFile);
+    //     reader.onloadend = () => {
+    //         const result = reader.result;
+    //         uploadImage(result);
+    //     }
+    //     reader.onerror = () => {
+    //         console.error('something went very wrong indeed!');
+    //     }
+    // }
 
     const onImageClick = () => {
         inputFile.current.click();
@@ -85,9 +72,9 @@ const ImageUploader = ({ profilePicture, selectedImageBase64 }) => {
                 roundedCircle
                 onClick={onImageClick}
             />
-            <button className="btn text-white" type="button" onClick={handleSubmitFile}>
+            {/* <button className="btn text-white" type="button" onClick={handleSubmitFile}>
                 upload!
-            </button>
+            </button> */}
         </Fragment>
     );
 }

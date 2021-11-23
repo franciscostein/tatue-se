@@ -31,7 +31,6 @@ const ArtistProfile = ({
     const [formData, setFormData] = useState({
         fullName: '',
         profilePicture: null,
-        profilePictureBase64: null,
         biography: '',
         workplaces: [],
         selectedTattooStyles: [],
@@ -45,6 +44,7 @@ const ArtistProfile = ({
         minRate: '',
         currency: ''
     });
+    const [profilePictureBase64, setProfilePictureBase64] = useState(null);
     const [showAddWorkplaceModal, setShowAddWorkplaceModal] = useState(false);
     const [showRemoveWorkplaceModal, setShowRemoveWorkplaceModal] = useState(false);
     const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
@@ -72,14 +72,16 @@ const ArtistProfile = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fetchArtistProfile, loading]);
 
-    const { fullName, profilePicture, profilePictureBase64, biography, workplaces, selectedTattooStyles, facebook, instagram, website, phone, email, hourRate, minRate } = formData;
+    const { fullName, profilePicture, biography, workplaces, selectedTattooStyles, facebook, instagram, website, phone, email, hourRate, minRate } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const onSubmit = e => {
         e.preventDefault();
-        console.log(formData);
+        // console.log(formData);
         // saveProfile(formData, history);
+
+        console.log(profilePictureBase64);
     }
 
     const handleAddWorkplace = workplace => {
@@ -133,7 +135,7 @@ const ArtistProfile = ({
                 </div>
                 <ImageUploader 
                     profilePicture={profilePicture}
-                    selectedImageBase64={profilePictureBase64}
+                    setImageBase64={img => setProfilePictureBase64(img)}
                 />
                 <Row className="mb-3">
                     <Col>

@@ -59,3 +59,25 @@ export const saveProfile = (formData, history, edit = false) => async dispatch =
         })
     }
 }
+
+// const reader = new FileReader();
+// reader.readAsDataURL(selectedFile);
+// reader.onloadend = () => {
+//     const result = reader.result;
+//     uploadImage(result);
+// }
+// reader.onerror = () => {
+//     console.error('something went very wrong indeed!');
+// }
+
+const uploadImage = async base64EncodedImage => {
+    try {
+        const res = await axios.post('/api/artists/image/upload', { base: base64EncodedImage });
+        
+        // setFileInputState('');
+        // setPreviewSource(null);
+        console.log(res);
+    } catch (err) {
+        console.error(err);
+    }
+}
