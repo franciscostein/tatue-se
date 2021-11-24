@@ -1,4 +1,8 @@
+import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+
+import { setAuthToken } from '../../utils/authToken';
 
 import './Navbar.css';
 import Navbar from 'react-bootstrap/Navbar';
@@ -12,8 +16,22 @@ const NavbarComponent = () => {
     const pathname = window.location.pathname;
     const history = useHistory();
 
+    useEffect(() => {
+        if (localStorage.token) {
+            getProfile();
+        }
+    }, [])
+
+    const getProfile = () => {
+        console.log('getProfile');
+    }
+
     const handleProfileClick = () => {
         history.push('/artists/profile');
+    }
+
+    const handleLogout = () => {
+        setAuthToken('');
     }
     
     return (
