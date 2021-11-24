@@ -1,6 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import {
     GET_ARTIST_PROFILE,
+    SAVE_ARTIST_PROFILE,
     ARTIST_PROFILE_ERROR
 } from '../actions/types';
 
@@ -15,6 +16,7 @@ export default function(state = initialState, action) {
 
     switch (type) {
         case GET_ARTIST_PROFILE:
+        case SAVE_ARTIST_PROFILE:
             return {
                 ...state,
 				profile: payload,

@@ -79,9 +79,7 @@ const ArtistProfile = ({
     const onSubmit = e => {
         e.preventDefault();
         // console.log(formData);
-        // saveProfile(formData, history);
-
-        console.log(profilePictureBase64);
+        saveProfile(formData, profilePictureBase64, history);
     }
 
     const handleAddWorkplace = workplace => {
@@ -328,29 +326,35 @@ const ArtistProfile = ({
                         </Col>
                     </Row>
                 </div>
-                <hr/>
-                <h3 className="d-flex">Delete account</h3>
-                <p className="font-55">
-                    Deleting your tatue-se account will permanently remove your profile, 
-                    along with all data you have produced while on tatue-se, 
-                    including permanent removal of photos, comments, saved boards, workplace history, 
-                    and subscription and billing info, booking history, your account information and settings.
-                </p>
-                <Button variant="danger" className="d-flex mt-3 mb-5" onClick={() => setShowDeleteAccountModal(true)}>
-                    <FaTrashAlt size={19} />
-                    <span className="ps-2">Delete my account</span>
-                </Button>
-                <ConfirmationModal
-                    show={showDeleteAccountModal}
-                    closeFunction={() => setShowDeleteAccountModal(false)}
-                    title="Delete account"
-                    titleColor="text-danger"
-                    bodyText="Are you sure? It can't be undone!"
-                    declineText="Cancel"
-                    acceptVariant="danger"
-                    acceptFunction={() => alert('Account deleted!')}
-                    acceptText="Yes, delete it"
-                />
+                {
+                    profile && (
+                        <div>
+                            <hr/>
+                            <h3 className="d-flex">Delete account</h3>
+                            <p className="font-55">
+                                Deleting your tatue-se account will permanently remove your profile, 
+                                along with all data you have produced while on tatue-se, 
+                                including permanent removal of photos, comments, saved boards, workplace history, 
+                                and subscription and billing info, booking history, your account information and settings.
+                            </p>
+                            <Button variant="danger" className="d-flex mt-3 mb-5" onClick={() => setShowDeleteAccountModal(true)}>
+                                <FaTrashAlt size={19} />
+                                <span className="ps-2">Delete my account</span>
+                            </Button>
+                            <ConfirmationModal
+                                show={showDeleteAccountModal}
+                                closeFunction={() => setShowDeleteAccountModal(false)}
+                                title="Delete account"
+                                titleColor="text-danger"
+                                bodyText="Are you sure? It can't be undone!"
+                                declineText="Cancel"
+                                acceptVariant="danger"
+                                acceptFunction={() => alert('Account deleted!')}
+                                acceptText="Yes, delete it"
+                            />
+                        </div>
+                    )
+                }
             </Form>
         </Container>
     );

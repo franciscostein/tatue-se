@@ -29,8 +29,23 @@ export const fetchArtistProfile = artistId => async dispatch => {
 }
 
 // create or update profile
-export const saveProfile = (formData, history, edit = false) => async dispatch => {
+export const saveProfile = (formData, profilePictureBase64, history, edit = false) => async dispatch => {
     try {
+        console.log('1');
+        console.log('profilePictureBase64', profilePictureBase64);
+        if (profilePictureBase64) {
+            console.log('2');
+            const reader = new FileReader();
+            reader.readAsDataURL(profilePictureBase64);
+            reader.onloadend = () => {
+                const cloudinaryReturn = uploadImage(reader.result);
+                formData.profilePicture.publicId = cloudinaryReturn.public_id;
+            }
+            reader.onerror = () => {
+                console.error('something went very wrong indeed!');
+            }
+        }
+
         const res = await axios.post('/api/artists', formData);
 
         dispatch({
@@ -60,23 +75,11 @@ export const saveProfile = (formData, history, edit = false) => async dispatch =
     }
 }
 
-// const reader = new FileReader();
-// reader.readAsDataURL(selectedFile);
-// reader.onloadend = () => {
-//     const result = reader.result;
-//     uploadImage(result);
-// }
-// reader.onerror = () => {
-//     console.error('something went very wrong indeed!');
-// }
-
 const uploadImage = async base64EncodedImage => {
     try {
         const res = await axios.post('/api/artists/image/upload', { base: base64EncodedImage });
         
-        // setFileInputState('');
-        // setPreviewSource(null);
-        console.log(res);
+        return res;
     } catch (err) {
         console.error(err);
     }

@@ -16,7 +16,7 @@ const AddWorkplaceModal = ({ show, closeFunction, addWorkplace, selectedWorplace
 
     useEffect(() => {
         getStudios();
-    }, [addWorkplace, selectedWorplaces]);
+    }, [selectedWorplaces]);
 
     const getStudios = async () => {
         const res = await axios.get('/api/studios?search=idNameLogoAddress');
