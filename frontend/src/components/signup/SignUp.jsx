@@ -1,4 +1,9 @@
 import { useState } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import PropTypes from 'prop-types';
+
+import { saveUser } from '../../actions/user';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -6,19 +11,24 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import { FaExclamationTriangle } from 'react-icons/fa';
 
-const SignUp = () => {
+const SignUp = ({ history, saveUser }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
-    const [ispasswordConfirmationInvalid, setIsPasswordConfirmationInvalid] = useState(false);
+    const [isPasswordConfirmationInvalid, setIsPasswordConfirmationInvalid] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubmit = event => {
         if (!validate()) {
             event.preventDefault();
             event.stopPropagation();
+            return;
         }
+        saveUser({
+            email: email,
+            password: password
+        }, history);
     }
 
     const validate = () => {
@@ -74,7 +84,7 @@ const SignUp = () => {
                         type="password"
                         value={passwordConfirmation}
                         onChange={e => setPasswordConfirmation(e.target.value)}
-                        isInvalid={ispasswordConfirmationInvalid}
+                        isInvalid={isPasswordConfirmationInvalid}
                     />
                 </Form.Group>
                 <Button variant="primary" type="submit" size="lg" className="mt-4">
@@ -85,4 +95,13 @@ const SignUp = () => {
     );
 }
 
-export default SignUp;
+SignUp.propTypes = {
+    saveUser: PropTypes.func.isRequired,
+    // user: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    user: state.user
+})
+
+export default connect(mapStateToProps, { saveUser })(withRouter(SignUp));

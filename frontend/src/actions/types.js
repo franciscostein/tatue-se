@@ -6,3 +6,5 @@ export const REMOVE_ALERT = 'REMOVE_ALERT';
 
 export const GET_TATTOO_STYLES = 'GET_TATTOO_STYLES';
 export const TATTOO_STYLES_ERROR =  'TATTOO_STYLES_ERROR';
+
+export const SAVE_USER = 'SAVE_USER';
