@@ -18,10 +18,6 @@ const studioSchema = new Schema({
 			type: String,
 			required: true
 		},
-		city: {
-			type: String,
-			required: true
-		},
 		latitude: {
 			type: String,
 			required: true

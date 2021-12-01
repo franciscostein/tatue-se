@@ -29,13 +29,12 @@ export const fetchArtistProfile = artistId => async dispatch => {
 }
 
 // create or update profile
-export const saveProfile = (formData, history, edit = false) => async dispatch => {
+export const saveProfile = (formData, profilePictureBase64, history, edit = false) => async dispatch => {
     try {
-        // const config = {
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     }
-        // }
+        if (profilePictureBase64) {
+            const cloudinaryResponse = axios.post('/api/artists/image/upload', { base64: profilePictureBase64 });
+            formData.profilePicture.publicId = cloudinaryResponse.public_id;
+        }
 
         const res = await axios.post('/api/artists', formData);
 
@@ -63,5 +62,15 @@ export const saveProfile = (formData, history, edit = false) => async dispatch =
                 status: error.response.status
             }
         })
+    }
+}
+
+const uploadImage = async base64EncodedImage => {
+    try {
+        const res = await axios.post('/api/artists/image/upload', { base: base64EncodedImage });
+        
+        return res;
+    } catch (err) {
+        console.error(err);
     }
 }

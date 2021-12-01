@@ -1,8 +1,18 @@
-const { save, getAll, getOne, getOwnProfile, deleteByUserId } = require('../service/artist');
+const { save, uploadProfilePicture, getAll, getOne, getOwnProfile, deleteByUserId } = require('../service/artist');
 
 exports.save = async (req, res, next) => {
 	try {
 		const { status, payload } = await save(req.user.id, req.body);
+
+		res.status(status).json(payload);
+	} catch (err) {
+		next(err);
+	}
+}
+
+exports.uploadProfilePicture = async (req, res, next) => {
+	try {
+		const { status, payload } = await uploadProfilePicture(req.body);
 
 		res.status(status).json(payload);
 	} catch (err) {

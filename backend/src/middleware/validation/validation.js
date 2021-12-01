@@ -10,10 +10,7 @@ exports.userValidation = [
 
 exports.artistValidation = [
 	check('fullName', 'fullName is required').exists(),
-	check('location', 'location is required').exists(),
-	check('location.city', 'city is required').exists(),
-	check('location.latitude', 'latitude is required').exists(),
-	check('location.longitude', 'longitude is required').exists(),
+	check('workplaces', 'workplaces are required').exists(),
 	(req, res, next) => errorHandler(req, res, next)
 ]
 

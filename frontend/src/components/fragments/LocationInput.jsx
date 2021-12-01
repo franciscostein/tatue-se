@@ -10,9 +10,15 @@ const LocationInput = ({ searchOptions = null }) => {
         lng: null
     });
 
+    // searchOptions={{ types: ['(cities)'] }}
+
     const handleSelect = async value => {
         const results = await geocodeByAddress(value);
         const latLng = await getLatLng(results[0]);
+
+        console.log('value', value);
+        console.log('results', results);
+        console.log('latLng', latLng);
 
         setAddress(value);
         setCoordinates(latLng);
