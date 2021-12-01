@@ -1,6 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import {
-    SAVE_USER
+    SAVE_USER,
+    AUTHENTICATE_USER
 } from '../actions/types';
 
 const initialState = {
@@ -14,6 +15,7 @@ export default function(state = initialState, action) {
 
     switch (type) {
         case SAVE_USER:
+        case AUTHENTICATE_USER:
             return {
                 ...state,
                 user: payload,

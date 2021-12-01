@@ -11,7 +11,7 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import { FaExclamationTriangle } from 'react-icons/fa';
 
-const SignUp = ({ history, saveUser }) => {
+const SignUp = ({ saveUser, history }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
@@ -98,11 +98,10 @@ const SignUp = ({ history, saveUser }) => {
 
 SignUp.propTypes = {
     saveUser: PropTypes.func.isRequired,
-    // user: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
     user: state.user
-})
+});
 
 export default connect(mapStateToProps, { saveUser })(withRouter(SignUp));
