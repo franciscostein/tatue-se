@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 
 import { setAuthToken } from '../../utils/authToken';
 
@@ -15,10 +14,11 @@ import userSolid from '../../assets/user_w.png';
 const NavbarComponent = () => {
     const pathname = window.location.pathname;
     const history = useHistory();
+    const [profile, setProfile] = useState('');
 
     useEffect(() => {
         if (localStorage.token) {
-            getProfile();
+            setProfile(getProfile());
         }
     }, [])
 
@@ -26,12 +26,9 @@ const NavbarComponent = () => {
         console.log('getProfile');
     }
 
-    const handleProfileClick = () => {
-        history.push('/artists/profile');
-    }
-
     const handleLogout = () => {
         setAuthToken('');
+        history.push('/');
     }
     
     return (
@@ -50,8 +47,19 @@ const NavbarComponent = () => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu className="dropdown-menu">
-                    <Dropdown.Item className="dropdown-item text-white" onClick={handleProfileClick}>Profile</Dropdown.Item>
-                    <Dropdown.Item className="dropdown-item text-white">Log out</Dropdown.Item>
+                    {
+                        profile ? (
+                            <Fragment>
+                                <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/artists/profile')}>Profile</Dropdown.Item>
+                                <Dropdown.Item className="dropdown-item text-white" onClick={handleLogout}>Log out</Dropdown.Item>
+                            </Fragment>
+                        ) : (
+                            <Fragment>
+                                <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/signin')}>Sign in</Dropdown.Item>
+                                <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/signup')}>Sign up</Dropdown.Item>
+                            </Fragment>
+                        )
+                    }
                 </Dropdown.Menu>
             </Dropdown>
         </Navbar>

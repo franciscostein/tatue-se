@@ -9,6 +9,7 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
 import { FaExclamationTriangle } from 'react-icons/fa';
 
 const SignIn = ({ authenticate, history }) => {
@@ -42,6 +43,7 @@ const SignIn = ({ authenticate, history }) => {
                     <Form.Control
                         required
                         type="email"
+                        className="text-center"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
                     />
@@ -51,6 +53,7 @@ const SignIn = ({ authenticate, history }) => {
                     <Form.Control
                         required
                         type="password"
+                        className="text-center"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                     />
@@ -58,6 +61,11 @@ const SignIn = ({ authenticate, history }) => {
                 <Button variant="primary" type="submit" size="lg" className="mt-4">
                     Sign in
                 </Button>
+                <Row>
+                    <span className="font-55 text-secondary mt-5" onClick={() => history.push('/signup')}>
+                        Don't have an account yet? Click here
+                    </span>
+                </Row>
             </Form>
         </Container>
     );

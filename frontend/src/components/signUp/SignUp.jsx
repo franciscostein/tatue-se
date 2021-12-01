@@ -9,6 +9,7 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
+import Row from 'react-bootstrap/Row';
 import { FaExclamationTriangle } from 'react-icons/fa';
 
 const SignUp = ({ saveUser, history }) => {
@@ -45,7 +46,7 @@ const SignUp = ({ saveUser, history }) => {
     return (
         <Container>
             <div className="d-flex solid-bottom-border-secondary mb-5">
-                <h1>SignUp</h1>
+                <h1>Sign up</h1>
             </div>
             <Form onSubmit={handleSubmit}>
                 {
@@ -62,6 +63,7 @@ const SignUp = ({ saveUser, history }) => {
                     <Form.Control 
                         required
                         type="email"
+                        className="text-center"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
                     />
@@ -72,6 +74,7 @@ const SignUp = ({ saveUser, history }) => {
                         required
                         minLength={7}
                         type="password"
+                        className="text-center"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                         isInvalid={isPasswordInvalid}
@@ -83,6 +86,7 @@ const SignUp = ({ saveUser, history }) => {
                         required
                         minLength={7}
                         type="password"
+                        className="text-center"
                         value={passwordConfirmation}
                         onChange={e => setPasswordConfirmation(e.target.value)}
                         isInvalid={isPasswordConfirmationInvalid}
@@ -91,6 +95,11 @@ const SignUp = ({ saveUser, history }) => {
                 <Button variant="primary" type="submit" size="lg" className="mt-4">
                     Submit
                 </Button>
+                <Row>
+                    <span className="font-55 text-secondary mt-5" onClick={() => history.push('/signin')}>
+                        Already have an account? Click here
+                    </span>
+                </Row>
             </Form>
         </Container>
     );
