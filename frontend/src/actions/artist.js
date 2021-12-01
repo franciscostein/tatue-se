@@ -31,19 +31,9 @@ export const fetchArtistProfile = artistId => async dispatch => {
 // create or update profile
 export const saveProfile = (formData, profilePictureBase64, history, edit = false) => async dispatch => {
     try {
-        console.log('1');
-        console.log('profilePictureBase64', profilePictureBase64);
         if (profilePictureBase64) {
-            console.log('2');
-            const reader = new FileReader();
-            reader.readAsDataURL(profilePictureBase64);
-            reader.onloadend = () => {
-                const cloudinaryReturn = uploadImage(reader.result);
-                formData.profilePicture.publicId = cloudinaryReturn.public_id;
-            }
-            reader.onerror = () => {
-                console.error('something went very wrong indeed!');
-            }
+            const cloudinaryResponse = axios.post('/api/artists/image/upload', { base64: profilePictureBase64 });
+            formData.profilePicture.publicId = cloudinaryResponse.public_id;
         }
 
         const res = await axios.post('/api/artists', formData);

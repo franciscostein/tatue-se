@@ -20,8 +20,9 @@ const SignUp = ({ history, saveUser }) => {
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubmit = event => {
+        event.preventDefault();
+        
         if (!validate()) {
-            event.preventDefault();
             event.stopPropagation();
             return;
         }

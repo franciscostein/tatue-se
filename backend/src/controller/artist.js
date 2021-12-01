@@ -12,7 +12,6 @@ exports.save = async (req, res, next) => {
 
 exports.uploadProfilePicture = async (req, res, next) => {
 	try {
-		// console.log('req.body', req.body);
 		const { status, payload } = await uploadProfilePicture(req.body);
 
 		res.status(status).json(payload);

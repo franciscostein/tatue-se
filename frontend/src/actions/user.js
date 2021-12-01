@@ -3,6 +3,7 @@ import axios from 'axios';
 import {
     SAVE_USER
 } from './types';
+import { setAuthToken } from '../utils/authToken';
 
 export const saveUser = (userData, history) => async dispatch => {
     try {
@@ -12,6 +13,10 @@ export const saveUser = (userData, history) => async dispatch => {
             type: SAVE_USER,
             payload: res.data
         });
+
+        if (res.data.token) {
+            setAuthToken(res.data.token);
+        }
 
         history.push('/');
     } catch (err) {

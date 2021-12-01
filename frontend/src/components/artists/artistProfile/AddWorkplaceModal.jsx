@@ -16,6 +16,7 @@ const AddWorkplaceModal = ({ show, closeFunction, addWorkplace, selectedWorplace
 
     useEffect(() => {
         getStudios();
+        console.log('useEffect addworkplace');
     }, [selectedWorplaces]);
 
     const getStudios = async () => {

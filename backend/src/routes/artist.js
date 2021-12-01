@@ -13,7 +13,7 @@ router.post('/', [auth, artistValidation], save);
 // @route   POST api/artists/image/upload
 // @desc    upload artist's profile picture
 // @access  private
-router.post('/image/upload', uploadProfilePicture);
+router.post('/image/upload', auth, uploadProfilePicture);
 
 // @route   GET api/artists
 // @desc    get all artists

@@ -18,7 +18,7 @@ exports.save = async (userId, { fullName, profilePicture, coverImage, biography,
 }
 
 exports.uploadProfilePicture = async fileString => {
-	const uploadResponse = await cloudinary.uploader.upload(fileString.base, {
+	const uploadResponse = await cloudinary.uploader.upload(fileString.base64, {
 		upload_preset: 'ml_default'
 	});
 

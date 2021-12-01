@@ -140,6 +140,7 @@ const ArtistProfile = ({
                         <Form.Group controlId="formArtistName">
                             <Form.Label className="font-75">Name</Form.Label>
                             <Form.Control 
+                                required
                                 type="text" 
                                 placeholder="Full name"
                                 name="fullName"
