@@ -32,13 +32,13 @@ const SignIn = ({ authenticate, history }) => {
                 {
                     errorMessage &&
                     (
-                        <Alert variant="danger" className="mb-4 mx-3">
+                        <Alert variant="danger" className="mx-3">
                             <FaExclamationTriangle className="me-3" />
                             <span className="font-80">{errorMessage}</span>
                         </Alert>
                     )
                 }
-                <Form.Group controlId="formSignInEmail" className="mb-3 mx-5">
+                <Form.Group controlId="formSignInEmail" className="m-3 mx-xl-5 mx-lg-4">
                     <Form.Label className="font-75">E-mail</Form.Label>
                     <Form.Control
                         required
@@ -48,7 +48,7 @@ const SignIn = ({ authenticate, history }) => {
                         onChange={e => setEmail(e.target.value)}
                     />
                 </Form.Group>
-                <Form.Group controlId="formSignInPassword" className="mb-3 mx-5">
+                <Form.Group controlId="formSignInPassword" className="mb-3 mx-3 mx-xl-5 mx-lg-4">
                     <Form.Label className="font-75">Password</Form.Label>
                     <Form.Control
                         required
@@ -62,7 +62,7 @@ const SignIn = ({ authenticate, history }) => {
                     Sign in
                 </Button>
                 <Row>
-                    <span className="font-55 text-secondary mt-5" onClick={() => history.push('/signup')}>
+                    <span className="font-65 text-secondary mt-5" onClick={() => history.push('/signup')}>
                         Don't have an account yet? Click here
                     </span>
                 </Row>

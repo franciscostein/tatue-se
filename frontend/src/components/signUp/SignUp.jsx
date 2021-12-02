@@ -52,13 +52,13 @@ const SignUp = ({ saveUser, history }) => {
                 {
                     errorMessage &&
                     (
-                        <Alert variant="danger" className="mb-4 mx-3">
+                        <Alert variant="danger" className="mx-3">
                             <FaExclamationTriangle className="me-3" />
                             <span className="font-80">{errorMessage}</span>
                         </Alert>
                     )
                 }
-                <Form.Group controlId="formSignUpEmail" className="mb-3 mx-5">
+                <Form.Group controlId="formSignUpEmail" className="m-3 mx-xl-5 mx-lg-4">
                     <Form.Label className="font-75">E-mail</Form.Label>
                     <Form.Control 
                         required
@@ -68,7 +68,7 @@ const SignUp = ({ saveUser, history }) => {
                         onChange={e => setEmail(e.target.value)}
                     />
                 </Form.Group>
-                <Form.Group controlId="formSignUpPassword" className="mb-3 mx-5">
+                <Form.Group controlId="formSignUpPassword" className="mb-3 mx-3 mx-xl-5 mx-lg-4">
                     <Form.Label className="font-75">Password</Form.Label>
                     <Form.Control 
                         required
@@ -80,7 +80,7 @@ const SignUp = ({ saveUser, history }) => {
                         isInvalid={isPasswordInvalid}
                     />
                 </Form.Group>
-                <Form.Group controlId="formSignUpPassword" className="mb-3 mx-5">
+                <Form.Group controlId="formSignUpPassword" className="mb-3 mx-3 mx-xl-5 mx-lg-4">
                     <Form.Label className="font-75">Confirm password</Form.Label>
                     <Form.Control 
                         required
@@ -96,7 +96,7 @@ const SignUp = ({ saveUser, history }) => {
                     Submit
                 </Button>
                 <Row>
-                    <span className="font-55 text-secondary mt-5" onClick={() => history.push('/signin')}>
+                    <span className="font-65 text-secondary mt-5" onClick={() => history.push('/signin')}>
                         Already have an account? Click here
                     </span>
                 </Row>
