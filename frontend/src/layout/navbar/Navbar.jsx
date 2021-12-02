@@ -12,14 +12,15 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Image from 'react-bootstrap/Image';
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaUserAlt, FaPaintBrush, FaAnchor, FaSignOutAlt, FaSignInAlt, FaUserPlus } from 'react-icons/fa';
+
 import userSolid from '../../assets/user_w.png';
 
 const NavbarComponent = ({ user: { userInfo }, fetchUserInfo }) => {
     const pathname = window.location.pathname;
     const history = useHistory();
     const [profile, setProfile] = useState({
-        userPicture: '',
+        userPicture: null,
         artistProfileId: '',
         studioProfileId: ''
     });
@@ -35,6 +36,12 @@ const NavbarComponent = ({ user: { userInfo }, fetchUserInfo }) => {
                     studioProfileId: userInfo.studioProfileId ?? null
                 });
             }
+        } else {
+            setProfile({
+                userPicture: null,
+                artistProfileId: '',
+                studioProfileId: ''
+            });
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fetchUserInfo]);
@@ -61,15 +68,24 @@ const NavbarComponent = ({ user: { userInfo }, fetchUserInfo }) => {
 
                 <Dropdown.Menu className="dropdown-menu">
                     {
-                        profile ? (
+                        localStorage.token ? (
                             <Fragment>
-                                <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/artists/profile')}>Profile</Dropdown.Item>
-                                <Dropdown.Item className="dropdown-item text-white" onClick={handleLogout}>Log out</Dropdown.Item>
+                                <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/artists/profile')}>
+                                    <FaUserAlt className="me-2" /> User
+                                </Dropdown.Item>
+                                <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/artists/profile')}>
+                                    <FaPaintBrush className="me-2" /> Artist
+                                </Dropdown.Item>
+                                <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/artists/profile')}>
+                                    <FaAnchor className="me-2" /> Studio
+                                </Dropdown.Item>
+                                <Dropdown.Item className="dropdown-item text-white" onClick={handleLogout}>
+                                    <FaSignOutAlt className="me-2" /> Log out</Dropdown.Item>
                             </Fragment>
                         ) : (
                             <Fragment>
-                                <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/signin')}>Sign in</Dropdown.Item>
-                                <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/signup')}>Sign up</Dropdown.Item>
+                                <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/signin')}><FaSignInAlt className="me-2" /> Sign in</Dropdown.Item>
+                                <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/signup')}><FaUserPlus className="me-2" /> Sign up</Dropdown.Item>
                             </Fragment>
                         )
                     }
