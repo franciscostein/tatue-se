@@ -51,6 +51,11 @@ export const fetchUserInfo = () => async dispatch => {
         const res = await axios.get('/api/users/info');
 
         console.log(res.data);
+
+        dispatch({
+            type: FETCH_USER_INFO,
+            payload: res.data
+        });
     } catch (err) {
         console.error(err);
     }

@@ -7,6 +7,7 @@ import {
 
 const initialState = {
     user: null,
+    userInfo: null,
     loading: true,
     error: {}
 }
@@ -17,11 +18,15 @@ export default function(state = initialState, action) {
     switch (type) {
         case SAVE_USER:
         case AUTHENTICATE_USER:
-        case FETCH_USER_INFO:
             return {
                 ...state,
                 user: payload,
                 loading: false
+            }  
+        case FETCH_USER_INFO:
+            return {
+                ...state,
+                userInfo: payload,
             }            
         default:
             return state;

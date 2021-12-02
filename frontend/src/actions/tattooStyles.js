@@ -14,12 +14,13 @@ export const fetchTattooStyles = () => async dispatch => {
             payload: res.data
         });
     } catch (error) {
-        dispatch({
-            type: TATTOO_STYLES_ERROR,
-            payload: { 
-                msg: error.response.statusText, 
-                status: error.response.status
-            }
-        });
+        // dispatch({
+        //     type: TATTOO_STYLES_ERROR,
+        //     payload: { 
+        //         msg: error.response.statusText, 
+        //         status: error.response.status
+        //     }
+        // });
+        console.error(error);
     }
 }

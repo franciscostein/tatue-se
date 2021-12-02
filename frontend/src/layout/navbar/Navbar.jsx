@@ -1,7 +1,11 @@
 import { useState, useEffect, Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import PropTypes from 'prop-types';
 
 import { setAuthToken } from '../../utils/authToken';
+import { fetchUserInfo } from '../../actions/user';
 
 import './Navbar.css';
 import Navbar from 'react-bootstrap/Navbar';
@@ -11,7 +15,7 @@ import Image from 'react-bootstrap/Image';
 import { FaBars } from 'react-icons/fa';
 import userSolid from '../../assets/user_w.png';
 
-const NavbarComponent = () => {
+const NavbarComponent = ({ user: { userInfo }, fetchUserInfo }) => {
     const pathname = window.location.pathname;
     const history = useHistory();
     const [profile, setProfile] = useState({
@@ -22,18 +26,18 @@ const NavbarComponent = () => {
 
     useEffect(() => {
         if (localStorage.token) {
-            const profile = getProfile();
-            setProfile({
-                userPicture: profile.userPicture,
-                artistProfileId: profile.artistProfileId,
-                studioProfileId: profile.studioProfileId
-            });
-        }
-    }, [])
+            fetchUserInfo();
 
-    const getProfile = () => {
-        console.log('getProfile');
-    }
+            if (userInfo) {
+                setProfile({
+                    userPicture: !userInfo.artistProfilePicture ? '' : userInfo.artistProfilePicture.publicId,
+                    artistProfileId: userInfo.artistProfileId ?? null,
+                    studioProfileId: userInfo.studioProfileId ?? null
+                });
+            }
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [fetchUserInfo]);
 
     const handleLogout = () => {
         setAuthToken('');
@@ -51,7 +55,7 @@ const NavbarComponent = () => {
 
             <Dropdown className="px-4">
                 <Dropdown.Toggle variant="dark" id="dropdown-profile">
-                    <Image src={userSolid} className="min-user px-3" roundedCircle />
+                    <Image src={profile.userPicture ?? userSolid} className="min-user px-3" roundedCircle />
                     <FaBars size={27} />
                 </Dropdown.Toggle>
 
@@ -75,4 +79,13 @@ const NavbarComponent = () => {
     );
 }
 
-export default NavbarComponent;
+Navbar.propTypes = {
+    userInfo: PropTypes.object.isRequired,
+    fetchUserInfo: PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => ({
+    user: state.user
+});
+
+export default connect(mapStateToProps, { fetchUserInfo })(withRouter(NavbarComponent));
