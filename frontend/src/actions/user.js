@@ -2,7 +2,8 @@ import axios from 'axios';
 
 import {
     SAVE_USER,
-    AUTHENTICATE_USER
+    AUTHENTICATE_USER,
+    FETCH_USER_INFO
 } from './types';
 
 import { setAuthToken } from '../utils/authToken';
@@ -22,7 +23,7 @@ export const saveUser = (userData, history) => async dispatch => {
 
         history.push('/');
     } catch (err) {
-        console.log(err);
+        console.error(err);
     }
 }
 
@@ -41,6 +42,16 @@ export const authenticate = (login, history) => async dispatch => {
 
         history.push('/');
     } catch (err) {
-        console.log(err);
+        console.error(err);
+    }
+}
+
+export const fetchUserInfo = () => async dispatch => {
+    try {
+        const res = await axios.get('/api/users/info');
+
+        console.log(res.data);
+    } catch (err) {
+        console.error(err);
     }
 }

@@ -1,6 +1,8 @@
 const User = require('../models/User');
+const Artist = require('../models/Artist');
+const Studio = require('../models/Studio');
 const { hashPassword, generateToken } = require('../utils/auth');
-const { apiResponsePayloadName } = require('../utils/messages');
+const { apiResponsePayloadName, apiResponse } = require('../utils/messages');
 
 exports.create = async (email, password, userType) => {
     let user = await User.findOne({ email });
@@ -19,4 +21,21 @@ exports.create = async (email, password, userType) => {
     } else {
         throw new Error(error);
     }
+}
+
+exports.getUserInfo = async userId => {
+    const user = await User.findById(userId);
+
+    if (!user) return;
+
+    const artist = await Artist.findOne({ user: userId }).select([ '_id', 'profilePicture' ]);
+    const studio = await Studio.findOne({ user: userId }).select('_id');
+
+    const userInfo = {
+        artistId: artist && artist._id,
+        artistProfilePicture: artist && artist.profilePicture,
+        studioId: studio && studio._id
+    }
+
+    return apiResponse(userInfo);
 }

@@ -14,11 +14,20 @@ import userSolid from '../../assets/user_w.png';
 const NavbarComponent = () => {
     const pathname = window.location.pathname;
     const history = useHistory();
-    const [profile, setProfile] = useState('');
+    const [profile, setProfile] = useState({
+        userPicture: '',
+        artistProfileId: '',
+        studioProfileId: ''
+    });
 
     useEffect(() => {
         if (localStorage.token) {
-            setProfile(getProfile());
+            const profile = getProfile();
+            setProfile({
+                userPicture: profile.userPicture,
+                artistProfileId: profile.artistProfileId,
+                studioProfileId: profile.studioProfileId
+            });
         }
     }, [])
 
