@@ -43,7 +43,7 @@ function App() {
                             <Route path="/artists/:id">
                                 <Artist />
                             </Route>
-                            <Route path="/studios">
+                            <Route exact path="/studios">
                                 <Studios />
                             </Route>
                             <Route exact path="/studios/profile">

@@ -32,6 +32,7 @@ exports.getUserInfo = async userId => {
     const studio = await Studio.findOne({ user: userId }).select('_id');
 
     const userInfo = {
+        userEmail: user.email,
         artistId: artist && artist._id,
         artistProfilePicture: artist && artist.profilePicture,
         studioId: studio && studio._id

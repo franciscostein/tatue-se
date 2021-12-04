@@ -1,12 +1,25 @@
+import { useState } from 'react';
+
+import Switch from 'react-switch';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import { FaTrashAlt } from 'react-icons/fa';
+
 import profileAvatar from '../../../assets/user_w.png';
 
-const Studio = () => {
+const StudioProfile = () => {
+    const [mondayChecked, setMondayChecked] = useState(false);
+    const [tuesdayChecked, setTuesdayChecked] = useState(false);
+    const [wednesdayChecked, setWednesdayChecked] = useState(false);
+    const [thrusdayChecked, setThrusdayChecked] = useState(false);
+    const [fridayChecked, setFridayChecked] = useState(false);
+    const [saturdayChecked, setSaturdayChecked] = useState(false);
+    const [sundayChecked, setSundayChecked] = useState(false);
+
     return (
         <Container>
             <Form>
@@ -78,58 +91,57 @@ const Studio = () => {
                         <Form.Control as="textarea" rows={3} />
                     </Form.Group>
                 </Row>
-
                 <div className="d-flex solid-bottom-border-secondary mt-5 mb-3">
                     <h3>Opening hours</h3>
                 </div>
                 <Row>
                     <Col className="d-flex justify-content-start font-75">Monday</Col>
                     <Col xs lg="2" className="form-check form-switch">
-                        <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+                        <Switch checked={mondayChecked} onChange={() => setMondayChecked(!mondayChecked)} />
                     </Col>
-                    <Col md="auto" className="d-flex justify-content-end font-75">Closed</Col>
+                    <Col md="auto" className="d-flex justify-content-end font-75">{ mondayChecked ? 'Open' : 'Closed' }</Col>
                 </Row>
                 <Row>
                     <Col className="d-flex justify-content-start font-75">Tuesday</Col>
                     <Col xs lg="2" className="form-check form-switch">
-                        <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+                        <Switch checked={tuesdayChecked} onChange={() => setTuesdayChecked(!tuesdayChecked)} />
                     </Col>
-                    <Col md="auto" className="d-flex justify-content-end font-75">Closed</Col>
+                    <Col md="auto" className="d-flex justify-content-end font-75">{ tuesdayChecked ? 'Open' : 'Closed' }</Col>
                 </Row>
                 <Row>
                     <Col className="d-flex justify-content-start font-75">Wednesday</Col>
                     <Col xs lg="2" className="form-check form-switch">
-                        <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+                        <Switch checked={wednesdayChecked} onChange={() => setWednesdayChecked(!wednesdayChecked)} />
                     </Col>
-                    <Col md="auto" className="d-flex justify-content-end font-75">Closed</Col>
+                    <Col md="auto" className="d-flex justify-content-end font-75">{ wednesdayChecked ? 'Open' : 'Closed' }</Col>
                 </Row>
                 <Row>
                     <Col className="d-flex justify-content-start font-75">Thursday</Col>
                     <Col xs lg="2" className="form-check form-switch">
-                        <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+                        <Switch checked={thrusdayChecked} onChange={() => setThrusdayChecked(!thrusdayChecked)} />
                     </Col>
-                    <Col md="auto" className="d-flex justify-content-end font-75">Closed</Col>
+                    <Col md="auto" className="d-flex justify-content-end font-75">{ thrusdayChecked ? 'Open' : 'Closed' }</Col>
                 </Row>
                 <Row>
                     <Col className="d-flex justify-content-start font-75">Friday</Col>
                     <Col xs lg="2" className="form-check form-switch">
-                        <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+                        <Switch checked={fridayChecked} onChange={() => setFridayChecked(!fridayChecked)} />
                     </Col>
-                    <Col md="auto" className="d-flex justify-content-end font-75">Closed</Col>
+                    <Col md="auto" className="d-flex justify-content-end font-75">{ fridayChecked ? 'Open' : 'Closed' }</Col>
                 </Row>
                 <Row>
                     <Col className="d-flex justify-content-start font-75">Saturday</Col>
                     <Col xs lg="2" className="form-check form-switch">
-                        <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+                        <Switch checked={saturdayChecked} onChange={() => setSaturdayChecked(!saturdayChecked)} />
                     </Col>
-                    <Col md="auto" className="d-flex justify-content-end font-75">Closed</Col>
+                    <Col md="auto" className="d-flex justify-content-end font-75">{ saturdayChecked ? 'Open' : 'Closed' }</Col>
                 </Row>
                 <Row>
                     <Col className="d-flex justify-content-start font-75">Sunday</Col>
                     <Col xs lg="2" className="form-check form-switch">
-                        <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+                        <Switch checked={sundayChecked} onChange={() => setSundayChecked(!sundayChecked)} />
                     </Col>
-                    <Col md="auto" className="d-flex justify-content-end font-75">Closed</Col>
+                    <Col md="auto" className="d-flex justify-content-end font-75">{ sundayChecked ? 'Open' : 'Closed' }</Col>
                 </Row>
                 <hr className="mt-3"/>
 
@@ -141,11 +153,12 @@ const Studio = () => {
                     and subscription and billing info, booking history, your account information and settings.
                 </p>
                 <Button variant="danger" className="d-flex mt-3 mb-5">
-                    Delete my account
+                    <FaTrashAlt size={19} />
+                    <span className="ps-2">Delete my account</span>
                 </Button>
             </Form>
         </Container>
     );
 }
 
-export default Studio;
+export default StudioProfile;

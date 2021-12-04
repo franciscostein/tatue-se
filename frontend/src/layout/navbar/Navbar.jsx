@@ -68,19 +68,20 @@ const NavbarComponent = ({ user: { userInfo }, fetchUserInfo }) => {
 
                 <Dropdown.Menu className="dropdown-menu">
                     {
-                        localStorage.token ? (
+                        userInfo ? (
                             <Fragment>
-                                <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/artists/profile')}>
+                                <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/user/profile')}>
                                     <FaUserAlt className="me-2" /> User
                                 </Dropdown.Item>
                                 <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/artists/profile')}>
                                     <FaPaintBrush className="me-2" /> Artist
                                 </Dropdown.Item>
-                                <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/artists/profile')}>
+                                <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/studios/profile')}>
                                     <FaAnchor className="me-2" /> Studio
                                 </Dropdown.Item>
                                 <Dropdown.Item className="dropdown-item text-white" onClick={handleLogout}>
-                                    <FaSignOutAlt className="me-2" /> Log out</Dropdown.Item>
+                                    <FaSignOutAlt className="me-2" /> Log out
+                                </Dropdown.Item>
                             </Fragment>
                         ) : (
                             <Fragment>
