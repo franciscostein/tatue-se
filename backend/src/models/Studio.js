@@ -47,31 +47,38 @@ const studioSchema = new Schema({
 	businessHours: {
 		monday: {
 			opens: Date,
-			closes: Date
+			closes: Date,
+			isOpen: Boolean
 		},
 		tuesday: {
 			opens: Date,
-			closes: Date
+			closes: Date,
+			isOpen: Boolean
 		},
 		wednesday: {
 			opens: Date,
-			closes: Date
+			closes: Date,
+			isOpen: Boolean
 		},
 		thursday: {
 			opens: Date,
-			closes: Date
+			closes: Date,
+			isOpen: Boolean
 		},
 		friday: {
 			opens: Date,
-			closes: Date
+			closes: Date,
+			isOpen: Boolean
 		},
 		saturday: {
 			opens: Date,
-			closes: Date
+			closes: Date,
+			isOpen: Boolean
 		},
 		sunday: {
 			opens: Date,
-			closes: Date
+			closes: Date,
+			isOpen: Boolean
 		}
 	},
 	photos: {
