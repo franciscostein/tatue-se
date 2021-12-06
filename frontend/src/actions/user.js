@@ -3,7 +3,8 @@ import axios from 'axios';
 import {
     SAVE_USER,
     AUTHENTICATE_USER,
-    FETCH_USER_INFO
+    FETCH_USER_INFO,
+    UNAUTHORIZED_USER
 } from './types';
 
 import { setAuthToken } from '../utils/authToken';
@@ -27,20 +28,27 @@ export const saveUser = (userData, history) => async dispatch => {
     }
 }
 
-export const authenticate = (login, history) => async dispatch => {
+export const authenticate = login => async dispatch => {
     try {
+        console.log(login);
+        
         const res = await axios.post('/api/auth', login);
 
-        dispatch({
-            type: AUTHENTICATE_USER,
-            payload: res.data
-        });
+        console.log(res);
 
         if (res.data.token) {
-            setAuthToken(res.data.token);
-        }
+            dispatch({
+                type: AUTHENTICATE_USER,
+                payload: res.data
+            });
 
-        history.push('/');
+            setAuthToken(res.data.token);
+        } else {
+            dispatch({
+                type: UNAUTHORIZED_USER,
+                payload: res.data
+            });
+        }
     } catch (err) {
         console.error(err);
     }

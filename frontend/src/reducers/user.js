@@ -2,7 +2,8 @@
 import {
     SAVE_USER,
     AUTHENTICATE_USER,
-    FETCH_USER_INFO
+    FETCH_USER_INFO,
+    UNAUTHORIZED_USER
 } from '../actions/types';
 
 const initialState = {
@@ -22,11 +23,19 @@ export default function(state = initialState, action) {
                 ...state,
                 user: payload,
                 loading: false
-            }  
+            }
+        case UNAUTHORIZED_USER:
+            return {
+                ...state,
+                error: {
+                    msg: 'E-mail or password incorrect.'
+                }
+            }
         case FETCH_USER_INFO:
             return {
                 ...state,
                 userInfo: payload,
+                error: null
             }            
         default:
             return state;

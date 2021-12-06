@@ -12,7 +12,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import { FaExclamationTriangle } from 'react-icons/fa';
 
-const SignIn = ({ authenticate, history }) => {
+const SignIn = ({ user: { error }, authenticate, history }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -20,7 +20,13 @@ const SignIn = ({ authenticate, history }) => {
     const handleSubmit = event => {
         event.preventDefault();
 
-        authenticate({ email, password }, history);
+        authenticate({ email, password });
+
+        if (error) {
+            setErrorMessage(error.msg);
+        } else {
+            history.push('/');
+        }
     }
 
     return (
