@@ -5,9 +5,9 @@ import Image from 'react-bootstrap/Image';
 import coverPlaceholder from '../../../assets/cover.jpg';
 import avatarPlaceholder from '../../../assets/user_w.png';
 
-const ArtistCard = ({ artist: { coverImage = { publicId: null }, profilePicture = { publicId: null }, fullName, workplaces, tattooStyles } }) => {
+const ArtistCard = ({ artist: { coverImage = { publicId: null }, profilePicture = { publicId: null }, fullName, workplaces, tattooStyles }, onClick }) => {
     return (
-        <div className="studio-card m-3">
+        <div className="studio-card m-3" onClick={onClick}>
             <Row>
                 <Image src={coverImage.publicId ?? coverPlaceholder} className="studio-card-img" />
             </Row>

@@ -24,7 +24,7 @@ import img2 from '../../../assets/artist/3.jpeg';
 import img3 from '../../../assets/artist/4.jpeg';
 import img4 from '../../../assets/artist/5.jpeg';
 
-const Studios = () => {
+const Studio = () => {
     return (
         <div>
             <div id="cover">
@@ -259,4 +259,4 @@ const Studios = () => {
     );
 }
 
-export default Studios;
+export default Studio;

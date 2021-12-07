@@ -11,7 +11,7 @@ import Form from 'react-bootstrap/Form';
 import ArtistCard from './fragments/ArtistCard';
 import TattooStyles from '../tattooStyles/TattooStyles';
 
-const Artists = ({ artist: { artists }, fetchArtists }) => {
+const Artists = ({ artist: { artists }, fetchArtists, history }) => {
     const [selectedTattooStyles, setSelectedTattooStyles] = useState([]);
 
     useEffect(() => {
@@ -39,7 +39,7 @@ const Artists = ({ artist: { artists }, fetchArtists }) => {
                 artists ?
                 <div className="d-flex flex-wrap justify-content-center mx-5">
                     {
-                        artists.map(artist => <ArtistCard artist={artist} />)
+                        artists.map(artist => <ArtistCard key={artist._id} artist={artist} onClick={() => history.push(`/artists/${artist._id}`)} />)
                     }
                 </div>
                 : null

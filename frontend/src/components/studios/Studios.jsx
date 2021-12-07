@@ -10,9 +10,7 @@ import Form from 'react-bootstrap/Form';
 
 import StudioCard from './fragments/StudioCard';
 
-const Studios = ({ studio: { studios }, fetchStudios }) => {
-    // const [studios, setStudios] = useState([]);
-
+const Studios = ({ studio: { studios }, fetchStudios, history }) => {
     useEffect(() => {
         fetchStudios();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -33,7 +31,7 @@ const Studios = ({ studio: { studios }, fetchStudios }) => {
             <div className="d-flex flex-wrap justify-content-center mx-5">
                 {
                     studios ?
-                    studios.map(studio => <StudioCard studio={studio} />)
+                    studios.map(studio => <StudioCard key={studio._id} studio={studio} onClick={() => history.push(`/studios/${studio._id}`)} />)
                     : null
                 }
             </div>

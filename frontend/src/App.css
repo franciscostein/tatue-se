@@ -88,6 +88,7 @@ p {
     flex-grow: 0;
     flex-shrink: 0;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .studio-card-img {
