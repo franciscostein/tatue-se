@@ -26,29 +26,26 @@ const NavbarComponent = ({ user: { userInfo }, fetchUserInfo }) => {
     });
 
     useEffect(() => {
-        if (localStorage.token) {
-            fetchUserInfo();
-
-            if (userInfo) {
-                setProfile({
-                    userPicture: !userInfo.artistProfilePicture ? '' : userInfo.artistProfilePicture.publicId,
-                    artistProfileId: userInfo.artistProfileId ?? null,
-                    studioProfileId: userInfo.studioProfileId ?? null
-                });
-            }
+        if (userInfo) {
+            setProfile({
+                userPicture: !userInfo.artistProfilePicture ? '' : userInfo.artistProfilePicture.publicId,
+                artistProfileId: userInfo.artistProfileId ?? null,
+                studioProfileId: userInfo.studioProfileId ?? null
+            });
         } else {
             setProfile({
                 userPicture: null,
                 artistProfileId: '',
                 studioProfileId: ''
             });
+
+            fetchUserInfo();
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [fetchUserInfo]);
+    }, [fetchUserInfo, userInfo]);
 
     const handleLogout = () => {
         setAuthToken('');
-        history.push('/');
+        window.location.reload();
     }
     
     return (
@@ -96,7 +93,7 @@ const NavbarComponent = ({ user: { userInfo }, fetchUserInfo }) => {
     );
 }
 
-Navbar.propTypes = {
+NavbarComponent.propTypes = {
     userInfo: PropTypes.object.isRequired,
     fetchUserInfo: PropTypes.func.isRequired
 }

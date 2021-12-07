@@ -1,14 +1,15 @@
 /* eslint-disable import/no-anonymous-default-export */
 import {
     SAVE_USER,
-    AUTHENTICATE_USER,
+    SIGNIN_SUCCESS,
+    SIGNIN_FAIL,
     FETCH_USER_INFO,
-    UNAUTHORIZED_USER
 } from '../actions/types';
 
 const initialState = {
     user: null,
     userInfo: null,
+    isAuthenticated: false,
     loading: true,
     error: {}
 }
@@ -18,13 +19,17 @@ export default function(state = initialState, action) {
 
     switch (type) {
         case SAVE_USER:
-        case AUTHENTICATE_USER:
             return {
                 ...state,
                 user: payload,
                 loading: false
             }
-        case UNAUTHORIZED_USER:
+        case SIGNIN_SUCCESS:
+            return {
+                ...state,
+                isAuthenticated: true,
+            }
+        case SIGNIN_FAIL:
             return {
                 ...state,
                 error: {

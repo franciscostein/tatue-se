@@ -1,47 +1,23 @@
 import './Artists.css';
+
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchTattooStyles } from '../../actions/tattooStyles';
+
+import { fetchArtists } from '../../actions/artist';
 
 import Form from 'react-bootstrap/Form';
-
 import ArtistCard from './fragments/ArtistCard';
 import TattooStyles from '../tattooStyles/TattooStyles';
 
-const Artists = ({ tattooStyles: { tattooStyles, loading }, fetchTattooStyles }) => {
-    const [tattooStylesArray, setTattooStyles] = useState([]);
-    const [artists, setArtists] = useState([]);
+const Artists = ({ artist: { artists }, fetchArtists }) => {
+    const [selectedTattooStyles, setSelectedTattooStyles] = useState([]);
 
     useEffect(() => {
-        fetchTattooStyles();
         fetchArtists();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [fetchTattooStyles, loading]);
-
-    const fetchArtists = async () => {
-        const res = await axios.get('/api/artists');
-
-        if (res.data) {
-            buildArtists(res.data);
-        } else {
-            console.log(res.error);
-        }
-    }
-
-    const buildArtists = artists => {
-        const artistsArray = [];
-
-        artists.forEach(artist => {
-            artistsArray.push({
-                ...artist
-            });
-        });
-
-        setArtists(artistsArray);
-    }
+    }, []);
 
     return (
         <div>
@@ -51,15 +27,12 @@ const Artists = ({ tattooStyles: { tattooStyles, loading }, fetchTattooStyles })
                 <Form.Group controlId="formArtistLocation">
                     <Form.Control type="text" placeholder="In which city?" />
                 </Form.Group>
-                {/* {
-                    tattooStylesArray ? */}
-                    <div className="tattoo-styles-header">
-                        {
-                            <TattooStyles selectedTattooStylesIds={tattooStylesArray} />
-                        }
-                    </div>
-                    {/* : null
-                } */}
+
+                <div className="tattoo-styles-header">
+                    {
+                        <TattooStyles selectedTattooStylesIds={selectedTattooStyles} />
+                    }
+                </div>
             </div>
             <hr className="my-2" />
             {
@@ -76,11 +49,12 @@ const Artists = ({ tattooStyles: { tattooStyles, loading }, fetchTattooStyles })
 }
 
 Artists.propTypes = {
-    fetchTattooStyles: PropTypes.func.isRequired
+    artist: PropTypes.object.isRequired,
+    fetchArtists: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
-    tattooStyles: state.tattooStyles
+    artist: state.artist,
 });
 
-export default connect(mapStateToProps, { fetchTattooStyles })(withRouter(Artists));
+export default connect(mapStateToProps, { fetchArtists })(withRouter(Artists));

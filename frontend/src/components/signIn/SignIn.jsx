@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
@@ -12,21 +12,24 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import { FaExclamationTriangle } from 'react-icons/fa';
 
-const SignIn = ({ user: { error }, authenticate, history }) => {
+const SignIn = ({ user: { isAuthenticated, error }, authenticate, history }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            history.push('/');
+        } else if (error) {
+            setErrorMessage(error.msg);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isAuthenticated, error]);
 
     const handleSubmit = event => {
         event.preventDefault();
 
         authenticate({ email, password });
-
-        if (error) {
-            setErrorMessage(error.msg);
-        } else {
-            history.push('/');
-        }
     }
 
     return (

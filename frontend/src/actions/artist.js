@@ -2,16 +2,34 @@ import axios from 'axios';
 import { setAlert } from './alert';
 
 import {
+    FETCH_ARTISTS,
+    FETCH_ARTISTS_ERROR,
     GET_ARTIST_PROFILE,
     ARTIST_PROFILE_ERROR
 } from './types';
+
+export const fetchArtists = () => async dispatch => {
+    try {
+        const res = await axios.get('/api/artists');
+
+        dispatch({
+            type: FETCH_ARTISTS,
+            payload: res.data
+        });
+    } catch (error) {
+        dispatch({
+            type: FETCH_ARTISTS_ERROR,
+            payload: {
+                msg: error.response.statusText
+            }
+        });
+    }
+}
 
 export const fetchArtistProfile = artistId => async dispatch => {
     try {
         const url = artistId ? `/api/artists/${artistId}` : '/api/artists/profile/me';
         const res = await axios.get(url);
-
-        console.log('fetchArtistProfile');
 
         dispatch({
             type: GET_ARTIST_PROFILE,
