@@ -1,4 +1,12 @@
 import './Artist.css';
+
+import { useEffect } from 'react';
+import { useParams, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import { fetchArtistProfile } from '../../../actions/artist';
+
 import Image from 'react-bootstrap/Image';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -56,25 +64,28 @@ import tattoo47 from '../../../assets/tattoos/47.jpeg';
 import tattoo48 from '../../../assets/tattoos/48.jpeg';
 import tattoo49 from '../../../assets/tattoos/49.jpeg';
 
-const Artist = () => {
+const Artist = ({ artist: { profile }, fetchArtistProfile }) => {
+    const { id } = useParams();
+
+    useEffect(() => {
+        if (id && !profile) {
+            fetchArtistProfile(id);
+        }
+    }, [fetchArtistProfile, id, profile]);
+
     return (
         <div id="main" className="d-flex align-items-start m-5">
             <Col id="sidebar" className="p-2 mx-4" sm={2}>
                 <div className="d-flex align-items-center mb-1">
-                    <Image src={avatar} className="artist-avatar" roundedCircle />
+                    <Image src={profile.profilePicture.publicId ?? avatar} className="artist-avatar" roundedCircle />
                     <Col>
-                        <Row className="font-60">Tattoist 1</Row>
-                        <Row className="font-45">Tattoo Studio</Row>
+                        <Row className="font-60">{profile.fullName}</Row>
+                        {/* <Row className="font-45">Tattoo Studio</Row> */}
                     </Col>
                 </div>
                 <div className="dashed-top-border">
                     <h5 className="d-flex pt-2">Bio</h5>
-                    <p className="font-50">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                        Suscipit ex modi porro praesentium necessitatibus temporibus quae. 
-                        Accusantium omnis cupiditate deserunt minima, praesentium sint nam amet? 
-                        Numquam architecto accusantium suscipit enim dolores ab dicta quisquam nam expedita odio?
-                    </p>
+                    <p className="font-50">{profile.biography}</p>
                 </div>
                 <div className="d-flex justify-content-between p-2 solid-bottom-border">
                     <span className="font-65">Instagrão</span>
@@ -89,7 +100,7 @@ const Artist = () => {
                     </span>
                 </div>
                 <div className="solid-bottom-border">
-                    <h5 className="pt-3 pb-2">Worplace</h5>
+                    <h5 className="pt-3 pb-2">Worplaces</h5>
                     <div className="d-flex mb-1">
                         <Image src={avatar} className="studio-avatar" roundedCircle />
                         <Col>
@@ -190,4 +201,13 @@ const Artist = () => {
     );
 }
 
-export default Artist;
+Artist.propTypes = {
+    artist: PropTypes.object.isRequired,
+    fetchArtistProfile: PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => ({
+    artist: state.artist
+});
+
+export default connect(mapStateToProps, { fetchArtistProfile })(withRouter(Artist));

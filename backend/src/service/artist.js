@@ -40,7 +40,9 @@ exports.getAll = async () => {
 }
 
 exports.getOne = async artistId => {
-	const artist = await Artist.findById(artistId).select('-user');
+	const artist = await Artist.findById(artistId)
+											.select('-user')
+											.populate([ 'workplaces', 'tattooStyles' ]).exec();
 
 	if (artist) {
 		return apiResponse(artist._doc);
