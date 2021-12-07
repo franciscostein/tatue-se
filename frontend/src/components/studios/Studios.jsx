@@ -1,32 +1,22 @@
 import './Studios.css';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux'
+
+import { fetchStudios } from '../../actions/studio';
 
 import Form from 'react-bootstrap/Form';
 
 import StudioCard from './fragments/StudioCard';
 
-const Studios = () => {
-    const [studios, setStudios] = useState([]);
+const Studios = ({ studio: { studios }, fetchStudios }) => {
+    // const [studios, setStudios] = useState([]);
 
     useEffect(() => {
         fetchStudios();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    const fetchStudios = async () => {
-        const res = await axios.get('/api/studios');
-
-        if (res.data) {
-            buildStudios(res.data);
-        } else {
-            console.log(res.error);
-        }
-    }
-
-    const buildStudios = studios => {
-        setStudios(studios);
-    }
 
     return (
         <div className="full-content">
@@ -51,4 +41,13 @@ const Studios = () => {
     );
 }
 
-export default Studios;
+Studios.propTypes = {
+    studio: PropTypes.object.isRequired,
+    fetchStudios: PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => ({
+    studio: state.studio
+});
+
+export default connect(mapStateToProps, { fetchStudios })(withRouter(Studios));

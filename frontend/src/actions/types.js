@@ -14,3 +14,5 @@ export const SAVE_USER = 'SAVE_USER';
 export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
 export const SIGNIN_FAIL = 'SIGNIN_FAIL';
 export const FETCH_USER_INFO = 'FETCH_USER_INFO';
+
+export const FETCH_STUDIOS = 'FETCH_STUDIOS';
