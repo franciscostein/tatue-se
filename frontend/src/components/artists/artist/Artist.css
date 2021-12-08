@@ -1,8 +1,14 @@
+a {
+    text-decoration: none !important;
+    color: #cccaca !important;
+}
+
 #sidebar {
     border: 1px solid;
     border-radius: 16px;
     background-color: #212529;
-    color: #cfd8dc;
+    color: #cccaca;
+    max-width: 300px;
 }
 
 .artist-avatar {

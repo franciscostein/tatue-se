@@ -11,7 +11,7 @@ import Image from 'react-bootstrap/Image';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import avatar from '../../../assets/user_w.png';
-import { FaInstagram, FaGlobe } from 'react-icons/fa';
+import { FaInstagram, FaFacebook, FaGlobe, FaPhone, FaRegEnvelope } from 'react-icons/fa';
 
 const Artist = ({ artist: { profile }, fetchArtistProfile }) => {
     const { id } = useParams();
@@ -22,9 +22,12 @@ const Artist = ({ artist: { profile }, fetchArtistProfile }) => {
         tattooStyles: [],
         workplaces: [],
         instagram: '',
+        facebook: '',
         website: '',
-        hourRate: '',
-        minRate: '',
+        phone: '',
+        email: '',
+        hourRate: 0,
+        minRate: 0,
         currency: '',
         portfolio: []
     });
@@ -41,7 +44,10 @@ const Artist = ({ artist: { profile }, fetchArtistProfile }) => {
                 tattooStyles: profile.tattooStyles,
                 workplaces: profile.workplaces,
                 instagram: profile.social.instagram,
+                facebook: profile.social.facebook,
                 website: profile.social.website,
+                phone: profile.social.phone,
+                email: profile.social.email,
                 hourRate: profile.pricing.hourRate,
                 minRate: profile.pricing.minRate,
                 currency: profile.pricing.currency,
@@ -50,36 +56,57 @@ const Artist = ({ artist: { profile }, fetchArtistProfile }) => {
         }
     }, [fetchArtistProfile, id, profile]);
 
+    const { fullName, biography, profilePicture, tattooStyles, workplaces, instagram, facebook, website, phone, email, hourRate, minRate, currency, portfolio } = artist;
+
     return (
         <div id="main" className="d-flex align-items-start m-5">
-            <Col id="sidebar" className="p-2 mx-4" sm={2}>
+            <Col id="sidebar" className="p-2 me-3" >
                 <div className="d-flex align-items-center mb-1">
-                    <Image src={artist.profilePicture ?? avatar} className="artist-avatar" roundedCircle />
-                    <Col>
-                        <Row className="font-60">{artist.fullName}</Row>
-                    </Col>
+                    <Image src={profilePicture ?? avatar} className="artist-avatar" roundedCircle />
+                    <Row className="font-60">{fullName}</Row>
                 </div>
                 <div className="dashed-top-border">
                     <h5 className="d-flex pt-2">Bio</h5>
-                    <p className="font-50">{artist.biography}</p>
+                    <p className="font-50">{biography}</p>
                 </div>
                 {
-                    artist.instagram && (
-                        <div className="d-flex justify-content-between p-2 solid-bottom-border">
-                            <span className="font-65">{artist.instagram}</span>
-                            <span className="d-flex">
-                                <FaInstagram />
-                            </span>
+                    instagram && (
+                        <div className="p-2 solid-bottom-border">
+                            <a href={instagram} className="d-flex justify-content-between font-60">
+                                Instagram <FaInstagram />
+                            </a>
                         </div>
                     )
                 }
                 {
-                    artist.website && (
-                        <div className="d-flex justify-content-between p-2 solid-bottom-border">
-                            <span className="font-65">{artist.website}</span>
-                            <span className="d-flex">
-                                <FaGlobe />
-                            </span>
+                    facebook && (
+                        <div className="p-2 solid-bottom-border">
+                            <a href={facebook} className="d-flex justify-content-between font-60">
+                                Facebook <FaFacebook />
+                            </a>
+                        </div>
+                    )
+                }
+                {
+                    website && (
+                        <div className="p-2 solid-bottom-border">
+                            <a href={website} className="d-flex justify-content-between font-60">
+                                Website <FaGlobe />
+                            </a>
+                        </div>
+                    )
+                }
+                {
+                    phone && (
+                        <div className="d-flex justify-content-between p-2 solid-bottom-border font-60">
+                            {phone} <FaPhone />
+                        </div>
+                    )
+                }
+                {
+                    email && (
+                        <div className="d-flex justify-content-between p-2 solid-bottom-border font-60">
+                            <span className="pe-1">{email}</span> <FaRegEnvelope />
                         </div>
                     )
                 }
@@ -87,7 +114,7 @@ const Artist = ({ artist: { profile }, fetchArtistProfile }) => {
                     <h5 className="pt-3 pb-2">Worplaces</h5>
                     <div className="d-flex mb-1">
                         {
-                            artist.workplaces.map(workplace => (
+                            workplaces.map(workplace => (
                                 <div>
                                     <Image src={workplace.logo.publicId ?? avatar} className="studio-avatar" roundedCircle />
                                     <Col>
@@ -101,10 +128,10 @@ const Artist = ({ artist: { profile }, fetchArtistProfile }) => {
                 </div>
                 <h5 className="d-flex pt-3">Styles</h5>
                 {
-                    artist.tattooStyles && (
+                    tattooStyles && (
                         <div className="d-flex flex-wrap py-1">
                             {
-                                artist.tattooStyles.map(tattooStyle => <span className="tattoo-style-badge mx-1">{tattooStyle.name}</span>)
+                                tattooStyles.map(tattooStyle => <span className="tattoo-style-badge mx-1">{tattooStyle.name}</span>)
                             }
                         </div>
                     )
@@ -116,7 +143,7 @@ const Artist = ({ artist: { profile }, fetchArtistProfile }) => {
                             <span className="secondary-color font-50">Hour rate:</span>
                         </Row>
                         <Row>
-                            <span className="font-50">{profile.hourRate} {profile.currency}</span>
+                            <span className="font-50">{`${hourRate} ${currency}`}</span>
                         </Row>
                     </div>
                     <div className="price-display py-1 mx-2 mb-3">
@@ -124,7 +151,7 @@ const Artist = ({ artist: { profile }, fetchArtistProfile }) => {
                             <span className="secondary-color font-50">Min. rate:</span>
                         </Row>
                         <Row>
-                            <span className="font-50">{profile.minRate} {profile.currency}</span>
+                            <span className="font-50">{`${minRate} ${currency}`}</span>
                         </Row>
                     </div>
                 </div>
@@ -135,7 +162,7 @@ const Artist = ({ artist: { profile }, fetchArtistProfile }) => {
                 </Row>
                 <div className="d-flex flex-wrap justify-content-center">
                     {
-                        artist.portfolio && artist.portfolio.map(photo => <Image src={photo.publicId} className="m-3 tattoo-img" />)
+                        portfolio && portfolio.map(photo => <Image src={photo.publicId} className="m-3 tattoo-img" />)
                     }
                 </div>
             </Col>
