@@ -19,13 +19,12 @@ const ArtistCard = ({ artist: { coverImage = { publicId: null }, profilePicture 
                 </Col>
             </div>
             {
-                tattooStyles ?
+                tattooStyles &&
                 <div className="dashed-top-border-secondary d-flex flex-wrap pt-2 pb-1">
                     {
                         tattooStyles.map(tattooStyle => <span className="tattoo-style-badge mx-1">{tattooStyle.name}</span>)
                     }
                 </div>
-                : null
             }
         </div>
     );
