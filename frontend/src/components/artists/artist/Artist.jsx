@@ -70,10 +70,15 @@ const Artist = ({ artist: { profile }, fetchArtistProfile }) => {
                     <p className="font-50">{biography}</p>
                 </div>
                 {
+                    (!instagram && !facebook && !website && !phone && !email) && (
+                        <hr />
+                    )
+                }
+                {
                     instagram && (
                         <div className="p-2 solid-bottom-border">
-                            <a href={instagram} className="d-flex justify-content-between font-60">
-                                Instagram <FaInstagram />
+                            <a href={instagram} className="d-flex justify-content-between align-items-center font-55">
+                                <span className="pe-1">Instagram</span> <FaInstagram size={20} />
                             </a>
                         </div>
                     )
@@ -81,8 +86,8 @@ const Artist = ({ artist: { profile }, fetchArtistProfile }) => {
                 {
                     facebook && (
                         <div className="p-2 solid-bottom-border">
-                            <a href={facebook} className="d-flex justify-content-between font-60">
-                                Facebook <FaFacebook />
+                            <a href={facebook} className="d-flex justify-content-between align-items-center font-55">
+                                <span className="pe-1">Facebook</span> <FaFacebook size={20} />
                             </a>
                         </div>
                     )
@@ -90,23 +95,23 @@ const Artist = ({ artist: { profile }, fetchArtistProfile }) => {
                 {
                     website && (
                         <div className="p-2 solid-bottom-border">
-                            <a href={website} className="d-flex justify-content-between font-60">
-                                Website <FaGlobe />
+                            <a href={website} className="d-flex justify-content-between align-items-center font-55">
+                                <span className="pe-1">Website</span> <FaGlobe size={20} />
                             </a>
                         </div>
                     )
                 }
                 {
                     phone && (
-                        <div className="d-flex justify-content-between p-2 solid-bottom-border font-60">
-                            {phone} <FaPhone />
+                        <div className="d-flex justify-content-between align-items-center p-2 solid-bottom-border font-55">
+                            <span className="pe-1">{phone}</span> <FaPhone size={20} />
                         </div>
                     )
                 }
                 {
                     email && (
-                        <div className="d-flex justify-content-between p-2 solid-bottom-border font-60">
-                            <span className="pe-1">{email}</span> <FaRegEnvelope />
+                        <div className="d-flex justify-content-between align-items-center p-2 solid-bottom-border font-55">
+                            <span className="pe-1">{email}</span> <FaRegEnvelope size={20} />
                         </div>
                     )
                 }
