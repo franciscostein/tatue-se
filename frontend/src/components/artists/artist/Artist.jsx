@@ -26,8 +26,8 @@ const Artist = ({ artist: { profile }, fetchArtistProfile }) => {
         website: '',
         phone: '',
         email: '',
-        hourRate: 0,
-        minRate: 0,
+        hourRate: '',
+        minRate: '',
         currency: '',
         portfolio: []
     });
