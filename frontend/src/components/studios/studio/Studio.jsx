@@ -1,4 +1,10 @@
 import './Studio.css';
+import { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { useParams, withRouter } from 'react-router-dom';
+import { fetchStudio } from '../../../actions/studio';
+import PropTypes from 'prop-types';
+
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -8,7 +14,7 @@ import { FaStar, FaRegStar, FaMapMarkerAlt, FaCircle } from 'react-icons/fa';
 import cover from '../../../assets/studio/cover/1.jpeg';
 import profileImg from '../../../assets/user_w.png';
 import map from '../../../assets/staticmap.png';
-import studio from '../../../assets/studio/0.jpeg';
+import studio0 from '../../../assets/studio/0.jpeg';
 import studio1 from '../../../assets/studio/1.jpeg';
 import studio2 from '../../../assets/studio/2.jpeg';
 import studio3 from '../../../assets/studio/3.jpeg';
@@ -24,7 +30,29 @@ import img2 from '../../../assets/artist/3.jpeg';
 import img3 from '../../../assets/artist/4.jpeg';
 import img4 from '../../../assets/artist/5.jpeg';
 
-const Studio = () => {
+const Studio = ({ studio: { studio }, fetchStudio }) => {
+    // const [studioInfo, setStudioInfo] = useState({
+    //     coverImage: '',
+    //     logoImage: '',
+    //     name: '',
+    //     location: ''
+    // });
+
+    // useEffect(() => {
+    //     if (!studio) {
+    //         fetchStudio();
+    //     } else {
+    //         setStudioInfo({
+    //             coverImage: studio.coverImage.publicId,
+    //             logoImage: studio.logo.publicId,
+    //             name: studio.name,
+    //             location: studio.location.address
+    //         });
+    //     }
+    // }, [fetchStudio, studio]);
+
+    // const { coverImage, logoImage, name, location } = studioInfo;
+
     return (
         <div>
             <div id="cover">
@@ -119,13 +147,12 @@ const Studio = () => {
                     </div>
                 </Col>
             </div>
-
             <div className="m-5 px-4">
                 <Row className="solid-bottom-border-secondary">
                     <h4 className="d-flex mt-2 fonte-300">Studio</h4>
                 </Row>
                 <div className="d-flex flex-wrap justify-content-center my-3">
-                    <Image src={studio} className="m-3 studio-img" />
+                    <Image src={studio0} className="m-3 studio-img" />
                     <Image src={studio1} className="m-3 studio-img" />
                     <Image src={studio2} className="m-3 studio-img" />
                     <Image src={studio3} className="m-3 studio-img" />
@@ -259,4 +286,13 @@ const Studio = () => {
     );
 }
 
-export default Studio;
+Studio.propTypes = {
+    studio: PropTypes.object.isRequired,
+    fetchStudio: PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => ({
+    studio: state.studio
+});
+
+export default connect(mapStateToProps, { fetchStudio })(withRouter(Studio));

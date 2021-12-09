@@ -1,10 +1,12 @@
 /* eslint-disable import/no-anonymous-default-export */
 import {
-    FETCH_STUDIOS
+    FETCH_STUDIOS,
+    FETCH_STUDIO
 } from '../actions/types';
 
 const initialState = {
-    studios: []
+    studios: [],
+    studio: {}
 }
 
 export default function(state = initialState, action) {
@@ -15,6 +17,11 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 studios: payload
+            }
+        case FETCH_STUDIO:
+            return {
+                ...state,
+                studio: payload
             }
         default:
             return state;

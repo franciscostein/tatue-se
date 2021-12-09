@@ -16,3 +16,4 @@ export const SIGNIN_FAIL = 'SIGNIN_FAIL';
 export const FETCH_USER_INFO = 'FETCH_USER_INFO';
 
 export const FETCH_STUDIOS = 'FETCH_STUDIOS';
+export const FETCH_STUDIO = 'FETCH_STUDIO';
