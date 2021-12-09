@@ -65,8 +65,9 @@ const ArtistProfile = ({
                 website: loading || !profile.social.website ? '' : profile.social.website,
                 phone: loading || !profile.social.phone ? '' : profile.social.phone,
                 email: loading || !profile.social.email ? '' : profile.social.email,
-                hourRate: loading || !profile.hourRate ? '' : profile.hourRate,
-                minRate: loading || !profile.minRate ? '' : profile.minRate
+                hourRate: loading || !profile.pricing.hourRate ? '' : profile.pricing.hourRate,
+                minRate: loading || !profile.pricing.minRate ? '' : profile.pricing.minRate,
+                currency: loading || !profile.pricing.currency ? '' : profile.pricing.currency
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

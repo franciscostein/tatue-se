@@ -119,12 +119,12 @@ const Artist = ({ artist: { profile }, fetchArtistProfile }) => {
                     <h5 className="pt-4">Worplaces</h5>
                     {
                         workplaces.map(workplace => (
-                            <div className="studio-card-mini m-3 p-2">
-                                <Image src={workplace.logo.publicId ?? avatar} className="studio-avatar" roundedCircle />
-                                <Col>
+                            <div className="align-items-center studio-card-mini m-3 px-2">
+                                <Image src={workplace.logo.publicId ?? avatar} className="studio-avatar m-1 me-2" roundedCircle />
+                                <div className="ms-3">
                                     <Row className="font-60">{workplace.name}</Row>
                                     <Row className="font-45">{workplace.location.city}</Row>
-                                </Col>
+                                </div>
                             </div>
                         ))
                     }
