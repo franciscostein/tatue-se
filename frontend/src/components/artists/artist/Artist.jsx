@@ -60,14 +60,14 @@ const Artist = ({ artist: { profile }, fetchArtistProfile }) => {
 
     return (
         <div id="main" className="d-flex align-items-start m-5">
-            <Col id="sidebar" className="p-2 me-3" >
+            <div id="sidebar" className="p-2 me-3" >
                 <div className="d-flex align-items-center mb-1">
-                    <Image src={profilePicture ?? avatar} className="artist-avatar" roundedCircle />
-                    <Row className="font-60">{fullName}</Row>
+                    <Image src={profilePicture ?? avatar} className="artist-avatar m-3" roundedCircle />
+                    <span className="font-60">{fullName}</span>
                 </div>
                 <div className="dashed-top-border">
-                    <h5 className="d-flex pt-2">Bio</h5>
-                    <p className="font-50">{biography}</p>
+                    <h5 className="d-flex pt-2 m-1 mb-2">Bio</h5>
+                    <p className="font-50 mx-2 pb-3">{biography}</p>
                 </div>
                 {
                     (!instagram && !facebook && !website && !phone && !email) && (
@@ -116,20 +116,18 @@ const Artist = ({ artist: { profile }, fetchArtistProfile }) => {
                     )
                 }
                 <div className="solid-bottom-border">
-                    <h5 className="pt-3 pb-2">Worplaces</h5>
-                    <div className="d-flex mb-1">
-                        {
-                            workplaces.map(workplace => (
-                                <div>
-                                    <Image src={workplace.logo.publicId ?? avatar} className="studio-avatar" roundedCircle />
-                                    <Col>
-                                        <Row className="font-60">{workplace.name}</Row>
-                                        <Row className="font-45">{workplace.location.city}</Row>
-                                    </Col>
-                                </div>
-                            ))
-                        }
-                    </div>
+                    <h5 className="pt-4">Worplaces</h5>
+                    {
+                        workplaces.map(workplace => (
+                            <div className="studio-card-mini m-3 p-2">
+                                <Image src={workplace.logo.publicId ?? avatar} className="studio-avatar" roundedCircle />
+                                <Col>
+                                    <Row className="font-60">{workplace.name}</Row>
+                                    <Row className="font-45">{workplace.location.city}</Row>
+                                </Col>
+                            </div>
+                        ))
+                    }
                 </div>
                 <h5 className="d-flex pt-3">Styles</h5>
                 {
@@ -160,17 +158,17 @@ const Artist = ({ artist: { profile }, fetchArtistProfile }) => {
                         </Row>
                     </div>
                 </div>
-            </Col>
-            <Col id="content" className="mx-4" sm={9}>
-                <Row className="solid-bottom-border-secondary">
-                    <h4 className="d-flex mt-2 fonte-300">Tattoos</h4>
-                </Row>
+            </div>
+            <div id="content" className="mx-3">
+                <div className="solid-bottom-border-secondary">
+                    <h4 className="d-flex m-2 fonte-300">Tattoos</h4>
+                </div>
                 <div className="d-flex flex-wrap justify-content-center">
                     {
-                        portfolio && portfolio.map(photo => <Image src={photo.publicId} className="m-3 tattoo-img" />)
+                        portfolio && portfolio.map(photo => <Image src={photo.publicId} className="m-2 tattoo-img" />)
                     }
                 </div>
-            </Col>
+            </div>
         </div>
     );
 }

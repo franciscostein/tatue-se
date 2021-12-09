@@ -14,7 +14,6 @@ const StudioMiniCard = ({ studio: { logo = { publicId: null }, name, location },
                 <Col>
                     <div className="d-flex font-60 my-1 ms-2">{name}</div>
                     <div className="d-flex">
-                        {/* <FaMapMarkerAlt size={14} /> */}
                         <span className="font-45 ms-2">{location.address}</span>
                     </div>
                 </Col>

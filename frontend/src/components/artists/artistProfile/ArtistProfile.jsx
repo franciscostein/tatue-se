@@ -234,7 +234,6 @@ const ArtistProfile = ({
                     <div>
                         <Button onClick={() => setShowAddWorkplaceModal(true)}>
                             <FaPlus size={23} />
-                            {/* <span className="ps-2">Add workplace</span> */}
                         </Button>
                     </div>
                     <AddWorkplaceModal

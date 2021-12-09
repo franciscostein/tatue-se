@@ -12,9 +12,8 @@ a {
 }
 
 .artist-avatar {
-    margin: 10px 25px 10px 0;
-    height: 65px;
-    width: 65px;
+    height: 2.7em;
+    width: 2.7em;
 }
 
 .studio-avatar {
@@ -24,15 +23,15 @@ a {
 }
 
 .tattoo-img {
-    width: 235px;
-    height: 350px;
+    width: 9.3em;
+    height: 11.9em;
     padding: 0;
-    border-radius: 16px;
+    border-radius: 1.3rem;
     object-fit: cover;
 }
 
 .price-display {
     background-color: #282c34;
-    border-radius: 16px;
-    width: calc(50% - 8px);
+    border-radius: 1rem;
+    width: calc(50% - 1.1rem);
 }
