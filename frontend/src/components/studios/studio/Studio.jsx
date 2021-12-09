@@ -31,49 +31,54 @@ import img3 from '../../../assets/artist/4.jpeg';
 import img4 from '../../../assets/artist/5.jpeg';
 
 const Studio = ({ studio: { studio }, fetchStudio }) => {
-    // const [studioInfo, setStudioInfo] = useState({
-    //     coverImage: '',
-    //     logoImage: '',
-    //     name: '',
-    //     location: ''
-    // });
+    const { id } = useParams();
+    const [studioInfo, setStudioInfo] = useState({
+        coverImage: '',
+        logoImage: '',
+        name: '',
+        address: '',
+        about: '',
+        businessHours: null
+    });
 
-    // useEffect(() => {
-    //     if (!studio) {
-    //         fetchStudio();
-    //     } else {
-    //         setStudioInfo({
-    //             coverImage: studio.coverImage.publicId,
-    //             logoImage: studio.logo.publicId,
-    //             name: studio.name,
-    //             location: studio.location.address
-    //         });
-    //     }
-    // }, [fetchStudio, studio]);
+    useEffect(() => {
+        if (!studio) {
+            fetchStudio(id);
+        } else {
+            setStudioInfo({
+                coverImage: studio.coverImage.publicId,
+                logoImage: studio.logo.publicId,
+                name: studio.name,
+                address: studio.location.address,
+                about: studio.about,
+                businessHours: studio.businessHours
+            });
+        }
+    }, [fetchStudio, id, studio]);
 
-    // const { coverImage, logoImage, name, location } = studioInfo;
+    const { coverImage, logoImage, name, address, about, businessHours: { monday, tuesday, wednesday, thursday, friday, saturday, sunday } } = studioInfo;
 
     return (
         <div>
             <div id="cover">
-                <Image src={cover} className="cover-img" />
+                <Image src={coverImage ?? cover} className="cover-img" />
             </div>
             <div id="header" className="d-flex justify-content-between">
                 <div className="d-flex">
-                    <Image src={profileImg} className="avatar" roundedCircle />
+                    <Image src={logoImage ?? profileImg} className="avatar" roundedCircle />
                     <div className="align-self-center">
                         <Row>
                             <div>
-                                <span className="font-75 d-flex">Studio Name</span>
+                                <span className="font-75 d-flex">{name}</span>
                             </div>
                         </Row>
                         <Row>
-                            <span className="font-55 d-flex">Campinas, SP</span>
+                            <span className="font-55 d-flex">{address}</span>
                         </Row>
                     </div>
                 </div>
                 <div className="my-4 mx-5">
-                    <div className="font-75 d-flex align-items-center mt-2">
+                    {/* <div className="font-75 d-flex align-items-center mt-2">
                         <FaStar />
                         <FaStar />
                         <FaStar />
@@ -83,7 +88,7 @@ const Studio = ({ studio: { studio }, fetchStudio }) => {
                     </div>
                     <div className="font-55 d-flex">
                         <span>See all reviews (7)</span>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 
@@ -92,33 +97,10 @@ const Studio = ({ studio: { studio }, fetchStudio }) => {
                     <Row className="mb-5">
                         <h3 className="d-flex solid-bottom-border-secondary">About</h3>
                         <p className="font-65">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                            Ea illo tempora iste amet consequuntur aliquam maiores exercitationem consequatur, 
-                            voluptatem fugit neque architecto modi ex deleniti commodi! Odio provident, 
-                            iusto molestiae dicta commodi quisquam veniam eos accusantium ducimus molestias, 
-                            nostrum voluptates eveniet reiciendis excepturi repellat consequuntur distinctio 
-                            error ipsa laudantium quo vitae, porro fugiat quaerat nesciunt. Ad tenetur nemo velit nam. 
-                            Aperiam neque iste vel soluta dolore, voluptatum optio non doloribus ipsa doloremque 
-                            quibusdam nulla deleniti nemo nisi.
+                            {about}
                         </p>
                     </Row>
                     <Row>
-                        <Row className="mb-1">
-                            <Col className="d-flex justify-content-start font-65">
-                                <div className="open-hour"><FaCircle size={14} /></div>
-                                &nbsp;
-                                Thursday
-                            </Col>
-                            <Col md="auto" className="d-flex justify-content-end font-65">11:00 - 21:00</Col>
-                        </Row>
-                        <Row className="mb-1">
-                            <Col className="d-flex justify-content-start font-65">Friday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-65">13:00 - 23:00</Col>
-                        </Row>
-                        <Row className="mb-1">
-                            <Col className="d-flex justify-content-start font-65">Saturday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-65">13:00 - 23:00</Col>
-                        </Row>
                         <Row className="mb-1">
                             <Col className="d-flex justify-content-start font-65">Sunday</Col>
                             <Col md="auto" className="d-flex justify-content-end font-65">13:00 - 23:00</Col>
@@ -134,6 +116,22 @@ const Studio = ({ studio: { studio }, fetchStudio }) => {
                         <Row className="mb-1">
                             <Col className="d-flex justify-content-start font-65">Wednesday</Col>
                             <Col md="auto" className="d-flex justify-content-end font-65">11:00 - 21:00</Col>
+                        </Row>
+                        <Row className="mb-1">
+                            <Col className="d-flex justify-content-start font-65">
+                                <div className="open-hour"><FaCircle size={14} /></div>
+                                &nbsp;
+                                Thursday
+                            </Col>
+                            <Col md="auto" className="d-flex justify-content-end font-65">11:00 - 21:00</Col>
+                        </Row>
+                        <Row className="mb-1">
+                            <Col className="d-flex justify-content-start font-65">Friday</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-65">13:00 - 23:00</Col>
+                        </Row>
+                        <Row className="mb-1">
+                            <Col className="d-flex justify-content-start font-65">Saturday</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-65">13:00 - 23:00</Col>
                         </Row>
                     </Row>
                 </Col>

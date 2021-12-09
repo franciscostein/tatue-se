@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import { fetchArtistProfile } from '../../../actions/artist';
 
 import Image from 'react-bootstrap/Image';
-import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import avatar from '../../../assets/user_w.png';
 import { FaInstagram, FaFacebook, FaGlobe, FaPhone, FaRegEnvelope } from 'react-icons/fa';
