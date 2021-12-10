@@ -38,8 +38,17 @@ const Studio = ({ studio: { studio }, fetchStudio }) => {
         name: '',
         address: '',
         about: '',
-        businessHours: null
+        businessHours: {
+            sunday: {},
+            monday: {},
+            tuesday: {},
+            wednesday: {},
+            thursday: {},
+            friday: {},
+            saturday: {}
+        }
     });
+    const [openNow, setOpenNow] = useState(false);
 
     useEffect(() => {
         if (!studio) {
@@ -53,17 +62,83 @@ const Studio = ({ studio: { studio }, fetchStudio }) => {
                 about: studio.about,
                 businessHours: studio.businessHours
             });
+            setOpenNow(isOpenNow());
         }
     }, [fetchStudio, id, studio]);
 
-    const { coverImage, logoImage, name, address, about, businessHours: { monday, tuesday, wednesday, thursday, friday, saturday, sunday } } = studioInfo;
+    const formatDateToTime = dateTime => {
+        const date = new Date(dateTime);
+
+        return date.toLocaleTimeString(navigator.language, {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    }
+
+    const isOpenNow = () => {
+        const date = new Date();
+        const timeNow = formatDateToTime(date.getTime());
+        console.log(timeNow);
+        const { businessHours: { sunday, monday, tuesday, wednesday, thursday, friday, saturday }} = studioInfo;
+
+        console.log(friday);
+
+        switch (date) {
+            case 0: // sunday
+                if (sunday.isOpen && timeNow >= formatDateToTime(sunday.opens) && timeNow <= formatDateToTime(sunday.closes)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            case 1: // monday
+                if (monday.isOpen && timeNow >= formatDateToTime(monday.opens) && timeNow <= formatDateToTime(monday.closes)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            case 2: // tuesday
+                if (tuesday.isOpen && timeNow >= formatDateToTime(tuesday.opens) && timeNow <= formatDateToTime(tuesday.closes)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            case 3: // wednesday
+                if (wednesday.isOpen && timeNow >= formatDateToTime(wednesday.opens) && timeNow <= formatDateToTime(wednesday.closes)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            case 4: // thursday
+                if (thursday.isOpen && timeNow >= formatDateToTime(thursday.opens) && timeNow <= formatDateToTime(thursday.closes)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            case 5: // friday
+                if (friday.isOpen && timeNow >= formatDateToTime(friday.opens) && timeNow <= formatDateToTime(friday.closes)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            case 6: // saturday
+                if (saturday.isOpen && timeNow >= formatDateToTime(saturday.opens) && timeNow <= formatDateToTime(saturday.closes)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            default:
+                return false;
+        }
+    }
+
+    const { coverImage, logoImage, name, address, about, businessHours: { sunday, monday, tuesday, wednesday, thursday, friday, saturday } } = studioInfo;
 
     return (
         <div>
             <div id="cover">
                 <Image src={coverImage ?? cover} className="cover-img" />
             </div>
-            <div id="header" className="d-flex justify-content-between">
+            <div id="header" className="d-flex justify-content-between align-items-center">
                 <div className="d-flex">
                     <Image src={logoImage ?? profileImg} className="avatar" roundedCircle />
                     <div className="align-self-center">
@@ -77,18 +152,18 @@ const Studio = ({ studio: { studio }, fetchStudio }) => {
                         </Row>
                     </div>
                 </div>
-                <div className="my-4 mx-5">
-                    {/* <div className="font-75 d-flex align-items-center mt-2">
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
-                        <span className="p-1">5</span>
-                    </div>
-                    <div className="font-55 d-flex">
-                        <span>See all reviews (7)</span>
-                    </div> */}
+                <div className="my-4 mx-5 font-75">
+                    {
+                        openNow ? (
+                            <div>
+                                <FaCircle size={15} className="open-hour me-1" /> Open now
+                            </div>
+                        ) : (
+                            <div>
+                                <FaCircle size={15} className="closed-hour me-1" /> Closed now
+                            </div>
+                        )
+                    }
                 </div>
             </div>
 
@@ -103,35 +178,45 @@ const Studio = ({ studio: { studio }, fetchStudio }) => {
                     <Row>
                         <Row className="mb-1">
                             <Col className="d-flex justify-content-start font-65">Sunday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-65">13:00 - 23:00</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-65">
+                                { sunday.isOpen ? `${formatDateToTime(sunday.opens)} - ${formatDateToTime(sunday.closes)}` : 'Closed' }
+                            </Col>
                         </Row>
                         <Row className="mb-1">
                             <Col className="d-flex justify-content-start font-65">Monday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-65">Closed</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-65">
+                                { monday.isOpen ? `${formatDateToTime(monday.opens)} - ${formatDateToTime(monday.closes)}` : 'Closed' }
+                            </Col>
                         </Row>
                         <Row className="mb-1">
                             <Col className="d-flex justify-content-start font-65">Tuesday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-65">11:00 - 21:00</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-65">
+                                { tuesday.isOpen ? `${formatDateToTime(tuesday.opens)} - ${formatDateToTime(tuesday.closes)}` : 'Closed' }
+                            </Col>
                         </Row>
                         <Row className="mb-1">
                             <Col className="d-flex justify-content-start font-65">Wednesday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-65">11:00 - 21:00</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-65">
+                                { wednesday.isOpen ? `${formatDateToTime(wednesday.opens)} - ${formatDateToTime(wednesday.closes)}` : 'Closed' }
+                            </Col>
                         </Row>
                         <Row className="mb-1">
-                            <Col className="d-flex justify-content-start font-65">
-                                <div className="open-hour"><FaCircle size={14} /></div>
-                                &nbsp;
-                                Thursday
+                            <Col className="d-flex justify-content-start font-65">Thursday</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-65">
+                                { thursday.isOpen ? `${formatDateToTime(thursday.opens)} - ${formatDateToTime(thursday.closes)}` : 'Closed' }
                             </Col>
-                            <Col md="auto" className="d-flex justify-content-end font-65">11:00 - 21:00</Col>
                         </Row>
                         <Row className="mb-1">
                             <Col className="d-flex justify-content-start font-65">Friday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-65">13:00 - 23:00</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-65">
+                                { friday.isOpen ? `${formatDateToTime(friday.opens)} - ${formatDateToTime(friday.closes)}` : 'Closed' }
+                            </Col>
                         </Row>
                         <Row className="mb-1">
                             <Col className="d-flex justify-content-start font-65">Saturday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-65">13:00 - 23:00</Col>
+                            <Col md="auto" className="d-flex justify-content-end font-65">
+                                { saturday.isOpen ? `${formatDateToTime(saturday.opens)} - ${formatDateToTime(saturday.closes)}` : 'Closed' }
+                            </Col>
                         </Row>
                     </Row>
                 </Col>
