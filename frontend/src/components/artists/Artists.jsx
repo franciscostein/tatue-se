@@ -15,7 +15,7 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
     const [selectedTattooStylesIds, setSelectedTattooStylesIds] = useState([]);
 
     useEffect(() => {
-        fetchArtists();
+        fetchArtists('cardInfo');
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

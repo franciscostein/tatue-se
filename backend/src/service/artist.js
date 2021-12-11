@@ -31,6 +31,7 @@ exports.getAll = async filter => {
 	if (filter === 'cardInfo') {
 		artists = await Artist.find({})
 								.select([ 'fullName', 'tattooStyles', 'profilePicture', 'coverImage' ])
+								.populate([ 'tattooStyles' ])
 								.exec();
 	} else {
 		artists = await Artist.find({})
@@ -49,6 +50,7 @@ exports.getAll = async filter => {
 exports.getArtistByStudio = async studioId => {
 	const artists = await Artist.find({ workplaces: studioId })
 								.select([ 'fullName', 'tattooStyles', 'profilePicture', 'coverImage' ])
+								.populate([ 'tattooStyles' ])
 								.exec();
 
 	if (artists) {

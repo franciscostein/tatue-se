@@ -8,9 +8,10 @@ import {
     ARTIST_PROFILE_ERROR
 } from './types';
 
-export const fetchArtists = () => async dispatch => {
+export const fetchArtists = (filter, customHeaders = {}) => async dispatch => {
     try {
-        const res = await axios.get('/api/artists');
+        const url = filter ? `/api/artists/?filter=${filter}` : '/api/artists';
+        const res = await axios.get(url, { headers: customHeaders });
 
         dispatch({
             type: FETCH_ARTISTS,
