@@ -2,8 +2,11 @@ import './Studio.css';
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams, withRouter } from 'react-router-dom';
-import { fetchStudio } from '../../../actions/studio';
 import PropTypes from 'prop-types';
+
+import { fetchStudio } from '../../../actions/studio';
+import { fetchArtists } from '../../../actions/artist';
+import ArtistCard from '../../artists/fragments/ArtistCard';
 
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
@@ -14,12 +17,7 @@ import cover from '../../../assets/studio/cover/1.jpeg';
 import profileImg from '../../../assets/user_w.png';
 import map from '../../../assets/staticmap.png';
 
-import img1 from '../../../assets/artist/2.jpeg';
-import img2 from '../../../assets/artist/3.jpeg';
-import img3 from '../../../assets/artist/4.jpeg';
-import img4 from '../../../assets/artist/5.jpeg';
-
-const Studio = ({ studio: { studio }, fetchStudio }) => {
+const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history }) => {
     const { id } = useParams();
     const [studioInfo, setStudioInfo] = useState({
         coverImage: '',
@@ -36,13 +34,15 @@ const Studio = ({ studio: { studio }, fetchStudio }) => {
             friday: {},
             saturday: {}
         },
-        photos: []
+        photos: [],
+        artists: []
     });
     const [openNow, setOpenNow] = useState(false);
 
     useEffect(() => {
         if (!studio) {
             fetchStudio(id);
+            fetchArtists('cardInfo', { studioid: id });
         } else {
             setStudioInfo({
                 coverImage: studio.coverImage.publicId,
@@ -51,11 +51,12 @@ const Studio = ({ studio: { studio }, fetchStudio }) => {
                 address: studio.location.address,
                 about: studio.about,
                 businessHours: studio.businessHours,
-                photos: studio.photos
+                photos: studio.photos,
+                artists: artist.artists
             });
             setOpenNow(isOpenNow());
         }
-    }, [fetchStudio, id, studio]);
+    }, [artist.artists, fetchArtists, fetchStudio, studio]);
 
     const formatDateToTime = dateTime => {
         const date = new Date(dateTime);
@@ -122,7 +123,7 @@ const Studio = ({ studio: { studio }, fetchStudio }) => {
         }
     }
 
-    const { coverImage, logoImage, name, address, about, businessHours: { sunday, monday, tuesday, wednesday, thursday, friday, saturday }, photos } = studioInfo;
+    const { coverImage, logoImage, name, address, about, businessHours: { sunday, monday, tuesday, wednesday, thursday, friday, saturday }, photos, artists } = studioInfo;
 
     return (
         <div>
@@ -227,86 +228,17 @@ const Studio = ({ studio: { studio }, fetchStudio }) => {
                 </Row>
                 <div className="d-flex flex-wrap justify-content-center my-3">
                     {
-                        photos && photos.map(photo => <Image src={photo.publicId} key={photo._id} className="m-3 studio-img" />)
+                        photos && photos.map(photo => <Image src={photo.publicId} key={photo._id} className="m-2 studio-img" />)
                     }
                 </div>
                 <hr />                    
             </div>
             <div className="ms-4">
                 <h3 className="d-flex mt-5 ms-5">Artists</h3>
-                <div className="d-flex flex-wrap justify-content-center mx-5">
-                    <div className="studio-card m-3">
-                        <Row>
-                            <Image src={img1} className="studio-card-img" />
-                        </Row>
-                        <div className="d-flex align-items-center mb-1">
-                            <Image src={profileImg} className="studio-avatar-img" roundedCircle />
-                            <Col>
-                                <Row className="font-60">Tattoist 1</Row>
-                                <Row className="font-45">Tattoo Studio</Row>
-                            </Col>
-                        </div>
-                        <div className="dashed-top-border-secondary d-flex flex-wrap pt-2 pb-1">
-                            <span className="tattoo-style-badge mx-1">Blackwork</span>
-                            <span className="tattoo-style-badge mx-1">Dotwork</span>
-                        </div>
-                    </div>
-                    <div className="studio-card m-3">
-                        <Row>
-                            <Image src={img2} className="studio-card-img" />
-                        </Row>
-                        <div className="d-flex align-items-center mb-1">
-                            <Image src={profileImg} className="studio-avatar-img" roundedCircle />
-                            <Col>
-                                <Row className="font-60">Tattoist 2</Row>
-                                <Row className="font-45">Tattoo Studio</Row>
-                            </Col>
-                        </div>
-                        <div className="dashed-top-border-secondary d-flex flex-wrap pt-2 pb-1">
-                            <span className="tattoo-style-badge mx-1">Blackwork</span>
-                            <span className="tattoo-style-badge mx-1">Neo-Tradicional</span>
-                            <span className="tattoo-style-badge mx-1">Realism</span>
-                            <span className="tattoo-style-badge mx-1">Illustrative</span>
-                        </div>
-                    </div>
-                    <div className="studio-card m-3">
-                        <Row>
-                            <Image src={img3} className="studio-card-img" />
-                        </Row>
-                        <div className="d-flex align-items-center mb-1">
-                            <Image src={profileImg} className="studio-avatar-img" roundedCircle />
-                            <Col>
-                                <Row className="font-60">Tattoist 3</Row>
-                                <Row className="font-45">Tattoo Studio</Row>
-                            </Col>
-                        </div>
-                        <div className="dashed-top-border-secondary d-flex flex-wrap pt-2 pb-1">
-                            <span className="tattoo-style-badge mx-1">Black &amp; Gray</span>
-                            <span className="tattoo-style-badge mx-1">Blackwork</span>
-                            <span className="tattoo-style-badge mx-1">Dotwork</span>
-                            <span className="tattoo-style-badge mx-1">Fineline</span>
-                            <span className="tattoo-style-badge mx-1">Ornamental</span>
-                        </div>
-                    </div>
-                    <div className="studio-card m-3">
-                        <Row>
-                            <Image src={img4} className="studio-card-img" />
-                        </Row>
-                        <div className="d-flex align-items-center mb-1">
-                            <Image src={profileImg} className="studio-avatar-img" roundedCircle />
-                            <Col>
-                                <Row className="font-60">Tattoist 4</Row>
-                                <Row className="font-45">Tattoo Studio</Row>
-                            </Col>
-                        </div>
-                        <div className="dashed-top-border-secondary d-flex flex-wrap pt-2 pb-1">
-                            <span className="tattoo-style-badge mx-1">Blackwork</span>
-                            <span className="tattoo-style-badge mx-1">Fineline</span>
-                            <span className="tattoo-style-badge mx-1">Neo-Tradition</span>
-                            <span className="tattoo-style-badge mx-1">Illustrative</span>
-                            <span className="tattoo-style-badge mx-1">Surrealism</span>
-                        </div>
-                    </div>
+                <div className="d-flex flex-wrap mx-5">
+                    {
+                        artists && artists.map(artist => <ArtistCard key={artist._id} artist={artist} onClick={() => history.push(`/artists/${artist._id}`)} />)
+                    }
                 </div>
             </div>
         </div>
@@ -315,11 +247,13 @@ const Studio = ({ studio: { studio }, fetchStudio }) => {
 
 Studio.propTypes = {
     studio: PropTypes.object.isRequired,
-    fetchStudio: PropTypes.func.isRequired
+    fetchStudio: PropTypes.func.isRequired,
+    fetchArtists: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
-    studio: state.studio
+    studio: state.studio,
+    artist: state.artist
 });
 
-export default connect(mapStateToProps, { fetchStudio })(withRouter(Studio));
+export default connect(mapStateToProps, { fetchStudio, fetchArtists })(withRouter(Studio));
