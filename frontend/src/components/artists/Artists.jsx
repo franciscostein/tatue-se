@@ -12,7 +12,7 @@ import ArtistCard from './fragments/ArtistCard';
 import TattooStyles from '../tattooStyles/TattooStyles';
 
 const Artists = ({ artist: { artists }, fetchArtists, history }) => {
-    const [selectedTattooStyles, setSelectedTattooStyles] = useState([]);
+    const [selectedTattooStylesIds, setSelectedTattooStylesIds] = useState([]);
 
     useEffect(() => {
         fetchArtists();
@@ -30,7 +30,7 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 
                 <div className="tattoo-styles-header">
                     {
-                        <TattooStyles selectedTattooStylesIds={selectedTattooStyles} />
+                        <TattooStyles selectedTattooStylesIds={selectedTattooStylesIds} />
                     }
                 </div>
             </div>

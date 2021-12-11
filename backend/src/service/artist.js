@@ -25,12 +25,31 @@ exports.uploadProfilePicture = async fileString => {
 	return apiResponse(uploadResponse);
 }
 
-exports.getAll = async () => {
-	const artists = await Artist.find({})
-									.select('-user')
-									.populate([ 'workplaces', 'tattooStyles' ]).exec();
-									// .populate('tattooStyles')
-									// .exec();
+exports.getAll = async filter => {
+	let artists = {}
+
+	if (filter === 'cardInfo') {
+		artists = await Artist.find({})
+								.select([ 'fullName', 'tattooStyles', 'profilePicture', 'coverImage' ])
+								.exec();
+	} else {
+		artists = await Artist.find({})
+								.select('-user')
+								.populate([ 'workplaces', 'tattooStyles' ])
+								.exec();
+	}
+
+	if (artists) {
+		return apiResponse(artists);
+	} else {
+		return apiResponse({}, 204);
+	}
+}
+
+exports.getArtistByStudio = async studioId => {
+	const artists = await Artist.find({ workplaces: studioId })
+								.select([ 'fullName', 'tattooStyles', 'profilePicture', 'coverImage' ])
+								.exec();
 
 	if (artists) {
 		return apiResponse(artists);
@@ -41,8 +60,8 @@ exports.getAll = async () => {
 
 exports.getOne = async artistId => {
 	const artist = await Artist.findById(artistId)
-											.select('-user')
-											.populate([ 'workplaces', 'tattooStyles' ]).exec();
+								.select('-user')
+								.populate([ 'workplaces', 'tattooStyles' ]).exec();
 
 	if (artist) {
 		return apiResponse(artist._doc);

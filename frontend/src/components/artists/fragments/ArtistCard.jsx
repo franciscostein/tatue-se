@@ -5,7 +5,7 @@ import Image from 'react-bootstrap/Image';
 import coverPlaceholder from '../../../assets/cover.jpg';
 import avatarPlaceholder from '../../../assets/user_w.png';
 
-const ArtistCard = ({ artist: { coverImage = { publicId: null }, profilePicture = { publicId: null }, fullName, workplaces, tattooStyles }, onClick }) => {
+const ArtistCard = ({ artist: { coverImage = { publicId: null }, profilePicture = { publicId: null }, fullName, tattooStyles }, onClick }) => {
     return (
         <div className="studio-card m-3" onClick={onClick}>
             <Row>
@@ -15,7 +15,7 @@ const ArtistCard = ({ artist: { coverImage = { publicId: null }, profilePicture 
                 <Image src={profilePicture.publicId ?? avatarPlaceholder} className="studio-avatar-img" roundedCircle />
                 <Col>
                     <Row className="font-60 ps-3">{fullName}</Row>
-                    <Row className="font-45 ps-3">{workplaces.length > 0 ? workplaces[0].name : null}</Row>
+                    {/* <Row className="font-45 ps-3">{workplaces.length > 0 ? workplaces[0].name : null}</Row> */}
                 </Col>
             </div>
             {
