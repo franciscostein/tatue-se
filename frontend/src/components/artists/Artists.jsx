@@ -36,13 +36,13 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
             </div>
             <hr className="my-2" />
             {
-                artists ?
-                <div className="d-flex flex-wrap justify-content-center mx-5">
-                    {
-                        artists.map(artist => <ArtistCard key={artist._id} artist={artist} onClick={() => history.push(`/artists/${artist._id}`)} />)
-                    }
-                </div>
-                : null
+                artists && (
+                    <div className="d-flex flex-wrap justify-content-center mx-5">
+                        {
+                            artists.map(artist => <ArtistCard key={artist._id} artist={artist} onClick={() => history.push(`/artists/${artist._id}`)} />)
+                        }
+                    </div>
+                )
             }
         </div>
     );

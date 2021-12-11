@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import { fetchStudio } from '../../../actions/studio';
 import { fetchArtists } from '../../../actions/artist';
+import { formatDateToTime, isOpenNow } from '../../../utils/datetime';
 import ArtistCard from '../../artists/fragments/ArtistCard';
 
 import Image from 'react-bootstrap/Image';
@@ -54,74 +55,9 @@ const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history
                 photos: studio.photos,
                 artists: artist.artists
             });
-            setOpenNow(isOpenNow());
+            setOpenNow(isOpenNow(studio));
         }
-    }, [artist.artists, fetchArtists, fetchStudio, studio]);
-
-    const formatDateToTime = dateTime => {
-        const date = new Date(dateTime);
-
-        return date.toLocaleTimeString(navigator.language, {
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-    }
-
-    const isOpenNow = () => {
-        const date = new Date();
-        const timeNow = formatDateToTime(date.getTime());
-        console.log(timeNow);
-        const { businessHours: { sunday, monday, tuesday, wednesday, thursday, friday, saturday }} = studioInfo;
-
-        console.log(friday);
-
-        switch (date) {
-            case 0: // sunday
-                if (sunday.isOpen && timeNow >= formatDateToTime(sunday.opens) && timeNow <= formatDateToTime(sunday.closes)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            case 1: // monday
-                if (monday.isOpen && timeNow >= formatDateToTime(monday.opens) && timeNow <= formatDateToTime(monday.closes)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            case 2: // tuesday
-                if (tuesday.isOpen && timeNow >= formatDateToTime(tuesday.opens) && timeNow <= formatDateToTime(tuesday.closes)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            case 3: // wednesday
-                if (wednesday.isOpen && timeNow >= formatDateToTime(wednesday.opens) && timeNow <= formatDateToTime(wednesday.closes)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            case 4: // thursday
-                if (thursday.isOpen && timeNow >= formatDateToTime(thursday.opens) && timeNow <= formatDateToTime(thursday.closes)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            case 5: // friday
-                if (friday.isOpen && timeNow >= formatDateToTime(friday.opens) && timeNow <= formatDateToTime(friday.closes)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            case 6: // saturday
-                if (saturday.isOpen && timeNow >= formatDateToTime(saturday.opens) && timeNow <= formatDateToTime(saturday.closes)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            default:
-                return false;
-        }
-    }
+    }, [artist.artists, fetchArtists, fetchStudio, id, studio]);
 
     const { coverImage, logoImage, name, address, about, businessHours: { sunday, monday, tuesday, wednesday, thursday, friday, saturday }, photos, artists } = studioInfo;
 
@@ -158,7 +94,6 @@ const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history
                     }
                 </div>
             </div>
-
             <div className="d-flex justify-content-between m-5">
                 <Col xs={7} className="mx-4">
                     <Row className="mb-5">

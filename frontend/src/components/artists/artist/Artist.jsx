@@ -12,7 +12,7 @@ import Row from 'react-bootstrap/Row';
 import avatar from '../../../assets/user_w.png';
 import { FaInstagram, FaFacebook, FaGlobe, FaPhone, FaRegEnvelope } from 'react-icons/fa';
 
-const Artist = ({ artist: { profile }, fetchArtistProfile }) => {
+const Artist = ({ artist: { profile }, fetchArtistProfile, history }) => {
     const { id } = useParams();
     const [artist, setArtist] = useState({
         fullName: '',
@@ -118,7 +118,7 @@ const Artist = ({ artist: { profile }, fetchArtistProfile }) => {
                     <h5 className="pt-4">Worplaces</h5>
                     {
                         workplaces.map(workplace => (
-                            <div className="align-items-center studio-card-mini m-3 px-2">
+                            <div className="align-items-center studio-card-mini clickable m-3 px-2" onClick={() => history.push(`/studios/${workplace._id}`)}>
                                 <Image src={workplace.logo.publicId ?? avatar} className="studio-avatar m-1 me-2" roundedCircle />
                                 <div className="ms-3">
                                     <Row className="font-60">{workplace.name}</Row>
