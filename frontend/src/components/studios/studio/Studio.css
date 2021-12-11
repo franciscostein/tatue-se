@@ -9,7 +9,7 @@
 
 #header {
     border: 1px solid white;
-    border-radius: 16px;
+    border-radius: 1.3rem;
     background-color: #212529;
     position: sticky;
     margin: 14rem 5rem 3rem 5rem;
@@ -33,7 +33,7 @@
     display: flex;
     flex-direction: column;
     align-self: flex-start;
-    border-radius: 16px;
+    border-radius: 1.3rem;
     background-color: #212529;
     overflow: hidden;
 }
@@ -42,8 +42,8 @@
     height: 100%;
     width: 100%;
     padding: 0;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
+    border-top-left-radius: 1.3rem;
+    border-top-right-radius: 1.3rem;
 }
 
 .hour-accordion {
@@ -60,9 +60,9 @@
 }
 
 .studio-img {
-    width: 320px;
-    height: 335px;
+    width: 10.8em;
+    height: 11.7em;
     padding: 0;
-    border-radius: 16px;
+    border-radius: 1.3rem;
     object-fit: cover;
 }

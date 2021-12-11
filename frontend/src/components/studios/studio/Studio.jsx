@@ -8,22 +8,11 @@ import PropTypes from 'prop-types';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import { FaStar, FaRegStar, FaMapMarkerAlt, FaCircle } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaCircle } from 'react-icons/fa';
 
 import cover from '../../../assets/studio/cover/1.jpeg';
 import profileImg from '../../../assets/user_w.png';
 import map from '../../../assets/staticmap.png';
-import studio0 from '../../../assets/studio/0.jpeg';
-import studio1 from '../../../assets/studio/1.jpeg';
-import studio2 from '../../../assets/studio/2.jpeg';
-import studio3 from '../../../assets/studio/3.jpeg';
-import studio4 from '../../../assets/studio/4.jpeg';
-import studio5 from '../../../assets/studio/5.jpeg';
-import studio6 from '../../../assets/studio/6.jpeg';
-import studio7 from '../../../assets/studio/7.jpeg';
-import studio8 from '../../../assets/studio/8.jpeg';
-import studio9 from '../../../assets/studio/9.jpeg';
 
 import img1 from '../../../assets/artist/2.jpeg';
 import img2 from '../../../assets/artist/3.jpeg';
@@ -46,7 +35,8 @@ const Studio = ({ studio: { studio }, fetchStudio }) => {
             thursday: {},
             friday: {},
             saturday: {}
-        }
+        },
+        photos: []
     });
     const [openNow, setOpenNow] = useState(false);
 
@@ -60,7 +50,8 @@ const Studio = ({ studio: { studio }, fetchStudio }) => {
                 name: studio.name,
                 address: studio.location.address,
                 about: studio.about,
-                businessHours: studio.businessHours
+                businessHours: studio.businessHours,
+                photos: studio.photos
             });
             setOpenNow(isOpenNow());
         }
@@ -131,7 +122,7 @@ const Studio = ({ studio: { studio }, fetchStudio }) => {
         }
     }
 
-    const { coverImage, logoImage, name, address, about, businessHours: { sunday, monday, tuesday, wednesday, thursday, friday, saturday } } = studioInfo;
+    const { coverImage, logoImage, name, address, about, businessHours: { sunday, monday, tuesday, wednesday, thursday, friday, saturday }, photos } = studioInfo;
 
     return (
         <div>
@@ -235,59 +226,12 @@ const Studio = ({ studio: { studio }, fetchStudio }) => {
                     <h4 className="d-flex mt-2 fonte-300">Studio</h4>
                 </Row>
                 <div className="d-flex flex-wrap justify-content-center my-3">
-                    <Image src={studio0} className="m-3 studio-img" />
-                    <Image src={studio1} className="m-3 studio-img" />
-                    <Image src={studio2} className="m-3 studio-img" />
-                    <Image src={studio3} className="m-3 studio-img" />
-                    <Image src={studio4} className="m-3 studio-img" />
-                    <Image src={studio5} className="m-3 studio-img" />
-                    <Image src={studio6} className="m-3 studio-img" />
-                    <Image src={studio7} className="m-3 studio-img" />
-                    <Image src={studio8} className="m-3 studio-img" />
-                    <Image src={studio9} className="m-3 studio-img" />
+                    {
+                        photos && photos.map(photo => <Image src={photo.publicId} key={photo._id} className="m-3 studio-img" />)
+                    }
                 </div>
+                <hr />                    
             </div>
-
-            <div className="m-5">
-                <div className="d-flex justify-content-between">
-                    <h3 className="mt-5 mx-4">Reviews</h3>
-                    <Button variant="dark" className="mt-5 mx-4">View all</Button>
-                </div>
-                <div className="d-flex justify-content-between align-items-center solid-bottom-border-secondary mx-4">
-                    <Image src={profileImg} className="avatar" roundedCircle />
-                    <span className="d-flex font-60">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae in minus ut magnam?</span>
-                    <div className="d-flex nowrap">
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
-                        <FaRegStar />
-                        <FaRegStar />
-                    </div>
-                </div>
-                <div className="d-flex justify-content-between align-items-center solid-bottom-border-secondary mx-4">
-                    <Image src={profileImg} className="avatar" roundedCircle />
-                    <span className="d-flex font-60">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius debitis ipsam corporis iste quo delectus.</span>
-                    <div className="d-flex nowrap">
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
-                    </div>
-                </div>
-                <div className="d-flex justify-content-between align-items-center solid-bottom-border-secondary mx-4">
-                    <Image src={profileImg} className="avatar" roundedCircle />
-                    <span className="d-flex font-60">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus, quam mollitia itaque velit at dignissimos. Nobis, nemo? Quaerat, tenetur. Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem dolorum itaque repellendus suscipit.</span>
-                    <div className="d-flex nowrap">
-                        <FaStar />
-                        <FaRegStar />
-                        <FaRegStar />
-                        <FaRegStar />
-                        <FaRegStar />
-                    </div>
-                </div>
-            </div>
-
             <div className="ms-4">
                 <h3 className="d-flex mt-5 ms-5">Artists</h3>
                 <div className="d-flex flex-wrap justify-content-center mx-5">

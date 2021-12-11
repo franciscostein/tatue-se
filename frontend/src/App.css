@@ -11,7 +11,7 @@ footer {
 }
 
 button {
-    border-radius: 16px !important;
+    border-radius: 1.3rem !important;
 }
 
 input,
@@ -27,12 +27,7 @@ p {
 
 .selected-link {
     text-decoration: underline !important;
-    /* color: #e0e0e0 !important; */
 }
-
-/* .form-control {
-    border-radius: 16px !important;
-} */
 
 .App {
     text-align: center;
@@ -67,7 +62,7 @@ p {
 .tattoo-style-badge {
     border: 1px solid #ffffff30;
     margin-bottom: 3px;
-    border-radius: 16px;
+    border-radius: 1.3rem;
     font-size: 37%;
     padding: 5px 6px;
     white-space: nowrap;
@@ -82,7 +77,7 @@ p {
 .studio-card {
     display: flex;
     flex-direction: column;
-    border-radius: 16px;
+    border-radius: 1.3rem;
     background-color: #212529;
     flex: 0 0 375px;
     flex-grow: 0;

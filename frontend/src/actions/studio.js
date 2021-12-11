@@ -20,7 +20,6 @@ export const fetchStudios = () => async dispatch => {
 
 export const fetchStudio = studioId => async dispatch => {
     try {
-        console.log('studioId', studioId);
         const res = await axios.get(`/api/studios/${studioId}`);
 
         dispatch({
