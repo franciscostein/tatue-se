@@ -1,22 +1,34 @@
-import React, { useState } from 'react';
-import GoogleMap from 'google-map-react';
+import React from 'react';
+import { GoogleMap, Marker, withScriptjs, withGoogleMap } from 'react-google-maps';
 
-const StudioMap = ({ location: { latitude, longitude }}) => {
-    const [center, setCenter] = useState({
-        lat: latitude,
-        lng: longitude
-    });
-    const [zoom, setZoom] = useState(11);
+const StudioMap = ({ location: { latitude, longitude, address }}) => {
+
+    const Map = () => {
+        return (
+            <GoogleMap 
+                defaultZoom={11}
+                defaultCenter={{ lat: parseFloat(latitude), lng: parseFloat(longitude) }}
+            >
+                <Marker 
+                    position={{ lat: parseFloat(latitude), lng: parseFloat(longitude) }}
+                />
+            </GoogleMap>
+        );
+    }
+
+    const WrappedMap = withScriptjs(withGoogleMap(Map));
 
     return (
-        <div style={{ height: '50vh', width: '100%' }}>
-            <GoogleMap
-                defaultCenter={center}
-                defaultZoom={zoom}
-            >
-                <p>lat: {`${latitude}`}</p>
-                <p>lng: {`${longitude}`}</p>
-            </GoogleMap>
+        <div style={{ width: '100%', height: '37vh' }}>
+            <WrappedMap 
+                googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+                loadingElement={<div style={{ height: `100%` }} />}
+                containerElement={<div style={{ height: `100%` }} />}
+                mapElement={<div style={{ height: `100%` }} />}
+            />
+            <p>{latitude}</p>
+            <p>{longitude}</p>
+            <p>{address}</p>
         </div>
     );
 }
