@@ -8,15 +8,15 @@ import { fetchStudio } from '../../../actions/studio';
 import { fetchArtists } from '../../../actions/artist';
 import { formatDateToTime, isOpenNow } from '../../../utils/datetime';
 import ArtistCard from '../../artists/fragments/ArtistCard';
+import StudioMap from '../fragments/StudioMap';
 
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { FaMapMarkerAlt, FaCircle } from 'react-icons/fa';
+import { FaCircle } from 'react-icons/fa';
 
 import cover from '../../../assets/studio/cover/1.jpeg';
 import profileImg from '../../../assets/user_w.png';
-import map from '../../../assets/staticmap.png';
 
 const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history }) => {
     const { id } = useParams();
@@ -24,7 +24,7 @@ const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history
         coverImage: '',
         logoImage: '',
         name: '',
-        address: '',
+        location: {},
         about: '',
         businessHours: {
             sunday: {},
@@ -49,7 +49,7 @@ const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history
                 coverImage: studio.coverImage.publicId,
                 logoImage: studio.logo.publicId,
                 name: studio.name,
-                address: studio.location.address,
+                location: studio.location,
                 about: studio.about,
                 businessHours: studio.businessHours,
                 photos: studio.photos,
@@ -59,7 +59,7 @@ const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history
         }
     }, [artist.artists, fetchArtists, fetchStudio, id, studio]);
 
-    const { coverImage, logoImage, name, address, about, businessHours: { sunday, monday, tuesday, wednesday, thursday, friday, saturday }, photos, artists } = studioInfo;
+    const { coverImage, logoImage, name, location, about, businessHours: { sunday, monday, tuesday, wednesday, thursday, friday, saturday }, photos, artists } = studioInfo;
 
     return (
         <div>
@@ -76,7 +76,7 @@ const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history
                             </div>
                         </Row>
                         <Row>
-                            <span className="font-55 d-flex">{address}</span>
+                            <span className="font-55 d-flex">{location.address}</span>
                         </Row>
                     </div>
                 </div>
@@ -148,13 +148,7 @@ const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history
                     </Row>
                 </Col>
                 <Col className="map-card mx-4">
-                    <Row>
-                        <Image src={map} className="map-img" />
-                    </Row>
-                    <div className="py-3">
-                        <FaMapMarkerAlt />
-                        <span className="font-65 px-1">Avenida Paulista 2073, São Paulo, São Paulo</span>
-                    </div>
+                    <StudioMap location={location} />
                 </Col>
             </div>
             <div className="m-5 px-4">
