@@ -109,7 +109,7 @@ const Artist = ({ artist: { profile }, fetchArtistProfile, history }) => {
             </div>
             <div id="content" className="mx-3">
                 <div className="solid-bottom-border-secondary">
-                    <h4 className="d-flex m-2 fonte-300">Tattoos</h4>
+                    <h4 className="d-flex m-2 font-w-300">Tattoos</h4>
                 </div>
                 <div className="d-flex flex-wrap justify-content-center">
                     {

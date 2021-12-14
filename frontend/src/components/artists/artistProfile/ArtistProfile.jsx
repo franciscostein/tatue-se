@@ -127,7 +127,7 @@ const ArtistProfile = ({
                         <Button variant="secondary" className="px-3 mx-2">
                             Cancel
                         </Button>
-                        <Button variant="primary" className="px-3 mx-2" onClick={e => onSubmit(e)}>
+                        <Button variant="dark" className="px-3 mx-2" onClick={e => onSubmit(e)}>
                             Save
                         </Button>
                     </div>
@@ -233,7 +233,7 @@ const ArtistProfile = ({
                         <h3>Workplaces</h3>
                     </div>
                     <div>
-                        <Button onClick={() => setShowAddWorkplaceModal(true)}>
+                        <Button variant="dark" onClick={() => setShowAddWorkplaceModal(true)}>
                             <FaPlus size={23} />
                         </Button>
                     </div>
@@ -261,16 +261,12 @@ const ArtistProfile = ({
                         acceptFunction={handleRemoveWorkplaceConfirmation}
                     />
                 </div>
-                {/* {
-                    tattooStyles ? */}
-                        <div className="my-5">
-                            <h3 className="d-flex">Styles</h3>
-                            <div className="d-flex flex-wrap py-1">
-                                <TattooStyles selectedTattooStylesIds={selectedTattooStyles} />
-                            </div>
-                        </div>
-                    {/* : null
-                } */}
+                <div className="my-5">
+                    <h3 className="d-flex">Styles</h3>
+                    <div className="d-flex flex-wrap py-1">
+                        <TattooStyles selectedTattooStylesIds={selectedTattooStyles} />
+                    </div>
+                </div>
                 <div className="mb-5">
                     <h3>Pricing</h3>
                     <Row>

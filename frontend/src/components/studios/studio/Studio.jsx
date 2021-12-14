@@ -15,7 +15,7 @@ import Social from '../../fragments/Social';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { FaCircle } from 'react-icons/fa';
+import { FaCircle, FaMapMarkerAlt } from 'react-icons/fa';
 
 import cover from '../../../assets/studio/cover/1.jpeg';
 import profileImg from '../../../assets/user_w.png';
@@ -80,7 +80,9 @@ const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history
                             </div>
                         </Row>
                         <Row>
-                            <span className="font-55 d-flex">{location.address}</span>
+                            <span className="font-55 d-flex align-items-center">
+                                <FaMapMarkerAlt size={15} className="me-1" /> {location.address}
+                            </span>
                         </Row>
                     </div>
                 </div>
@@ -117,7 +119,7 @@ const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history
             </div>
             <div className="m-5 px-4">
                 <Row className="solid-bottom-border-secondary">
-                    <h4 className="d-flex mt-2 fonte-300">Studio</h4>
+                    <h4 className="d-flex mt-2 font-w-300">Studio</h4>
                 </Row>
                 <div className="d-flex flex-wrap justify-content-center my-3">
                     {

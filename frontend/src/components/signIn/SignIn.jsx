@@ -28,7 +28,6 @@ const SignIn = ({ user: { isAuthenticated, error }, authenticate, history }) => 
 
     const handleSubmit = event => {
         event.preventDefault();
-
         authenticate({ email, password });
     }
 
@@ -67,7 +66,7 @@ const SignIn = ({ user: { isAuthenticated, error }, authenticate, history }) => 
                         onChange={e => setPassword(e.target.value)}
                     />
                 </Form.Group>
-                <Button variant="primary" type="submit" size="lg" className="mt-4">
+                <Button variant="dark" type="submit" size="lg" className="mt-4">
                     Sign in
                 </Button>
                 <Row>

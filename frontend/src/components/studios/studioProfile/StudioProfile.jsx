@@ -31,7 +31,7 @@ const StudioProfile = () => {
                         <Button variant="secondary" className="px-3 mx-2">
                             Cancel
                         </Button>
-                        <Button variant="success" className="px-3 mx-2">
+                        <Button variant="dark" className="px-3 mx-2">
                             Save
                         </Button>
                     </div>

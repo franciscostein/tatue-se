@@ -2,6 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
+import { FaTrashAlt } from 'react-icons/fa';
 import userAvatar from '../../assets/user_w.png';
 
 const UserProfile = () => {
@@ -16,7 +17,7 @@ const UserProfile = () => {
                         <Button variant="secondary" className="px-3 mx-2">
                             Cancel
                         </Button>
-                        <Button variant="success" className="px-3 mx-2">
+                        <Button variant="dark" className="px-3 mx-2">
                             Save
                         </Button>
                     </div>
@@ -36,7 +37,7 @@ const UserProfile = () => {
                         <h3>Change password</h3>
                     </div>
                     <div>
-                        <Button>
+                        <Button variant="dark">
                             Change
                         </Button>
                     </div>
@@ -49,8 +50,9 @@ const UserProfile = () => {
                     including permanent removal of photos, comments, saved boards, workplace history, 
                     and subscription and billing info, booking history, your account information and settings.
                 </p>
-                <Button variant="danger" className="d-flex mt-3 mb-5">
-                    Delete my account
+                <Button variant="danger" className="d-flex mt-3 mb-5" onClick={() => alert('deleted')}>
+                    <FaTrashAlt size={19} />
+                    <span className="ps-2">Delete my account</span>
                 </Button>
             </Form>
         </Container>
