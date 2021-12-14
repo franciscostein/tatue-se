@@ -22,8 +22,6 @@ const AddWorkplaceModal = ({ show, closeFunction, addWorkplace, selectedWorplace
     const getStudios = async () => {
         const res = await axios.get('/api/studios?search=idNameLogoAddress');
 
-        console.log('data', res.data);
-
         if (res.data) {
             setStudios(res.data);
             setError(false);

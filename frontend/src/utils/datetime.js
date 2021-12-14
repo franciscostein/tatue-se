@@ -1,21 +1,25 @@
-export const formatDateToTime = dateTime => {
+export const formatDateToTime = (dateTime, timezoneOffset) => {
     const date = new Date(dateTime);
 
-    return date.toLocaleTimeString(navigator.language, {
-        hour: '2-digit',
-        minute: '2-digit'
-    });
+    if (timezoneOffset) {
+        return date.toLocaleTimeString(navigator.language, {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    } else {
+        return date.toLocaleTimeString(navigator.language, {
+            timeZone: 'UTC',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    }
 }
 
-export const isOpenNow = studio => {
+export const isOpenNow = ({ businessHours: { sunday, monday, tuesday, wednesday, thursday, friday, saturday }}) => {
     const date = new Date();
-    const timeNow = formatDateToTime(date.getTime());
-    console.log(timeNow);
-    const { businessHours: { sunday, monday, tuesday, wednesday, thursday, friday, saturday }} = studio;
+    const timeNow = formatDateToTime(date, true);
 
-    console.log(friday);
-
-    switch (date) {
+    switch (date.getDay()) {
         case 0: // sunday
             if (sunday.isOpen && timeNow >= formatDateToTime(sunday.opens) && timeNow <= formatDateToTime(sunday.closes)) {
                 return true;

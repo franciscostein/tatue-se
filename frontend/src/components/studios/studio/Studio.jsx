@@ -127,7 +127,7 @@ const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history
                 <hr />                    
             </div>
             <div className="ms-4">
-                <h3 className="d-flex mt-5 ms-5">Artists</h3>
+                <h3 className="d-flex ms-5">Artists</h3>
                 <div className="d-flex flex-wrap mx-5">
                     {
                         artists && artists.map(artist => <ArtistCard key={artist._id} artist={artist} onClick={() => history.push(`/artists/${artist._id}`)} />)

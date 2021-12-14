@@ -29,12 +29,8 @@ export const fetchArtists = (filter, customHeaders = {}) => async dispatch => {
 
 export const fetchArtistProfile = artistId => async dispatch => {
     try {
-        console.log(artistId);
-        
         const url = artistId ? `/api/artists/${artistId}` : '/api/artists/profile/me';
         const res = await axios.get(url);
-
-        console.log(res.data);
 
         dispatch({
             type: GET_ARTIST_PROFILE,
