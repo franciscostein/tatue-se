@@ -6,9 +6,10 @@ import PropTypes from 'prop-types';
 
 import { fetchStudio } from '../../../actions/studio';
 import { fetchArtists } from '../../../actions/artist';
-import { formatDateToTime, isOpenNow } from '../../../utils/datetime';
+import { isOpenNow } from '../../../utils/datetime';
 import ArtistCard from '../../artists/fragments/ArtistCard';
 import StudioMap from '../fragments/StudioMap';
+import BusinessHours from '../fragments/BusinessHours';
 import Social from '../../fragments/Social';
 
 import Image from 'react-bootstrap/Image';
@@ -62,7 +63,7 @@ const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history
         }
     }, [artist.artists, fetchArtists, fetchStudio, id, studio]);
 
-    const { coverImage, logoImage, name, location, about, businessHours: { sunday, monday, tuesday, wednesday, thursday, friday, saturday }, photos, artists, social } = studioInfo;
+    const { coverImage, logoImage, name, location, about, businessHours, photos, artists, social } = studioInfo;
 
     return (
         <div>
@@ -98,57 +99,16 @@ const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history
                 </div>
             </div>
             <div className="d-flex justify-content-between m-5">
-                <Col xs={7} className="mx-4">
-                    <Row className="mb-5">
+                <Col xs={7} className="d-flex flex-column justify-content-between mx-4">
+                    <div>
                         <h3 className="d-flex solid-bottom-border-secondary">About</h3>
-                        <p className="font-65">
+                        <p className="font-65 mx-1">
                             {about}
                         </p>
-                    </Row>
-                    <Row>
-                        <Row className="mb-1">
-                            <Col className="d-flex justify-content-start font-65">Sunday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-65">
-                                { sunday.isOpen ? `${formatDateToTime(sunday.opens)} - ${formatDateToTime(sunday.closes)}` : 'Closed' }
-                            </Col>
-                        </Row>
-                        <Row className="mb-1">
-                            <Col className="d-flex justify-content-start font-65">Monday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-65">
-                                { monday.isOpen ? `${formatDateToTime(monday.opens)} - ${formatDateToTime(monday.closes)}` : 'Closed' }
-                            </Col>
-                        </Row>
-                        <Row className="mb-1">
-                            <Col className="d-flex justify-content-start font-65">Tuesday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-65">
-                                { tuesday.isOpen ? `${formatDateToTime(tuesday.opens)} - ${formatDateToTime(tuesday.closes)}` : 'Closed' }
-                            </Col>
-                        </Row>
-                        <Row className="mb-1">
-                            <Col className="d-flex justify-content-start font-65">Wednesday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-65">
-                                { wednesday.isOpen ? `${formatDateToTime(wednesday.opens)} - ${formatDateToTime(wednesday.closes)}` : 'Closed' }
-                            </Col>
-                        </Row>
-                        <Row className="mb-1">
-                            <Col className="d-flex justify-content-start font-65">Thursday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-65">
-                                { thursday.isOpen ? `${formatDateToTime(thursday.opens)} - ${formatDateToTime(thursday.closes)}` : 'Closed' }
-                            </Col>
-                        </Row>
-                        <Row className="mb-1">
-                            <Col className="d-flex justify-content-start font-65">Friday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-65">
-                                { friday.isOpen ? `${formatDateToTime(friday.opens)} - ${formatDateToTime(friday.closes)}` : 'Closed' }
-                            </Col>
-                        </Row>
-                        <Row className="mb-1">
-                            <Col className="d-flex justify-content-start font-65">Saturday</Col>
-                            <Col md="auto" className="d-flex justify-content-end font-65">
-                                { saturday.isOpen ? `${formatDateToTime(saturday.opens)} - ${formatDateToTime(saturday.closes)}` : 'Closed' }
-                            </Col>
-                        </Row>
-                    </Row>
+                    </div>
+                    <div className="mx-1">
+                        <BusinessHours businessHours={businessHours} />
+                    </div>
                 </Col>
                 <Col className="mx-4">
                     <StudioMap location={location} />
