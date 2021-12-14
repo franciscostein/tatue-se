@@ -9,6 +9,7 @@ import { fetchArtists } from '../../../actions/artist';
 import { formatDateToTime, isOpenNow } from '../../../utils/datetime';
 import ArtistCard from '../../artists/fragments/ArtistCard';
 import StudioMap from '../fragments/StudioMap';
+import Social from '../../fragments/Social';
 
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
@@ -36,7 +37,8 @@ const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history
             saturday: {}
         },
         photos: [],
-        artists: []
+        artists: [],
+        social: {}
     });
     const [openNow, setOpenNow] = useState(false);
 
@@ -53,13 +55,14 @@ const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history
                 about: studio.about,
                 businessHours: studio.businessHours,
                 photos: studio.photos,
-                artists: artist.artists
+                artists: artist.artists,
+                social: studio.social
             });
             setOpenNow(isOpenNow(studio));
         }
     }, [artist.artists, fetchArtists, fetchStudio, id, studio]);
 
-    const { coverImage, logoImage, name, location, about, businessHours: { sunday, monday, tuesday, wednesday, thursday, friday, saturday }, photos, artists } = studioInfo;
+    const { coverImage, logoImage, name, location, about, businessHours: { sunday, monday, tuesday, wednesday, thursday, friday, saturday }, photos, artists, social } = studioInfo;
 
     return (
         <div>
@@ -147,8 +150,9 @@ const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history
                         </Row>
                     </Row>
                 </Col>
-                <Col className="map-card mx-4">
+                <Col className="mx-4">
                     <StudioMap location={location} />
+                    <Social social={social} />
                 </Col>
             </div>
             <div className="m-5 px-4">

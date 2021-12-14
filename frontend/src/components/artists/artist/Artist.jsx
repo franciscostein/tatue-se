@@ -6,11 +6,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { fetchArtistProfile } from '../../../actions/artist';
+import Social from '../../fragments/Social';
 
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import avatar from '../../../assets/user_w.png';
-import { FaInstagram, FaFacebook, FaGlobe, FaPhone, FaRegEnvelope } from 'react-icons/fa';
 
 const Artist = ({ artist: { profile }, fetchArtistProfile, history }) => {
     const { id } = useParams();
@@ -20,11 +20,7 @@ const Artist = ({ artist: { profile }, fetchArtistProfile, history }) => {
         profilePicture: '',
         tattooStyles: [],
         workplaces: [],
-        instagram: '',
-        facebook: '',
-        website: '',
-        phone: '',
-        email: '',
+        social: {},
         hourRate: '',
         minRate: '',
         currency: '',
@@ -42,11 +38,7 @@ const Artist = ({ artist: { profile }, fetchArtistProfile, history }) => {
                 profilePicture: profile.profilePicture.publicId,
                 tattooStyles: profile.tattooStyles,
                 workplaces: profile.workplaces,
-                instagram: profile.social.instagram,
-                facebook: profile.social.facebook,
-                website: profile.social.website,
-                phone: profile.social.phone,
-                email: profile.social.email,
+                social: profile.social,
                 hourRate: profile.pricing.hourRate,
                 minRate: profile.pricing.minRate,
                 currency: profile.pricing.currency,
@@ -55,7 +47,7 @@ const Artist = ({ artist: { profile }, fetchArtistProfile, history }) => {
         }
     }, [fetchArtistProfile, id, profile]);
 
-    const { fullName, biography, profilePicture, tattooStyles, workplaces, instagram, facebook, website, phone, email, hourRate, minRate, currency, portfolio } = artist;
+    const { fullName, biography, profilePicture, tattooStyles, workplaces, social, hourRate, minRate, currency, portfolio } = artist;
 
     return (
         <div id="main" className="d-flex align-items-start m-5">
@@ -68,52 +60,9 @@ const Artist = ({ artist: { profile }, fetchArtistProfile, history }) => {
                     <h5 className="d-flex pt-2 m-1 mb-2">Bio</h5>
                     <p className="font-50 mx-2 pb-3">{biography}</p>
                 </div>
-                {
-                    (!instagram && !facebook && !website && !phone && !email) && (
-                        <hr />
-                    )
-                }
-                {
-                    instagram && (
-                        <div className="p-2 solid-bottom-border">
-                            <a href={instagram} className="d-flex justify-content-between align-items-center font-55">
-                                <span className="pe-1">Instagram</span> <FaInstagram size={20} />
-                            </a>
-                        </div>
-                    )
-                }
-                {
-                    facebook && (
-                        <div className="p-2 solid-bottom-border">
-                            <a href={facebook} className="d-flex justify-content-between align-items-center font-55">
-                                <span className="pe-1">Facebook</span> <FaFacebook size={20} />
-                            </a>
-                        </div>
-                    )
-                }
-                {
-                    website && (
-                        <div className="p-2 solid-bottom-border">
-                            <a href={website} className="d-flex justify-content-between align-items-center font-55">
-                                <span className="pe-1">Website</span> <FaGlobe size={20} />
-                            </a>
-                        </div>
-                    )
-                }
-                {
-                    phone && (
-                        <div className="d-flex justify-content-between align-items-center p-2 solid-bottom-border font-55">
-                            <span className="pe-1">{phone}</span> <FaPhone size={20} />
-                        </div>
-                    )
-                }
-                {
-                    email && (
-                        <div className="d-flex justify-content-between align-items-center p-2 solid-bottom-border font-55">
-                            <span className="pe-1">{email}</span> <FaRegEnvelope size={20} />
-                        </div>
-                    )
-                }
+
+                <Social social={social} />
+
                 <div className="solid-bottom-border">
                     <h5 className="pt-4">Worplaces</h5>
                     {
