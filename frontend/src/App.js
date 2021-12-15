@@ -17,6 +17,8 @@ import ArtistProfile from './components/artists/artistProfile/ArtistProfile';
 import UserProfile from './components/userProfile/UserProfile';
 import SignUp from './components/signUp/SignUp';
 import SignIn from './components/signIn/SignIn';
+import ResetPassword from './components/resetPassword/ResetPassword';
+import ForgotPassword from './components/resetPassword/ForgotPassword';
 
 if (localStorage.token) {
     setAuthToken(localStorage.token);
@@ -60,6 +62,12 @@ function App() {
                             </Route>
                             <Route path="/signin">
                                 <SignIn />
+                            </Route>
+                            <Route path="/reset-password">
+                                <ResetPassword />
+                            </Route>
+                            <Route path="/forgot-password">
+                                <ForgotPassword />
                             </Route>
                         </Switch>
                     </div>
