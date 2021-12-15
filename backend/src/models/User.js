@@ -14,6 +14,9 @@ const userSchema = new Schema({
 		minlenght: 7,
 		trim: true
 	},
+	profilePicture: {
+		publicId: String
+	},
 	userType: {
 		type: String,
 		enum: ['user', 'admin'],

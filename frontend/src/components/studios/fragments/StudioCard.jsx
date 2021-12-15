@@ -16,8 +16,8 @@ const StudioCard = ({ studio: { coverImage = { publicId: null }, logo = { public
                 <Image src={logo.publicId ?? avatarPlaceholder} className="studio-avatar-img" roundedCircle />
                 <Col>
                     <div className="d-flex font-60 my-1">{name}</div>
-                    <div className="d-flex">
-                        <FaMapMarkerAlt size={14} />
+                    <div className="d-flex align-items-center">
+                        <FaMapMarkerAlt size={13} />
                         <span className="font-45 ms-1">{location.address}</span>
                     </div>
                 </Col>

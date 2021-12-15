@@ -1,56 +1,51 @@
+import { useState } from 'react';
+
+import ImageUploader from '../fragments/ImageUploader';
+
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
-import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
-import { FaTrashAlt } from 'react-icons/fa';
-import userAvatar from '../../assets/user_w.png';
+import { FaTrashAlt, FaArrowLeft } from 'react-icons/fa';
 
 const UserProfile = () => {
+    const [profilePicture, setProfilePicture] = useState('');
+    const [profilePictureBase64, setProfilePictureBase64] = useState('');
+
     return (
         <Container>
             <Form>
-                <div className="d-flex justify-content-between solid-bottom-border-secondary mt-5">
-                    <div>
-                        <h1>Profile</h1>
-                    </div>
-                    <div>
-                        <Button variant="secondary" className="px-3 mx-2">
-                            Cancel
-                        </Button>
-                        <Button variant="dark" className="px-3 mx-2">
-                            Save
-                        </Button>
-                    </div>
+                <div className="d-flex solid-bottom-border-secondary mt-5">
+                    <h1>Profile</h1>
                 </div>
-                <Image src={userAvatar} className="profile-picture my-4" roundedCircle />
-                <Form.Group controlId="formProfileName" className="mb-3">
-                    <Form.Label className="font-75">Name</Form.Label>
-                    <Form.Control type="text" placeholder="Full name" />
-                </Form.Group>
-                <Form.Group controlId="formProfileLocation" className="mb-5">
-                    <Form.Label className="font-75">City</Form.Label>
-                    <Form.Control type="text" placeholder="Where do you live?" />
-                </Form.Group>
+                <ImageUploader
+                    image={profilePicture}
+                    setImageBase64={img => setProfilePictureBase64(img)}
+                />
+                <div>
+                    <Button variant="dark" className="m-3">
+                        Save picture
+                    </Button>
+                </div>
                 <hr />
-                <div className="d-flex justify-content-between mt-5 pb-4">
+                <div className="d-flex justify-content-between align-items-center mt-5 pb-4">
                     <div>
-                        <h3>Change password</h3>
+                        <h3>Reset password</h3>
                     </div>
                     <div>
-                        <Button variant="dark">
-                            Change
+                        <Button variant="dark" size="lg">
+                            Send e-mail
                         </Button>
                     </div>
                 </div>
                 <hr/>
-                <h3 className="d-flex">Delete account</h3>
+                <h3 className="d-flex mb-3">Delete account</h3>
                 <p className="font-55">
                     Deleting your tatue-se account will permanently remove your profile, 
                     along with all data you have produced while on tatue-se, 
                     including permanent removal of photos, comments, saved boards, workplace history, 
                     and subscription and billing info, booking history, your account information and settings.
                 </p>
-                <Button variant="danger" className="d-flex mt-3 mb-5" onClick={() => alert('deleted')}>
+                <Button variant="danger" className="d-flex mt-4 mb-5" onClick={() => alert('deleted')}>
                     <FaTrashAlt size={19} />
                     <span className="ps-2">Delete my account</span>
                 </Button>

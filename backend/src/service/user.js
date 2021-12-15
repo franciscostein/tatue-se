@@ -4,12 +4,12 @@ const Studio = require('../models/Studio');
 const { hashPassword, generateToken } = require('../utils/auth');
 const { apiResponsePayloadName, apiResponse } = require('../utils/messages');
 
-exports.create = async (email, password, userType) => {
+exports.create = async (email, password, profilePicture, userType) => {
     let user = await User.findOne({ email });
 
     if (user) return apiResponsePayloadName('errors', [{ msg: 'User already exists' }], 400);
 
-    user = new User({ email, password, userType });
+    user = new User({ email, password, profilePicture, userType });
     user.password = await hashPassword(password);
     
     await user.save();

@@ -4,17 +4,17 @@ import Image from 'react-bootstrap/Image';
 
 import avatarPlaceholder from '../../assets/user_w.png';
 
-const ImageUploader = ({ profilePicture, setImageBase64 }) => {
+const ImageUploader = ({ image, setImageBase64 }) => {
     const [fileInputState, setFileInputState] = useState('');
     const [previewSource, setPreviewSource] = useState(null);
     // const [selectedFile, setSelectedFile] = useState();
     const inputFile = useRef(null);
 
     useEffect(() => {
-        if (profilePicture) {
-            setPreviewSource(profilePicture);
+        if (image) {
+            setPreviewSource(image);
         }
-    }, [profilePicture]);
+    }, [image]);
 
     const handleFileInputChange = event => {
         const { files } = event.target;

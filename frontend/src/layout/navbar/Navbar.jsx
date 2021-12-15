@@ -60,7 +60,7 @@ const NavbarComponent = ({ user: { userInfo }, fetchUserInfo }) => {
             <Dropdown className="px-4">
                 <Dropdown.Toggle variant="dark" id="dropdown-profile">
                     <Image src={profile.userPicture ?? userSolid} className="min-user px-3" roundedCircle />
-                    <FaBars size={27} />
+                    <FaBars size={25} />
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu className="dropdown-menu">

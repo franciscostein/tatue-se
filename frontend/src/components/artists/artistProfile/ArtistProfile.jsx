@@ -79,7 +79,6 @@ const ArtistProfile = ({
 
     const onSubmit = e => {
         e.preventDefault();
-        // console.log(formData);
         saveProfile(formData, profilePictureBase64, history);
     }
 
@@ -133,7 +132,7 @@ const ArtistProfile = ({
                     </div>
                 </div>
                 <ImageUploader 
-                    profilePicture={profilePicture}
+                    image={profilePicture}
                     setImageBase64={img => setProfilePictureBase64(img)}
                 />
                 <Row className="mb-3">
