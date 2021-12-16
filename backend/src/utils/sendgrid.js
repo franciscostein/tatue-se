@@ -2,7 +2,7 @@ const sendgrid = require('@sendgrid/mail');
 
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 
-exports.createResetPasswordEmail = (emailTo, onetimeLink) => {
+exports.generateResetPasswordEmail = (emailTo, onetimeLink) => {
     return {
         to: emailTo,
         from: {
@@ -11,7 +11,7 @@ exports.createResetPasswordEmail = (emailTo, onetimeLink) => {
         },
         subject: 'Reset password',
         body: onetimeLink,
-        html: `<a src=${onetimeLink}>Click here to reset you password.</a>`
+        html: `link: ${onetimeLink}`
     }
 }
 

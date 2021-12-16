@@ -11,7 +11,7 @@ const connectDB = async () => {
             useFindAndModify: false
 		});
 
-        console.log('\x1b[32m', '\n* MongoDB connected... *\n');
+        console.log('\x1b[32m', '\n* MongoDB 🍃 connected!!! *\n\n');
 	} catch (err) {
 		console.error('\x1b[31m', err.message);
 		// exit process with failure

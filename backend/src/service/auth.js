@@ -1,7 +1,9 @@
 const bcrypt = require('bcryptjs');
-const { apiResponsePayloadName } = require('../utils/messages');
+const jwt = require('jsonwebtoken');
+const { apiResponsePayloadName, apiResponse } = require('../utils/messages');
 const { generateToken } = require('../utils/auth');
-const { createResetPasswordEmail, sendEmail } = require('../utils/sendgrid');
+const { generateResetPasswordEmail, sendEmail } = require('../utils/sendgrid');
+const { generateEmailToken, hashPassword } = require('../utils/auth');
 const User = require('../models/User');
 
 exports.authenticate = async (email, password) => {
@@ -24,12 +26,36 @@ exports.authenticate = async (email, password) => {
     }
 }
 
-exports.sendResetPasswordEmail = async email => {
-	const user = await User.findOne({ email });
+exports.sendResetPasswordEmail = async emailAddress => {
+	const user = await User.findOne({ email: emailAddress });
 
-	
+	if (!user) return apiResponse({ msg: 'User not found' }, 204);
+
+	const token = generateEmailToken(user.email, user.password);
+	const link = `${process.env.FRONTEND_DOMAIN}/reset-password/${user._id}/${token}`;
+	const email = generateResetPasswordEmail(user.email, link);
+	const sent = sendEmail(email);
+
+	if (sent) {
+		return apiResponse({ msg: 'E-mail sent' });
+	} else {
+		throw new Error('There was an error. E-mail not sent');
+	}
 }
 
-exports.resetPassword = async (id, token) => {
-	
+exports.resetPassword = async (userId, token, newPassword) => {
+	const user = await User.findById(userId);
+
+	if (!user) return apiResponse({ msg: 'User not found' }, 204);
+
+	const secret = process.env.JWT_SECRET + user.password;
+	const { email } = jwt.verify(token, secret);
+
+	if (email !== user.email) {
+		return apiResponse({ msg: `E-mails don't match` }, 204);
+	} else {
+		user.password = await hashPassword(newPassword);
+		await user.save();
+		return apiResponse({ msg: 'Password changed' });
+	}
 }

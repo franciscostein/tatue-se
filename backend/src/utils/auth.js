@@ -12,9 +12,18 @@ exports.generateToken = async (id, expiresIn = 3600) => {
 	}
 
 	return new Promise((resolve, reject) => {
-		jwt.sign(payload, process.env.JWT_SECRET, { expiresIn }, (err, token) => {
+		jwt.sign(payload, process.env.JWT_SECRET_TOKEN, { expiresIn }, (err, token) => {
 			if (err) reject({ error: err, token: null });
 			else resolve({ error: null, token });
 		});
 	});
+}
+
+exports.generateEmailToken = (email, password, expiresIn = '15m') => {
+	const secret = process.env.JWT_SECRET + password;
+	const payload = {
+		email
+	}
+
+	return jwt.sign(payload, secret, { expiresIn });
 }

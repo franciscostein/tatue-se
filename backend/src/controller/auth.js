@@ -26,9 +26,10 @@ exports.sendResetPasswordEmail = async (req, res, next) => {
 
 exports.resetPassword = async (req, res, next) => {
 	const { id, token } = req.params;
+	const { password } = req.body;
 
 	try {
-		const { status, payload } = await resetPassword(id, token);
+		const { status, payload } = await resetPassword(id, token, password);
 
 		res.status(status).json(payload);
 	} catch (err) {

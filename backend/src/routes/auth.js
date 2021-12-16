@@ -12,11 +12,11 @@ router.post('/', userValidation, authenticate);
 // @route   POST api/auth/forgot-password
 // @desc    create and send an one time link via e-mail
 // @access  public
-router.post('/forgot-password');
+router.post('/forgot-password', sendResetPasswordEmail);
 
 // @route   POST api/auth/reset-password/:id/:token
 // @desc    reset user password
 // @access  public
-router.post('/reset-password/:id/:token');
+router.post('/reset-password/:id/:token', resetPassword);
 
 module.exports = router;
