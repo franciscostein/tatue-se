@@ -2,4 +2,4 @@ const app = require('./app');
 
 const PORT = process.env.PORT;
 
-app.listen(PORT, () => console.log(`\n- Server started on port ${PORT} -\n`));
+app.listen(PORT, () => console.log(`\n\n- 🚀 @ http://localhost/${PORT} -\n`));

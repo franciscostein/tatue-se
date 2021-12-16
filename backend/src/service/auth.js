@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const { apiResponsePayloadName } = require('../utils/messages');
 const { generateToken } = require('../utils/auth');
+const { createResetPasswordEmail, sendEmail } = require('../utils/sendgrid');
 const User = require('../models/User');
 
 exports.authenticate = async (email, password) => {
@@ -21,4 +22,14 @@ exports.authenticate = async (email, password) => {
     } else {
         throw new Error(error);
     }
+}
+
+exports.sendResetPasswordEmail = async email => {
+	const user = await User.findOne({ email });
+
+	
+}
+
+exports.resetPassword = async (id, token) => {
+	
 }
