@@ -14,7 +14,7 @@ exports.authenticate = async (req, res, next) => {
 
 exports.sendResetPasswordEmail = async (req, res, next) => {
 	const { email } = req.body;
-
+	
 	try {
 		const { status, payload } = await sendResetPasswordEmail(email);
 

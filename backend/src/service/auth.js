@@ -28,18 +28,18 @@ exports.authenticate = async (email, password) => {
 
 exports.sendResetPasswordEmail = async emailAddress => {
 	const user = await User.findOne({ email: emailAddress });
-
+	
 	if (!user) return apiResponse({ msg: 'User not found' }, 204);
-
+	
 	const token = generateEmailToken(user.email, user.password);
 	const link = `${process.env.FRONTEND_DOMAIN}/reset-password/${user._id}/${token}`;
 	const email = generateResetPasswordEmail(user.email, link);
 	const sent = sendEmail(email);
 
 	if (sent) {
-		return apiResponse({ msg: 'E-mail sent' });
+		return apiResponse({ msg: 'E-mail sent! Please check you inbox for instructions.' });
 	} else {
-		throw new Error('There was an error. E-mail not sent');
+		throw new Error('There was an error. E-mail not sent, please try again.');
 	}
 }
 

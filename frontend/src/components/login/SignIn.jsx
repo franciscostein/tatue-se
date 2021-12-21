@@ -12,7 +12,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import { FaExclamationTriangle } from 'react-icons/fa';
 
-const SignIn = ({ user: { isAuthenticated, error }, authenticate, history }) => {
+const SignIn = ({ auth: { isAuthenticated, error }, authenticate, history }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -70,8 +70,11 @@ const SignIn = ({ user: { isAuthenticated, error }, authenticate, history }) => 
                     Sign in
                 </Button>
                 <Row>
-                    <span className="font-65 text-secondary mt-5" onClick={() => history.push('/signup')}>
+                    <span className="font-65 text-secondary clickable mt-5" onClick={() => history.push('/signup')}>
                         Don't have an account yet? Click here
+                    </span>
+                    <span className="font-65 text-secondary clickable mt-3" onClick={() => history.push('/forgot-password')}>
+                        Forgot your password? Reset it here
                     </span>
                 </Row>
             </Form>
@@ -84,7 +87,7 @@ SignIn.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    user: state.user
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, { authenticate })(withRouter(SignIn));

@@ -15,8 +15,8 @@ import Artists from './components/artists/Artists';
 import Artist from './components/artists/artist/Artist';
 import ArtistProfile from './components/artists/artistProfile/ArtistProfile';
 import UserProfile from './components/userProfile/UserProfile';
-import SignUp from './components/signUp/SignUp';
-import SignIn from './components/signIn/SignIn';
+import SignUp from './components/login/SignUp';
+import SignIn from './components/login/SignIn';
 import ResetPassword from './components/resetPassword/ResetPassword';
 import ForgotPassword from './components/resetPassword/ForgotPassword';
 

@@ -109,8 +109,4 @@ SignUp.propTypes = {
     saveUser: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = state => ({
-    user: state.user
-});
-
-export default connect(mapStateToProps, { saveUser })(withRouter(SignUp));
+export default connect(null, { saveUser })(withRouter(SignUp));
