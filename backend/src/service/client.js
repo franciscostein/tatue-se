@@ -22,7 +22,7 @@ exports.getAll = async () => {
     if (clients) {
         return apiResponse(clients);
     } else {
-        return apiResponse({}, 204);
+        return apiResponse({}, 404);
     }
 }
 
@@ -32,7 +32,7 @@ exports.getOne = async id => {
 	if (client) {
 		return apiResponse(client._doc);
 	} else {
-		return apiResponse({}, 204);
+		return apiResponse({}, 404);
 	}
 }
 
@@ -42,7 +42,7 @@ exports.getOwnByUserId = async userId => {
     if (client) {
         return apiResponse(client);
     } else {
-        return apiResponse({}, 204);
+        return apiResponse({}, 404);
     }
 }
 
@@ -52,7 +52,7 @@ exports.deleteByUserId = async userId => {
 	if (deletedCount > 0) {
 		return apiResponse();
 	} else {
-		return apiResponse({}, 204);
+		return apiResponse({}, 404);
 	}
 }
 

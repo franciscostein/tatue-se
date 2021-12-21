@@ -43,7 +43,7 @@ exports.getAll = async filter => {
 	if (artists) {
 		return apiResponse(artists);
 	} else {
-		return apiResponse({}, 204);
+		return apiResponse({}, 404);
 	}
 }
 
@@ -56,7 +56,7 @@ exports.getArtistByStudio = async studioId => {
 	if (artists) {
 		return apiResponse(artists);
 	} else {
-		return apiResponse({}, 204);
+		return apiResponse({}, 404);
 	}
 }
 
@@ -68,7 +68,7 @@ exports.getOne = async artistId => {
 	if (artist) {
 		return apiResponse(artist._doc);
 	} else {
-		return apiResponse({}, 204);
+		return apiResponse({}, 404);
 	}
 }
 
@@ -81,7 +81,7 @@ exports.getOwnProfile = async userId => {
 	if (artist) {
 		return apiResponse(artist);
 	} else {
-		return apiResponse({}, 204);
+		return apiResponse({}, 404);
 	}
 }
 
@@ -91,7 +91,7 @@ exports.deleteByUserId = async userId => {
 	if (deletedCount > 0) {
 		return apiResponse();
 	} else {
-		return apiResponse({}, 204);
+		return apiResponse({}, 404);
 	}
 }
 

@@ -90,7 +90,7 @@ describe('artistController.getAll', () => {
     it('should not retrieve artists if there isnt', async () => {
         await artistController.getAll(req, res, next);
 
-        expect(res.statusCode).toBe(204);
+        expect(res.statusCode).toBe(404);
         expect(res._isEndCalled()).toBeTruthy();
 		expect(res._getJSONData()).toStrictEqual({});
     });
@@ -135,7 +135,7 @@ describe('artistController.getOne', () => {
     it('shouldnt return any artist if there isnt a match', async () => {
         await artistController.getOne(req, res, next);
 
-        expect(res.statusCode).toBe(204);
+        expect(res.statusCode).toBe(404);
 		expect(res._isEndCalled()).toBeTruthy();
 		expect(res._getJSONData()).toStrictEqual({});
     });
@@ -178,12 +178,12 @@ describe('artistController.deleteOne', () => {
 		expect(res._getJSONData()).toStrictEqual({});
     });
 
-    it('should return HTTP 204 if it wasnt deleted', async () => {
+    it('should return HTTP 404 if it wasnt deleted', async () => {
         artistModel.deleteOne.mockReturnValue({ deletedCount: 0 });
 
         await artistController.deleteOne(req, res, next);
 
-        expect(res.statusCode).toBe(204);
+        expect(res.statusCode).toBe(404);
 		expect(res._isEndCalled()).toBeTruthy();
 		expect(res._getJSONData()).toStrictEqual({});
     });

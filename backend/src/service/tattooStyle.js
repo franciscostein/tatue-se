@@ -21,7 +21,7 @@ exports.getAll = async () => {
     if (tattooStyles) {
         return apiResponse(tattooStyles);
     } else {
-        return apiResponse({}, 204);
+        return apiResponse({}, 404);
     }
 }
 
@@ -31,7 +31,7 @@ exports.getManyByIds = async ids => {
     if (tattooStyles) {
         return apiResponse(tattooStyles);
     } else {
-        return apiResponse({}, 204);
+        return apiResponse({}, 404);
     }
 }
 
@@ -41,7 +41,7 @@ exports.deleteById = async tattooStyleId => {
 	if (deletedCount > 0) {
 		return apiResponse();
 	} else {
-		return apiResponse({}, 204);
+		return apiResponse({}, 404);
 	}
 }
 

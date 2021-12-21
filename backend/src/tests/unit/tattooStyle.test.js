@@ -77,7 +77,7 @@ describe('tattooStyleController.getAll', () => {
     it('should not retrieve tattoo styles if there isnt', async () => {
         await tattooStyleController.getAll(req, res, next);
 
-        expect(res.statusCode).toBe(204);
+        expect(res.statusCode).toBe(404);
         expect(res._isEndCalled()).toBeTruthy();
     });
 
@@ -124,7 +124,7 @@ describe('tattooStyleController.getMany', () => {
 
         await tattooStyleController.getMany(req, res, next);
 
-        expect(res.statusCode).toBe(204);
+        expect(res.statusCode).toBe(404);
 		expect(res._isEndCalled()).toBeTruthy();
 		expect(res._getJSONData()).toStrictEqual({});
     });
@@ -167,12 +167,12 @@ describe('tattooStyleController.deleteOne', () => {
 		expect(res._getJSONData()).toStrictEqual({});
     });
 
-    it('should return HTTP 204 if it wasnt deleted', async () => {
+    it('should return HTTP 404 if it wasnt deleted', async () => {
         tattooStyleModel.deleteOne.mockReturnValue({ deletedCount: 0 });
 
         await tattooStyleController.deleteOne(req, res, next);
 
-        expect(res.statusCode).toBe(204);
+        expect(res.statusCode).toBe(404);
 		expect(res._isEndCalled()).toBeTruthy();
 		expect(res._getJSONData()).toStrictEqual({});
     });

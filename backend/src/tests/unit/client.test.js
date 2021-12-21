@@ -90,7 +90,7 @@ describe('clientController.getAll', () => {
     it('should not retrieve clients if there isnt', async () => {
         await clientController.getAll(req, res, next);
 
-        expect(res.statusCode).toBe(204);
+        expect(res.statusCode).toBe(404);
         expect(res._isEndCalled()).toBeTruthy();
     });
 
@@ -134,7 +134,7 @@ describe('clientController.getOne', () => {
     it('shouldnt return any client if there isnt a match', async () => {
         await clientController.getOne(req, res, next);
 
-        expect(res.statusCode).toBe(204);
+        expect(res.statusCode).toBe(404);
 		expect(res._isEndCalled()).toBeTruthy();
 		expect(res._getJSONData()).toStrictEqual({});
     });
@@ -177,12 +177,12 @@ describe('clientController.deleteOne', () => {
 		expect(res._getJSONData()).toStrictEqual({});
     });
 
-    it('should return HTTP 204 if it wasnt deleted', async () => {
+    it('should return HTTP 404 if it wasnt deleted', async () => {
         clientModel.deleteOne.mockReturnValue({ deletedCount: 0 });
 
         await clientController.deleteOne(req, res, next);
 
-        expect(res.statusCode).toBe(204);
+        expect(res.statusCode).toBe(404);
 		expect(res._isEndCalled()).toBeTruthy();
 		expect(res._getJSONData()).toStrictEqual({});
     });

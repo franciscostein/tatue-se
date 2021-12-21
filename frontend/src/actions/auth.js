@@ -24,18 +24,21 @@ export const sendForgotPasswordEmail = email => async dispatch => {
 
         console.log('sendForgotPasswordEmail', response);
 
-        if (response.data) {
-            if (response.status === 204) {
-                dispatch({
-                    type: RESET_PASSWORD_EMAIL_FAIL,
-                    payload: response.data
-                })
-            } else {
+        switch (response.status) {
+            case 200:
                 dispatch({
                     type: RESET_PASSWORD_EMAIL_SUCCESS,
                     payload: response.data
                 });
-            }
+                break;
+            case 404:
+                dispatch({
+                    type: RESET_PASSWORD_EMAIL_FAIL,
+                    payload: response.data
+                });
+                break;
+            default:
+                break;
         }
     } catch (error) {
         console.error(error.message);

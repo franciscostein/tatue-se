@@ -29,7 +29,7 @@ exports.authenticate = async (email, password) => {
 exports.sendResetPasswordEmail = async emailAddress => {
 	const user = await User.findOne({ email: emailAddress });
 	
-	if (!user) return apiResponse({ msg: 'User not found' }, 204);
+	if (!user) return apiResponse({ msg: 'User not found' }, 404);
 	
 	const token = generateEmailToken(user.email, user.password);
 	const link = `${process.env.FRONTEND_DOMAIN}/reset-password/${user._id}/${token}`;
@@ -46,13 +46,13 @@ exports.sendResetPasswordEmail = async emailAddress => {
 exports.resetPassword = async (userId, token, newPassword) => {
 	const user = await User.findById(userId);
 
-	if (!user) return apiResponse({ msg: 'User not found' }, 204);
+	if (!user) return apiResponse({ msg: 'User not found' }, 404);
 
 	const secret = process.env.JWT_SECRET + user.password;
 	const { email } = jwt.verify(token, secret);
 
 	if (email !== user.email) {
-		return apiResponse({ msg: `E-mails don't match` }, 204);
+		return apiResponse({ msg: `E-mails don't match` }, 404);
 	} else {
 		user.password = await hashPassword(newPassword);
 		await user.save();

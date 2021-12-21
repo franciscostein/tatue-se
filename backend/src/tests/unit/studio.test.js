@@ -128,7 +128,7 @@ describe('studioController.getAll', () => {
     it('should not retrieve studios if there isnt', async () => {
         await studioController.getAll(req, res, next);
 
-        expect(res.statusCode).toBe(204);
+        expect(res.statusCode).toBe(404);
         expect(res._isEndCalled()).toBeTruthy();
     });
 
@@ -174,7 +174,7 @@ describe('studioController.getOne', () => {
     it('shouldnt return any studio if there isnt a match', async () => {
         await studioController.getOne(req, res, next);
 
-        expect(res.statusCode).toBe(204);
+        expect(res.statusCode).toBe(404);
 		expect(res._isEndCalled()).toBeTruthy();
 		expect(res._getJSONData()).toStrictEqual({});
     });
@@ -243,7 +243,7 @@ describe('studioController.deleteOne', () => {
 		expect(res._getJSONData()).toStrictEqual({});
     });
 
-    it('should return HTTP 204 if it wasnt deleted', async () => {
+    it('should return HTTP 404 if it wasnt deleted', async () => {
         req.params.id = studioId;
         req.user.id = userId;
         studioModel.findOne.mockReturnValue(insertedStudio._doc);
@@ -251,7 +251,7 @@ describe('studioController.deleteOne', () => {
 
         await studioController.deleteOne(req, res, next);
 
-        expect(res.statusCode).toBe(204);
+        expect(res.statusCode).toBe(404);
 		expect(res._isEndCalled()).toBeTruthy();
 		expect(res._getJSONData()).toStrictEqual({});
     });

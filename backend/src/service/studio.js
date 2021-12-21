@@ -30,7 +30,7 @@ exports.getAll = async search => {
     if (studios) {
         return apiResponse(studios);
     } else {
-        return apiResponse({}, 204);
+        return apiResponse({}, 404);
     }
 }
 
@@ -40,7 +40,7 @@ exports.getOneByStudioId = async studioId => {
 	if (studio) {
 		return apiResponse(studio._doc);
 	} else {
-		return apiResponse({}, 204);
+		return apiResponse({}, 404);
 	}
 }
 
@@ -50,7 +50,7 @@ exports.getOwnByUserId = async userId => {
 	if (studio) {
 		return apiResponse(studio);
 	} else {
-		return apiResponse({}, 204);
+		return apiResponse({}, 404);
 	}
 }
 
@@ -60,7 +60,7 @@ exports.deleteById = async userId => {
 	if (deletedCount > 0) {
 		return apiResponse();
 	} else {
-		return apiResponse({}, 204);
+		return apiResponse({}, 404);
 	}
 }
 
