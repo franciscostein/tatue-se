@@ -37,7 +37,7 @@ exports.sendResetPasswordEmail = async emailAddress => {
 	const sent = sendEmail(email);
 
 	if (sent) {
-		return apiResponse({ msg: 'E-mail sent! Please check you inbox for instructions.' });
+		return apiResponse({ msg: 'E-mail sent! Please check your inbox for instructions.' });
 	} else {
 		throw new Error('There was an error. E-mail not sent, please try again.');
 	}

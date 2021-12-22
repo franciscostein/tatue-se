@@ -7,11 +7,15 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
+import { FaCheckSquare, FaExclamationTriangle } from 'react-icons/fa';
 
 const ForgotPassword = ({ auth: { emailSent = false, message = '' }, sendForgotPasswordEmail }) => {
     const [email, setEmail] = useState('');
 
     useEffect(() => {
+        if (emailSent) {
+            setEmail('');
+        }
     }, [emailSent, message]);
 
     const handleSubmit = event => {
@@ -26,11 +30,15 @@ const ForgotPassword = ({ auth: { emailSent = false, message = '' }, sendForgotP
             </div>
             <Form onSubmit={handleSubmit}>
                 {
-                    message ? (
-                        <Alert variant={ emailSent ? 'success' : 'danger' }>
-                            <span className="font-80">{message}</span>
+                    message && (
+                        <Alert variant={ emailSent ? 'success' : 'danger' } className="mx-3">
+                            { emailSent ? <FaCheckSquare /> : <FaExclamationTriangle /> }
+                            <span className="font-80 ms-3">{message}</span>
                         </Alert>
-                    ) : (
+                    )
+                }
+                {
+                    !emailSent && (
                         <Fragment>
                             <Form.Group controlId="email" className="m-3">
                                 <Form.Label className="font-75">E-mail</Form.Label>
