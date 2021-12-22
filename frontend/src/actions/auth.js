@@ -3,7 +3,9 @@ import { setAuthToken } from "../utils/authToken"
 
 import {
     RESET_PASSWORD_EMAIL_SUCCESS,
-    RESET_PASSWORD_EMAIL_FAIL
+    RESET_PASSWORD_EMAIL_FAIL,
+    RESET_PASSWORD_SUCCESS,
+    RESET_PASSWORD_FAIL
 } from './types';
 
 export const loadUser = () => async dispatch => {
@@ -29,5 +31,23 @@ export const sendForgotPasswordEmail = email => async dispatch => {
             type: RESET_PASSWORD_EMAIL_FAIL,
             payload: { msg: 'E-mail could not be sent. Please review your e-mail address and try again.' }
         })
+    }
+}
+
+export const resetPassword = password => async dispatch => {
+    try {
+        const { data } = await axios.post('api/auth/reset-password', { password });
+
+        if (data) {
+            dispatch({
+                type: RESET_PASSWORD_SUCCESS,
+                payload: data
+            });
+        }
+    } catch (error) {
+        dispatch({
+            type: RESET_PASSWORD_FAIL,
+            payload: { msg: 'Could not change password, please try again later.' }
+        });
     }
 }

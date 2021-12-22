@@ -3,12 +3,15 @@ import {
     SIGNIN_SUCCESS,
     SIGNIN_FAIL,
     RESET_PASSWORD_EMAIL_SUCCESS,
-    RESET_PASSWORD_EMAIL_FAIL
+    RESET_PASSWORD_EMAIL_FAIL,
+    RESET_PASSWORD_SUCCESS,
+    RESET_PASSWORD_FAIL
 } from '../actions/types';
 
 const initialState = {
     isAuthenticated: false,
     emailSent: false,
+    passwordChanged: false,
     message: '',
     error: {}
 }
@@ -39,6 +42,18 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 emailSent: false,
+                message: payload.msg
+            }
+        case RESET_PASSWORD_SUCCESS:
+            return {
+                ...state,
+                passwordChanged: true,
+                message: payload.msg
+            }
+        case RESET_PASSWORD_FAIL:
+            return {
+                ...state,
+                passwordChanged: false,
                 message: payload.msg
             }
         default:
