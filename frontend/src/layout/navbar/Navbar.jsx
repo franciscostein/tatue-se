@@ -1,5 +1,4 @@
 import { useState, useEffect, Fragment } from 'react';
-import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
@@ -16,9 +15,8 @@ import { FaBars, FaUserAlt, FaPaintBrush, FaAnchor, FaSignOutAlt, FaSignInAlt, F
 
 import userSolid from '../../assets/user_w.png';
 
-const NavbarComponent = ({ user: { userInfo }, fetchUserInfo }) => {
+const NavbarComponent = ({ user: { userInfo }, fetchUserInfo, history }) => {
     const pathname = window.location.pathname;
-    const history = useHistory();
     const [profile, setProfile] = useState({
         userPicture: null,
         artistProfileId: '',

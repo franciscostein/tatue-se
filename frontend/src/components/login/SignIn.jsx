@@ -12,7 +12,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import { FaExclamationTriangle } from 'react-icons/fa';
 
-const SignIn = ({ auth: { isAuthenticated, error }, authenticate, history }) => {
+const SignIn = ({ auth: { isAuthenticated, message }, authenticate, history }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -20,11 +20,11 @@ const SignIn = ({ auth: { isAuthenticated, error }, authenticate, history }) => 
     useEffect(() => {
         if (isAuthenticated) {
             history.push('/');
-        } else if (error) {
-            setErrorMessage(error.msg);
+        } else if (message) {
+            setErrorMessage(message);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isAuthenticated, error]);
+    }, [isAuthenticated, message]);
 
     const handleSubmit = event => {
         event.preventDefault();

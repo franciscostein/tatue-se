@@ -48,11 +48,11 @@ export const authenticate = login => async dispatch => {
             });
         }
     } catch (err) {
-        console.error('err', err);
-
         dispatch({
             type: SIGNIN_FAIL,
-            payload: err
+            payload: {
+                msg: 'E-mail or password incorrect.'
+            }
         });
     }
 }

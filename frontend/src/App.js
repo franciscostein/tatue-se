@@ -63,7 +63,7 @@ function App() {
                             <Route path="/signin">
                                 <SignIn />
                             </Route>
-                            <Route path="/reset-password">
+                            <Route path="/reset-password/:id/:token">
                                 <ResetPassword />
                             </Route>
                             <Route path="/forgot-password">

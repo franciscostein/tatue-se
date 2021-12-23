@@ -45,17 +45,22 @@ exports.sendResetPasswordEmail = async emailAddress => {
 
 exports.resetPassword = async (userId, token, newPassword) => {
 	const user = await User.findById(userId);
+	let expiredToken = false;
 
 	if (!user) return apiResponse({ msg: 'User not found' }, 404);
 
 	const secret = process.env.JWT_SECRET + user.password;
-	const { email } = jwt.verify(token, secret);
+	const response = jwt.verify(token, secret, (error, decoded) => {
+		if (error && error.name === 'TokenExpiredError') expiredToken = true;
+	});
 
-	if (email !== user.email) {
-		return apiResponse({ msg: `E-mails don't match` }, 404);
+	if (expiredToken) {
+		return apiResponse({ msg: 'Token expired, please request another link.'}, 401);
+	} else if (response.email !== user.email) {
+		return apiResponse({ msg: `E-mails don't match.` }, 404);
 	} else {
 		user.password = await hashPassword(newPassword);
 		await user.save();
-		return apiResponse({ msg: 'Password changed' });
+		return apiResponse({ msg: 'Password changed!' });
 	}
 }

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -32,7 +31,6 @@ const TattooStyles = ({ tattooStyles: { tattooStyles, loading }, fetchTattooStyl
                 selected: selectedTattooStylesIds.some(_id => _id === tattooStyle._id)
             })
         });
-
         setLocalTattooStyles(newArray);
     }
 
@@ -42,7 +40,6 @@ const TattooStyles = ({ tattooStyles: { tattooStyles, loading }, fetchTattooStyl
         } else {
             selectedTattooStylesIds.push(tattooStyleId);
         }
-
         selectTattooStyles();
     }
 
@@ -58,4 +55,4 @@ const mapStateToProps = state => ({
     tattooStyles: state.tattooStyles
 });
 
-export default connect(mapStateToProps, { fetchTattooStyles })(withRouter(TattooStyles));
+export default connect(mapStateToProps, { fetchTattooStyles })(TattooStyles);

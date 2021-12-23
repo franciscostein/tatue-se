@@ -12,8 +12,8 @@ const initialState = {
     isAuthenticated: false,
     emailSent: false,
     passwordChanged: false,
+    error: false,
     message: '',
-    error: {}
 }
 
 export default function(state = initialState, action) {
@@ -28,9 +28,7 @@ export default function(state = initialState, action) {
         case SIGNIN_FAIL:
             return {
                 ...state,
-                error: {
-                    msg: 'E-mail or password incorrect.'
-                }
+                message: payload.msg
             }
         case RESET_PASSWORD_EMAIL_SUCCESS:
             return {
@@ -54,9 +52,10 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 passwordChanged: false,
-                message: payload.msg
+                message: payload.msg,
+                error: true
             }
         default:
-            return state;
+            return initialState;
     }
 }

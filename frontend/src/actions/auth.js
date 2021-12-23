@@ -34,20 +34,24 @@ export const sendForgotPasswordEmail = email => async dispatch => {
     }
 }
 
-export const resetPassword = password => async dispatch => {
+export const resetPassword = (id, token, password) => async dispatch => {
     try {
-        const { data } = await axios.post('api/auth/reset-password', { password });
+        const { data } = await axios.post(`api/auth/reset-password/${id}/${token}`, { password });
 
-        if (data) {
-            dispatch({
-                type: RESET_PASSWORD_SUCCESS,
-                payload: data
-            });
-        }
+        dispatch({
+            type: RESET_PASSWORD_SUCCESS,
+            payload: data
+        });
     } catch (error) {
         dispatch({
             type: RESET_PASSWORD_FAIL,
-            payload: { msg: 'Could not change password, please try again later.' }
+            payload: { msg: 'Link expired or invalid, please request a new one.' }
         });
     }
+}
+
+export const resetState = () => async dispatch => {
+    dispatch({
+        type: 'RESET_STATE'
+    });
 }

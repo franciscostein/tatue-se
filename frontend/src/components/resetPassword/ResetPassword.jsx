@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
+import { useParams, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { resetPassword } from '../../actions/auth';
+import { resetPassword, resetState } from '../../actions/auth';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
+import Row from 'react-bootstrap/Row';
 import { FaCheckSquare, FaExclamationTriangle } from 'react-icons/fa';
 
-const ResetPassword = ({ auth: { passwordChanged, message }, resetPassword }) => {
+const ResetPassword = ({ auth: { passwordChanged, message, error }, resetPassword, resetState, history }) => {
+    const { id, token } = useParams();
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [localMessage, setLocalMessage] = useState('');
@@ -28,7 +31,7 @@ const ResetPassword = ({ auth: { passwordChanged, message }, resetPassword }) =>
             event.stopPropagation();
             return;
         }
-        resetPassword(password);
+        resetPassword(id, token, password);
     }
 
     const validate = () => {
@@ -38,6 +41,11 @@ const ResetPassword = ({ auth: { passwordChanged, message }, resetPassword }) =>
             return false;
         }
         return true;
+    }
+
+    const handleLinkClick = () => {
+        resetState();
+        history.push('/forgot-password');
     }
 
     return (
@@ -81,6 +89,15 @@ const ResetPassword = ({ auth: { passwordChanged, message }, resetPassword }) =>
                 <Button variant="dark" type="submit" size="lg" className="mt-4">
                     Reset password
                 </Button>
+                {
+                    error && (
+                        <Row>
+                            <span className="font-65 text-secondary clickable mt-4" onClick={handleLinkClick}>
+                                Request a new link here
+                            </span>
+                        </Row>
+                    )
+                }
             </Form>
         </Container>
     );
@@ -90,4 +107,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { resetPassword })(ResetPassword);
+export default connect(mapStateToProps, { resetPassword, resetState })(withRouter(ResetPassword));
