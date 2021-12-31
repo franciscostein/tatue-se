@@ -19,10 +19,10 @@ const ResetPassword = ({ auth: { passwordChanged, message, error }, resetPasswor
     const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
 
     useEffect(() => {
-        if (message || (localMessage !== message)) {
+        if (message) {
             setLocalMessage(message);
         }
-    }, [passwordChanged, message, localMessage]);
+    }, [passwordChanged, message]);
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -40,6 +40,7 @@ const ResetPassword = ({ auth: { passwordChanged, message, error }, resetPasswor
             setLocalMessage(`Passwords don't match.`);
             return false;
         }
+        setIsPasswordInvalid(false);
         return true;
     }
 
