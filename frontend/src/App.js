@@ -6,8 +6,8 @@ import store from './store';
 import { setAuthToken } from './utils/authToken';
 import { loadUser } from './actions/auth';
 
-import Navbar from './layout/navbar/Navbar';
-import Footer from './layout/footer/Footer';
+import Navbar from './components/layout/navbar/Navbar';
+import Footer from './components/layout/footer/Footer';
 import Studios from './components/studios/Studios';
 import Studio from './components/studios/studio/Studio';
 import StudioProfile from './components/studios/studioProfile/StudioProfile';

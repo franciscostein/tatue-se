@@ -1,21 +1,22 @@
+import './Navbar.css';
 import { useState, useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 
-import { setAuthToken } from '../../utils/authToken';
-import { fetchUserInfo } from '../../actions/user';
+import { setAuthToken } from '../../../utils/authToken';
+import { fetchUserInfo } from '../../../actions/user';
+import { resetAuthState } from '../../../actions/auth';
 
-import './Navbar.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Image from 'react-bootstrap/Image';
 import { FaBars, FaUserAlt, FaPaintBrush, FaAnchor, FaSignOutAlt, FaSignInAlt, FaUserPlus } from 'react-icons/fa';
 
-import userSolid from '../../assets/user_w.png';
+import userSolid from '../../../assets/user_w.png';
 
-const NavbarComponent = ({ user: { userInfo }, fetchUserInfo, history }) => {
+const NavbarComponent = ({ user: { userInfo }, fetchUserInfo, resetAuthState, history }) => {
     const pathname = window.location.pathname;
     const [profile, setProfile] = useState({
         userPicture: null,
@@ -44,6 +45,11 @@ const NavbarComponent = ({ user: { userInfo }, fetchUserInfo, history }) => {
     const handleLogout = () => {
         setAuthToken('');
         window.location.reload();
+    }
+
+    const resetStateAndGoTo = route => {
+        resetAuthState();
+        history.push(route);
     }
     
     return (
@@ -80,8 +86,8 @@ const NavbarComponent = ({ user: { userInfo }, fetchUserInfo, history }) => {
                             </Fragment>
                         ) : (
                             <Fragment>
-                                <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/signin')}><FaSignInAlt className="me-2" /> Sign in</Dropdown.Item>
-                                <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/signup')}><FaUserPlus className="me-2" /> Sign up</Dropdown.Item>
+                                <Dropdown.Item className="dropdown-item text-white" onClick={() => resetStateAndGoTo('/signin')}><FaSignInAlt className="me-2" /> Sign in</Dropdown.Item>
+                                <Dropdown.Item className="dropdown-item text-white" onClick={() => resetStateAndGoTo('/signup')}><FaUserPlus className="me-2" /> Sign up</Dropdown.Item>
                             </Fragment>
                         )
                     }
@@ -100,4 +106,4 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-export default connect(mapStateToProps, { fetchUserInfo })(withRouter(NavbarComponent));
+export default connect(mapStateToProps, { fetchUserInfo, resetAuthState })(withRouter(NavbarComponent));

@@ -5,7 +5,8 @@ import {
     RESET_PASSWORD_EMAIL_SUCCESS,
     RESET_PASSWORD_EMAIL_FAIL,
     RESET_PASSWORD_SUCCESS,
-    RESET_PASSWORD_FAIL
+    RESET_PASSWORD_FAIL,
+    RESET_STATE
 } from './types';
 
 export const loadUser = () => async dispatch => {
@@ -50,8 +51,8 @@ export const resetPassword = (id, token, password) => async dispatch => {
     }
 }
 
-export const resetState = () => async dispatch => {
+export const resetAuthState = () => async dispatch => {
     dispatch({
-        type: 'RESET_STATE'
+        type: RESET_STATE
     });
 }

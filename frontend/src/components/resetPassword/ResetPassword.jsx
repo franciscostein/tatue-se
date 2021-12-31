@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { resetPassword, resetState } from '../../actions/auth';
+import { resetPassword, resetAuthState } from '../../actions/auth';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -11,7 +11,7 @@ import Alert from 'react-bootstrap/Alert';
 import Row from 'react-bootstrap/Row';
 import { FaCheckSquare, FaExclamationTriangle } from 'react-icons/fa';
 
-const ResetPassword = ({ auth: { passwordChanged, message, error }, resetPassword, resetState, history }) => {
+const ResetPassword = ({ auth: { passwordChanged, message, error }, resetPassword, resetAuthState, history }) => {
     const { id, token } = useParams();
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -19,7 +19,7 @@ const ResetPassword = ({ auth: { passwordChanged, message, error }, resetPasswor
     const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
 
     useEffect(() => {
-        if (message && (localMessage !== message)) {
+        if (message || (localMessage !== message)) {
             setLocalMessage(message);
         }
     }, [passwordChanged, message, localMessage]);
@@ -44,7 +44,7 @@ const ResetPassword = ({ auth: { passwordChanged, message, error }, resetPasswor
     }
 
     const handleLinkClick = () => {
-        resetState();
+        resetAuthState();
         history.push('/forgot-password');
     }
 
@@ -107,4 +107,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { resetPassword, resetState })(withRouter(ResetPassword));
+export default connect(mapStateToProps, { resetPassword, resetAuthState })(withRouter(ResetPassword));

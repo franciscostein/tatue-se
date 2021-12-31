@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 
 import { saveUser } from '../../actions/user';
+import { resetAuthState } from '../../actions/auth';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -12,7 +13,7 @@ import Alert from 'react-bootstrap/Alert';
 import Row from 'react-bootstrap/Row';
 import { FaExclamationTriangle } from 'react-icons/fa';
 
-const SignUp = ({ saveUser, history }) => {
+const SignUp = ({ saveUser, resetAuthState, history }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
@@ -41,6 +42,11 @@ const SignUp = ({ saveUser, history }) => {
             return false;
         }
         return true;
+    }
+
+    const handleLinkClick = () => {
+        resetAuthState();
+        history.push('/signin');
     }
 
     return (
@@ -92,11 +98,11 @@ const SignUp = ({ saveUser, history }) => {
                         isInvalid={isPasswordConfirmationInvalid}
                     />
                 </Form.Group>
-                <Button variant="primary" type="submit" size="lg" className="mt-4">
+                <Button variant="dark" type="submit" size="lg" className="mt-4">
                     Submit
                 </Button>
                 <Row>
-                    <span className="font-65 text-secondary mt-5" onClick={() => history.push('/signin')}>
+                    <span className="font-65 clickable text-secondary mt-4" onClick={handleLinkClick}>
                         Already have an account? Click here
                     </span>
                 </Row>
@@ -109,4 +115,4 @@ SignUp.propTypes = {
     saveUser: PropTypes.func.isRequired,
 }
 
-export default connect(null, { saveUser })(withRouter(SignUp));
+export default connect(null, { saveUser, resetAuthState })(withRouter(SignUp));

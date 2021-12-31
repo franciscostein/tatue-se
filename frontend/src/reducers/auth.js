@@ -5,7 +5,8 @@ import {
     RESET_PASSWORD_EMAIL_SUCCESS,
     RESET_PASSWORD_EMAIL_FAIL,
     RESET_PASSWORD_SUCCESS,
-    RESET_PASSWORD_FAIL
+    RESET_PASSWORD_FAIL,
+    RESET_STATE
 } from '../actions/types';
 
 const initialState = {
@@ -55,7 +56,9 @@ export default function(state = initialState, action) {
                 message: payload.msg,
                 error: true
             }
-        default:
+        case RESET_STATE:
             return initialState;
+        default:
+            return state;
     }
 }

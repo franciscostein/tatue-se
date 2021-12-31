@@ -9,7 +9,7 @@ import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import { FaCheckSquare, FaExclamationTriangle } from 'react-icons/fa';
 
-const ForgotPassword = ({ auth: { emailSent = false, message = '' }, sendForgotPasswordEmail }) => {
+const ForgotPassword = ({ auth: { emailSent, message }, sendForgotPasswordEmail }) => {
     const [email, setEmail] = useState('');
 
     useEffect(() => {

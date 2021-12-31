@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 
 import { authenticate } from '../../actions/user';
+import { resetAuthState } from '../../actions/auth';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -12,7 +13,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import { FaExclamationTriangle } from 'react-icons/fa';
 
-const SignIn = ({ auth: { isAuthenticated, message }, authenticate, history }) => {
+const SignIn = ({ auth: { isAuthenticated, message }, authenticate, resetAuthState, history }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -29,6 +30,11 @@ const SignIn = ({ auth: { isAuthenticated, message }, authenticate, history }) =
     const handleSubmit = event => {
         event.preventDefault();
         authenticate({ email, password });
+    }
+
+    const resetStateAndGoTo = route => {
+        resetAuthState();
+        history.push(route);
     }
 
     return (
@@ -70,10 +76,10 @@ const SignIn = ({ auth: { isAuthenticated, message }, authenticate, history }) =
                     Sign in
                 </Button>
                 <Row>
-                    <span className="font-65 text-secondary clickable mt-5" onClick={() => history.push('/signup')}>
+                    <span className="font-65 text-secondary clickable mt-5" onClick={() => resetStateAndGoTo('/signup')}>
                         Don't have an account yet? Click here
                     </span>
-                    <span className="font-65 text-secondary clickable mt-3" onClick={() => history.push('/forgot-password')}>
+                    <span className="font-65 text-secondary clickable mt-3" onClick={() => resetStateAndGoTo('/forgot-password')}>
                         Forgot your password? Reset it here
                     </span>
                 </Row>
@@ -90,4 +96,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { authenticate })(withRouter(SignIn));
+export default connect(mapStateToProps, { authenticate, resetAuthState })(withRouter(SignIn));
