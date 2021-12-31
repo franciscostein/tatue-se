@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import { useParams, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -44,9 +44,9 @@ const ResetPassword = ({ auth: { passwordChanged, message, error }, resetPasswor
         return true;
     }
 
-    const handleLinkClick = () => {
+    const resetStateAndGoTo = route => {
         resetAuthState();
-        history.push('/forgot-password');
+        history.push(route);
     }
 
     return (
@@ -63,37 +63,49 @@ const ResetPassword = ({ auth: { passwordChanged, message, error }, resetPasswor
                         </Alert>
                     )
                 }
-                <Form.Group controlId="password" className="m-3">
-                    <Form.Label className="font-75">New password</Form.Label>
-                    <Form.Control
-                        required
-                        type="password"
-                        minLength={7}
-                        className="text-center"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                        isInvalid={isPasswordInvalid}
-                    />
-                </Form.Group>
-                <Form.Group controlId="confirmpassword" className="m-3">
-                    <Form.Label className="font-75">Confirm password</Form.Label>
-                    <Form.Control
-                        required
-                        type="password"
-                        minLength={7}
-                        className="text-center"
-                        value={confirmPassword}
-                        onChange={e => setConfirmPassword(e.target.value)}
-                        isInvalid={isPasswordInvalid}
-                    />
-                </Form.Group>
-                <Button variant="dark" type="submit" size="lg" className="mt-4">
-                    Reset password
-                </Button>
+                {
+                    !passwordChanged ? (
+                        <Fragment>
+                            <Form.Group controlId="password" className="m-3">
+                                <Form.Label className="font-75">New password</Form.Label>
+                                <Form.Control
+                                    required
+                                    type="password"
+                                    minLength={7}
+                                    className="text-center"
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
+                                    isInvalid={isPasswordInvalid}
+                                />
+                            </Form.Group>
+                            <Form.Group controlId="confirmpassword" className="m-3">
+                                <Form.Label className="font-75">Confirm password</Form.Label>
+                                <Form.Control
+                                    required
+                                    type="password"
+                                    minLength={7}
+                                    className="text-center"
+                                    value={confirmPassword}
+                                    onChange={e => setConfirmPassword(e.target.value)}
+                                    isInvalid={isPasswordInvalid}
+                                />
+                            </Form.Group>
+                            <Button variant="dark" type="submit" size="lg" className="mt-4">
+                                Reset password
+                            </Button>
+                        </Fragment>
+                    ) : (
+                        <Row>
+                            <span className="font-65 text-secondary clickable mt-4" onClick={() => resetStateAndGoTo('/signin')}>
+                                Sign in here
+                            </span>
+                        </Row>
+                    )
+                }
                 {
                     error && (
                         <Row>
-                            <span className="font-65 text-secondary clickable mt-4" onClick={handleLinkClick}>
+                            <span className="font-65 text-secondary clickable mt-4" onClick={() => resetStateAndGoTo('/forgot-password')}>
                                 Request a new link here
                             </span>
                         </Row>
