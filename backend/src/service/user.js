@@ -57,3 +57,11 @@ exports.getUserInfo = async userId => {
 
     return apiResponse(userInfo);
 }
+
+exports.getProfilePicture = async userId => {
+    const user = await User.findById(userId);
+
+    if (!user) return apiResponse({ msg: 'User not found'}, 404);
+
+    return apiResponse({ profilePicture: user.profilePicture });
+}

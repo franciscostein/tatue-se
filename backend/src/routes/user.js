@@ -1,5 +1,5 @@
 const express = require('express');
-const { register, updateProfilePicture, registerAdmin, getUserInfo } = require('../controller/user');
+const { register, updateProfilePicture, registerAdmin, getUserInfo, getUserProfilePicture } = require('../controller/user');
 const { userValidation } = require('../middleware/validation/validation');
 const adminAuth = require('../middleware/auth/authAdmin');
 const auth = require('../middleware/auth/auth');
@@ -25,5 +25,10 @@ router.patch('/profile-picture', auth, updateProfilePicture);
 // @desc    get basic info from artist and studio related to the user
 // @access  private
 router.get('/info', auth, getUserInfo);
+
+// @route   GET api/users/profile-picture
+// @desc    get basic info from artist and studio related to the user
+// @access  private
+router.get('/profile-picture', auth, getUserProfilePicture);
 
 module.exports = router;

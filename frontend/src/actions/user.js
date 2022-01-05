@@ -7,7 +7,8 @@ import {
     SAVE_PICTURE_FAIL,
     SIGNIN_SUCCESS,
     SIGNIN_FAIL,
-    FETCH_USER_INFO
+    FETCH_USER_INFO,
+    FETCH_USER_PICTURE
 } from './types';
 
 import { setAuthToken } from '../utils/authToken';
@@ -87,5 +88,18 @@ export const fetchUserInfo = () => async dispatch => {
         });
     } catch (err) {
         console.error(err);
+    }
+}
+
+export const fetchUserPicture = () => async dispatch => {
+    try {
+        const { data } = await axios.get('/api/users/profile-picture');
+
+        dispatch({
+            type: FETCH_USER_PICTURE,
+            payload: data
+        });
+    } catch (error) {
+        console.error(error);
     }
 }

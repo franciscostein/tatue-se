@@ -4,7 +4,8 @@ import {
     SAVE_USER_FAIL,
     SAVE_PICTURE_SUCCESS,
     SAVE_PICTURE_FAIL,
-    FETCH_USER_INFO
+    FETCH_USER_INFO,
+    FETCH_USER_PICTURE
 } from '../actions/types';
 
 const initialState = {
@@ -35,6 +36,7 @@ export default function(state = initialState, action) {
                 }
             }
         case SAVE_PICTURE_SUCCESS:
+        case FETCH_USER_PICTURE:
             return {
                 ...state,
                 profilePicture: payload,

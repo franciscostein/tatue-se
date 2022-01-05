@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { savePicture } from '../../actions/user';
+import { savePicture, fetchUserPicture } from '../../actions/user';
 import { resetAuthState } from '../../actions/auth';
 import ImageUploader from '../fragments/ImageUploader';
 
@@ -11,9 +11,13 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { FaTrashAlt } from 'react-icons/fa';
 
-const UserProfile = ({ user: { profilePicture, error }, savePicture, resetAuthState }) => {
+const UserProfile = ({ user: { profilePicture, error }, savePicture, fetchUserPicture, resetAuthState }) => {
     const history = useHistory();
     const [profilePictureBase64, setProfilePictureBase64] = useState('');
+
+    useEffect(() => {
+        fetchUserPicture();
+    }, []);
 
     const handleSavePicture = () => {
         savePicture(profilePictureBase64);
@@ -71,4 +75,4 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-export default connect(mapStateToProps, { savePicture, resetAuthState })(UserProfile);
+export default connect(mapStateToProps, { savePicture, fetchUserPicture, resetAuthState })(UserProfile);
