@@ -1,3 +1,4 @@
+const { cloudinary } = require('../utils/cloudinary');
 const User = require('../models/User');
 const Artist = require('../models/Artist');
 const Studio = require('../models/Studio');
@@ -21,6 +22,22 @@ exports.create = async (email, password, profilePicture, userType) => {
     } else {
         throw new Error(error);
     }
+}
+
+exports.saveProfilePicture = async (userId, base64) => {
+    let user = await User.findById(userId);
+    
+    if (!user) return apiResponse({ msg: 'User not found'}, 404);
+
+    const { secure_url } = await cloudinary.uploader.upload(base64, {
+        upload_preset: 'ml_default',
+        folder: userId,
+        public_id: 'user-profile-picture'
+    });
+    user.profilePicture.publicId = secure_url;
+    await user.save();
+
+    return apiResponse({ publicId: secure_url });
 }
 
 exports.getUserInfo = async userId => {

@@ -110,6 +110,8 @@ p {
 
 .profile-picture {
     height: 5.7rem;
+    width: 5.7rem;
+    object-fit: cover;
 }
 
 .secondary-color {

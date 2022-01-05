@@ -13,7 +13,7 @@ import Alert from 'react-bootstrap/Alert';
 import Row from 'react-bootstrap/Row';
 import { FaExclamationTriangle } from 'react-icons/fa';
 
-const SignUp = ({ saveUser, resetAuthState, history }) => {
+const SignUp = ({ user: { user, error },saveUser, resetAuthState, history }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
@@ -31,7 +31,11 @@ const SignUp = ({ saveUser, resetAuthState, history }) => {
         saveUser({
             email: email,
             password: password
-        }, history);
+        });
+
+        if (!error) {
+            history.push('/');
+        }
     }
 
     const validate = () => {
@@ -115,4 +119,8 @@ SignUp.propTypes = {
     saveUser: PropTypes.func.isRequired,
 }
 
-export default connect(null, { saveUser, resetAuthState })(withRouter(SignUp));
+const mapStateToProps = state => ({
+    user: state.user
+});
+
+export default connect(mapStateToProps, { saveUser, resetAuthState })(withRouter(SignUp));

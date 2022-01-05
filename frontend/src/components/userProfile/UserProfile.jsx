@@ -1,15 +1,28 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 
+import { savePicture } from '../../actions/user';
+import { resetAuthState } from '../../actions/auth';
 import ImageUploader from '../fragments/ImageUploader';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { FaTrashAlt, FaArrowLeft } from 'react-icons/fa';
+import { FaTrashAlt } from 'react-icons/fa';
 
-const UserProfile = () => {
-    const [profilePicture, setProfilePicture] = useState('');
+const UserProfile = ({ user: { profilePicture, error }, savePicture, resetAuthState }) => {
+    const history = useHistory();
     const [profilePictureBase64, setProfilePictureBase64] = useState('');
+
+    const handleSavePicture = () => {
+        savePicture(profilePictureBase64);
+    }
+
+    const handleLinkClick = () => {
+        resetAuthState();
+        history.push('/forgot-password');
+    }
 
     return (
         <Container>
@@ -18,11 +31,11 @@ const UserProfile = () => {
                     <h1>Profile</h1>
                 </div>
                 <ImageUploader
-                    image={profilePicture}
+                    image={profilePicture.publicId}
                     setImageBase64={img => setProfilePictureBase64(img)}
                 />
                 <div>
-                    <Button variant="dark" className="m-3">
+                    <Button variant="dark" className="m-3" onClick={handleSavePicture}>
                         Save picture
                     </Button>
                 </div>
@@ -32,7 +45,7 @@ const UserProfile = () => {
                         <h3>Reset password</h3>
                     </div>
                     <div>
-                        <Button variant="dark" size="lg">
+                        <Button variant="dark" size="lg" onClick={handleLinkClick}>
                             Send e-mail
                         </Button>
                     </div>
@@ -54,4 +67,8 @@ const UserProfile = () => {
     );
 }
 
-export default UserProfile;
+const mapStateToProps = state => ({
+    user: state.user
+});
+
+export default connect(mapStateToProps, { savePicture, resetAuthState })(UserProfile);

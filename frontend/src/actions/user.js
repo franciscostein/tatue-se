@@ -1,7 +1,10 @@
 import axios from 'axios';
 
 import {
-    SAVE_USER,
+    SAVE_USER_SUCCESS,
+    SAVE_USER_FAIL,
+    SAVE_PICTURE_SUCCESS,
+    SAVE_PICTURE_FAIL,
     SIGNIN_SUCCESS,
     SIGNIN_FAIL,
     FETCH_USER_INFO
@@ -9,42 +12,59 @@ import {
 
 import { setAuthToken } from '../utils/authToken';
 
-export const saveUser = (userData, history) => async dispatch => {
+export const saveUser = userData => async dispatch => {
     try {
-        const res = await axios.post('/api/users', userData);
+        const { data } = await axios.post('/api/users', userData);
 
         dispatch({
-            type: SAVE_USER,
-            payload: res.data
+            type: SAVE_USER_SUCCESS,
+            payload: data
         });
 
-        if (res.data.token) {
-            setAuthToken(res.data.token);
+        if (data.token) {
+            setAuthToken(data.token);
         }
+    } catch (error) {
+        dispatch({
+            type: SAVE_USER_FAIL,
+            payload: error.message
+        });
+    }
+}
 
-        history.push('/');
-    } catch (err) {
-        console.error(err);
+export const savePicture = base64 => async dispatch => {
+    try {
+        const { data } = await axios.patch('/api/users/profile-picture', { base64 });
+
+        dispatch({
+            type: SAVE_PICTURE_SUCCESS,
+            payload: data
+        });
+    } catch (error) {
+        dispatch({
+            type: SAVE_PICTURE_FAIL,
+            payload: { msg: 'There was an error saving the picture, please try again.' }
+        });
     }
 }
 
 export const authenticate = login => async dispatch => {
     try {
-        const res = await axios.post('/api/auth', login);
+        const { data } = await axios.post('/api/auth', login);
 
-        if (res.data.token) {
+        if (data.token) {
             dispatch({
                 type: SIGNIN_SUCCESS,
-                payload: res.data
+                payload: data
             });
 
-            setAuthToken(res.data.token);
+            setAuthToken(data.token);
             
             dispatch(fetchUserInfo());
         } else {
             dispatch({
                 type: SIGNIN_FAIL,
-                payload: res.data
+                payload: data
             });
         }
     } catch (err) {
