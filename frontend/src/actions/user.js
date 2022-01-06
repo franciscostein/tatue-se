@@ -97,7 +97,7 @@ export const fetchUserPicture = () => async dispatch => {
 
         dispatch({
             type: FETCH_USER_PICTURE,
-            payload: data
+            payload: data.profilePicture
         });
     } catch (error) {
         console.error(error);
