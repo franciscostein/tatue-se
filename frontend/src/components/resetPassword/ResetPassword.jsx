@@ -3,26 +3,22 @@ import { useParams, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { resetPassword, resetAuthState } from '../../actions/auth';
+import { setAlert } from '../../actions/alert';
+import Alert from '../fragments/Alert';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Alert from 'react-bootstrap/Alert';
 import Row from 'react-bootstrap/Row';
-import { FaCheckSquare, FaExclamationTriangle } from 'react-icons/fa';
 
-const ResetPassword = ({ auth: { passwordChanged, message, error }, resetPassword, resetAuthState, history }) => {
+const ResetPassword = ({ auth: { passwordChanged, error }, resetPassword, resetAuthState, history }) => {
     const { id, token } = useParams();
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [localMessage, setLocalMessage] = useState('');
     const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
 
     useEffect(() => {
-        if (message) {
-            setLocalMessage(message);
-        }
-    }, [passwordChanged, message]);
+    }, [passwordChanged]);
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -37,7 +33,7 @@ const ResetPassword = ({ auth: { passwordChanged, message, error }, resetPasswor
     const validate = () => {
         if (password !== confirmPassword) {
             setIsPasswordInvalid(true);
-            setLocalMessage(`Passwords don't match.`);
+            setAlert(`Passwords don't match.`, 'danger');
             return false;
         }
         setIsPasswordInvalid(false);
@@ -55,14 +51,7 @@ const ResetPassword = ({ auth: { passwordChanged, message, error }, resetPasswor
                 <h1>Reset password</h1>
             </div>
             <Form onSubmit={handleSubmit}>
-                {
-                    localMessage && (
-                        <Alert variant={ passwordChanged && !isPasswordInvalid ? 'success' : 'danger' } className="mx-3">
-                            { passwordChanged && !isPasswordInvalid ? <FaCheckSquare /> : <FaExclamationTriangle /> }
-                            <span className="font-80 ms-3">{localMessage}</span>
-                        </Alert>
-                    )
-                }
+                <Alert />
                 {
                     !passwordChanged ? (
                         <Fragment>

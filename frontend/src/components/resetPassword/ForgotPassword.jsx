@@ -2,12 +2,11 @@ import { useState, useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import { sendForgotPasswordEmail } from '../../actions/auth';
+import Alert from '../fragments/Alert';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
-import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
-import { FaCheckSquare, FaExclamationTriangle } from 'react-icons/fa';
 
 const ForgotPassword = ({ auth: { emailSent, message }, sendForgotPasswordEmail }) => {
     const [email, setEmail] = useState('');
@@ -29,14 +28,7 @@ const ForgotPassword = ({ auth: { emailSent, message }, sendForgotPasswordEmail 
                 <h1>Forgot password</h1>
             </div>
             <Form onSubmit={handleSubmit}>
-                {
-                    message && (
-                        <Alert variant={ emailSent ? 'success' : 'danger' } className="mx-3">
-                            { emailSent ? <FaCheckSquare /> : <FaExclamationTriangle /> }
-                            <span className="font-80 ms-3">{message}</span>
-                        </Alert>
-                    )
-                }
+                <Alert />
                 {
                     !emailSent && (
                         <Fragment>

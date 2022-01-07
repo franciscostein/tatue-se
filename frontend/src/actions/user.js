@@ -72,11 +72,9 @@ export const authenticate = login => async dispatch => {
         }
     } catch (err) {
         dispatch({
-            type: SIGNIN_FAIL,
-            payload: {
-                msg: 'E-mail or password incorrect.'
-            }
+            type: SIGNIN_FAIL
         });
+        dispatch(setAlertTimeout('E-mail or password incorrect.', 'danger'));
     }
 }
 

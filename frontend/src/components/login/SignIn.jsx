@@ -5,27 +5,23 @@ import PropTypes from 'prop-types';
 
 import { authenticate } from '../../actions/user';
 import { resetAuthState } from '../../actions/auth';
+import Alert from '../fragments/Alert';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
-import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
-import { FaExclamationTriangle } from 'react-icons/fa';
 
-const SignIn = ({ auth: { isAuthenticated, message }, authenticate, resetAuthState, history }) => {
+const SignIn = ({ auth: { isAuthenticated }, authenticate, resetAuthState, history }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         if (isAuthenticated) {
             history.push('/');
-        } else if (message) {
-            setErrorMessage(message);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isAuthenticated, message]);
+    }, [isAuthenticated]);
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -43,15 +39,7 @@ const SignIn = ({ auth: { isAuthenticated, message }, authenticate, resetAuthSta
                 <h1>Sign in</h1>
             </div>
             <Form onSubmit={handleSubmit}>
-                {
-                    errorMessage &&
-                    (
-                        <Alert variant="danger" className="mx-3">
-                            <FaExclamationTriangle className="me-3" />
-                            <span className="font-80">{errorMessage}</span>
-                        </Alert>
-                    )
-                }
+                <Alert />
                 <Form.Group controlId="formSignInEmail" className="m-3 mx-xl-5 mx-lg-4">
                     <Form.Label className="font-75">E-mail</Form.Label>
                     <Form.Control

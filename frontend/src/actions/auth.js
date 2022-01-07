@@ -1,5 +1,7 @@
 import axios from "axios";
-import { setAuthToken } from "../utils/authToken"
+
+import { setAuthToken } from "../utils/authToken";
+import { setAlert } from "./alert";
 
 import {
     RESET_PASSWORD_EMAIL_SUCCESS,
@@ -29,9 +31,9 @@ export const sendForgotPasswordEmail = email => async dispatch => {
         }
     } catch (error) {
         dispatch({
-            type: RESET_PASSWORD_EMAIL_FAIL,
-            payload: { msg: 'E-mail could not be sent. Please review your e-mail address and try again.' }
-        })
+            type: RESET_PASSWORD_EMAIL_FAIL
+        });
+        dispatch(setAlert('E-mail could not be sent. Please review your e-mail address and try again.', 'danger'));
     }
 }
 
@@ -45,9 +47,9 @@ export const resetPassword = (id, token, password) => async dispatch => {
         });
     } catch (error) {
         dispatch({
-            type: RESET_PASSWORD_FAIL,
-            payload: { msg: 'Link expired or invalid, please request a new one.' }
+            type: RESET_PASSWORD_FAIL
         });
+        dispatch(setAlert('Link expired or invalid, please request a new one.', 'danger'));
     }
 }
 
