@@ -5,18 +5,20 @@ import { connect } from 'react-redux';
 import { savePicture, fetchUserPicture } from '../../actions/user';
 import { resetAuthState } from '../../actions/auth';
 import ImageUploader from '../fragments/ImageUploader';
+import Alert from '../fragments/Alert';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { FaTrashAlt } from 'react-icons/fa';
 
-const UserProfile = ({ user: { profilePicture, error }, savePicture, fetchUserPicture, resetAuthState }) => {
+const UserProfile = ({ user: { profilePicture }, savePicture, fetchUserPicture, resetAuthState }) => {
     const history = useHistory();
     const [profilePictureBase64, setProfilePictureBase64] = useState('');
 
     useEffect(() => {
         fetchUserPicture();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleSavePicture = () => {
@@ -34,12 +36,13 @@ const UserProfile = ({ user: { profilePicture, error }, savePicture, fetchUserPi
                 <div className="d-flex solid-bottom-border-secondary mt-5">
                     <h1>Profile</h1>
                 </div>
+                <Alert />
                 <ImageUploader
                     image={profilePicture.publicId}
                     setImageBase64={img => setProfilePictureBase64(img)}
                 />
                 <div>
-                    <Button variant="dark" className="m-3" onClick={handleSavePicture}>
+                    <Button variant="dark" className="mb-3" onClick={handleSavePicture}>
                         Save picture
                     </Button>
                 </div>

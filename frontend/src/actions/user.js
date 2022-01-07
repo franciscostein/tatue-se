@@ -12,6 +12,7 @@ import {
 } from './types';
 
 import { setAuthToken } from '../utils/authToken';
+import { setAlertTimeout } from './alert';
 
 export const saveUser = userData => async dispatch => {
     try {
@@ -41,6 +42,7 @@ export const savePicture = base64 => async dispatch => {
             type: SAVE_PICTURE_SUCCESS,
             payload: data
         });
+        dispatch(setAlertTimeout('Picture saved!', 'success'));
     } catch (error) {
         dispatch({
             type: SAVE_PICTURE_FAIL,

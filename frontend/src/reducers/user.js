@@ -53,7 +53,7 @@ export default function(state = initialState, action) {
                 ...state,
                 userInfo: payload,
                 error: null
-            }            
+            }
         default:
             return state;
     }
