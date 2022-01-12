@@ -45,14 +45,9 @@ exports.getUserInfo = async userId => {
 
     if (!user) return;
 
-    const artist = await Artist.findOne({ user: userId }).select([ '_id', 'profilePicture' ]);
-    const studio = await Studio.findOne({ user: userId }).select('_id');
-
     const userInfo = {
-        userEmail: user.email,
-        artistId: artist && artist._id,
-        artistProfilePicture: artist && artist.profilePicture,
-        studioId: studio && studio._id
+        email: user.email,
+        profilePicture: user.profilePicture
     }
 
     return apiResponse(userInfo);

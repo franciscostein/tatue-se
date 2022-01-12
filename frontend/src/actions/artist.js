@@ -84,12 +84,12 @@ export const saveProfile = (formData, profilePictureBase64, history, edit = fals
     }
 }
 
-const uploadImage = async base64EncodedImage => {
-    try {
-        const res = await axios.post('/api/artists/image/upload', { base: base64EncodedImage });
+// const uploadImage = async base64EncodedImage => {
+//     try {
+//         const res = await axios.post('/api/artists/image/upload', { base: base64EncodedImage });
         
-        return res;
-    } catch (err) {
-        console.error(err);
-    }
-}
+//         return res;
+//     } catch (err) {
+//         console.error(err);
+//     }
+// }

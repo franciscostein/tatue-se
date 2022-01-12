@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import {
-    GET_TATTOO_STYLES,
-    TATTOO_STYLES_ERROR
+    FETCH_TATTOO_STYLES_SUCCESS,
+    FETCH_TATTOO_STYLES_FAIL
 } from '../actions/types';
 
 const initialState = {
@@ -14,18 +14,18 @@ export default function(state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
-        case GET_TATTOO_STYLES:
+        case FETCH_TATTOO_STYLES_SUCCESS:
             return {
                 ...state,
                 tattooStyles: payload,
                 loading: false
             }
-        case TATTOO_STYLES_ERROR:
+        case FETCH_TATTOO_STYLES_FAIL:
             return {
                 ...state,
                 error: payload,
                 loading: false,
-                tattooStyles: null
+                tattooStyles: []
             }
         default:
             return state;

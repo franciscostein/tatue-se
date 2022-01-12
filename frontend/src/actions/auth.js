@@ -4,6 +4,8 @@ import { setAuthToken } from "../utils/authToken";
 import { setAlert } from "./alert";
 
 import {
+    SIGNIN_SUCCESS,
+    SIGNIN_FAIL,
     RESET_PASSWORD_EMAIL_SUCCESS,
     RESET_PASSWORD_EMAIL_FAIL,
     RESET_PASSWORD_SUCCESS,
@@ -11,9 +13,39 @@ import {
     RESET_STATE
 } from './types';
 
+import { setAlertTimeout } from './alert';
+import { fetchUserInfo } from "./user";
+
 export const loadUser = () => async dispatch => {
     if (localStorage.token) {
         setAuthToken(localStorage.token);
+    }
+}
+
+export const authenticate = login => async dispatch => {
+    try {
+        const { data } = await axios.post('/api/auth', login);
+
+        if (data.token) {
+            dispatch({
+                type: SIGNIN_SUCCESS,
+                payload: data
+            });
+
+            setAuthToken(data.token);
+            
+            dispatch(fetchUserInfo());
+        } else {
+            dispatch({
+                type: SIGNIN_FAIL,
+                payload: data
+            });
+        }
+    } catch (err) {
+        dispatch({
+            type: SIGNIN_FAIL
+        });
+        dispatch(setAlertTimeout('E-mail or password incorrect.', 'danger'));
     }
 }
 

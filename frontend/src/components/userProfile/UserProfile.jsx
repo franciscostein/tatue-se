@@ -12,12 +12,12 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { FaTrashAlt } from 'react-icons/fa';
 
-const UserProfile = ({ user: { profilePicture }, savePicture, fetchUserPicture, resetAuthState }) => {
+const UserProfile = ({ user: { user: { profilePicture }}, savePicture, fetchUserPicture, resetAuthState }) => {
     const history = useHistory();
     const [profilePictureBase64, setProfilePictureBase64] = useState('');
 
     useEffect(() => {
-        fetchUserPicture();
+        // fetchUserPicture();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

@@ -5,8 +5,6 @@ import {
     SAVE_USER_FAIL,
     SAVE_PICTURE_SUCCESS,
     SAVE_PICTURE_FAIL,
-    SIGNIN_SUCCESS,
-    SIGNIN_FAIL,
     FETCH_USER_INFO,
     FETCH_USER_PICTURE
 } from './types';
@@ -51,43 +49,16 @@ export const savePicture = base64 => async dispatch => {
     }
 }
 
-export const authenticate = login => async dispatch => {
-    try {
-        const { data } = await axios.post('/api/auth', login);
-
-        if (data.token) {
-            dispatch({
-                type: SIGNIN_SUCCESS,
-                payload: data
-            });
-
-            setAuthToken(data.token);
-            
-            dispatch(fetchUserInfo());
-        } else {
-            dispatch({
-                type: SIGNIN_FAIL,
-                payload: data
-            });
-        }
-    } catch (err) {
-        dispatch({
-            type: SIGNIN_FAIL
-        });
-        dispatch(setAlertTimeout('E-mail or password incorrect.', 'danger'));
-    }
-}
-
 export const fetchUserInfo = () => async dispatch => {
     try {
-        const res = await axios.get('/api/users/info');
+        const { data } = await axios.get('/api/users/info');
 
         dispatch({
             type: FETCH_USER_INFO,
-            payload: res.data
+            payload: data
         });
-    } catch (err) {
-        console.error(err);
+    } catch (error) {
+        console.error(error);
     }
 }
 

@@ -1,5 +1,5 @@
 import './Navbar.css';
-import { useState, useEffect, Fragment } from 'react';
+import { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
@@ -16,31 +16,14 @@ import { FaBars, FaUserAlt, FaPaintBrush, FaAnchor, FaSignOutAlt, FaSignInAlt, F
 
 import userSolid from '../../../assets/user_w.png';
 
-const NavbarComponent = ({ user: { userInfo }, fetchUserInfo, resetAuthState, history }) => {
+const NavbarComponent = ({ user: { user: { email, profilePicture }}, fetchUserInfo, resetAuthState, history }) => {
     const pathname = window.location.pathname;
-    const [profile, setProfile] = useState({
-        userPicture: null,
-        artistProfileId: '',
-        studioProfileId: ''
-    });
 
     useEffect(() => {
-        if (userInfo) {
-            setProfile({
-                userPicture: !userInfo.artistProfilePicture ? '' : userInfo.artistProfilePicture.publicId,
-                artistProfileId: userInfo.artistProfileId ?? null,
-                studioProfileId: userInfo.studioProfileId ?? null
-            });
-        } else {
-            setProfile({
-                userPicture: null,
-                artistProfileId: '',
-                studioProfileId: ''
-            });
-
+        if (!email) {
             fetchUserInfo();
         }
-    }, [fetchUserInfo, userInfo]);
+    }, [fetchUserInfo, email, profilePicture]);
 
     const handleLogout = () => {
         setAuthToken('');
@@ -63,13 +46,13 @@ const NavbarComponent = ({ user: { userInfo }, fetchUserInfo, resetAuthState, hi
 
             <Dropdown className="px-4">
                 <Dropdown.Toggle variant="dark" id="dropdown-profile">
-                    <Image src={profile.userPicture ?? userSolid} className="min-user px-3" roundedCircle />
+                    <Image src={profilePicture.publicId || userSolid} className="min-user px-3" roundedCircle />
                     <FaBars size={25} />
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu className="dropdown-menu">
                     {
-                        userInfo ? (
+                        email ? (
                             <Fragment>
                                 <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/user/profile')}>
                                     <FaUserAlt className="me-2" /> User

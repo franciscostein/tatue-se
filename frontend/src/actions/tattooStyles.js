@@ -1,26 +1,25 @@
 import axios from 'axios';
 
 import {
-    GET_TATTOO_STYLES,
-    TATTOO_STYLES_ERROR
+    FETCH_TATTOO_STYLES_SUCCESS,
+    FETCH_TATTOO_STYLES_FAIL
 } from './types';
 
 export const fetchTattooStyles = () => async dispatch => {
     try {
-        const res = await axios.get('/api/tattoo-styles');
+        const { data } = await axios.get('/api/tattoo-styles');
 
         dispatch({
-            type: GET_TATTOO_STYLES,
-            payload: res.data
+            type: FETCH_TATTOO_STYLES_SUCCESS,
+            payload: data
         });
     } catch (error) {
-        // dispatch({
-        //     type: TATTOO_STYLES_ERROR,
-        //     payload: { 
-        //         msg: error.response.statusText, 
-        //         status: error.response.status
-        //     }
-        // });
-        console.error(error);
+        dispatch({
+            type: FETCH_TATTOO_STYLES_FAIL,
+            payload: { 
+                msg: error.response.statusText, 
+                status: error.response.status
+            }
+        });
     }
 }

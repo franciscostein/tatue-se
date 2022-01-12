@@ -9,9 +9,12 @@ import {
 } from '../actions/types';
 
 const initialState = {
-    user: null,
-    userInfo: null,
-    profilePicture: {},
+    user: {
+        email: '',
+        profilePicture: {
+            publicId: ''
+        }
+    },
     loading: true,
     error: {}
 }
@@ -39,19 +42,18 @@ export default function(state = initialState, action) {
         case FETCH_USER_PICTURE:
             return {
                 ...state,
-                profilePicture: payload,
+                user: payload,
                 error: {}
             }
         case SAVE_PICTURE_FAIL:
             return {
                 ...state,
-                profilePicture: {},
                 error: payload
             }
         case FETCH_USER_INFO:
             return {
                 ...state,
-                userInfo: payload,
+                user: payload,
                 error: null
             }
         default:

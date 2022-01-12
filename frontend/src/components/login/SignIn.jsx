@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 
-import { authenticate } from '../../actions/user';
-import { resetAuthState } from '../../actions/auth';
+import { authenticate, resetAuthState } from '../../actions/auth';
 import Alert from '../fragments/Alert';
 
 import Container from 'react-bootstrap/Container';
