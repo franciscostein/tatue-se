@@ -37,7 +37,7 @@ exports.saveProfilePicture = async (userId, base64) => {
     user.profilePicture.publicId = secure_url;
     await user.save();
 
-    return apiResponse({ publicId: secure_url });
+    return apiResponse({ profilePicture: user.profilePicture });
 }
 
 exports.getUserInfo = async userId => {

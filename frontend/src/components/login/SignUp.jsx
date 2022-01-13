@@ -4,8 +4,7 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 
 import { saveUser } from '../../actions/user';
-import { resetAuthState } from '../../actions/auth';
-import { setAlert } from '../../actions/alert';
+import { setAlert, removeAlert } from '../../actions/alert';
 import Alert from '../fragments/Alert';
 
 import Container from 'react-bootstrap/Container';
@@ -13,7 +12,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 
-const SignUp = ({ user: { user, error }, saveUser, resetAuthState, history }) => {
+const SignUp = ({ user: { user, error }, saveUser, removeAlert, history }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
@@ -48,7 +47,7 @@ const SignUp = ({ user: { user, error }, saveUser, resetAuthState, history }) =>
     }
 
     const handleLinkClick = () => {
-        resetAuthState();
+        removeAlert();
         history.push('/signin');
     }
 
@@ -114,4 +113,4 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-export default connect(mapStateToProps, { saveUser, resetAuthState })(withRouter(SignUp));
+export default connect(mapStateToProps, { saveUser, removeAlert })(withRouter(SignUp));

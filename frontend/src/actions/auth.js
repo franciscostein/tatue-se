@@ -31,17 +31,12 @@ export const authenticate = login => async dispatch => {
                 type: SIGNIN_SUCCESS,
                 payload: data
             });
-
             setAuthToken(data.token);
-            
             dispatch(fetchUserInfo());
         } else {
-            dispatch({
-                type: SIGNIN_FAIL,
-                payload: data
-            });
+            throw new Error();
         }
-    } catch (err) {
+    } catch (error) {
         dispatch({
             type: SIGNIN_FAIL
         });
@@ -58,6 +53,7 @@ export const sendForgotPasswordEmail = email => async dispatch => {
                 type: RESET_PASSWORD_EMAIL_SUCCESS,
                 payload: data
             });
+            dispatch(setAlert(data.msg));
         } else {
             throw new Error();
         }
@@ -77,16 +73,11 @@ export const resetPassword = (id, token, password) => async dispatch => {
             type: RESET_PASSWORD_SUCCESS,
             payload: data
         });
+        dispatch(setAlert(data.msg));
     } catch (error) {
         dispatch({
             type: RESET_PASSWORD_FAIL
         });
         dispatch(setAlert('Link expired or invalid, please request a new one.', 'danger'));
     }
-}
-
-export const resetAuthState = () => async dispatch => {
-    dispatch({
-        type: RESET_STATE
-    });
 }

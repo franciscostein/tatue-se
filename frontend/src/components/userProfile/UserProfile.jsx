@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { savePicture, fetchUserPicture } from '../../actions/user';
-import { resetAuthState } from '../../actions/auth';
+import { removeAlert } from '../../actions/alert';
 import ImageUploader from '../fragments/ImageUploader';
 import Alert from '../fragments/Alert';
 
@@ -12,7 +12,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { FaTrashAlt } from 'react-icons/fa';
 
-const UserProfile = ({ user: { user: { profilePicture }}, savePicture, fetchUserPicture, resetAuthState }) => {
+const UserProfile = ({ user: { user: { profilePicture }}, savePicture, fetchUserPicture, removeAlert }) => {
     const history = useHistory();
     const [profilePictureBase64, setProfilePictureBase64] = useState('');
 
@@ -26,7 +26,7 @@ const UserProfile = ({ user: { user: { profilePicture }}, savePicture, fetchUser
     }
 
     const handleLinkClick = () => {
-        resetAuthState();
+        removeAlert();
         history.push('/forgot-password');
     }
 
@@ -78,4 +78,4 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-export default connect(mapStateToProps, { savePicture, fetchUserPicture, resetAuthState })(UserProfile);
+export default connect(mapStateToProps, { savePicture, fetchUserPicture, removeAlert })(UserProfile);

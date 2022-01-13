@@ -10,17 +10,15 @@ const TattooStyles = ({ tattooStyles: { tattooStyles, loading }, fetchTattooStyl
     const [localTattooStyles, setLocalTattooStyles] = useState([]);
 
     useEffect(() => {
-        fetchTattooStyles();
-
-        if (tattooStyles) {
+        if (tattooStyles.length === 0) {
+            fetchTattooStyles();
+        } else {
             setLocalTattooStyles(tattooStyles);
 
-            if (selectedTattooStylesIds) {
-                selectTattooStyles();
-            }
+            if (selectedTattooStylesIds) selectTattooStyles();
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [fetchTattooStyles, loading, selectedTattooStylesIds]);
+    }, [loading, selectedTattooStylesIds]);
 
     const selectTattooStyles = () => {
         const newArray = [];

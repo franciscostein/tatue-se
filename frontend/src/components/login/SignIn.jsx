@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 
-import { authenticate, resetAuthState } from '../../actions/auth';
+import { removeAlert } from '../../actions/alert';
+import { authenticate } from '../../actions/auth';
 import Alert from '../fragments/Alert';
 
 import Container from 'react-bootstrap/Container';
@@ -11,7 +12,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 
-const SignIn = ({ auth: { isAuthenticated }, authenticate, resetAuthState, history }) => {
+const SignIn = ({ auth: { isAuthenticated }, authenticate, removeAlert, history }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -28,7 +29,7 @@ const SignIn = ({ auth: { isAuthenticated }, authenticate, resetAuthState, histo
     }
 
     const resetStateAndGoTo = route => {
-        resetAuthState();
+        removeAlert();
         history.push(route);
     }
 
@@ -83,4 +84,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { authenticate, resetAuthState })(withRouter(SignIn));
+export default connect(mapStateToProps, { authenticate, removeAlert })(withRouter(SignIn));

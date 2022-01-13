@@ -2,8 +2,8 @@ import { useState, useEffect, Fragment } from 'react';
 import { useParams, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { resetPassword, resetAuthState } from '../../actions/auth';
-import { setAlert } from '../../actions/alert';
+import { resetPassword } from '../../actions/auth';
+import { setAlert, removeAlert } from '../../actions/alert';
 import Alert from '../fragments/Alert';
 
 import Container from 'react-bootstrap/Container';
@@ -11,7 +11,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 
-const ResetPassword = ({ auth: { passwordChanged, error }, resetPassword, resetAuthState, history }) => {
+const ResetPassword = ({ auth: { passwordChanged, error }, resetPassword, removeAlert, history }) => {
     const { id, token } = useParams();
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -41,7 +41,7 @@ const ResetPassword = ({ auth: { passwordChanged, error }, resetPassword, resetA
     }
 
     const resetStateAndGoTo = route => {
-        resetAuthState();
+        removeAlert();
         history.push(route);
     }
 
@@ -109,4 +109,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { resetPassword, resetAuthState })(withRouter(ResetPassword));
+export default connect(mapStateToProps, { resetPassword, removeAlert })(withRouter(ResetPassword));

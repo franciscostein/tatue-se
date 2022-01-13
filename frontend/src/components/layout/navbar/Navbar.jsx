@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import { setAuthToken } from '../../../utils/authToken';
 import { fetchUserInfo } from '../../../actions/user';
-import { resetAuthState } from '../../../actions/auth';
+import { removeAlert } from '../../../actions/alert';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -16,7 +16,7 @@ import { FaBars, FaUserAlt, FaPaintBrush, FaAnchor, FaSignOutAlt, FaSignInAlt, F
 
 import userSolid from '../../../assets/user_w.png';
 
-const NavbarComponent = ({ user: { user: { email, profilePicture }}, fetchUserInfo, resetAuthState, history }) => {
+const NavbarComponent = ({ user: { user: { email, profilePicture }}, fetchUserInfo, removeAlert, history }) => {
     const pathname = window.location.pathname;
 
     useEffect(() => {
@@ -31,7 +31,7 @@ const NavbarComponent = ({ user: { user: { email, profilePicture }}, fetchUserIn
     }
 
     const resetStateAndGoTo = route => {
-        resetAuthState();
+        removeAlert();
         history.push(route);
     }
     
@@ -40,8 +40,8 @@ const NavbarComponent = ({ user: { user: { email, profilePicture }}, fetchUserIn
             <Navbar.Brand className="px-3 text-white">tatue-se</Navbar.Brand>
             <Navbar.Toggle aria-controls="navbar-nav" />
             <Navbar.Collapse id="navbar-nav">
-                <Nav.Link className={pathname === '/' && 'selected-link'} href="/">Artists</Nav.Link>
-                <Nav.Link className={pathname === '/studios' && 'selected-link'} href="/studios">Studios</Nav.Link>
+                <Nav.Link className={pathname === '/' && 'selected-link'} onClick={() => history.push('/')}>Artists</Nav.Link>
+                <Nav.Link className={pathname === '/studios' && 'selected-link'} onClick={() => history.push('/studios')}>Studios</Nav.Link>
             </Navbar.Collapse>
 
             <Dropdown className="px-4">
@@ -89,4 +89,4 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-export default connect(mapStateToProps, { fetchUserInfo, resetAuthState })(withRouter(NavbarComponent));
+export default connect(mapStateToProps, { fetchUserInfo, removeAlert })(withRouter(NavbarComponent));
