@@ -51,9 +51,10 @@ const ArtistProfile = ({
     const [idToRemove, setIdToRemove] = useState('');
 
     useEffect(() => {
-        fetchArtistProfile();
 
-        if (profile) {
+        if (!profile) {
+            fetchArtistProfile();
+        } else {
             setFormData({
                 fullName: loading || !profile.fullName ? '' : profile.fullName,
                 profilePicture: loading || !profile.profilePicture ? '' : profile.profilePicture.publicId,

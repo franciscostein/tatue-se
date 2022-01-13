@@ -86,16 +86,7 @@ const studioSchema = new Schema({
 			publicId: String,
 		}],
 		validate: [arrayLimit, '{Path} exceeds the limit of 10']
-	},
-	reviews: [{
-		rating: Number,
-		description: String,
-		user: {
-			type: Schema.Types.ObjectId,
-			ref: 'user',
-			unique: true
-		}
-	}]
+	}
 }, {
 	timestamps: true
 });

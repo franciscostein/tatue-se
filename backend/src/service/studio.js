@@ -1,10 +1,10 @@
 const { apiResponse } = require('../utils/messages');
 const Studio = require('../models/Studio');
 
-exports.save = async (userId, { name, location, logo, coverImage, about, social, businessHours, photos, reviews }) => {
+exports.save = async (userId, { name, location, logo, coverImage, about, social, businessHours, photos }) => {
 	const studio = await Studio.findOne({ owner: userId });
 
-	const studioFields = buildObject(name, location, logo, coverImage, about, social, businessHours, photos, reviews);
+	const studioFields = buildObject(name, location, logo, coverImage, about, social, businessHours, photos);
 	studioFields.owner = userId;
 
 	if (studio) {
@@ -64,7 +64,7 @@ exports.deleteById = async userId => {
 	}
 }
 
-const buildObject = (name, location, logo, coverImage, about, social, businessHours, photos, reviews) => {
+const buildObject = (name, location, logo, coverImage, about, social, businessHours, photos) => {
 	const studioFields = {};
 	if (name) studioFields.name = name;
 	if (location) {
@@ -119,12 +119,6 @@ const buildObject = (name, location, logo, coverImage, about, social, businessHo
         studioFields.photos = [];
         studioFields.photos = photos;
     }
-	if (reviews) {
-		studioFields.reviews = [];
-		if (reviews.rating) studioFields.reviews.rating = reviews.rating;
-		if (reviews.description) studioFields.reviews.description = reviews.description;
-		if (reviews.user) studioFields.reviews.user = reviews.user;
-	}
 	return studioFields;
 }
 

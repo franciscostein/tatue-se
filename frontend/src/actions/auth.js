@@ -9,8 +9,7 @@ import {
     RESET_PASSWORD_EMAIL_SUCCESS,
     RESET_PASSWORD_EMAIL_FAIL,
     RESET_PASSWORD_SUCCESS,
-    RESET_PASSWORD_FAIL,
-    RESET_STATE
+    RESET_PASSWORD_FAIL
 } from './types';
 
 import { setAlertTimeout } from './alert';

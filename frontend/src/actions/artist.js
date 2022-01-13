@@ -5,6 +5,7 @@ import {
     FETCH_ARTISTS,
     FETCH_ARTISTS_ERROR,
     GET_ARTIST_PROFILE,
+    SAVE_ARTIST_PROFILE,
     ARTIST_PROFILE_ERROR
 } from './types';
 
@@ -58,7 +59,7 @@ export const saveProfile = (formData, profilePictureBase64, history, edit = fals
         const res = await axios.post('/api/artists', formData);
 
         dispatch({
-            type: GET_ARTIST_PROFILE,
+            type: SAVE_ARTIST_PROFILE,
             payload: res.data
         });
 
@@ -83,13 +84,3 @@ export const saveProfile = (formData, profilePictureBase64, history, edit = fals
         })
     }
 }
-
-// const uploadImage = async base64EncodedImage => {
-//     try {
-//         const res = await axios.post('/api/artists/image/upload', { base: base64EncodedImage });
-        
-//         return res;
-//     } catch (err) {
-//         console.error(err);
-//     }
-// }

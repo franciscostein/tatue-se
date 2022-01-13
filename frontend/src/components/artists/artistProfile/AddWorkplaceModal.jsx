@@ -1,38 +1,26 @@
 import './AddWorkplaceModal.css';
 import { useState, useEffect, Fragment } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+
+import { fetchStudios } from '../../../actions/studio';
+import SearchResultStudio from './SearchResultStudio';
 
 import Modal from 'react-bootstrap/Modal';
 
-import SearchResultStudio from './SearchResultStudio';
-
-// import studiosData from './studioData.json';
-
-const AddWorkplaceModal = ({ show, closeFunction, addWorkplace, selectedWorplaces }) => {
+const AddWorkplaceModal = ({ studio: { studios }, fetchStudios, show, closeFunction, addWorkplace, selectedWorplaces }) => {
     const [searchInput, setSearchInput] = useState('');
-    const [studios, setStudios] = useState([]);
     const [filteredStudios, setFilteredStudios] = useState([]);
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        getStudios();
-        console.log('useEffect addworkplace');
-    }, [selectedWorplaces]);
-
-    const getStudios = async () => {
-        const res = await axios.get('/api/studios?search=idNameLogoAddress');
-
-        if (res.data) {
-            setStudios(res.data);
-            setError(false);
+        if (studios.length === 0) {
+            fetchStudios('idNameLogoAddress');
         } else {
-            setError(true);
-            console.log(res.error);
+            setSearchInput('');
+            setFilteredStudios(filterSelectedStudios(studios));
         }
-
-        setSearchInput('');
-        setFilteredStudios(filterSelectedStudios(studios));
-    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [studios, selectedWorplaces]);
 
     const filterSelectedStudios = studios => {
         if (studios.length > 0) {
@@ -87,4 +75,8 @@ const AddWorkplaceModal = ({ show, closeFunction, addWorkplace, selectedWorplace
     );
 }
 
-export default AddWorkplaceModal;
+const mapStateToProps = state => ({
+    studio: state.studio
+});
+
+export default connect(mapStateToProps, { fetchStudios })(AddWorkplaceModal);

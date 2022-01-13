@@ -5,13 +5,14 @@ import {
     FETCH_STUDIO
 } from './types';
 
-export const fetchStudios = () => async dispatch => {
+export const fetchStudios = search => async dispatch => {
     try {
-        const res = await axios.get('/api/studios');
+        const url = search ? `/api/studios?search=${search}` : '/api/studios';
+        const { data } = await axios.get(url);
     
         dispatch({
             type: FETCH_STUDIOS,
-            payload: res.data
+            payload: data
         });
     } catch (error) {
         console.error(error);

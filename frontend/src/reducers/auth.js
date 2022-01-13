@@ -12,8 +12,7 @@ const initialState = {
     isAuthenticated: false,
     emailSent: false,
     passwordChanged: false,
-    error: false,
-    message: '',
+    error: false
 }
 
 export default function(state = initialState, action) {
