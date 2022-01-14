@@ -21,7 +21,8 @@ export const fetchStudios = search => async dispatch => {
 
 export const fetchStudio = studioId => async dispatch => {
     try {
-        const res = await axios.get(`/api/studios/${studioId}`);
+        const url = studioId ? `/api/studios/${studioId}` : 'api/studios/profile/me';
+        const res = await axios.get(url);
 
         dispatch({
             type: FETCH_STUDIO,

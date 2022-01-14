@@ -1,17 +1,30 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+
+import { fetchStudio } from '../../../actions/studio';
+import ImageUploader from '../../fragments/ImageUploader';
+import Alert from '../../fragments/Alert';
 
 import Switch from 'react-switch';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
-import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { FaTrashAlt } from 'react-icons/fa';
 
-import profileAvatar from '../../../assets/user_w.png';
-
-const StudioProfile = () => {
+const StudioProfile = ({ studio: { studio }, fetchStudio }) => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        website: '',
+        phone: '',
+        facebook: '',
+        instagram: '',
+        location: {},
+        about: ''
+    });
+    const [logo, setLogo] = useState('');
     const [mondayChecked, setMondayChecked] = useState(false);
     const [tuesdayChecked, setTuesdayChecked] = useState(false);
     const [wednesdayChecked, setWednesdayChecked] = useState(false);
@@ -19,6 +32,29 @@ const StudioProfile = () => {
     const [fridayChecked, setFridayChecked] = useState(false);
     const [saturdayChecked, setSaturdayChecked] = useState(false);
     const [sundayChecked, setSundayChecked] = useState(false);
+
+    useEffect(() => {
+        if (!studio) {
+            fetchStudio();
+        } else {
+            setFormData({
+                name: studio.name,
+                email: studio.social.email,
+                website: studio.social.website,
+                phone: studio.social.phone,
+                facebook: studio.social.facebook,
+                instagram: studio.social.instagram,
+                location: studio.location.address,
+                about: studio.about
+            });
+            setLogo(studio.logo.publicId);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [studio]);
+
+    const { name, email, website, phone, facebook, instagram, location, about } = formData;
+
+    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     return (
         <Container>
@@ -36,18 +72,34 @@ const StudioProfile = () => {
                         </Button>
                     </div>
                 </div>
-                <Image src={profileAvatar} className="profile-picture my-4" roundedCircle />
+                <Alert />
+                <ImageUploader
+                    image={logo}
+                    setImageBase64={img => setLogo(img)}
+                />
                 <Row className="mb-3">
                     <Col>
                         <Form.Group controlId="formStudioName">
                             <Form.Label className="font-75">Name</Form.Label>
-                            <Form.Control type="text" placeholder="Name" />
+                            <Form.Control 
+                                type="text" 
+                                placeholder="Name"
+                                name="name"
+                                value={name}
+                                onChange={e => onChange(e)}
+                            />
                         </Form.Group>
                     </Col>
                     <Col>
                         <Form.Group controlId="formStudioEmail">
                             <Form.Label className="font-75">Email</Form.Label>
-                            <Form.Control type="email" placeholder="example@email.com" />
+                            <Form.Control 
+                                type="email" 
+                                placeholder="example@email.com"
+                                name="email"
+                                value={email}
+                                onChange={e => onChange(e)}
+                            />
                         </Form.Group>
                     </Col>
                 </Row>
@@ -55,13 +107,25 @@ const StudioProfile = () => {
                     <Col>
                         <Form.Group controlId="formStudioWebsite">
                             <Form.Label className="font-75">Website</Form.Label>
-                            <Form.Control type="text" placeholder="example.com" />
+                            <Form.Control 
+                                type="text" 
+                                placeholder="example.com" 
+                                name="website"
+                                value={website}
+                                onChange={e => onChange(e)}
+                            />
                         </Form.Group>
                     </Col>
                     <Col>
                         <Form.Group controlId="formStudioPhone">
                             <Form.Label className="font-75">Phone</Form.Label>
-                            <Form.Control type="tel" placeholder="Phone number" />
+                            <Form.Control 
+                                type="tel" 
+                                placeholder="Phone number"
+                                name="phone"
+                                value={phone}
+                                onChange={e => onChange(e)}
+                            />
                         </Form.Group>
                     </Col>
                 </Row>
@@ -69,26 +133,50 @@ const StudioProfile = () => {
                     <Col>
                         <Form.Group controlId="formStudioFacebook">
                             <Form.Label className="font-75">Facebook</Form.Label>
-                            <Form.Control type="text" placeholder="Facebook" />
+                            <Form.Control 
+                                type="text"
+                                placeholder="Facebook"
+                                name="facebook"
+                                value={facebook}
+                                onChange={e => onChange(e)}
+                            />
                         </Form.Group>
                     </Col>
                     <Col>
                         <Form.Group controlId="formStudioInstagram">
                             <Form.Label className="font-75">Instagram</Form.Label>
-                            <Form.Control type="tel" placeholder="Instagram" />
+                            <Form.Control 
+                                type="tel" 
+                                placeholder="Instagram"
+                                name="instagram"
+                                value={instagram}
+                                onChange={e => onChange(e)}
+                            />
                         </Form.Group>
                     </Col>
                 </Row>
                 <Row className="mb-3">
                     <Form.Group controlId="formStudioLocation">
                         <Form.Label className="font-75">Location</Form.Label>
-                        <Form.Control type="text" placeholder="Where it is?" />
+                        <Form.Control 
+                            type="text" 
+                            placeholder="Where it is?"
+                            name="location"
+                            value={location}
+                            onChange={e => onChange(e)}
+                        />
                     </Form.Group>
                 </Row>
                 <Row className="mb-3">
                     <Form.Group controlId="formStudioAbout">
                         <Form.Label className="font-75">About</Form.Label>
-                        <Form.Control as="textarea" rows={3} />
+                        <Form.Control 
+                            as="textarea" 
+                            rows={3}
+                            name="about"
+                            value={about}
+                            onChange={e => onChange(e)}
+                        />
                     </Form.Group>
                 </Row>
                 <div className="d-flex solid-bottom-border-secondary mt-5 mb-3">
@@ -210,4 +298,8 @@ const StudioProfile = () => {
     );
 }
 
-export default StudioProfile;
+const mapStateToProps = state => ({
+    studio: state.studio
+});
+
+export default connect(mapStateToProps, { fetchStudio })(StudioProfile);

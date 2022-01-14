@@ -1,4 +1,4 @@
-const { save, uploadProfilePicture, getAll, getArtistByStudio, getOne, getOwnProfile, deleteByUserId } = require('../service/artist');
+const { save, uploadProfilePicture, getAll, getOne, getOwnProfile, deleteByUserId } = require('../service/artist');
 
 exports.save = async (req, res, next) => {
 	try {
@@ -23,15 +23,10 @@ exports.uploadProfilePicture = async (req, res, next) => {
 exports.getAll = async (req, res, next) => {
 	try {
 		const studioId = req.headers.studioid;
-		let response = {};
 
-		if (studioId) {
-			response = await getArtistByStudio(studioId);
-		} else {
-			response = await getAll(req.query.filter);
-		}
+		const { status, payload } = await getAll(req.query.filter, studioId);
 
-		res.status(response.status).json(response.payload);
+		res.status(status).json(payload);
 	} catch (err) {
 		next(err);
 	}

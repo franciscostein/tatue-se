@@ -10,6 +10,7 @@ import ConfirmationModal from '../../modals/ConfirmationModal';
 import AddWorkplaceModal from './AddWorkplaceModal';
 import TattooStyles from '../../tattooStyles/TattooStyles';
 import ImageUploader from '../../fragments/ImageUploader';
+import Alert from '../../fragments/Alert';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -51,7 +52,6 @@ const ArtistProfile = ({
     const [idToRemove, setIdToRemove] = useState('');
 
     useEffect(() => {
-
         if (!profile) {
             fetchArtistProfile();
         } else {
@@ -103,16 +103,14 @@ const ArtistProfile = ({
 
     const handleRemoveWorkplaceConfirmation = () => {
         setShowRemoveWorkplaceModal(false);
-
+        
         if (workplaces.some(workplace => workplace._id === idToRemove)) {
             const filteredWorkplaces = workplaces.filter(workplace => workplace._id !== idToRemove);
-
             setFormData({
                 ...formData,
                 workplaces: filteredWorkplaces
             });
         }
-
         setIdToRemove('');
     }
 
@@ -132,6 +130,7 @@ const ArtistProfile = ({
                         </Button>
                     </div>
                 </div>
+                <Alert />
                 <ImageUploader 
                     image={profilePicture}
                     setImageBase64={img => setProfilePictureBase64(img)}

@@ -11,12 +11,14 @@ import {
 
 export const fetchArtists = (filter, customHeaders = {}) => async dispatch => {
     try {
-        const url = filter ? `/api/artists/?filter=${filter}` : '/api/artists';
-        const res = await axios.get(url, { headers: customHeaders });
+        const url = filter ? `/api/artists?filter=${filter}` : '/api/artists';
+        const { data } = await axios.get(url, { headers: customHeaders });
+
+        console.log(customHeaders);
 
         dispatch({
             type: FETCH_ARTISTS,
-            payload: res.data
+            payload: data
         });
     } catch (error) {
         dispatch({

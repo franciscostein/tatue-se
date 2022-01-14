@@ -21,37 +21,22 @@ exports.uploadProfilePicture = async fileString => {
 	const uploadResponse = await cloudinary.uploader.upload(fileString.base64, {
 		upload_preset: 'ml_default'
 	});
-
 	return apiResponse(uploadResponse);
 }
 
-exports.getAll = async filter => {
-	let artists = {}
+exports.getAll = async (filter, studioId) => {
+	let select, populate = [];
+	const find = studioId ? { workplaces: studioId } : {};
 
 	if (filter === 'cardInfo') {
-		artists = await Artist.find({})
-								.select([ 'fullName', 'tattooStyles', 'profilePicture', 'coverImage' ])
-								.populate([ 'tattooStyles' ])
-								.exec();
+		select = [ 'fullName', 'tattooStyles', 'profilePicture', 'coverImage' ];
+		populate = [ 'tattooStyles' ];
 	} else {
-		artists = await Artist.find({})
-								.select('-user')
-								.populate([ 'workplaces', 'tattooStyles' ])
-								.exec();
+		select = [ '-user' ];
+		populate = [ 'workplaces', 'tattooStyles' ];
 	}
 
-	if (artists) {
-		return apiResponse(artists);
-	} else {
-		return apiResponse({}, 404);
-	}
-}
-
-exports.getArtistByStudio = async studioId => {
-	const artists = await Artist.find({ workplaces: studioId })
-								.select([ 'fullName', 'tattooStyles', 'profilePicture', 'coverImage' ])
-								.populate([ 'tattooStyles' ])
-								.exec();
+	artists = await Artist.find(find).select(select).populate(populate).exec();
 
 	if (artists) {
 		return apiResponse(artists);

@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { savePicture, fetchUserPicture } from '../../actions/user';
+import { savePicture } from '../../actions/user';
 import { removeAlert } from '../../actions/alert';
 import ImageUploader from '../fragments/ImageUploader';
 import Alert from '../fragments/Alert';
@@ -12,14 +12,9 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { FaTrashAlt } from 'react-icons/fa';
 
-const UserProfile = ({ user: { user: { profilePicture }}, savePicture, fetchUserPicture, removeAlert }) => {
+const UserProfile = ({ user: { user: { profilePicture }}, savePicture, removeAlert }) => {
     const history = useHistory();
     const [profilePictureBase64, setProfilePictureBase64] = useState('');
-
-    useEffect(() => {
-        // fetchUserPicture();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     const handleSavePicture = () => {
         savePicture(profilePictureBase64);
@@ -78,4 +73,4 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-export default connect(mapStateToProps, { savePicture, fetchUserPicture, removeAlert })(UserProfile);
+export default connect(mapStateToProps, { savePicture, removeAlert })(UserProfile);
