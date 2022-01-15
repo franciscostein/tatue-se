@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { fetchStudio } from '../../../actions/studio';
 import ImageUploader from '../../fragments/ImageUploader';
 import Alert from '../../fragments/Alert';
+import BusinessHour from '../fragments/BusinessHour';
 
-import Switch from 'react-switch';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
@@ -182,104 +182,55 @@ const StudioProfile = ({ studio: { studio }, fetchStudio }) => {
                 <div className="d-flex solid-bottom-border-secondary mt-5 mb-3">
                     <h3>Business hours</h3>
                 </div>
-                <Row>
-                    <Col className="d-flex justify-content-start font-75">Monday</Col>
-                    <Col xs lg="2" className="form-check form-switch">
-                        <Switch checked={mondayChecked} onChange={() => setMondayChecked(!mondayChecked)} />
-                    </Col>
-                    <Col md="auto" className="d-flex justify-content-end font-75">
-                        { mondayChecked ? (
-                            <div className="d-flex">
-                                <Form.Control type="time" name="mondayOpen" className="m-1" />
-                                <Form.Control type="time" name="mondayClose" className="m-1" />
-                            </div>
-                        ) : <span className="ms-5 ps-5">Closed</span> }
-                    </Col>
-                </Row>
-                <Row>
-                    <Col className="d-flex justify-content-start font-75">Tuesday</Col>
-                    <Col xs lg="2" className="form-check form-switch">
-                        <Switch checked={tuesdayChecked} onChange={() => setTuesdayChecked(!tuesdayChecked)} />
-                    </Col>
-                    <Col md="auto" className="d-flex justify-content-end font-75">
-                        { tuesdayChecked ? (
-                            <div className="d-flex">
-                                <Form.Control type="time" name="tuesdayOpen" className="m-1" />
-                                <Form.Control type="time" name="tuesdayClose" className="m-1" />
-                            </div>
-                        ) : <span className="ms-5 ps-5">Closed</span> }
-                    </Col>
-                </Row>
-                <Row>
-                    <Col className="d-flex justify-content-start font-75">Wednesday</Col>
-                    <Col xs lg="2" className="form-check form-switch">
-                        <Switch checked={wednesdayChecked} onChange={() => setWednesdayChecked(!wednesdayChecked)} />
-                    </Col>
-                    <Col md="auto" className="d-flex justify-content-end font-75">
-                        { wednesdayChecked ? (
-                            <div className="d-flex">
-                                <Form.Control type="time" name="wednesdayOpen" className="m-1" />
-                                <Form.Control type="time" name="wednesdayClose" className="m-1" />
-                            </div>
-                        ) : <span className="ms-5 ps-5">Closed</span> }
-                    </Col>
-                </Row>
-                <Row>
-                    <Col className="d-flex justify-content-start font-75">Thursday</Col>
-                    <Col xs lg="2" className="form-check form-switch">
-                        <Switch checked={thrusdayChecked} onChange={() => setThrusdayChecked(!thrusdayChecked)} />
-                    </Col>
-                    <Col md="auto" className="d-flex justify-content-end font-75">
-                        { thrusdayChecked ? (
-                            <div className="d-flex">
-                                <Form.Control type="time" name="thrusdayOpen" className="m-1" />
-                                <Form.Control type="time" name="thrusdayClose" className="m-1" />
-                            </div>
-                        ) : <span className="ms-5 ps-5">Closed</span> }
-                    </Col>
-                </Row>
-                <Row>
-                    <Col className="d-flex justify-content-start font-75">Friday</Col>
-                    <Col xs lg="2" className="form-check form-switch">
-                        <Switch checked={fridayChecked} onChange={() => setFridayChecked(!fridayChecked)} />
-                    </Col>
-                    <Col md="auto" className="d-flex justify-content-end font-75">
-                        { fridayChecked ? (
-                            <div className="d-flex">
-                                <Form.Control type="time" name="fridayOpen" className="m-1" />
-                                <Form.Control type="time" name="fridayClose" className="m-1" />
-                            </div>
-                        ) : <span className="ms-5 ps-5">Closed</span> }
-                    </Col>
-                </Row>
-                <Row>
-                    <Col className="d-flex justify-content-start font-75">Saturday</Col>
-                    <Col xs lg="2" className="form-check form-switch">
-                        <Switch checked={saturdayChecked} onChange={() => setSaturdayChecked(!saturdayChecked)} />
-                    </Col>
-                    <Col md="auto" className="d-flex justify-content-end font-75">
-                        { saturdayChecked ? (
-                            <div className="d-flex">
-                                <Form.Control type="time" name="saturdayOpen" className="m-1" />
-                                <Form.Control type="time" name="saturdayClose" className="m-1" />
-                            </div>
-                        ) : <span className="ms-5 ps-5">Closed</span> }
-                    </Col>
-                </Row>
-                <Row>
-                    <Col className="d-flex justify-content-start font-75">Sunday</Col>
-                    <Col xs lg="2" className="form-check form-switch">
-                        <Switch checked={sundayChecked} onChange={() => setSundayChecked(!sundayChecked)} />
-                    </Col>
-                    <Col md="auto" className="d-flex justify-content-end font-75">
-                        { sundayChecked ? (
-                            <div className="d-flex">
-                                <Form.Control type="time" name="sundayOpen" className="m-1" />
-                                <Form.Control type="time" name="sundayClose" className="m-1" />
-                            </div>
-                        ) : <span className="ms-5 ps-5">Closed</span> }
-                    </Col>
-                </Row>
+                <BusinessHour
+                    weekday="Monday"
+                    checked={mondayChecked}
+                    setChecked={setMondayChecked}
+                    open={{ name: 'mondayOpen', value: 'monday', onChange: onChange }}
+                    closes={{ name: 'mondayClose', value: 'mondayClose', onChange: onChange }}
+                />
+                <BusinessHour
+                    weekday="Tuesday"
+                    checked={tuesdayChecked}
+                    setChecked={setTuesdayChecked}
+                    open={{ name: 'tuesdayOpen', value: 'tuesdayOpen', onChange: onChange }}
+                    closes={{ name: 'tuesdayClose', value: 'tuesdayClose', onChange: onChange }}
+                />
+                <BusinessHour
+                    weekday="Wednesday"
+                    checked={wednesdayChecked}
+                    setChecked={setWednesdayChecked}
+                    open={{ name: 'wednesdayOpen', value: 'wednesdayOpen', onChange: onChange }}
+                    closes={{ name: 'wednesdayClose', value: 'wednesdayClose', onChange: onChange }}
+                />
+                <BusinessHour
+                    weekday="Thursday"
+                    checked={thrusdayChecked}
+                    setChecked={setThrusdayChecked}
+                    open={{ name: 'thrusdayOpen', value: 'thrusdayOpen', onChange: onChange }}
+                    closes={{ name: 'thrusdayClose', value: 'thrusdayClose', onChange: onChange }}
+                />
+                <BusinessHour
+                    weekday="Friday"
+                    checked={fridayChecked}
+                    setChecked={setFridayChecked}
+                    open={{ name: 'fridayOpen', value: 'fridayOpen', onChange: onChange }}
+                    closes={{ name: 'fridayClose', value: 'fridayClose', onChange: onChange }}
+                />
+                <BusinessHour
+                    weekday="Saturday"
+                    checked={saturdayChecked}
+                    setChecked={setSaturdayChecked}
+                    open={{ name: 'saturdayOpen', value: 'saturdayOpen', onChange: onChange }}
+                    closes={{ name: 'saturdayClose', value: 'saturdayClose', onChange: onChange }}
+                />
+                <BusinessHour
+                    weekday="Sunday"
+                    checked={sundayChecked}
+                    setChecked={setSundayChecked}
+                    open={{ name: 'sundayOpen', value: 'sundayOpen', onChange: onChange }}
+                    closes={{ name: 'sundayClose', value: 'sundayClose', onChange: onChange }}
+                />
                 <hr className="mt-3"/>
 
                 <h3 className="d-flex">Delete account</h3>

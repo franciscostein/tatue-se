@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { fetchTattooStyles } from '../../actions/tattooStyles';
-
 import TattooStyle from './tattooStyle/TattooStyle';
 
 const TattooStyles = ({ tattooStyles: { tattooStyles, loading }, fetchTattooStyles, selectedTattooStylesIds }) => {
