@@ -14,8 +14,6 @@ export const fetchArtists = (filter, customHeaders = {}) => async dispatch => {
         const url = filter ? `/api/artists?filter=${filter}` : '/api/artists';
         const { data } = await axios.get(url, { headers: customHeaders });
 
-        console.log(customHeaders);
-
         dispatch({
             type: FETCH_ARTISTS,
             payload: data

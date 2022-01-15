@@ -1,3 +1,4 @@
+const ObjectId = require('mongodb').ObjectID;
 const { cloudinary } = require('../utils/cloudinary');
 const { apiResponse } = require('../utils/messages');
 const Artist = require('../models/Artist');
@@ -26,7 +27,7 @@ exports.uploadProfilePicture = async fileString => {
 
 exports.getAll = async (filter, studioId) => {
 	let select, populate = [];
-	const find = studioId ? { workplaces: studioId } : {};
+	const find = studioId ? { workplaces: ObjectId(studioId) } : {};
 
 	if (filter === 'cardInfo') {
 		select = [ 'fullName', 'tattooStyles', 'profilePicture', 'coverImage' ];
@@ -36,7 +37,7 @@ exports.getAll = async (filter, studioId) => {
 		populate = [ 'workplaces', 'tattooStyles' ];
 	}
 
-	artists = await Artist.find(find).select(select).populate(populate).exec();
+	const artists = await Artist.find(find).select(select).populate(populate).exec();
 
 	if (artists) {
 		return apiResponse(artists);
