@@ -6,7 +6,7 @@ import {
 
 const initialState = {
     studios: [],
-    studio: null
+    studio: {}
 }
 
 export default function(state = initialState, action) {

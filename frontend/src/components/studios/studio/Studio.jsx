@@ -60,7 +60,8 @@ const Studio = ({ studio: { studio }, artist: { artists }, fetchStudio, fetchArt
             });
             setOpenNow(isOpenNow(studio));
         }
-    }, [artists, fetchArtists, fetchStudio, id, studio]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id, studio]);
 
     const { coverImage, logoImage, name, location, about, businessHours, photos, social } = studioInfo;
 

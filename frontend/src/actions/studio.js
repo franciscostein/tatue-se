@@ -22,11 +22,13 @@ export const fetchStudios = search => async dispatch => {
 export const fetchStudio = studioId => async dispatch => {
     try {
         const url = studioId ? `/api/studios/${studioId}` : 'api/studios/profile/me';
-        const res = await axios.get(url);
+        const { data } = await axios.get(url);
+
+        console.log('data', data);
 
         dispatch({
             type: FETCH_STUDIO,
-            payload: res.data
+            payload: data
         });
     } catch (error) {
         console.error(error);
