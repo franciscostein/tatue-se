@@ -20,7 +20,7 @@ import { FaCircle, FaMapMarkerAlt } from 'react-icons/fa';
 import cover from '../../../assets/studio/cover/1.jpeg';
 import profileImg from '../../../assets/user_w.png';
 
-const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history }) => {
+const Studio = ({ studio: { studio }, artist: { artists }, fetchStudio, fetchArtists, history }) => {
     const { id } = useParams();
     const [studioInfo, setStudioInfo] = useState({
         coverImage: '',
@@ -38,7 +38,6 @@ const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history
             saturday: {}
         },
         photos: [],
-        artists: [],
         social: {}
     });
     const [openNow, setOpenNow] = useState(false);
@@ -46,8 +45,9 @@ const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history
     useEffect(() => {
         if (!studio) {
             fetchStudio(id);
-            fetchArtists('cardInfo', { studioid: id });
         } else {
+            if (artists.length === 0) fetchArtists('cardInfo', { studioid: id });
+
             setStudioInfo({
                 coverImage: studio.coverImage.publicId,
                 logoImage: studio.logo.publicId,
@@ -56,14 +56,13 @@ const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history
                 about: studio.about,
                 businessHours: studio.businessHours,
                 photos: studio.photos,
-                artists: artist.artists,
                 social: studio.social
             });
             setOpenNow(isOpenNow(studio));
         }
-    }, [artist.artists, fetchArtists, fetchStudio, id, studio]);
+    }, [artists, fetchArtists, fetchStudio, id, studio]);
 
-    const { coverImage, logoImage, name, location, about, businessHours, photos, artists, social } = studioInfo;
+    const { coverImage, logoImage, name, location, about, businessHours, photos, social } = studioInfo;
 
     return (
         <div>
@@ -126,16 +125,20 @@ const Studio = ({ studio: { studio }, artist, fetchStudio, fetchArtists, history
                         photos && photos.map(photo => <Image src={photo.publicId} key={photo._id} className="m-2 studio-img" />)
                     }
                 </div>
-                <hr />                    
+                { artists.length > 0 && (<hr />) }
             </div>
-            <div className="ms-4">
-                <h3 className="d-flex ms-5">Artists</h3>
-                <div className="d-flex flex-wrap mx-5">
-                    {
-                        artists && artists.map(artist => <ArtistCard key={artist._id} artist={artist} onClick={() => history.push(`/artists/${artist._id}`)} />)
-                    }
-                </div>
-            </div>
+            {
+                artists.length > 0 && (
+                    <div className="ms-4">
+                        <h3 className="d-flex ms-5">Artists</h3>
+                        <div className="d-flex flex-wrap mx-5">
+                            {
+                                artists.map(artist => <ArtistCard key={artist._id} artist={artist} onClick={() => history.push(`/artists/${artist._id}`)} />)
+                            }
+                        </div>
+                    </div>
+                )
+            }
         </div>
     );
 }

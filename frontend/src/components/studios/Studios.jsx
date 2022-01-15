@@ -5,16 +5,22 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 
 import { fetchStudios } from '../../actions/studio';
+import { resetArtists } from '../../actions/artist';
+import StudioCard from './fragments/StudioCard';
 
 import Form from 'react-bootstrap/Form';
 
-import StudioCard from './fragments/StudioCard';
 
-const Studios = ({ studio: { studios }, fetchStudios, history }) => {
+const Studios = ({ studio: { studios }, fetchStudios, resetArtists, history }) => {
     useEffect(() => {
         fetchStudios();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const handleStudioCardClick = studioId => {
+        resetArtists();
+        history.push(`/studios/${studioId}`);
+    }
 
     return (
         <div className="full-content">
@@ -30,9 +36,7 @@ const Studios = ({ studio: { studios }, fetchStudios, history }) => {
 
             <div className="d-flex flex-wrap justify-content-center mx-5">
                 {
-                    studios ?
-                    studios.map(studio => <StudioCard key={studio._id} studio={studio} onClick={() => history.push(`/studios/${studio._id}`)} />)
-                    : null
+                    studios && studios.map(studio => <StudioCard key={studio._id} studio={studio} onClick={() => handleStudioCardClick(studio._id)} />)
                 }
             </div>
         </div>
@@ -48,4 +52,4 @@ const mapStateToProps = state => ({
     studio: state.studio
 });
 
-export default connect(mapStateToProps, { fetchStudios })(withRouter(Studios));
+export default connect(mapStateToProps, { fetchStudios, resetArtists })(withRouter(Studios));

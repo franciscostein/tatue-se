@@ -6,7 +6,8 @@ import {
     FETCH_ARTISTS_ERROR,
     GET_ARTIST_PROFILE,
     SAVE_ARTIST_PROFILE,
-    ARTIST_PROFILE_ERROR
+    ARTIST_PROFILE_ERROR,
+    RESET_ARTISTS
 } from './types';
 
 export const fetchArtists = (filter, customHeaders = {}) => async dispatch => {
@@ -83,4 +84,10 @@ export const saveProfile = (formData, profilePictureBase64, history, edit = fals
             }
         })
     }
+}
+
+export const resetArtists = () => dispatch => {
+    dispatch({
+        type: RESET_ARTISTS
+    });
 }

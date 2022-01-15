@@ -4,7 +4,8 @@ import {
     FETCH_ARTISTS_ERROR,
     GET_ARTIST_PROFILE,
     SAVE_ARTIST_PROFILE,
-    ARTIST_PROFILE_ERROR
+    ARTIST_PROFILE_ERROR,
+    RESET_ARTISTS
 } from '../actions/types';
 
 const initialState = {
@@ -37,6 +38,11 @@ export default function(state = initialState, action) {
                 error: payload,
                 loading: false,
                 profile: null
+            }
+        case RESET_ARTISTS:
+            return {
+                ...state,
+                artists: []
             }
         default:
             return state;
