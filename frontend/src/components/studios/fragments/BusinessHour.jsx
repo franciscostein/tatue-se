@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Switch from 'react-switch';
 import Form from 'react-bootstrap/Form';
 
-const BusinessHour = ({ weekday, checked, setChecked, opens, closes, onChangeOpen, onChangeClose }) => {
+const BusinessHour = ({ weekday, checked, setChecked, day: { opens, closes }, onChangeOpen, onChangeClose }) => {
     return (
         <Row>
             <Col className="d-flex justify-content-start font-75">{weekday}</Col>

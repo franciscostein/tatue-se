@@ -203,8 +203,7 @@ const StudioProfile = ({ studio: { studio }, fetchStudio }) => {
                     weekday="Monday"
                     checked={mondayChecked}
                     setChecked={setMondayChecked}
-                    opens={formData.businessHours.monday.opens}
-                    closes={formData.businessHours.monday.closes}
+                    day={businessHours.monday}
                     onChangeOpen={e => setFormData({ ...formData, businessHours: { ...businessHours, monday: { opens: e.target.value }}})}
                     onChangeClose={e => setFormData({ ...formData, businessHours: { ...businessHours, monday: { closes: e.target.value }}})}
                 />
@@ -212,8 +211,7 @@ const StudioProfile = ({ studio: { studio }, fetchStudio }) => {
                     weekday="Tuesday"
                     checked={tuesdayChecked}
                     setChecked={setTuesdayChecked}
-                    opens={formData.businessHours.tuesday.opens}
-                    closes={formData.businessHours.tuesday.closes}
+                    day={businessHours.tuesday}
                     onChangeOpen={e => setFormData({ ...formData, businessHours: { ...businessHours, tuesday: { opens: e.target.value }}})}
                     onChangeClose={e => setFormData({ ...formData, businessHours: { ...businessHours, tuesday: { closes: e.target.value }}})}
                 />
@@ -221,8 +219,7 @@ const StudioProfile = ({ studio: { studio }, fetchStudio }) => {
                     weekday="Wednesday"
                     checked={wednesdayChecked}
                     setChecked={setWednesdayChecked}
-                    opens={businessHours.wednesday.opens}
-                    closes={businessHours.wednesday.closes}
+                    day={businessHours.wednesday}
                     onChangeOpen={e => setFormData({ ...formData, businessHours: { ...businessHours, wednesday: { opens: e.target.value }}})}
                     onChangeClose={e => setFormData({ ...formData, businessHours: {  ...businessHours, wednesday: { closes: e.target.value }}})}
                 />
@@ -230,8 +227,7 @@ const StudioProfile = ({ studio: { studio }, fetchStudio }) => {
                     weekday="Thursday"
                     checked={thursdayChecked}
                     setChecked={setThursdayChecked}
-                    opens={formData.businessHours.thursday.opens}
-                    closes={formData.businessHours.thursday.closes}
+                    day={businessHours.thursday}
                     onChangeOpen={e => setFormData({ ...formData, businessHours: { ...businessHours, thursday: { opens: e.target.value }}})}
                     onChangeClose={e => setFormData({ ...formData, businessHours: { ...businessHours, thursday: { closes: e.target.value }}})}
                 />
@@ -239,8 +235,7 @@ const StudioProfile = ({ studio: { studio }, fetchStudio }) => {
                     weekday="Friday"
                     checked={fridayChecked}
                     setChecked={setFridayChecked}
-                    opens={formData.businessHours.friday.opens}
-                    closes={formData.businessHours.friday.closes}
+                    day={businessHours.friday}
                     onChangeOpen={e => setFormData({ ...formData, businessHours: { ...businessHours, friday: { opens: e.target.value }}})}
                     onChangeClose={e => setFormData({ ...formData, businessHours: { ...businessHours, friday: { closes: e.target.value }}})}
                 />
@@ -248,8 +243,7 @@ const StudioProfile = ({ studio: { studio }, fetchStudio }) => {
                     weekday="Saturday"
                     checked={saturdayChecked}
                     setChecked={setSaturdayChecked}
-                    opens={formData.businessHours.saturday.opens}
-                    closes={formData.businessHours.saturday.closes}
+                    day={businessHours.saturday}
                     onChangeOpen={e => setFormData({ ...formData, businessHours: { ...businessHours, saturday: { opens: e.target.value }}})}
                     onChangeClose={e => setFormData({ ...formData, businessHours: { ...businessHours, saturday: { closes: e.target.value }}})}
                 />
@@ -257,8 +251,7 @@ const StudioProfile = ({ studio: { studio }, fetchStudio }) => {
                     weekday="Sunday"
                     checked={sundayChecked}
                     setChecked={setSundayChecked}
-                    opens={formData.businessHours.sunday.opens}
-                    closes={formData.businessHours.sunday.closes}
+                    day={businessHours.sunday}
                     onChangeOpen={e => setFormData({ ...formData, businessHours: { ...businessHours, sunday: { opens: e.target.value }}})}
                     onChangeClose={e => setFormData({ ...formData, businessHours: { ...businessHours, sunday: { closes: e.target.value }}})}
                 />
