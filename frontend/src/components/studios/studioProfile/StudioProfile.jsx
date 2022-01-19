@@ -69,7 +69,7 @@ const StudioProfile = ({ studio: { studio }, fetchStudio }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [studio]);
 
-    const { name, email, website, phone, facebook, instagram, location, about, businessHours: { monday, tuesday, wednesday, thursday, friday, saturday, sunday }} = formData;
+    const { name, email, website, phone, facebook, instagram, location, about, businessHours } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -203,47 +203,64 @@ const StudioProfile = ({ studio: { studio }, fetchStudio }) => {
                     weekday="Monday"
                     checked={mondayChecked}
                     setChecked={setMondayChecked}
-                    day={monday}
-                    onChangeOpen={e => setFormData({ ...formData, businessHours: { monday: { opens: e.target.value }}})}
-                    onChangeClose={e => setFormData({ ...formData, businessHours: { monday: { closes: e.target.value }}})}
+                    opens={formData.businessHours.monday.opens}
+                    closes={formData.businessHours.monday.closes}
+                    onChangeOpen={e => setFormData({ ...formData, businessHours: { ...businessHours, monday: { opens: e.target.value }}})}
+                    onChangeClose={e => setFormData({ ...formData, businessHours: { ...businessHours, monday: { closes: e.target.value }}})}
                 />
                 <BusinessHour
                     weekday="Tuesday"
                     checked={tuesdayChecked}
                     setChecked={setTuesdayChecked}
-                    day={tuesday}
+                    opens={formData.businessHours.tuesday.opens}
+                    closes={formData.businessHours.tuesday.closes}
+                    onChangeOpen={e => setFormData({ ...formData, businessHours: { ...businessHours, tuesday: { opens: e.target.value }}})}
+                    onChangeClose={e => setFormData({ ...formData, businessHours: { ...businessHours, tuesday: { closes: e.target.value }}})}
                 />
                 <BusinessHour
                     weekday="Wednesday"
                     checked={wednesdayChecked}
                     setChecked={setWednesdayChecked}
-                    day={wednesday}
-                    onChangeOpen={e => setFormData({ ...formData, businessHours: { wednesday: { opens: e.target.value }}})}
-                    onChangeClose={e => setFormData({ ...formData, businessHours: { wednesday: { closes: e.target.value }}})}
+                    opens={businessHours.wednesday.opens}
+                    closes={businessHours.wednesday.closes}
+                    onChangeOpen={e => setFormData({ ...formData, businessHours: { ...businessHours, wednesday: { opens: e.target.value }}})}
+                    onChangeClose={e => setFormData({ ...formData, businessHours: {  ...businessHours, wednesday: { closes: e.target.value }}})}
                 />
                 <BusinessHour
                     weekday="Thursday"
                     checked={thursdayChecked}
                     setChecked={setThursdayChecked}
-                    day={thursday}
+                    opens={formData.businessHours.thursday.opens}
+                    closes={formData.businessHours.thursday.closes}
+                    onChangeOpen={e => setFormData({ ...formData, businessHours: { ...businessHours, thursday: { opens: e.target.value }}})}
+                    onChangeClose={e => setFormData({ ...formData, businessHours: { ...businessHours, thursday: { closes: e.target.value }}})}
                 />
                 <BusinessHour
                     weekday="Friday"
                     checked={fridayChecked}
                     setChecked={setFridayChecked}
-                    day={friday}
+                    opens={formData.businessHours.friday.opens}
+                    closes={formData.businessHours.friday.closes}
+                    onChangeOpen={e => setFormData({ ...formData, businessHours: { ...businessHours, friday: { opens: e.target.value }}})}
+                    onChangeClose={e => setFormData({ ...formData, businessHours: { ...businessHours, friday: { closes: e.target.value }}})}
                 />
                 <BusinessHour
                     weekday="Saturday"
                     checked={saturdayChecked}
                     setChecked={setSaturdayChecked}
-                    day={saturday}
+                    opens={formData.businessHours.saturday.opens}
+                    closes={formData.businessHours.saturday.closes}
+                    onChangeOpen={e => setFormData({ ...formData, businessHours: { ...businessHours, saturday: { opens: e.target.value }}})}
+                    onChangeClose={e => setFormData({ ...formData, businessHours: { ...businessHours, saturday: { closes: e.target.value }}})}
                 />
                 <BusinessHour
                     weekday="Sunday"
                     checked={sundayChecked}
                     setChecked={setSundayChecked}
-                    day={sunday}
+                    opens={formData.businessHours.sunday.opens}
+                    closes={formData.businessHours.sunday.closes}
+                    onChangeOpen={e => setFormData({ ...formData, businessHours: { ...businessHours, sunday: { opens: e.target.value }}})}
+                    onChangeClose={e => setFormData({ ...formData, businessHours: { ...businessHours, sunday: { closes: e.target.value }}})}
                 />
                 <hr className="mt-3"/>
 

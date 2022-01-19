@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 
 import { formatDateToTime } from '../../../utils/datetime';
 
-const BusinessHours = ({ businessHours: { sunday, monday, tuesday, wednesday, thursday, friday, saturday }}) => {
+const BusinessHoursDisplay = ({ businessHours: { sunday, monday, tuesday, wednesday, thursday, friday, saturday }}) => {
     return (
         <Fragment>
             <Row className="mb-1">
@@ -53,4 +53,4 @@ const BusinessHours = ({ businessHours: { sunday, monday, tuesday, wednesday, th
     );
 }
 
-export default BusinessHours;
+export default BusinessHoursDisplay;

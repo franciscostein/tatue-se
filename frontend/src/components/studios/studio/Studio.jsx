@@ -9,7 +9,7 @@ import { fetchArtists } from '../../../actions/artist';
 import { isOpenNow } from '../../../utils/datetime';
 import ArtistCard from '../../artists/fragments/ArtistCard';
 import StudioMap from '../fragments/StudioMap';
-import BusinessHours from '../fragments/BusinessHours';
+import BusinessHoursDisplay from '../fragments/BusinessHoursDisplay';
 import Social from '../../fragments/Social';
 
 import Image from 'react-bootstrap/Image';
@@ -109,7 +109,7 @@ const Studio = ({ studio: { studio }, artist: { artists }, fetchStudio, fetchArt
                         </p>
                     </div>
                     <div className="mx-1">
-                        <BusinessHours businessHours={businessHours} />
+                        <BusinessHoursDisplay businessHours={businessHours} />
                     </div>
                 </Col>
                 <Col className="mx-4">
