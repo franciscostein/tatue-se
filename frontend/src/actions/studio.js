@@ -24,8 +24,6 @@ export const fetchStudio = studioId => async dispatch => {
         const url = studioId ? `/api/studios/${studioId}` : 'api/studios/profile/me';
         const { data } = await axios.get(url);
 
-        console.log('data', data);
-
         dispatch({
             type: FETCH_STUDIO,
             payload: data

@@ -22,13 +22,22 @@ const StudioProfile = ({ studio: { studio }, fetchStudio }) => {
         facebook: '',
         instagram: '',
         location: {},
-        about: ''
+        about: '',
+        businessHours: {
+            monday: { opens: '', closes: '' }, 
+            tuesday: { opens: '', closes: '' }, 
+            wednesday: { opens: '', closes: '' }, 
+            thursday: { opens: '', closes: '' }, 
+            friday: { opens: '', closes: '' }, 
+            saturday: { opens: '', closes: '' }, 
+            sunday: { opens: '', closes: '' }
+        }
     });
     const [logo, setLogo] = useState('');
     const [mondayChecked, setMondayChecked] = useState(false);
     const [tuesdayChecked, setTuesdayChecked] = useState(false);
     const [wednesdayChecked, setWednesdayChecked] = useState(false);
-    const [thrusdayChecked, setThrusdayChecked] = useState(false);
+    const [thursdayChecked, setThursdayChecked] = useState(false);
     const [fridayChecked, setFridayChecked] = useState(false);
     const [saturdayChecked, setSaturdayChecked] = useState(false);
     const [sundayChecked, setSundayChecked] = useState(false);
@@ -45,14 +54,22 @@ const StudioProfile = ({ studio: { studio }, fetchStudio }) => {
                 facebook: studio.social.facebook,
                 instagram: studio.social.instagram,
                 location: studio.location.address,
-                about: studio.about
+                about: studio.about,
+                businessHours: studio.businessHours
             });
             setLogo(studio.logo.publicId);
+            setMondayChecked(studio.businessHours.monday.isOpen);
+            setTuesdayChecked(studio.businessHours.tuesday.isOpen);
+            setWednesdayChecked(studio.businessHours.wednesday.isOpen);
+            setThursdayChecked(studio.businessHours.thursday.isOpen);
+            setFridayChecked(studio.businessHours.friday.isOpen);
+            setSaturdayChecked(studio.businessHours.saturday.isOpen);
+            setSundayChecked(studio.businessHours.sunday.isOpen);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [studio]);
 
-    const { name, email, website, phone, facebook, instagram, location, about } = formData;
+    const { name, email, website, phone, facebook, instagram, location, about, businessHours: { monday, tuesday, wednesday, thursday, friday, saturday, sunday }} = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -186,50 +203,47 @@ const StudioProfile = ({ studio: { studio }, fetchStudio }) => {
                     weekday="Monday"
                     checked={mondayChecked}
                     setChecked={setMondayChecked}
-                    open={{ name: 'mondayOpen', value: 'monday', onChange: onChange }}
-                    closes={{ name: 'mondayClose', value: 'mondayClose', onChange: onChange }}
+                    day={monday}
+                    onChangeOpen={e => setFormData({ ...formData, businessHours: { monday: { opens: e.target.value }}})}
+                    onChangeClose={e => setFormData({ ...formData, businessHours: { monday: { closes: e.target.value }}})}
                 />
                 <BusinessHour
                     weekday="Tuesday"
                     checked={tuesdayChecked}
                     setChecked={setTuesdayChecked}
-                    open={{ name: 'tuesdayOpen', value: 'tuesdayOpen', onChange: onChange }}
-                    closes={{ name: 'tuesdayClose', value: 'tuesdayClose', onChange: onChange }}
+                    day={tuesday}
                 />
                 <BusinessHour
                     weekday="Wednesday"
                     checked={wednesdayChecked}
                     setChecked={setWednesdayChecked}
-                    open={{ name: 'wednesdayOpen', value: 'wednesdayOpen', onChange: onChange }}
-                    closes={{ name: 'wednesdayClose', value: 'wednesdayClose', onChange: onChange }}
+                    day={wednesday}
+                    onChangeOpen={e => setFormData({ ...formData, businessHours: { wednesday: { opens: e.target.value }}})}
+                    onChangeClose={e => setFormData({ ...formData, businessHours: { wednesday: { closes: e.target.value }}})}
                 />
                 <BusinessHour
                     weekday="Thursday"
-                    checked={thrusdayChecked}
-                    setChecked={setThrusdayChecked}
-                    open={{ name: 'thrusdayOpen', value: 'thrusdayOpen', onChange: onChange }}
-                    closes={{ name: 'thrusdayClose', value: 'thrusdayClose', onChange: onChange }}
+                    checked={thursdayChecked}
+                    setChecked={setThursdayChecked}
+                    day={thursday}
                 />
                 <BusinessHour
                     weekday="Friday"
                     checked={fridayChecked}
                     setChecked={setFridayChecked}
-                    open={{ name: 'fridayOpen', value: 'fridayOpen', onChange: onChange }}
-                    closes={{ name: 'fridayClose', value: 'fridayClose', onChange: onChange }}
+                    day={friday}
                 />
                 <BusinessHour
                     weekday="Saturday"
                     checked={saturdayChecked}
                     setChecked={setSaturdayChecked}
-                    open={{ name: 'saturdayOpen', value: 'saturdayOpen', onChange: onChange }}
-                    closes={{ name: 'saturdayClose', value: 'saturdayClose', onChange: onChange }}
+                    day={saturday}
                 />
                 <BusinessHour
                     weekday="Sunday"
                     checked={sundayChecked}
                     setChecked={setSundayChecked}
-                    open={{ name: 'sundayOpen', value: 'sundayOpen', onChange: onChange }}
-                    closes={{ name: 'sundayClose', value: 'sundayClose', onChange: onChange }}
+                    day={sunday}
                 />
                 <hr className="mt-3"/>
 
