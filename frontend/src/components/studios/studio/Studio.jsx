@@ -43,7 +43,7 @@ const Studio = ({ studio: { studio }, artist: { artists }, fetchStudio, fetchArt
     const [openNow, setOpenNow] = useState(false);
 
     useEffect(() => {
-        if (!studio) {
+        if (!studio || studio._id !== id) {
             fetchStudio(id);
         } else {
             if (artists.length === 0) fetchArtists('cardInfo', { studioid: id });

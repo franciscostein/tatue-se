@@ -28,10 +28,9 @@ const Artist = ({ artist: { profile }, fetchArtistProfile, history }) => {
     });
 
     useEffect(() => {
-        if (id && !profile) {
+        if (!profile || profile._id !== id) {
             fetchArtistProfile(id);
-        }
-        if (profile) {
+        } else {
             setArtist({
                 fullName: profile.fullName,
                 biography: profile.biography,
