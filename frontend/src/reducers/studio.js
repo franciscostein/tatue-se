@@ -1,12 +1,15 @@
 /* eslint-disable import/no-anonymous-default-export */
 import {
     FETCH_STUDIOS,
-    FETCH_STUDIO
+    FETCH_STUDIO,
+    SAVE_STUDIO_SUCCESS,
+    SAVE_STUDIO_FAIL
 } from '../actions/types';
 
 const initialState = {
     studios: [],
-    studio: null
+    studio: null,
+    error: false
 }
 
 export default function(state = initialState, action) {
@@ -16,12 +19,20 @@ export default function(state = initialState, action) {
         case FETCH_STUDIOS:
             return {
                 ...state,
-                studios: payload
+                studios: payload,
+                error: false
             }
         case FETCH_STUDIO:
+        case SAVE_STUDIO_SUCCESS:
             return {
                 ...state,
-                studio: payload
+                studio: payload,
+                error: false
+            }
+        case SAVE_STUDIO_FAIL:
+            return {
+                ...state,
+                error: true
             }
         default:
             return state;

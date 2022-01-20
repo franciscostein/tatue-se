@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchStudio } from '../../../actions/studio';
+import { fetchStudio, saveStudio } from '../../../actions/studio';
 import ImageUploader from '../../fragments/ImageUploader';
 import Alert from '../../fragments/Alert';
 import BusinessHour from '../fragments/BusinessHour';
 
+// import Tabs from 'react-bootstrap/Tabs';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
@@ -13,7 +14,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { FaTrashAlt } from 'react-icons/fa';
 
-const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStudio }) => {
+const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStudio, saveStudio }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -21,7 +22,11 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
         phone: '',
         facebook: '',
         instagram: '',
-        location: {},
+        location: {
+            address: '',
+            latitude: '0',
+            longitude: '0'
+        },
         about: '',
         businessHours: {
             monday: { opens: '', closes: '', isOpen: false }, 
@@ -44,7 +49,7 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                 phone: studio.social.phone,
                 facebook: studio.social.facebook,
                 instagram: studio.social.instagram,
-                location: studio.location.address,
+                location: studio.location,
                 about: studio.about,
                 businessHours: studio.businessHours
             });
@@ -61,6 +66,7 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
 
     const handleSaveClick = () => {
         console.log(formData);
+        saveStudio(formData);
     }
 
     return (
@@ -168,9 +174,8 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                         <Form.Control 
                             type="text" 
                             placeholder="Where it is?"
-                            name="location"
-                            value={location}
-                            onChange={e => onChange(e)}
+                            value={location.address}
+                            onChange={e => setFormData({ ...formData, location: { ...location, address: e.target.value }})}
                         />
                     </Form.Group>
                 </Row>
@@ -261,4 +266,4 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-export default connect(mapStateToProps, { fetchStudio })(StudioProfile);
+export default connect(mapStateToProps, { fetchStudio, saveStudio })(StudioProfile);
