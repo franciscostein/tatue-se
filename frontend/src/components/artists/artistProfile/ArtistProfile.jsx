@@ -24,6 +24,11 @@ const ArtistProfile = ({
         profile, 
         loading 
     },
+    user: {
+        user: {
+            userId
+        }
+    },
     history, 
     location, 
     fetchArtistProfile,
@@ -52,9 +57,7 @@ const ArtistProfile = ({
     const [idToRemove, setIdToRemove] = useState('');
 
     useEffect(() => {
-        if (!profile) {
-            fetchArtistProfile();
-        } else {
+        if (profile && profile.user === userId) {
             setFormData({
                 fullName: loading || !profile.fullName ? '' : profile.fullName,
                 profilePicture: loading || !profile.profilePicture ? '' : profile.profilePicture.publicId,
@@ -70,9 +73,11 @@ const ArtistProfile = ({
                 minRate: loading || !profile.pricing.minRate ? '' : profile.pricing.minRate,
                 currency: loading || !profile.pricing.currency ? '' : profile.pricing.currency
             });
+        } else {
+            fetchArtistProfile();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [fetchArtistProfile, loading]);
+    }, [profile, loading]);
 
     const { fullName, profilePicture, biography, workplaces, selectedTattooStyles, facebook, instagram, website, phone, email, hourRate, minRate } = formData;
 
@@ -363,7 +368,8 @@ ArtistProfile.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    artist: state.artist
+    artist: state.artist,
+    user: state.user
 });
 
 export default connect(mapStateToProps, { fetchArtistProfile, saveProfile })(withRouter(ArtistProfile));

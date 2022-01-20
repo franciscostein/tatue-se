@@ -46,6 +46,7 @@ exports.getUserInfo = async userId => {
     if (!user) return;
 
     const userInfo = {
+        userId: user.id,
         email: user.email,
         profilePicture: user.profilePicture
     }

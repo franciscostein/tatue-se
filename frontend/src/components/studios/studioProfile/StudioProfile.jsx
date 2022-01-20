@@ -13,7 +13,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { FaTrashAlt } from 'react-icons/fa';
 
-const StudioProfile = ({ studio: { studio }, fetchStudio }) => {
+const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStudio }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -36,9 +36,7 @@ const StudioProfile = ({ studio: { studio }, fetchStudio }) => {
     const [logo, setLogo] = useState('');
 
     useEffect(() => {
-        if (!studio) {
-            fetchStudio();
-        } else {
+        if (studio && studio.owner === userId) {
             setFormData({
                 name: studio.name,
                 email: studio.social.email,
@@ -51,6 +49,8 @@ const StudioProfile = ({ studio: { studio }, fetchStudio }) => {
                 businessHours: studio.businessHours
             });
             setLogo(studio.logo.publicId);
+        } else {
+            fetchStudio();
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [studio]);
@@ -257,7 +257,8 @@ const StudioProfile = ({ studio: { studio }, fetchStudio }) => {
 }
 
 const mapStateToProps = state => ({
-    studio: state.studio
+    studio: state.studio,
+    user: state.user
 });
 
 export default connect(mapStateToProps, { fetchStudio })(StudioProfile);

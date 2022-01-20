@@ -35,7 +35,7 @@ exports.getAll = async search => {
 }
 
 exports.getOneByStudioId = async studioId => {
-	const studio = await Studio.findById(studioId).select('-owner');
+	const studio = await Studio.findById(studioId);
 
 	if (studio) {
 		return apiResponse(studio._doc);
@@ -45,7 +45,7 @@ exports.getOneByStudioId = async studioId => {
 }
 
 exports.getOwnByUserId = async userId => {
-	const studio = await Studio.findOne({ 'owner': userId }).select('-owner');
+	const studio = await Studio.findOne({ 'owner': userId });
 
 	if (studio) {
 		return apiResponse(studio);

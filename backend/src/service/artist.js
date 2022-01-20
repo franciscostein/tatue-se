@@ -48,7 +48,6 @@ exports.getAll = async (filter, studioId) => {
 
 exports.getOne = async artistId => {
 	const artist = await Artist.findById(artistId)
-								.select('-user')
 								.populate([ 'workplaces', 'tattooStyles' ]).exec();
 
 	if (artist) {
@@ -60,7 +59,6 @@ exports.getOne = async artistId => {
 
 exports.getOwnProfile = async userId => {
 	const artist = await Artist.findOne({ user: userId })
-												.select('-user')
 												.populate('workplaces', [ 'logo', 'name', 'location' ])
 												.exec();
 

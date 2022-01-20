@@ -15,7 +15,6 @@ const ArtistCard = ({ artist: { coverImage = { publicId: null }, profilePicture 
                 <Image src={profilePicture.publicId ?? avatarPlaceholder} className="studio-avatar-img" roundedCircle />
                 <Col>
                     <Row className="font-60 ps-3">{fullName}</Row>
-                    {/* <Row className="font-45 ps-3">{workplaces.length > 0 ? workplaces[0].name : null}</Row> */}
                 </Col>
             </div>
             {
