@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import PlacesAutoComplete from 'react-google-autocomplete';
 
 import { fetchStudio, saveStudio } from '../../../actions/studio';
 import ImageUploader from '../../fragments/ImageUploader';
@@ -171,12 +172,20 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                 <Row className="mb-3">
                     <Form.Group controlId="formStudioLocation">
                         <Form.Label className="font-75">Location</Form.Label>
-                        <Form.Control 
+                        <PlacesAutoComplete
+                            apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
+                            style={{ width: '100%', height: '40px', borderRadius: '0.25rem', border: '1px solid #ced4da', fontSize: '1rem', padding: '.375rem .75rem' }}
+                            options={{ types: [ '(establishment)' ] }}
+                            placeholder="Where it is?"
+                            onPlaceSelected={e => console.log(e)}
+                        />
+
+                        {/* <Form.Control 
                             type="text" 
                             placeholder="Where it is?"
                             value={location.address}
                             onChange={e => setFormData({ ...formData, location: { ...location, address: e.target.value }})}
-                        />
+                        /> */}
                     </Form.Group>
                 </Row>
                 <Row className="mb-3">

@@ -7,23 +7,17 @@ import avatarPlaceholder from '../../assets/user_w.png';
 const ImageUploader = ({ image, setImageBase64 }) => {
     const [fileInputState, setFileInputState] = useState('');
     const [previewSource, setPreviewSource] = useState(null);
-    // const [selectedFile, setSelectedFile] = useState();
     const inputFile = useRef(null);
 
     useEffect(() => {
-        if (image) {
-            setPreviewSource(image);
-        }
+        if (image) setPreviewSource(image);
     }, [image]);
 
     const handleFileInputChange = event => {
         const { files } = event.target;
 
         if (files && files.length) {
-            const file = files[0];
-
-            previewFile(file);
-            // setSelectedFile(file);
+            previewFile(files[0]);
             setFileInputState(event.target.value);
         }
     }
@@ -37,29 +31,12 @@ const ImageUploader = ({ image, setImageBase64 }) => {
         }
     }
 
-    // const handleSubmitFile = event => {
-    //     event.preventDefault();
-
-    //     if (!selectedFile) return;
-
-    //     const reader = new FileReader();
-    //     reader.readAsDataURL(selectedFile);
-    //     reader.onloadend = () => {
-    //         const result = reader.result;
-    //         uploadImage(result);
-    //     }
-    //     reader.onerror = () => {
-    //         console.error('something went very wrong indeed!');
-    //     }
-    // }
-
-    const onImageClick = () => {
-        inputFile.current.click();
-    }
+    const onImageClick = () => inputFile.current.click();
 
     return (
         <Fragment>
-            <input 
+            <input
+                id="image-uploader-input"
                 type="file" 
                 accept="image/*"
                 ref={inputFile} 
@@ -72,9 +49,6 @@ const ImageUploader = ({ image, setImageBase64 }) => {
                 roundedCircle
                 onClick={onImageClick}
             />
-            {/* <button className="btn text-white" type="button" onClick={handleSubmitFile}>
-                upload!
-            </button> */}
         </Fragment>
     );
 }

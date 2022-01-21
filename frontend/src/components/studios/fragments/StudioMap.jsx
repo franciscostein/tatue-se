@@ -1,12 +1,12 @@
 import React from 'react';
 import { GoogleMap, Marker, withScriptjs, withGoogleMap } from 'react-google-maps';
 
-const StudioMap = ({ location: { latitude, longitude, address }}) => {
+const StudioMap = ({ location: { latitude, longitude }}) => {
 
     const Map = () => {
         return (
             <GoogleMap 
-                defaultZoom={11}
+                defaultZoom={13}
                 defaultCenter={{ lat: parseFloat(latitude), lng: parseFloat(longitude) }}
             >
                 <Marker 
