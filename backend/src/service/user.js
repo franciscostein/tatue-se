@@ -1,7 +1,5 @@
 const { cloudinary } = require('../utils/cloudinary');
 const User = require('../models/User');
-const Artist = require('../models/Artist');
-const Studio = require('../models/Studio');
 const { hashPassword, generateToken } = require('../utils/auth');
 const { apiResponsePayloadName, apiResponse } = require('../utils/messages');
 

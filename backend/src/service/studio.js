@@ -1,3 +1,4 @@
+const { cloudinary } = require('../utils/cloudinary');
 const { apiResponse } = require('../utils/messages');
 const Studio = require('../models/Studio');
 
@@ -14,6 +15,22 @@ exports.save = async (userId, { name, location, logo, coverImage, about, social,
 		const inserted = await create(studioFields);
 		return apiResponse(inserted._doc, 201);
 	}
+}
+
+exports.saveLogo = async (userId, base64Image) => {
+	const studio = await Studio.findOne({ 'owner': userId });
+
+	if (!studio) return apiResponse({ msg: 'Studio not found'}, 404);
+
+	const { secure_url } = await cloudinary.uploader.upload(base64Image, {
+		upload_preset: 'ml_default',
+		folder: `${userId}/studio`,
+		public_id: 'logo'
+	});
+	studio.logo.publicId = secure_url;
+	await studio.save();
+
+	return apiResponse({ studioLogo: studio.logo });
 }
 
 exports.getAll = async search => {
