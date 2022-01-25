@@ -186,11 +186,12 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                     <Form.Group controlId="formStudioLocation">
                         <Form.Label className="font-75">Address</Form.Label>
                         <PlacesAutoComplete
+                            className="places-autocomplete"
+                            placeholder="Where it is?"
                             apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
-                            style={{ width: '100%', height: '40px', borderRadius: '0.25rem', border: '1px solid #ced4da', fontSize: '1rem', padding: '.375rem .75rem' }}
                             options={{ types: [ 'address' ] }}
                             value={location.address}
-                            placeholder="Where it is?"
+                            onChange={e => setFormData({ ...formData, location: { ...location, address: e.target.value }})}
                             onPlaceSelected={handlePlaceSelect}
                         />
                     </Form.Group>
