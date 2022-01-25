@@ -7,13 +7,12 @@ import ImageUploader from '../../fragments/ImageUploader';
 import Alert from '../../fragments/Alert';
 import BusinessHour from '../fragments/BusinessHour';
 
-// import Tabs from 'react-bootstrap/Tabs';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import { FaTrashAlt } from 'react-icons/fa';
+import { FaTrashAlt, FaPlus } from 'react-icons/fa';
 
 const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStudio, saveStudio }) => {
     const [formData, setFormData] = useState({
@@ -70,9 +69,12 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
         // saveStudio(formData);
     }
 
+    const handleSaveLogo = () => {
+
+    }
+
     const handlePlaceSelect = place => {
         const { formatted_address, geometry: { location: { lat, lng }}} = place;
-        console.log(place);
         setFormData({ 
             ...formData, 
             location: { 
@@ -100,10 +102,15 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                     </div>
                 </div>
                 <Alert />
-                <ImageUploader
-                    image={logo}
-                    setImageBase64={img => setLogo(img)}
-                />
+                <div>
+                    <ImageUploader
+                        image={logo}
+                        setImageBase64={img => setLogo(img)}
+                    />
+                    <div>
+                        <Button variant="dark" className="mb-3" onClick={handleSaveLogo}>Save logo</Button>
+                    </div>
+                </div>
                 <Row className="mb-3">
                     <Col>
                         <Form.Group controlId="formStudioName">
@@ -261,6 +268,18 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                     onChangeClose={e => setFormData({ ...formData, businessHours: { ...businessHours, sunday: { ...businessHours.sunday, closes: e.target.value }}})}
                 />
                 <hr className="mt-3"/>
+
+                <div className="d-flex justify-content-between align-items-center mt-5 pb-4">
+                    <div>
+                        <h3>Photos</h3>
+                    </div>
+                    <div>
+                        <Button variant="dark" onClick={e => console.log(e)}>
+                            <FaPlus size={23} />
+                        </Button>
+                    </div>
+                </div>
+                <hr />
 
                 <h3 className="d-flex">Delete account</h3>
                 <p className="font-55">

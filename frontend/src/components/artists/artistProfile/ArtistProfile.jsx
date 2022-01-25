@@ -93,7 +93,6 @@ const ArtistProfile = ({
 
         if (!workplaces.some(item => item._id === workplace._id)) {
             workplaces.push(workplace);
-
             setFormData({
                 ...formData,
                 workplaces
