@@ -67,7 +67,20 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
 
     const handleSaveClick = () => {
         console.log(formData);
-        saveStudio(formData);
+        // saveStudio(formData);
+    }
+
+    const handlePlaceSelect = place => {
+        const { formatted_address, geometry: { location: { lat, lng }}} = place;
+        console.log(place);
+        setFormData({ 
+            ...formData, 
+            location: { 
+                address: formatted_address,
+                latitude: lat(),
+                longitude: lng()
+            }
+        });
     }
 
     return (
@@ -171,21 +184,15 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                 </Row>
                 <Row className="mb-3">
                     <Form.Group controlId="formStudioLocation">
-                        <Form.Label className="font-75">Location</Form.Label>
+                        <Form.Label className="font-75">Address</Form.Label>
                         <PlacesAutoComplete
                             apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
                             style={{ width: '100%', height: '40px', borderRadius: '0.25rem', border: '1px solid #ced4da', fontSize: '1rem', padding: '.375rem .75rem' }}
-                            options={{ types: [ '(establishment)' ] }}
-                            placeholder="Where it is?"
-                            onPlaceSelected={e => console.log(e)}
-                        />
-
-                        {/* <Form.Control 
-                            type="text" 
-                            placeholder="Where it is?"
+                            options={{ types: [ 'address' ] }}
                             value={location.address}
-                            onChange={e => setFormData({ ...formData, location: { ...location, address: e.target.value }})}
-                        /> */}
+                            placeholder="Where it is?"
+                            onPlaceSelected={handlePlaceSelect}
+                        />
                     </Form.Group>
                 </Row>
                 <Row className="mb-3">
