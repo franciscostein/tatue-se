@@ -19,11 +19,6 @@ exports.tattooStylesValidation = [
 	(req, res, next) => errorHandler(req, res, next)
 ]
 
-exports.clientValidation = [
-	check('fullName', 'fullName is required').exists(),
-	(req, res, next) => errorHandler(req, res, next)
-]
-
 exports.studioValidation = [
 	check('name', 'name is required').exists(),
 	check('location', 'location is required').exists(),
