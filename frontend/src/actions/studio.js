@@ -4,7 +4,9 @@ import {
     FETCH_STUDIOS,
     FETCH_STUDIO,
     SAVE_STUDIO_SUCCESS,
-    SAVE_STUDIO_FAIL
+    SAVE_STUDIO_FAIL,
+    SAVE_LOGO_SUCCESS,
+    SAVE_LOGO_FAIL
 } from './types';
 
 import { setAlertTimeout } from './alert';
@@ -39,7 +41,6 @@ export const fetchStudio = studioId => async dispatch => {
 
 export const saveStudio = studio => async dispatch => {
     try {
-        console.log('here');
         const { data } = await axios.post('/api/studios', studio);
 
         dispatch({
@@ -52,5 +53,22 @@ export const saveStudio = studio => async dispatch => {
             type: SAVE_STUDIO_FAIL
         });
         dispatch(setAlertTimeout('There was an error, please try again.', 'danger'));
+    }
+}
+
+export const saveStudioLogo = base64 => async dispatch => {
+    try {
+        const { data } = await axios.post('/api/studios/logo', { base64 });
+
+        dispatch({
+            type: SAVE_LOGO_SUCCESS,
+            payload: data.studioLogo
+        });
+        dispatch(setAlertTimeout('Logo saved!'));
+    } catch (error) {
+        dispatch({
+            type: SAVE_LOGO_FAIL
+        });
+        dispatch(setAlertTimeout(`Couldn't save logo, please try again.`, 'danger'))
     }
 }

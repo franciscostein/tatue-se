@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PlacesAutoComplete from 'react-google-autocomplete';
 
-import { fetchStudio, saveStudio } from '../../../actions/studio';
+import { fetchStudio, saveStudio, saveStudioLogo } from '../../../actions/studio';
 import ImageUploader from '../../fragments/ImageUploader';
 import Alert from '../../fragments/Alert';
 import BusinessHour from '../fragments/BusinessHour';
@@ -14,7 +14,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { FaTrashAlt, FaPlus } from 'react-icons/fa';
 
-const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStudio, saveStudio }) => {
+const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStudio, saveStudio, saveStudioLogo }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -69,10 +69,6 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
         // saveStudio(formData);
     }
 
-    const handleSaveLogo = () => {
-
-    }
-
     const handlePlaceSelect = place => {
         const { formatted_address, geometry: { location: { lat, lng }}} = place;
         setFormData({ 
@@ -108,7 +104,7 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                         setImageBase64={img => setLogo(img)}
                     />
                     <div>
-                        <Button variant="dark" className="mb-3" onClick={handleSaveLogo}>Save logo</Button>
+                        <Button variant="dark" className="mb-3" onClick={() => saveStudioLogo(logo)}>Save logo</Button>
                     </div>
                 </div>
                 <Row className="mb-3">
@@ -302,4 +298,4 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-export default connect(mapStateToProps, { fetchStudio, saveStudio })(StudioProfile);
+export default connect(mapStateToProps, { fetchStudio, saveStudio, saveStudioLogo })(StudioProfile);

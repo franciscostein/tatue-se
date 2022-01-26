@@ -3,7 +3,9 @@ import {
     FETCH_STUDIOS,
     FETCH_STUDIO,
     SAVE_STUDIO_SUCCESS,
-    SAVE_STUDIO_FAIL
+    SAVE_STUDIO_FAIL,
+    SAVE_LOGO_SUCCESS,
+    SAVE_LOGO_FAIL
 } from '../actions/types';
 
 const initialState = {
@@ -29,7 +31,16 @@ export default function(state = initialState, action) {
                 studio: payload,
                 error: false
             }
+        case SAVE_LOGO_SUCCESS:
+            return {
+                ...state,
+                studio: {
+                    logo: payload
+                },
+                error: false
+            }
         case SAVE_STUDIO_FAIL:
+        case SAVE_LOGO_FAIL:
             return {
                 ...state,
                 error: true
