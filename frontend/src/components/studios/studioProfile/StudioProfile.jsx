@@ -6,6 +6,7 @@ import { fetchStudio, saveStudio, saveStudioLogo } from '../../../actions/studio
 import ImageUploader from '../../fragments/ImageUploader';
 import Alert from '../../fragments/Alert';
 import BusinessHour from '../fragments/BusinessHour';
+import ImagesModal from './ImagesModal';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -39,6 +40,9 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
         }
     });
     const [logo, setLogo] = useState('');
+    const [showImagesModal, setShowImagesModal] = useState(false);
+    const [coverImage, setCoverImage] = useState('');
+    const [photos, setPhotos] = useState([]);
 
     useEffect(() => {
         if (studio && studio.owner === userId) {
@@ -54,6 +58,8 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                 businessHours: studio.businessHours
             });
             setLogo(studio.logo.publicId);
+            setCoverImage(studio.coverImage.publicId);
+            setPhotos(studio.photos);
         } else {
             fetchStudio();
         }
@@ -270,11 +276,17 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                         <h3>Photos</h3>
                     </div>
                     <div>
-                        <Button variant="dark" onClick={e => console.log(e)}>
+                        <Button variant="dark" onClick={() => setShowImagesModal(true)}>
                             <FaPlus size={23} />
                         </Button>
                     </div>
                 </div>
+                <ImagesModal
+                    show={showImagesModal}
+                    closeFunction={() => setShowImagesModal(false)}
+                    cover={coverImage}
+                    photos={photos}
+                />
                 <hr />
 
                 <h3 className="d-flex">Delete account</h3>
