@@ -59,3 +59,8 @@
     border-radius: 1.3rem;
     object-fit: cover;
 }
+
+.studio-img-modal {
+    width: 15em;
+    height: 14em;
+}
