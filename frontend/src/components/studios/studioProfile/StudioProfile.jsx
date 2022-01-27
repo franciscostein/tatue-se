@@ -1,3 +1,4 @@
+import './StudioProfile.css';
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PlacesAutoComplete from 'react-google-autocomplete';
@@ -85,6 +86,11 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                 longitude: lng()
             }
         });
+    }
+
+    const handleRemovePhoto = photoId => {
+        const filteredPhotos = photos.filter(photo => photo._id !== photoId);
+        setPhotos(filteredPhotos);
     }
 
     return (
@@ -283,9 +289,11 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                 </div>
                 <ImagesModal
                     show={showImagesModal}
-                    closeFunction={() => setShowImagesModal(false)}
                     cover={coverImage}
                     photos={photos}
+                    closeFunction={() => setShowImagesModal(false)}
+                    removeCover={() => setCoverImage(null)}
+                    removePhoto={photoId => handleRemovePhoto(photoId)}
                 />
                 <hr />
 

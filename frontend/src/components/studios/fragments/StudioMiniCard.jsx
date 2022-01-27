@@ -18,9 +18,7 @@ const StudioMiniCard = ({ studio: { logo = { publicId: null }, name, location },
                     </div>
                 </Col>
             </div>
-            <div className="remover">
-                <FaTimes onClick={removeFunction} />
-            </div>
+            <FaTimes className="remove" onClick={removeFunction} />
         </div>
     );
 }
