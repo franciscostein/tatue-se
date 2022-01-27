@@ -5,7 +5,7 @@ import Image from 'react-bootstrap/Image';
 import avatarPlaceholder from '../../assets/user_w.png';
 
 const ImageUploader = ({ image, setImageBase64 }) => {
-    const [fileInputState, setFileInputState] = useState('');
+    const [fileInput, setFileInput] = useState('');
     const [previewSource, setPreviewSource] = useState(null);
     const inputFile = useRef(null);
 
@@ -18,7 +18,7 @@ const ImageUploader = ({ image, setImageBase64 }) => {
 
         if (files && files.length) {
             previewFile(files[0]);
-            setFileInputState(event.target.value);
+            setFileInput(event.target.value);
         }
     }
 
@@ -40,7 +40,7 @@ const ImageUploader = ({ image, setImageBase64 }) => {
                 type="file" 
                 accept="image/*"
                 ref={inputFile} 
-                value={fileInputState}
+                value={fileInput}
                 onChange={handleFileInputChange} 
             />
             <Image 

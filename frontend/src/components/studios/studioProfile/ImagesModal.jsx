@@ -1,5 +1,5 @@
 import './ImagesModal.css';
-import { Fragment } from 'react';
+import { useState, useRef, useEffect, Fragment } from 'react';
 
 import Modal from 'react-bootstrap/Modal';
 import Image from 'react-bootstrap/Image';
@@ -7,11 +7,36 @@ import Button from 'react-bootstrap/Button';
 import { FaTimes } from 'react-icons/fa';
 
 import add_dark from '../../../assets/add_dark.png';
-import add_light from '../../../assets/add_light.png';
 import add1_dark from '../../../assets/add1_dark.png';
-import add1_light from '../../../assets/add1_light.png';
 
 const ImagesModal = ({ show, cover, photos, closeFunction, removeCover, removePhoto }) => {
+    const [fileInput, setFileInput] = useState('');
+    const [previewSource, setPreviewSource] = useState(null);
+    const inputFile = useRef(null);
+
+    useEffect(() => {
+        if (cover) setPreviewSource(cover);
+    }, [cover]);
+
+    const onImageClick = () => inputFile.current.click();
+
+    const handleFileInputChange = event => {
+        const { files } = event.target;
+
+        if (files && files.length) {
+            previewFile(files[0]);
+            setFileInput(event.target.value);
+        }
+    }
+
+    const previewFile = file => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setPreviewSource(reader.result);
+        }
+    }
+
     return (
         <Modal fullscreen show={show} onHide={closeFunction}>
             <Modal.Header closeButton>
@@ -19,8 +44,18 @@ const ImagesModal = ({ show, cover, photos, closeFunction, removeCover, removePh
             </Modal.Header>
             <Modal.Body>
                 <div className="m-2">
-                    <Image src={add_dark || cover} className="add-photos_cover clickable" />
-                    <FaTimes size={30} className="remove-cover" onClick={removeCover} />
+                    <input
+                        id="image-uploader-input"
+                        type="file"
+                        accept="image/*"
+                        ref={inputFile}
+                        value={fileInput}
+                        onChange={handleFileInputChange}
+                    />
+                    <Image src={previewSource || add_dark} className="add-photos_cover clickable" onClick={onImageClick} />
+                    {
+                        !cover || <FaTimes size={30} className="remove-cover" onClick={removeCover} />
+                    }
                 </div>
                 <hr />
                 <div className="d-flex flex-wrap justify-content-center my-3 mx-4">
@@ -28,8 +63,16 @@ const ImagesModal = ({ show, cover, photos, closeFunction, removeCover, removePh
                         photos && photos.map(photo => {
                             return (
                                 <Fragment>
-                                    <Image key={photo._id} src={photo.publicId} className="m-2 studio-img studio-img-modal clickable" />
-                                    <FaTimes size={30} className="remove-photos" onClick={() => removePhoto(photo._id)} />
+                                    <Image
+                                        key={photo._id}
+                                        src={photo.publicId}
+                                        className="m-2 studio-img studio-img-modal clickable"
+                                    />
+                                    <FaTimes 
+                                        size={30}
+                                        className="remove-photos"
+                                        onClick={() => removePhoto(photo._id)}
+                                    />
                                 </Fragment>
                             )
                         })
