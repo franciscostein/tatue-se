@@ -1,5 +1,7 @@
 import './ImagesModal.css';
-import { useState, useRef, useEffect, Fragment } from 'react';
+import { useState, useRef, useEffect } from 'react';
+
+import ImageModal from './ImageModal';
 
 import Modal from 'react-bootstrap/Modal';
 import Image from 'react-bootstrap/Image';
@@ -60,22 +62,7 @@ const ImagesModal = ({ show, cover, photos, closeFunction, removeCover, removePh
                 <hr />
                 <div className="d-flex flex-wrap justify-content-center my-3 mx-4">
                     {
-                        photos && photos.map(photo => {
-                            return (
-                                <Fragment>
-                                    <Image
-                                        key={photo._id}
-                                        src={photo.publicId}
-                                        className="m-2 studio-img studio-img-modal clickable"
-                                    />
-                                    <FaTimes 
-                                        size={30}
-                                        className="remove-photos"
-                                        onClick={() => removePhoto(photo._id)}
-                                    />
-                                </Fragment>
-                            )
-                        })
+                        photos && photos.map(photo => <ImageModal key={photo._id} photo={photo} removePhoto={removePhoto} />)
                     }
                     {
                         photos.length < 7 && <Image src={add1_dark} className="m-2 studio-img studio-img-modal clickable" />
