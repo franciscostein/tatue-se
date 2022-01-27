@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const { arrayLimit } = require('../utils/validation');
+const { arrayLimit7 } = require('../utils/validation');
 
 const studioSchema = new Schema({
 	owner: {
@@ -85,7 +85,7 @@ const studioSchema = new Schema({
 		type: [{ 
 			publicId: String,
 		}],
-		validate: [arrayLimit, '{Path} exceeds the limit of 10']
+		validate: [arrayLimit7, '{Path} exceeds the limit of 7']
 	}
 }, {
 	timestamps: true

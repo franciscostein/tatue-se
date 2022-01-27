@@ -11,6 +11,7 @@ exports.userValidation = [
 exports.artistValidation = [
 	check('fullName', 'fullName is required').exists(),
 	check('workplaces', 'workplaces are required').exists(),
+	check('portfolio', `portfolio can't be bigger than 30`).isArray({ max: 30 }),
 	(req, res, next) => errorHandler(req, res, next)
 ]
 
@@ -25,6 +26,7 @@ exports.studioValidation = [
 	check('location.address', 'address is required').exists(),
 	check('location.latitude', 'latitude is required').exists(),
 	check('location.longitude', 'longitude is required').exists(),
+	check('photos', `photos can't have more than 7`).isArray({ max: 7 }),
 	(req, res, next) => errorHandler(req, res, next)
 ]
 

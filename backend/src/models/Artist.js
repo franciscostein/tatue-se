@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const { arrayLimit } = require('../utils/validation');
+const { arrayLimit30 } = require('../utils/validation');
 
 const artistSchema = new Schema({
 	user: {
@@ -36,7 +36,7 @@ const artistSchema = new Schema({
 		type: [{
 			publicId: String
 		}],
-		validate: [arrayLimit, '{Path} exceeds the limit of 50']
+		validate: [arrayLimit30, '{Path} exceeds the limit of 30']
 	},
 	social: {
 		facebook: {
