@@ -42,7 +42,7 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
     });
     const [logo, setLogo] = useState('');
     const [showImagesModal, setShowImagesModal] = useState(false);
-    const [coverImage, setCoverImage] = useState('');
+    const [cover, setCover] = useState('');
     const [photos, setPhotos] = useState([]);
 
     useEffect(() => {
@@ -59,7 +59,7 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                 businessHours: studio.businessHours
             });
             setLogo(studio.logo.publicId);
-            setCoverImage(studio.coverImage.publicId);
+            setCover(studio.cover.publicId);
             setPhotos(studio.photos);
         } else {
             fetchStudio();
@@ -293,10 +293,10 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                 </div>
                 <ImagesModal
                     show={showImagesModal}
-                    cover={coverImage}
+                    cover={cover}
                     photos={photos}
                     onClose={() => setShowImagesModal(false)}
-                    onRemoveCover={() => setCoverImage(null)}
+                    onRemoveCover={() => setCover(null)}
                     onRemovePhoto={photoId => handleRemovePhoto(photoId)}
                     onSave={handlePhotosSave}
                 />

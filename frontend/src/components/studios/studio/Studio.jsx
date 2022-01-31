@@ -17,13 +17,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { FaCircle, FaMapMarkerAlt } from 'react-icons/fa';
 
-import cover from '../../../assets/studio/cover/1.jpeg';
 import profileImg from '../../../assets/user_w.png';
 
 const Studio = ({ studio: { studio }, artist: { artists }, fetchStudio, fetchArtists, history }) => {
     const { id } = useParams();
     const [studioInfo, setStudioInfo] = useState({
-        coverImage: '',
+        cover: '',
         logoImage: '',
         name: '',
         location: {},
@@ -49,7 +48,7 @@ const Studio = ({ studio: { studio }, artist: { artists }, fetchStudio, fetchArt
             if (artists.length === 0) fetchArtists('cardInfo', { studioid: id });
 
             setStudioInfo({
-                coverImage: studio.coverImage.publicId,
+                cover: studio.cover.publicId,
                 logoImage: studio.logo.publicId,
                 name: studio.name,
                 location: studio.location,
@@ -63,12 +62,12 @@ const Studio = ({ studio: { studio }, artist: { artists }, fetchStudio, fetchArt
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, studio]);
 
-    const { coverImage, logoImage, name, location, about, businessHours, photos, social } = studioInfo;
+    const { cover, logoImage, name, location, about, businessHours, photos, social } = studioInfo;
 
     return (
         <div>
             <div id="cover">
-                <Image src={coverImage ?? cover} className="cover-img" />
+                <Image src={cover ?? cover} className="cover-img" />
             </div>
             <div id="header" className="d-flex justify-content-between align-items-center">
                 <div className="d-flex">
