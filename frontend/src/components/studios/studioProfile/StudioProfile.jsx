@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PlacesAutoComplete from 'react-google-autocomplete';
 
-import { fetchStudio, saveStudio, saveStudioLogo, saveStudioCover } from '../../../actions/studio';
+import { fetchStudio, saveStudio, saveStudioImage } from '../../../actions/studio';
 import ImageUploader from '../../fragments/ImageUploader';
 import Alert from '../../fragments/Alert';
 import BusinessHour from '../fragments/BusinessHour';
@@ -16,7 +16,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { FaTrashAlt, FaPlus } from 'react-icons/fa';
 
-const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStudio, saveStudio, saveStudioLogo, saveStudioCover }) => {
+const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStudio, saveStudio, saveStudioImage }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -93,8 +93,8 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
         setPhotos(filteredPhotos);
     }
 
-    const handlePhotosSave = cover => {
-        saveStudioCover(cover);
+    const handlePhotosSave = () => {
+        saveStudioImage(cover, 'cover');
     }
 
     return (
@@ -120,7 +120,7 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                         setImageBase64={img => setLogo(img)}
                     />
                     <div>
-                        <Button variant="dark" className="mb-3" onClick={() => saveStudioLogo(logo)}>Save logo</Button>
+                        <Button variant="dark" className="mb-3" onClick={() => saveStudioImage(logo, 'logo')}>Save logo</Button>
                     </div>
                 </div>
                 <Row className="mb-3">
@@ -298,6 +298,7 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                     onClose={() => setShowImagesModal(false)}
                     onRemoveCover={() => setCover(null)}
                     onRemovePhoto={photoId => handleRemovePhoto(photoId)}
+                    onChangeCover={cover => setCover(cover)}
                     onSave={handlePhotosSave}
                 />
                 <hr />
@@ -323,4 +324,4 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-export default connect(mapStateToProps, { fetchStudio, saveStudio, saveStudioLogo, saveStudioCover })(StudioProfile);
+export default connect(mapStateToProps, { fetchStudio, saveStudio, saveStudioImage })(StudioProfile);

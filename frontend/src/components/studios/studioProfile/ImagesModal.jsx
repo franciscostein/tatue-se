@@ -12,7 +12,7 @@ import { FaTimes } from 'react-icons/fa';
 import add_dark from '../../../assets/add_dark.png';
 import add1_dark from '../../../assets/add1_dark.png';
 
-const ImagesModal = ({ show, cover, photos, onClose, onRemoveCover, onRemovePhoto, onSave }) => {
+const ImagesModal = ({ show, cover, photos, onClose, onRemoveCover, onRemovePhoto, onChangeCover, onSave }) => {
     const [fileInput, setFileInput] = useState('');
     const [previewSource, setPreviewSource] = useState(null);
     const inputFile = useRef(null);
@@ -37,6 +37,7 @@ const ImagesModal = ({ show, cover, photos, onClose, onRemoveCover, onRemovePhot
         reader.readAsDataURL(file);
         reader.onloadend = () => {
             setPreviewSource(reader.result);
+            onChangeCover(reader.result);
         }
     }
 
