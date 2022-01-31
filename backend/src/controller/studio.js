@@ -1,4 +1,4 @@
-const { save, saveLogo, getAll, getOneByStudioId, getOwnByUserId, deleteById } = require('../service/studio');
+const { save, saveImage, getAll, getOneByStudioId, getOwnByUserId, deleteById } = require('../service/studio');
 
 exports.save = async (req, res, next) => {
     try {
@@ -10,10 +10,10 @@ exports.save = async (req, res, next) => {
     }
 }
 
-exports.saveLogo = async (req, res, next) => {
+exports.saveImage = async (req, res, next) => {
     try {
-        const { base64 } = req.body;
-        const { status, payload } = await saveLogo(req.user.id, base64);
+        const { base64, type } = req.body;
+        const { status, payload } = await saveImage(req.user.id, base64, type);
 
         res.status(status).json(payload);
     } catch (error) {

@@ -1,7 +1,7 @@
 const express = require('express');
 const auth = require('../middleware/auth/auth');
 const { studioValidation } = require('../middleware/validation/validation');
-const { save, saveLogo, getAll, getOne, getOwn, deleteOne } = require('../controller/studio');
+const { save, saveImage, getAll, getOne, getOwn, deleteOne } = require('../controller/studio');
 
 const router = express.Router();
 
@@ -10,10 +10,10 @@ const router = express.Router();
 // @access  private
 router.post('/', [auth, studioValidation], save);
 
-// @route   POST api/studios/logo
-// @desc    save studio logo for authenticated user
+// @route   POST api/studios/image
+// @desc    save studio image for authenticated user
 // @access  private
-router.post('/logo', auth, saveLogo);
+router.post('/image', auth, saveImage);
 
 // @route   GET api/studios
 // @desc    get all studios

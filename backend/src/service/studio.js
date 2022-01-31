@@ -2,10 +2,10 @@ const { cloudinary } = require('../utils/cloudinary');
 const { apiResponse } = require('../utils/messages');
 const Studio = require('../models/Studio');
 
-exports.save = async (userId, { name, location, logo, coverImage, about, social, businessHours, photos }) => {
+exports.save = async (userId, { name, location, logo, cover, about, social, businessHours, photos }) => {
 	const studio = await Studio.findOne({ owner: userId });
 
-	const studioFields = buildObject(name, location, logo, coverImage, about, social, businessHours, photos);
+	const studioFields = buildObject(name, location, logo, cover, about, social, businessHours, photos);
 	studioFields.owner = userId;
 
 	if (studio) {
@@ -17,7 +17,7 @@ exports.save = async (userId, { name, location, logo, coverImage, about, social,
 	}
 }
 
-exports.saveLogo = async (userId, base64Image) => {
+exports.saveImage = async (userId, base64Image, type) => {
 	const studio = await Studio.findOne({ 'owner': userId });
 
 	if (!studio) return apiResponse({ msg: 'Studio not found'}, 404);
@@ -25,12 +25,17 @@ exports.saveLogo = async (userId, base64Image) => {
 	const { secure_url } = await cloudinary.uploader.upload(base64Image, {
 		upload_preset: 'ml_default',
 		folder: `${userId}/studio`,
-		public_id: 'logo'
+		public_id: type
 	});
-	studio.logo.publicId = secure_url;
+
+	if (type === 'logo') {
+		studio.logo.publicId = secure_url;
+	} else if (type === 'cover') {
+		studio.cover.publicId = secure_url;
+	}
 	await studio.save();
 
-	return apiResponse({ studioLogo: studio.logo });
+	return apiResponse({ [type]: studio[type] });
 }
 
 exports.getAll = async search => {
@@ -81,7 +86,7 @@ exports.deleteById = async userId => {
 	}
 }
 
-const buildObject = (name, location, logo, coverImage, about, social, businessHours, photos) => {
+const buildObject = (name, location, logo, cover, about, social, businessHours, photos) => {
 	const studioFields = {};
 	if (name) studioFields.name = name;
 	if (location) {
@@ -91,7 +96,7 @@ const buildObject = (name, location, logo, coverImage, about, social, businessHo
 		if (location.longitude) studioFields.location.longitude = location.longitude;
 	}
 	if (logo) studioFields.logo = logo;
-	if (coverImage) studioFields.coverImage = coverImage;
+	if (cover) studioFields.cover = cover;
 	if (about) studioFields.about = about;
 	if (social) {
 		studioFields.social = {};

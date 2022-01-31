@@ -16,7 +16,7 @@ const artistSchema = new Schema({
 	profilePicture: {
 		publicId: String
 	},
-	coverImage: {
+	cover: {
 		publicId: String
 	},
 	biography: {

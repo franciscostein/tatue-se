@@ -3,10 +3,10 @@ const { cloudinary } = require('../utils/cloudinary');
 const { apiResponse } = require('../utils/messages');
 const Artist = require('../models/Artist');
 
-exports.save = async (userId, { fullName, profilePicture, coverImage, biography, workplaces, tattooStyles, portfolio, social, pricing }) => {
+exports.save = async (userId, { fullName, profilePicture, cover, biography, workplaces, tattooStyles, portfolio, social, pricing }) => {
 	const artist = await Artist.findOne({ user: userId });
 
-	const artistFields = buildObject(fullName, profilePicture, coverImage, biography, workplaces, tattooStyles, portfolio, social, pricing);
+	const artistFields = buildObject(fullName, profilePicture, cover, biography, workplaces, tattooStyles, portfolio, social, pricing);
 	artistFields.user = userId;
 
 	if (artist) {
@@ -30,7 +30,7 @@ exports.getAll = async (filter, studioId) => {
 	const find = studioId ? { workplaces: ObjectId(studioId) } : {};
 
 	if (filter === 'cardInfo') {
-		select = [ 'fullName', 'tattooStyles', 'profilePicture', 'coverImage' ];
+		select = [ 'fullName', 'tattooStyles', 'profilePicture', 'cover' ];
 		populate = [ 'tattooStyles' ];
 	} else {
 		select = [ '-user' ];
@@ -79,11 +79,11 @@ exports.deleteByUserId = async userId => {
 	}
 }
 
-const buildObject = (fullName, profilePicture, coverImage, biography, workplaces, tattooStyles, portfolio, social, pricing) => {
+const buildObject = (fullName, profilePicture, cover, biography, workplaces, tattooStyles, portfolio, social, pricing) => {
 	const artistFields = {};
 	if (fullName) artistFields.fullName = fullName;
 	if (profilePicture) artistFields.profilePicture = profilePicture;
-	if (coverImage) artistFields.coverImage = coverImage;
+	if (cover) artistFields.cover = cover;
 	if (biography) artistFields.biography = biography;
 	if (workplaces) artistFields.workplaces = workplaces;
 	if (tattooStyles) artistFields.tattooStyles = tattooStyles;

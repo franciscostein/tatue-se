@@ -30,7 +30,7 @@ const studioSchema = new Schema({
 	logo: {
 		publicId: String
 	},
-	coverImage: {
+	cover: {
 		publicId: String
 	},
 	about: {
