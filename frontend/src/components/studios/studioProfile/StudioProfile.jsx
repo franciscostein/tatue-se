@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PlacesAutoComplete from 'react-google-autocomplete';
 
-import { fetchStudio, saveStudio, saveStudioLogo } from '../../../actions/studio';
+import { fetchStudio, saveStudio, saveStudioLogo, saveStudioCover } from '../../../actions/studio';
 import ImageUploader from '../../fragments/ImageUploader';
 import Alert from '../../fragments/Alert';
 import BusinessHour from '../fragments/BusinessHour';
@@ -16,7 +16,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { FaTrashAlt, FaPlus } from 'react-icons/fa';
 
-const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStudio, saveStudio, saveStudioLogo }) => {
+const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStudio, saveStudio, saveStudioLogo, saveStudioCover }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -91,6 +91,10 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
     const handleRemovePhoto = photoId => {
         const filteredPhotos = photos.filter(photo => photo._id !== photoId);
         setPhotos(filteredPhotos);
+    }
+
+    const handlePhotosSave = cover => {
+        saveStudioCover(cover);
     }
 
     return (
@@ -291,9 +295,10 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                     show={showImagesModal}
                     cover={coverImage}
                     photos={photos}
-                    closeFunction={() => setShowImagesModal(false)}
-                    removeCover={() => setCoverImage(null)}
-                    removePhoto={photoId => handleRemovePhoto(photoId)}
+                    onClose={() => setShowImagesModal(false)}
+                    onRemoveCover={() => setCoverImage(null)}
+                    onRemovePhoto={photoId => handleRemovePhoto(photoId)}
+                    onSave={handlePhotosSave}
                 />
                 <hr />
 
@@ -318,4 +323,4 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-export default connect(mapStateToProps, { fetchStudio, saveStudio, saveStudioLogo })(StudioProfile);
+export default connect(mapStateToProps, { fetchStudio, saveStudio, saveStudioLogo, saveStudioCover })(StudioProfile);

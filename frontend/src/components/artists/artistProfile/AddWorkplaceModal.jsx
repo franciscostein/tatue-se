@@ -7,7 +7,7 @@ import SearchResultStudio from './SearchResultStudio';
 
 import Modal from 'react-bootstrap/Modal';
 
-const AddWorkplaceModal = ({ studio: { studios }, fetchStudios, show, closeFunction, addWorkplace, selectedWorplaces }) => {
+const AddWorkplaceModal = ({ studio: { studios }, fetchStudios, show, onClose, addWorkplace, selectedWorplaces }) => {
     const [searchInput, setSearchInput] = useState('');
     const [filteredStudios, setFilteredStudios] = useState([]);
     const [error, setError] = useState(false);
@@ -52,7 +52,7 @@ const AddWorkplaceModal = ({ studio: { studios }, fetchStudios, show, closeFunct
     }
 
     return (
-        <Modal centered show={show} onHide={closeFunction}>
+        <Modal centered show={show} onHide={onClose}>
             <Modal.Body id="body">
                     { error ?
                         <h1 className="text-danger">Error, please try again later.</h1>

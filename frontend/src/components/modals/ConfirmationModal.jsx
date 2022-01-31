@@ -4,20 +4,20 @@ import Button from 'react-bootstrap/Button';
 const ConfirmationModal = ({
     centered = false,
     show,
-    closeFunction,
+    onClose,
     title,
     titleColor,
     bodyText,
     bodyColor,
     declineVariant = 'secondary', 
-    declineFunction = closeFunction, 
+    declineFunction = onClose, 
     declineText = 'No', 
     acceptVariant = 'primary', 
     acceptFunction, 
     acceptText = 'Yes' 
 }) => {
     return  (
-        <Modal centered={centered} show={show} onHide={closeFunction}>
+        <Modal centered={centered} show={show} onHide={onClose}>
             {
                 title ?
                     <Modal.Header>

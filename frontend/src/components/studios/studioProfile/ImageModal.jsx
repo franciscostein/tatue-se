@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, Fragment } from 'react';
 import Image from 'react-bootstrap/Image';
 import { FaTimes } from 'react-icons/fa';
 
-const ImageModal = ({ photo, removePhoto }) => {
+const ImageModal = ({ photo, onRemovePhoto }) => {
     const [fileInput, setFileInput] = useState('');
     const [previewSource, setPreviewSource] = useState(null);
     const inputFile = useRef(null);
@@ -50,7 +50,7 @@ const ImageModal = ({ photo, removePhoto }) => {
             <FaTimes 
                 size={30}
                 className="remove-photos"
-                onClick={() => removePhoto(photo._id)}
+                onClick={() => onRemovePhoto(photo._id)}
             />
         </Fragment>
     );

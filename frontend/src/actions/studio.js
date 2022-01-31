@@ -6,7 +6,9 @@ import {
     SAVE_STUDIO_SUCCESS,
     SAVE_STUDIO_FAIL,
     SAVE_LOGO_SUCCESS,
-    SAVE_LOGO_FAIL
+    SAVE_LOGO_FAIL,
+    SAVE_COVER_SUCCESS,
+    SAVE_COVER_FAIL
 } from './types';
 
 import { setAlertTimeout } from './alert';
@@ -70,5 +72,22 @@ export const saveStudioLogo = base64 => async dispatch => {
             type: SAVE_LOGO_FAIL
         });
         dispatch(setAlertTimeout(`Couldn't save logo, please try again.`, 'danger'))
+    }
+}
+
+export const saveStudioCover = base64 => async dispatch => {
+    try {
+        const { data } = await axios.patch('/api/studios/cover', { base64 });
+
+        dispatch({
+            type: SAVE_COVER_SUCCESS,
+            payload: data.studioCover
+        });
+        dispatch(setAlertTimeout('Cover saved'));
+    } catch (error) {
+        dispatch({
+            type: SAVE_COVER_FAIL
+        });
+        dispatch(setAlertTimeout(`Couldn't save cover, please try again.`, 'danger'))   ;
     }
 }

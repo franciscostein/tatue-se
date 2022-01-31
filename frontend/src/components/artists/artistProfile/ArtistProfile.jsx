@@ -242,7 +242,7 @@ const ArtistProfile = ({
                     </div>
                     <AddWorkplaceModal
                         show={showAddWorkplaceModal}
-                        closeFunction={() => setShowAddWorkplaceModal(false)}
+                        onClose={() => setShowAddWorkplaceModal(false)}
                         addWorkplace={handleAddWorkplace}
                         selectedWorplaces={workplaces}
                     />
@@ -256,7 +256,7 @@ const ArtistProfile = ({
                     <ConfirmationModal
                         show={showRemoveWorkplaceModal}
                         objectId={idToRemove}
-                        closeFunction={() => setShowRemoveWorkplaceModal(false)}
+                        onClose={() => setShowRemoveWorkplaceModal(false)}
                         title="Remove workplace"
                         titleColor="text-danger"
                         bodyText="Are you sure you want to remove it?"
@@ -343,7 +343,7 @@ const ArtistProfile = ({
                             </Button>
                             <ConfirmationModal
                                 show={showDeleteAccountModal}
-                                closeFunction={() => setShowDeleteAccountModal(false)}
+                                onClose={() => setShowDeleteAccountModal(false)}
                                 title="Delete account"
                                 titleColor="text-danger"
                                 bodyText="Are you sure? It can't be undone!"
