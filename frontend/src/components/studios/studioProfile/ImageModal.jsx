@@ -1,9 +1,12 @@
 import { useState, useEffect, useRef, Fragment } from 'react';
+import { connect } from 'react-redux';
+
+import { setAlertTimeout } from '../../../actions/alert';
 
 import Image from 'react-bootstrap/Image';
 import { FaTimes } from 'react-icons/fa';
 
-const ImageModal = ({ photo, onRemovePhoto }) => {
+const ImageModal = ({ photo, onRemovePhoto, setAlertTimeout }) => {
     const [fileInput, setFileInput] = useState('');
     const [previewSource, setPreviewSource] = useState(null);
     const inputFile = useRef(null);
@@ -18,6 +21,10 @@ const ImageModal = ({ photo, onRemovePhoto }) => {
         const { files } = event.target;
 
         if (files && files.length) {
+            if (files[0].size > 9999999) {
+                setAlertTimeout('File too large, the maximum size is 10mb.', 'danger');
+                return;
+            }
             previewFile(files[0]);
             setFileInput(event.target.value);
         }
@@ -56,4 +63,4 @@ const ImageModal = ({ photo, onRemovePhoto }) => {
     );
 }
 
-export default ImageModal;
+export default connect(null, { setAlertTimeout })(ImageModal);
