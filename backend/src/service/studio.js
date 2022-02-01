@@ -22,16 +22,19 @@ exports.saveImage = async (userId, base64Image, type) => {
 
 	if (!studio) return apiResponse({ msg: 'Studio not found'}, 404);
 
-	const { secure_url } = await cloudinary.uploader.upload(base64Image, {
-		upload_preset: 'ml_default',
-		folder: `${userId}/studio`,
-		public_id: type
-	});
+	let response = null;
 
+	if (base64Image) {
+		response = await cloudinary.uploader.upload(base64Image, {
+			upload_preset: 'ml_default',
+			folder: `${userId}/studio`,
+			public_id: type
+		});
+	}
 	if (type === 'logo') {
-		studio.logo.publicId = secure_url;
+		studio.logo.publicId = response ? response.secure_url : null;
 	} else if (type === 'cover') {
-		studio.cover.publicId = secure_url;
+		studio.cover.publicId = response ? response.secure_url : null;
 	}
 	await studio.save();
 
