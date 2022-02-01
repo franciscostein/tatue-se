@@ -1,7 +1,9 @@
 import './ImagesModal.css';
 import { useState, useRef, useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import ImageModal from './ImageModal';
+import { setAlertTimeout } from '../../../actions/alert';
 
 import Modal from 'react-bootstrap/Modal';
 import Image from 'react-bootstrap/Image';
@@ -12,13 +14,14 @@ import { FaTimes } from 'react-icons/fa';
 import add_dark from '../../../assets/add_dark.png';
 import add1_dark from '../../../assets/add1_dark.png';
 
-const ImagesModal = ({ show, cover, photos, onClose, onRemoveCover, onRemovePhoto, onChangeCover, onSave }) => {
+const ImagesModal = ({ show, cover, photos, onClose, onRemoveCover, onRemovePhoto, onChangeCover, onSave, setAlertTimeout }) => {
     const [fileInput, setFileInput] = useState('');
     const [previewSource, setPreviewSource] = useState(null);
     const inputFile = useRef(null);
 
     useEffect(() => {
-        if (cover) setPreviewSource(cover);
+        setPreviewSource(cover);
+        setFileInput('');
     }, [cover]);
 
     const onImageClick = () => inputFile.current.click();
@@ -27,6 +30,10 @@ const ImagesModal = ({ show, cover, photos, onClose, onRemoveCover, onRemovePhot
         const { files } = event.target;
 
         if (files && files.length) {
+            if (files[0].size > 9999999) {
+                setAlertTimeout('File too large, the maximum size is 10mb.', 'danger');
+                return;
+            }
             previewFile(files[0]);
             setFileInput(event.target.value);
         }
@@ -59,7 +66,7 @@ const ImagesModal = ({ show, cover, photos, onClose, onRemoveCover, onRemovePhot
                     />
                     <Image src={previewSource || add_dark} className="add-photos_cover clickable" onClick={onImageClick} />
                     {
-                        !cover || <FaTimes size={30} className="remove-cover" onClick={onRemoveCover} />
+                        cover && <FaTimes size={30} className="remove-cover" onClick={onRemoveCover} />
                     }
                 </div>
                 <hr />
@@ -80,4 +87,4 @@ const ImagesModal = ({ show, cover, photos, onClose, onRemoveCover, onRemovePhot
     );  
 }
 
-export default ImagesModal;
+export default connect(null, { setAlertTimeout })(ImagesModal);

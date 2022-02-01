@@ -297,8 +297,8 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                     photos={photos}
                     onClose={() => setShowImagesModal(false)}
                     onRemoveCover={() => setCover(null)}
-                    onRemovePhoto={photoId => handleRemovePhoto(photoId)}
-                    onChangeCover={cover => setCover(cover)}
+                    onRemovePhoto={handleRemovePhoto}
+                    onChangeCover={setCover}
                     onSave={handlePhotosSave}
                 />
                 <hr />
