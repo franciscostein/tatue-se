@@ -6,7 +6,9 @@ import {
     SAVE_STUDIO_FAIL,
     SAVE_LOGO_SUCCESS,
     SAVE_COVER_SUCCESS,
-    SAVE_IMAGE_FAIL
+    SAVE_IMAGE_FAIL,
+    SAVE_PHOTOS_SUCCESS,
+    SAVE_PHOTOS_FAIL
 } from '../actions/types';
 
 const initialState = {
@@ -48,8 +50,17 @@ export default function(state = initialState, action) {
                 },
                 error: false                
             }
+        case SAVE_PHOTOS_SUCCESS:
+            return {
+                ...state,
+                studio: {
+                    photos: payload
+                },
+                error: false
+            }
         case SAVE_STUDIO_FAIL:
         case SAVE_IMAGE_FAIL:
+        case SAVE_PHOTOS_FAIL:
             return {
                 ...state,
                 error: true

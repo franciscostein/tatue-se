@@ -7,7 +7,9 @@ import {
     SAVE_STUDIO_FAIL,
     SAVE_LOGO_SUCCESS,
     SAVE_COVER_SUCCESS,
-    SAVE_IMAGE_FAIL
+    SAVE_IMAGE_FAIL,
+    SAVE_PHOTOS_SUCCESS,
+    SAVE_PHOTOS_FAIL
 } from './types';
 
 import { setAlertTimeout } from './alert';
@@ -78,5 +80,22 @@ export const saveStudioImage = (base64, type) => async dispatch => {
             type: SAVE_IMAGE_FAIL
         });
         dispatch(setAlertTimeout(`Couldn't save ${type}, please try again.`, 'danger'))
+    }
+}
+
+export const saveStudioPhotos = photos => async dispatch => {
+    try {
+        const { data } = axios.post('/api/studios/photos', photos);
+
+        dispatch({
+            type: SAVE_PHOTOS_SUCCESS,
+            payload: data
+        });
+        dispatch(setAlertTimeout('Photos saved!'));
+    } catch (error) {
+        dispatch({
+            type: SAVE_PHOTOS_FAIL
+        });
+        dispatch(setAlertTimeout(`Couldn't save photos, please try again.`, 'danger'));
     }
 }

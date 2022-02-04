@@ -6,13 +6,16 @@ import { setAlertTimeout } from '../../../actions/alert';
 import Image from 'react-bootstrap/Image';
 import { FaTimes } from 'react-icons/fa';
 
-const ImageModal = ({ photo, onRemovePhoto, setAlertTimeout }) => {
+const ImageModal = ({ photo, onChangePhoto, onRemovePhoto, setAlertTimeout }) => {
     const [fileInput, setFileInput] = useState('');
     const [previewSource, setPreviewSource] = useState(null);
     const inputFile = useRef(null);
 
     useEffect(() => {
-        if (photo) setPreviewSource(photo.publicId);
+        if (photo) {
+            setPreviewSource(photo.publicId);
+            // setFileInput('');
+        }
     }, [photo]);
 
     const onImageClick = () => inputFile.current.click();
@@ -35,6 +38,7 @@ const ImageModal = ({ photo, onRemovePhoto, setAlertTimeout }) => {
         reader.readAsDataURL(file);
         reader.onloadend = () => {
             setPreviewSource(reader.result);
+            onChangePhoto(reader.result);
         }
     }
 

@@ -14,7 +14,7 @@ import { FaTimes } from 'react-icons/fa';
 import add_dark from '../../../assets/add_dark.png';
 import add1_dark from '../../../assets/add1_dark.png';
 
-const ImagesModal = ({ show, cover, photos, onClose, onRemoveCover, onRemovePhoto, onChangeCover, onSave, setAlertTimeout }) => {
+const ImagesModal = ({ show, cover, photos, onClose, onRemoveCover, onRemovePhoto, onChangePhoto, onChangeCover, onSave, setAlertTimeout }) => {
     const [fileInput, setFileInput] = useState('');
     const [previewSource, setPreviewSource] = useState(null);
     const inputFile = useRef(null);
@@ -72,7 +72,14 @@ const ImagesModal = ({ show, cover, photos, onClose, onRemoveCover, onRemovePhot
                 <hr />
                 <div className="d-flex flex-wrap justify-content-center my-3 mx-4">
                     {
-                        photos && photos.map(photo => <ImageModal key={photo._id} photo={photo} onRemovePhoto={onRemovePhoto} />)
+                        photos && photos.map(photo => (
+                            <ImageModal
+                                key={photo._id}
+                                photo={photo}
+                                onRemovePhoto={onRemovePhoto}
+                                onChangePhoto={image64 => onChangePhoto(photo._id, image64)}
+                            />
+                        ))
                     }
                     {
                         photos.length < 7 && <Image src={add1_dark} className="m-2 studio-img studio-img-modal clickable" />
