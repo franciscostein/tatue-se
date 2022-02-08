@@ -12,7 +12,7 @@ exports.save = async (req, res, next) => {
 
 exports.uploadProfilePicture = async (req, res, next) => {
 	try {
-		const { status, payload } = await uploadProfilePicture(req.body);
+		const { status, payload } = await uploadProfilePicture(req.user.id, req.body);
 
 		res.status(status).json(payload);
 	} catch (err) {

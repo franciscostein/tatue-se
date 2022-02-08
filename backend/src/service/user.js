@@ -1,4 +1,4 @@
-const { cloudinary } = require('../utils/cloudinary');
+const { uploadImage } = require('../utils/cloudinary');
 const User = require('../models/User');
 const { hashPassword, generateToken } = require('../utils/auth');
 const { apiResponsePayloadName, apiResponse } = require('../utils/messages');
@@ -10,7 +10,6 @@ exports.create = async (email, password, profilePicture, userType) => {
 
     user = new User({ email, password, profilePicture, userType });
     user.password = await hashPassword(password);
-    
     await user.save();
 
     const { error, token } = await generateToken(user.id);
@@ -27,11 +26,7 @@ exports.saveProfilePicture = async (userId, base64) => {
     
     if (!user) return apiResponse({ msg: 'User not found'}, 404);
 
-    const { secure_url } = await cloudinary.uploader.upload(base64, {
-        upload_preset: 'ml_default',
-        folder: userId,
-        public_id: 'user-profile-picture'
-    });
+    const { secure_url } = await uploadImage(base64, userId, 'profile');
     user.profilePicture.publicId = secure_url;
     await user.save();
 
@@ -48,7 +43,6 @@ exports.getUserInfo = async userId => {
         email: user.email,
         profilePicture: user.profilePicture
     }
-
     return apiResponse(userInfo);
 }
 

@@ -1,5 +1,5 @@
 const ObjectId = require('mongodb').ObjectID;
-const { cloudinary } = require('../utils/cloudinary');
+const { uploadImage } = require('../utils/cloudinary');
 const { apiResponse } = require('../utils/messages');
 const Artist = require('../models/Artist');
 
@@ -18,11 +18,16 @@ exports.save = async (userId, { fullName, profilePicture, cover, biography, work
 	}
 }
 
-exports.uploadProfilePicture = async fileString => {
-	const uploadResponse = await cloudinary.uploader.upload(fileString.base64, {
-		upload_preset: 'ml_default'
-	});
-	return apiResponse(uploadResponse);
+exports.uploadProfilePicture = async (userId, fileString) => {
+	const artist = await Artist.findOne({ user: userId });
+
+	if (!artist) return apiResponse({ msg: 'Artist not found' }, 404);
+
+	const { secure_url } = await uploadImage(fileString.base64, `${userId}/artist`, 'profile');
+	artist.profilePicture.publicId = secure_url;
+	await artist.save();
+
+	return apiResponse({ profilePicture: artist.profilePicture });
 }
 
 exports.getAll = async (filter, studioId) => {

@@ -1,4 +1,4 @@
-const { cloudinary } = require('../utils/cloudinary');
+const { uploadImage } = require('../utils/cloudinary');
 const { apiResponse } = require('../utils/messages');
 const Studio = require('../models/Studio');
 
@@ -25,12 +25,9 @@ exports.saveImage = async (userId, base64Image, type) => {
 	let response = null;
 
 	if (base64Image) {
-		response = await cloudinary.uploader.upload(base64Image, {
-			upload_preset: 'ml_default',
-			folder: `${userId}/studio`,
-			public_id: type
-		});
+		response = await uploadImage(base64Image, `${userId}/studio`, type);
 	}
+
 	if (type === 'logo') {
 		studio.logo.publicId = response ? response.secure_url : null;
 	} else if (type === 'cover') {
@@ -53,11 +50,7 @@ exports.saveImages = async (userId, images) => {
 			const image = images[index];
 			
 			if (image.base64) {
-				const { secure_url } = await cloudinary.uploader.upload(image.base64, {
-					upload_preset: 'ml_default',
-					folder: `${userId}/studio`,
-					public_id: index
-				});
+				const { secure_url } = await uploadImage(image.base64, `${userId}/studio`, index);
 				image.publicId = secure_url;
 			}
 			changedImages.push(image);

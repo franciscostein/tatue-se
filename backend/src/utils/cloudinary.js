@@ -6,4 +6,12 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-module.exports = { cloudinary };
+const uploadImage = async (image, folder, name) => {
+    return await cloudinary.uploader.upload(image, {
+        upload_preset: 'ml_default',
+        folder,
+        public_id: name
+    });
+}
+
+module.exports = { uploadImage };
