@@ -83,9 +83,9 @@ export const saveStudioImage = (base64, type) => async dispatch => {
     }
 }
 
-export const saveStudioPhotos = photos => async dispatch => {
+export const saveStudioImages = images => async dispatch => {
     try {
-        const { data } = axios.post('/api/studios/photos', photos);
+        const { data } = await axios.post('/api/studios/images', images);
 
         dispatch({
             type: SAVE_PHOTOS_SUCCESS,

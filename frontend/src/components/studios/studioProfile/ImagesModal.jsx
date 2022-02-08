@@ -21,7 +21,6 @@ const ImagesModal = ({ show, cover, photos, onClose, onRemoveCover, onRemovePhot
 
     useEffect(() => {
         setPreviewSource(cover);
-        setFileInput('');
     }, [cover]);
 
     const onImageClick = () => inputFile.current.click();

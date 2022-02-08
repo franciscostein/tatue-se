@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PlacesAutoComplete from 'react-google-autocomplete';
 
-import { fetchStudio, saveStudio, saveStudioImage, saveStudioPhotos } from '../../../actions/studio';
+import { fetchStudio, saveStudio, saveStudioImage, saveStudioImages } from '../../../actions/studio';
 import ImageUploader from '../../fragments/ImageUploader';
 import Alert from '../../fragments/Alert';
 import BusinessHour from '../fragments/BusinessHour';
@@ -16,7 +16,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { FaTrashAlt, FaPlus } from 'react-icons/fa';
 
-const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStudio, saveStudio, saveStudioImage, saveStudioPhotos }) => {
+const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStudio, saveStudio, saveStudioImage, saveStudioImages }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -96,8 +96,7 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
     const handlePhotosChange = (photoId, base64) => {
         const newPhotos = photos.map(photo => {
             if (photo._id === photoId) {
-                photo.publicId = base64;
-                photo.changed = true;   // because it's a shallow copy of studio.photos array we can't directly compare it
+                photo.base64 = base64;
             }
             return photo;
         });
@@ -108,8 +107,8 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
         if (cover !== studio.cover.publicId) {
             saveStudioImage(cover, 'cover');
         }
-        if (photos.some(photo => photo.changed)) {
-            saveStudioPhotos(photos);
+        if (photos.some(photo => photo.base64)) {
+            saveStudioImages(photos);
         }
     }
 
@@ -341,4 +340,4 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-export default connect(mapStateToProps, { fetchStudio, saveStudio, saveStudioImage, saveStudioPhotos })(StudioProfile);
+export default connect(mapStateToProps, { fetchStudio, saveStudio, saveStudioImage, saveStudioImages })(StudioProfile);
