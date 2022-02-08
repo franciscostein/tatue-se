@@ -1,6 +1,6 @@
 const express = require('express');
 const auth = require('../middleware/auth/auth');
-const { save, uploadProfilePicture, savePortfolio, getAll, getOne, getOwnProfile, deleteOne } = require('../controller/artist');
+const { save, savePhoto, savePortfolio, getAll, getOne, getOwnProfile, deleteOne } = require('../controller/artist');
 const { artistValidation } = require('../middleware/validation/validation');
 
 const router = express.Router();
@@ -11,9 +11,9 @@ const router = express.Router();
 router.post('/', [auth, artistValidation], save);
 
 // @route   POST api/artists/image
-// @desc    upload artist's profile picture
+// @desc    save artist's cover or profile picture
 // @access  private
-router.post('/image', auth, uploadProfilePicture);
+router.post('/image', auth, savePhoto);
 
 // @route   POST api/artists/images
 // @desc    save artist portfolio for authenticated user
