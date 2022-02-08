@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { fetchArtistProfile, saveProfile } from '../../../actions/artist';
+import { fetchArtistProfile, saveProfile, saveProfileImage } from '../../../actions/artist';
 
 import StudioMiniCard from '../../studios/fragments/StudioMiniCard';
 import ConfirmationModal from '../../modals/ConfirmationModal';
@@ -30,13 +30,12 @@ const ArtistProfile = ({
         }
     },
     history, 
-    location, 
     fetchArtistProfile,
-    saveProfile 
+    saveProfile,
+    saveProfileImage
 }) => {
     const [formData, setFormData] = useState({
         fullName: '',
-        profilePicture: null,
         biography: '',
         workplaces: [],
         selectedTattooStyles: [],
@@ -50,7 +49,7 @@ const ArtistProfile = ({
         minRate: '',
         currency: ''
     });
-    const [profilePictureBase64, setProfilePictureBase64] = useState(null);
+    const [profilePicture, setProfilePicture] = useState('');
     const [showAddWorkplaceModal, setShowAddWorkplaceModal] = useState(false);
     const [showRemoveWorkplaceModal, setShowRemoveWorkplaceModal] = useState(false);
     const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
@@ -60,7 +59,6 @@ const ArtistProfile = ({
         if (profile && profile.user === userId) {
             setFormData({
                 fullName: loading || !profile.fullName ? '' : profile.fullName,
-                profilePicture: loading || !profile.profilePicture ? '' : profile.profilePicture.publicId,
                 biography: loading || !profile.biography ? '' : profile.biography,
                 workplaces: loading || !profile.workplaces ? [] : profile.workplaces,
                 selectedTattooStyles: loading || !profile.tattooStyles ? [] : profile.tattooStyles,
@@ -73,19 +71,20 @@ const ArtistProfile = ({
                 minRate: loading || !profile.pricing.minRate ? '' : profile.pricing.minRate,
                 currency: loading || !profile.pricing.currency ? '' : profile.pricing.currency
             });
+            setProfilePicture(profile.profilePicture.publicId);
         } else {
             fetchArtistProfile();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [profile, loading]);
 
-    const { fullName, profilePicture, biography, workplaces, selectedTattooStyles, facebook, instagram, website, phone, email, hourRate, minRate } = formData;
+    const { fullName, biography, workplaces, selectedTattooStyles, facebook, instagram, website, phone, email, hourRate, minRate } = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const onSubmit = e => {
         e.preventDefault();
-        saveProfile(formData, profilePictureBase64, history);
+        saveProfile(formData);
     }
 
     const handleAddWorkplace = workplace => {
@@ -135,10 +134,15 @@ const ArtistProfile = ({
                     </div>
                 </div>
                 <Alert />
-                <ImageUploader 
-                    image={profilePicture}
-                    setImageBase64={img => setProfilePictureBase64(img)}
-                />
+                <div>
+                    <ImageUploader 
+                        image={profilePicture}
+                        setImageBase64={img => setProfilePicture(img)}
+                    />
+                    <div>
+                        <Button variant="dark" className="mb-3" onClick={() => saveProfileImage(profilePicture)}>Save image</Button>
+                    </div>
+                </div>
                 <Row className="mb-3">
                     <Col>
                         <Form.Group controlId="formArtistName">
@@ -371,4 +375,4 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-export default connect(mapStateToProps, { fetchArtistProfile, saveProfile })(withRouter(ArtistProfile));
+export default connect(mapStateToProps, { fetchArtistProfile, saveProfile, saveProfileImage })(withRouter(ArtistProfile));

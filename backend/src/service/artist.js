@@ -18,12 +18,12 @@ exports.save = async (userId, { fullName, profilePicture, cover, biography, work
 	}
 }
 
-exports.uploadProfilePicture = async (userId, fileString) => {
+exports.uploadProfilePicture = async (userId, base64Image) => {
 	const artist = await Artist.findOne({ user: userId });
 
 	if (!artist) return apiResponse({ msg: 'Artist not found' }, 404);
 
-	const { secure_url } = await uploadImage(fileString.base64, `${userId}/artist`, 'profile');
+	const { secure_url } = await uploadImage(base64Image, `${userId}/artist`, 'profile');
 	artist.profilePicture.publicId = secure_url;
 	await artist.save();
 

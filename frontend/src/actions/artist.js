@@ -7,8 +7,12 @@ import {
     GET_ARTIST_PROFILE,
     SAVE_ARTIST_PROFILE,
     ARTIST_PROFILE_ERROR,
-    RESET_ARTISTS
+    RESET_ARTISTS,
+    SAVE_ARTIST_IMAGE,
+    SAVE_ARTIST_IMAGE_ERROR
 } from './types';
+
+import { setAlertTimeout } from './alert';
 
 export const fetchArtists = (filter, customHeaders = {}) => async dispatch => {
     try {
@@ -50,13 +54,8 @@ export const fetchArtistProfile = artistId => async dispatch => {
 }
 
 // create or update profile
-export const saveProfile = (formData, profilePictureBase64, history, edit = false) => async dispatch => {
+export const saveProfile = (formData) => async dispatch => {
     try {
-        if (profilePictureBase64) {
-            const cloudinaryResponse = axios.post('/api/artists/image/upload', { base64: profilePictureBase64 });
-            formData.profilePicture.publicId = cloudinaryResponse.public_id;
-        }
-
         const res = await axios.post('/api/artists', formData);
 
         dispatch({
@@ -64,16 +63,12 @@ export const saveProfile = (formData, profilePictureBase64, history, edit = fals
             payload: res.data
         });
 
-        dispatch(setAlert(edit ? 'Profile updated' : 'Profile created', 'success'));
-
-        if (!edit) {
-            history.push('/');
-        }
+        dispatch(setAlertTimeout('Profile saved!'));
     } catch (error) {
         const errors = error.response.data.errors;
 
         if (errors) {
-            errors.forEach(err => dispatch(setAlert(err.msg, 'danger')));
+            errors.forEach(err => dispatch(setAlertTimeout(err.msg, 'danger')));
         }
 
         dispatch({
@@ -83,6 +78,23 @@ export const saveProfile = (formData, profilePictureBase64, history, edit = fals
                 status: error.response.status
             }
         })
+    }
+}
+
+export const saveProfileImage = image64 => async dispatch => {
+    try {
+        const { data } = await axios.post('/api/artists/image', { image64 });
+
+        dispatch({
+            type: SAVE_ARTIST_IMAGE,
+            payload: data
+        });
+        dispatch(setAlertTimeout('Image saved!'));
+    } catch (error) {
+        dispatch({
+            type: SAVE_ARTIST_IMAGE_ERROR
+        });
+        dispatch(setAlertTimeout('There was an error saving image, please try again.', 'danger'));
     }
 }
 

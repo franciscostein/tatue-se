@@ -5,7 +5,9 @@ import {
     GET_ARTIST_PROFILE,
     SAVE_ARTIST_PROFILE,
     ARTIST_PROFILE_ERROR,
-    RESET_ARTISTS
+    RESET_ARTISTS,
+    SAVE_ARTIST_IMAGE,
+    SAVE_ARTIST_IMAGE_ERROR
 } from '../actions/types';
 
 const initialState = {
@@ -31,8 +33,16 @@ export default function(state = initialState, action) {
 				profile: payload,
                 loading: false
             }
+        case SAVE_ARTIST_IMAGE:
+            return {
+                ...state,
+                profile: {
+                    profilePicture: payload
+                }
+            }
         case ARTIST_PROFILE_ERROR:
         case FETCH_ARTISTS_ERROR:
+        case SAVE_ARTIST_IMAGE_ERROR:
             return {
                 ...state,
                 error: payload,

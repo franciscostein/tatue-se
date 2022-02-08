@@ -10,10 +10,10 @@ const router = express.Router();
 // @access  private
 router.post('/', [auth, artistValidation], save);
 
-// @route   POST api/artists/image/upload
+// @route   POST api/artists/image
 // @desc    upload artist's profile picture
 // @access  private
-router.post('/image/upload', auth, uploadProfilePicture);
+router.post('/image', auth, uploadProfilePicture);
 
 // @route   GET api/artists
 // @desc    get all artists
