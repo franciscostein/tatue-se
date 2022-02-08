@@ -11,6 +11,7 @@ import AddWorkplaceModal from './AddWorkplaceModal';
 import TattooStyles from '../../tattooStyles/TattooStyles';
 import ImageUploader from '../../fragments/ImageUploader';
 import Alert from '../../fragments/Alert';
+import ImagesModal from '../../ImagesModal/ImagesModal';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -29,7 +30,6 @@ const ArtistProfile = ({
             userId
         }
     },
-    history, 
     fetchArtistProfile,
     saveProfile,
     saveProfileImage
@@ -50,9 +50,12 @@ const ArtistProfile = ({
         currency: ''
     });
     const [profilePicture, setProfilePicture] = useState('');
+    const [cover, setCover] = useState('');
+    const [portfolio, setPortfolio] = useState([]);
     const [showAddWorkplaceModal, setShowAddWorkplaceModal] = useState(false);
     const [showRemoveWorkplaceModal, setShowRemoveWorkplaceModal] = useState(false);
     const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
+    const [showImagesModal, setShowImagesModal] = useState(false);
     const [idToRemove, setIdToRemove] = useState('');
 
     useEffect(() => {
@@ -72,6 +75,8 @@ const ArtistProfile = ({
                 currency: loading || !profile.pricing.currency ? '' : profile.pricing.currency
             });
             setProfilePicture(profile.profilePicture.publicId);
+            setCover(profile.cover.publicId);
+            setPortfolio(profile.portfolio);
         } else {
             fetchArtistProfile();
         }
@@ -115,6 +120,30 @@ const ArtistProfile = ({
             });
         }
         setIdToRemove('');
+    }
+
+    const handlePhotoRemove = photoId => {
+        const filteredPhotos = portfolio.filter(photo => photo._id !== photoId);
+        setPortfolio(filteredPhotos);
+    }
+
+    const handlePhotoChange = (photoId, base64) => {
+        const newPhotos = portfolio.map(photo => {
+            if (photo._id === photoId) {
+                photo.base64 = base64;
+            }
+            return photo;
+        });
+        setPortfolio(newPhotos);
+    }
+
+    const handleProtosSave = () => {
+        if (cover !== profile.cover.publicId) {
+            
+        }
+        if (portfolio.some(photo => photo.base64)) {
+
+        }
     }
 
     return (
@@ -234,46 +263,72 @@ const ArtistProfile = ({
                         />
                     </Form.Group>
                 </Row>
-
-                <div className="d-flex justify-content-between mt-5">
-                    <div>
-                        <h3>Workplaces</h3>
+                <div className="mt-4 mb-3">
+                    <div className="d-flex justify-content-between">
+                        <div>
+                            <h3>Workplaces</h3>
+                        </div>
+                        <div>
+                            <Button variant="dark" onClick={() => setShowAddWorkplaceModal(true)}>
+                                <FaPlus size={23} />
+                            </Button>
+                        </div>
+                        <AddWorkplaceModal
+                            show={showAddWorkplaceModal}
+                            onClose={() => setShowAddWorkplaceModal(false)}
+                            addWorkplace={handleAddWorkplace}
+                            selectedWorplaces={workplaces}
+                        />
                     </div>
-                    <div>
-                        <Button variant="dark" onClick={() => setShowAddWorkplaceModal(true)}>
-                            <FaPlus size={23} />
-                        </Button>
+                    <div className="d-flex flex-wrap">
+                        {
+                            workplaces ?
+                                workplaces.map(studio => <StudioMiniCard key={studio._id} studio={studio} removeFunction={() => handleRemoveWorkplace(studio._id)} />)
+                            : null
+                        }
+                        <ConfirmationModal
+                            show={showRemoveWorkplaceModal}
+                            objectId={idToRemove}
+                            onClose={() => setShowRemoveWorkplaceModal(false)}
+                            title="Remove workplace"
+                            titleColor="text-danger"
+                            bodyText="Are you sure you want to remove it?"
+                            acceptVariant="danger"
+                            acceptFunction={handleRemoveWorkplaceConfirmation}
+                        />
                     </div>
-                    <AddWorkplaceModal
-                        show={showAddWorkplaceModal}
-                        onClose={() => setShowAddWorkplaceModal(false)}
-                        addWorkplace={handleAddWorkplace}
-                        selectedWorplaces={workplaces}
-                    />
                 </div>
-                <div className="d-flex flex-wrap">
-                    {
-                        workplaces ?
-                            workplaces.map(studio => <StudioMiniCard key={studio._id} studio={studio} removeFunction={() => handleRemoveWorkplace(studio._id)} />)
-                        : null
-                    }
-                    <ConfirmationModal
-                        show={showRemoveWorkplaceModal}
-                        objectId={idToRemove}
-                        onClose={() => setShowRemoveWorkplaceModal(false)}
-                        title="Remove workplace"
-                        titleColor="text-danger"
-                        bodyText="Are you sure you want to remove it?"
-                        acceptVariant="danger"
-                        acceptFunction={handleRemoveWorkplaceConfirmation}
-                    />
-                </div>
-                <div className="my-5">
+                <hr />
+                <div className="mt-4 mb-5">
                     <h3 className="d-flex">Styles</h3>
                     <div className="d-flex flex-wrap py-1">
                         <TattooStyles selectedTattooStylesIds={selectedTattooStyles} />
                     </div>
                 </div>
+                <hr />
+                <div className="d-flex justify-content-between align-items-center mt-5 pb-4">
+                    <div>
+                        <h3>Photos</h3>
+                    </div>
+                    <div>
+                        <Button variant="dark" onClick={() => setShowImagesModal(true)}>
+                            <FaPlus size={23} />
+                        </Button>
+                    </div>
+                    <ImagesModal
+                        show={showImagesModal}
+                        cover={cover}
+                        photos={portfolio}
+                        photosLimit={13}
+                        onClose={() => setShowImagesModal(false)}
+                        onRemoveCover={() => setCover(null)}
+                        onRemovePhoto={handlePhotoRemove}
+                        onChangeCover={setCover}
+                        onChangePhoto={handlePhotoChange}
+                        onSave={handleProtosSave}
+                    />
+                </div>
+                <hr />
                 <div className="mb-5">
                     <h3>Pricing</h3>
                     <Row>
