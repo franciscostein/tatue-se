@@ -18,16 +18,25 @@ exports.save = async (userId, { fullName, profilePicture, cover, biography, work
 	}
 }
 
-exports.uploadProfilePicture = async (userId, base64Image) => {
+exports.savePhoto = async (userId, base64Image, type) => {
 	const artist = await Artist.findOne({ user: userId });
 
 	if (!artist) return apiResponse({ msg: 'Artist not found' }, 404);
 
-	const { secure_url } = await uploadImage(base64Image, `${userId}/artist`, 'profile');
-	artist.profilePicture.publicId = secure_url;
+	let response = null;
+
+	if (base64Image) {
+		response = await uploadImage(base64Image, `${userId}/artist`, 'profile');
+	}
+
+	if (type === 'profilePicture') {
+		artist.profilePicture.publicId = response ? response.secure_url : null;
+	} else if (type === 'cover') {
+		artist.cover.publicId = response ? response.secure_url : null;
+	}
 	await artist.save();
 
-	return apiResponse({ profilePicture: artist.profilePicture });
+	return apiResponse({ [type]: artist[type] });
 }
 
 exports.savePortfolio = async (userId, photos) => {
