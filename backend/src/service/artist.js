@@ -30,6 +30,29 @@ exports.uploadProfilePicture = async (userId, base64Image) => {
 	return apiResponse({ profilePicture: artist.profilePicture });
 }
 
+exports.savePortfolio = async (userId, photos) => {
+	const artist = await Artist.findOne({ user: userId });
+
+	if (!artist) return apiResponse({ msg: 'Artist not found' }, 404);
+
+	if (photos.some(photo => photo.base64)) {
+		const changedPhotos = [];
+
+		for (let index = 0; index < photos.length; index++) {
+			const photo = photos[index];
+
+			if (photo.base64) {
+				const { secure_url } = await uploadImage(photo.base64, `${userId}/artist`, index);
+				photo.publicId = secure_url;
+			}
+			changedPhotos.push(photo);
+		}
+		artist.portfolio = changedPhotos;
+		await artist.save();
+	}
+	return apiResponse({ portfolio: artist.portfolio });
+}
+
 exports.getAll = async (filter, studioId) => {
 	let select, populate = [];
 	const find = studioId ? { workplaces: ObjectId(studioId) } : {};
