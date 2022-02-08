@@ -1,4 +1,4 @@
-const { save, saveImage, getAll, getOneByStudioId, getOwnByUserId, deleteById } = require('../service/studio');
+const { save, saveImage, saveImages, getAll, getOneByStudioId, getOwnByUserId, deleteById } = require('../service/studio');
 
 exports.save = async (req, res, next) => {
     try {
@@ -14,6 +14,16 @@ exports.saveImage = async (req, res, next) => {
     try {
         const { base64, type } = req.body;
         const { status, payload } = await saveImage(req.user.id, base64, type);
+
+        res.status(status).json(payload);
+    } catch (error) {
+        next(error);
+    }
+}
+
+exports.saveImages = async (req, res, next) => {
+    try {
+        const { status, payload } = await saveImages(req.user.id, req.body);
 
         res.status(status).json(payload);
     } catch (error) {

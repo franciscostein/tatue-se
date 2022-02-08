@@ -41,6 +41,32 @@ exports.saveImage = async (userId, base64Image, type) => {
 	return apiResponse({ [type]: studio[type] });
 }
 
+exports.saveImages = async (userId, images) => {
+	const studio = await Studio.findOne({ 'owner': userId });
+
+	if (!studio) return apiResponse({ msg: 'Studio not found'}, 404);
+
+	if (images.some(image => image.base64)) {
+		const changedImages = [];
+		
+		for (let index = 0; index < images.length; index++) {
+			const image = images[index];
+			
+			if (image.base64) {
+				const { secure_url } = await cloudinary.uploader.upload(image.base64, {
+					upload_preset: 'ml_default',
+					folder: `${userId}/studio`,
+					public_id: index
+				});
+				image.publicId = secure_url;
+			}
+			changedImages.push(image);
+		}
+		studio.photos = changedImages;
+		await studio.save();
+	}
+	return apiResponse({ photos: studio.photos });
+}
 exports.getAll = async search => {
     let studios = {};
 	
