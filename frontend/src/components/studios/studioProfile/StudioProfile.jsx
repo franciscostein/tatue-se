@@ -7,7 +7,7 @@ import { fetchStudio, saveStudio, saveStudioImage, saveStudioImages } from '../.
 import ImageUploader from '../../fragments/ImageUploader';
 import Alert from '../../fragments/Alert';
 import BusinessHour from '../fragments/BusinessHour';
-import ImagesModal from './ImagesModal';
+import ImagesModal from '../../ImagesModal/ImagesModal';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -305,20 +305,20 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                             <FaPlus size={23} />
                         </Button>
                     </div>
+                    <ImagesModal
+                        show={showImagesModal}
+                        cover={cover}
+                        photos={photos}
+                        photosLimit={7}
+                        onClose={() => setShowImagesModal(false)}
+                        onRemoveCover={() => setCover(null)}
+                        onRemovePhoto={handlePhotosRemove}
+                        onChangeCover={setCover}
+                        onChangePhoto={handlePhotosChange}
+                        onSave={handlePhotosSave}
+                    />
                 </div>
-                <ImagesModal
-                    show={showImagesModal}
-                    cover={cover}
-                    photos={photos}
-                    onClose={() => setShowImagesModal(false)}
-                    onRemoveCover={() => setCover(null)}
-                    onRemovePhoto={handlePhotosRemove}
-                    onChangeCover={setCover}
-                    onChangePhoto={handlePhotosChange}
-                    onSave={handlePhotosSave}
-                />
                 <hr />
-
                 <h3 className="d-flex">Delete account</h3>
                 <p className="font-55">
                     Deleting your tatue-se account will permanently remove your profile, 

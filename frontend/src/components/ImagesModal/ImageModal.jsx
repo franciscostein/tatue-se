@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, Fragment } from 'react';
 import { connect } from 'react-redux';
 
-import { setAlertTimeout } from '../../../actions/alert';
+import { setAlertTimeout } from '../../actions/alert';
 
 import Image from 'react-bootstrap/Image';
 import { FaTimes } from 'react-icons/fa';

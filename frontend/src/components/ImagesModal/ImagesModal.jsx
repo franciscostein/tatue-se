@@ -3,18 +3,18 @@ import { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import ImageModal from './ImageModal';
-import { setAlertTimeout } from '../../../actions/alert';
+import { setAlertTimeout } from '../../actions/alert';
 
 import Modal from 'react-bootstrap/Modal';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
-import Alert from '../../fragments/Alert';
+import Alert from '../fragments/Alert';
 import { FaTimes } from 'react-icons/fa';
 
-import add_dark from '../../../assets/add_dark.png';
-import add1_dark from '../../../assets/add1_dark.png';
+import add_dark from '../../assets/add_dark.png';
+import add1_dark from '../../assets/add1_dark.png';
 
-const ImagesModal = ({ show, cover, photos, onClose, onRemoveCover, onRemovePhoto, onChangePhoto, onChangeCover, onSave, setAlertTimeout }) => {
+const ImagesModal = ({ show, cover, photos, photosLimit, onClose, onRemoveCover, onRemovePhoto, onChangePhoto, onChangeCover, onSave, setAlertTimeout }) => {
     const [fileInput, setFileInput] = useState('');
     const [previewSource, setPreviewSource] = useState(null);
     const inputFile = useRef(null);
@@ -48,11 +48,11 @@ const ImagesModal = ({ show, cover, photos, onClose, onRemoveCover, onRemovePhot
     }
 
     return (
-        <Modal fullscreen show={show} onHide={onClose}>
+        <Modal id="parent" fullscreen show={show} onHide={onClose}>
             <Modal.Header closeButton>
                 <Modal.Title>Add photos</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body id="child">
                 <Alert />
                 <div className="m-2">
                     <input
@@ -81,7 +81,7 @@ const ImagesModal = ({ show, cover, photos, onClose, onRemoveCover, onRemovePhot
                         ))
                     }
                     {
-                        photos.length < 7 && <Image src={add1_dark} className="m-2 studio-img studio-img-modal clickable" />
+                        photos.length < photosLimit && <Image src={add1_dark} className="m-2 studio-img studio-img-modal clickable" />
                     }
                 </div>
             </Modal.Body>
