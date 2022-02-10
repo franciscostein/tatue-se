@@ -6,17 +6,21 @@ import { setAlertTimeout } from '../../actions/alert';
 import Image from 'react-bootstrap/Image';
 import { FaTimes } from 'react-icons/fa';
 
-const ImageModal = ({ photo, onChangePhoto, onRemovePhoto, setAlertTimeout }) => {
+const ImageModal = ({ photo, type, onChangePhoto, onRemovePhoto, setAlertTimeout }) => {
     const [fileInput, setFileInput] = useState('');
     const [previewSource, setPreviewSource] = useState(null);
     const inputFile = useRef(null);
 
     useEffect(() => {
         if (photo) {
-            setPreviewSource(photo.publicId);
-            // setFileInput('');
+            if (type === 'add') {
+                setPreviewSource(photo);
+            } else {
+                setPreviewSource(photo.publicId);
+            }
+            setFileInput('');
         }
-    }, [photo]);
+    }, [type, photo]);
 
     const onImageClick = () => inputFile.current.click();
 
@@ -37,7 +41,7 @@ const ImageModal = ({ photo, onChangePhoto, onRemovePhoto, setAlertTimeout }) =>
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
-            setPreviewSource(reader.result);
+            setPreviewSource(type === 'add' ? photo : reader.result);
             onChangePhoto(reader.result);
         }
     }
@@ -58,11 +62,15 @@ const ImageModal = ({ photo, onChangePhoto, onRemovePhoto, setAlertTimeout }) =>
                 className="m-2 studio-img studio-img-modal clickable"
                 onClick={onImageClick}
             />
-            <FaTimes 
-                size={30}
-                className="remove-photos"
-                onClick={() => onRemovePhoto(photo._id)}
-            />
+            {
+                type !== 'add' && (
+                    <FaTimes
+                        size={30}
+                        className="remove-photos"
+                        onClick={() => onRemovePhoto(photo._id)}
+                    />
+                )
+            }
         </Fragment>
     );
 }

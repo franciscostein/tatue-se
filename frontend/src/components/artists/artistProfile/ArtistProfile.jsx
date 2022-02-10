@@ -123,6 +123,14 @@ const ArtistProfile = ({
         setIdToRemove('');
     }
 
+    const addPhotoHandler = base64 => {
+        setPortfolio(prevPortfolio => [ ...prevPortfolio, {
+            _id: '',
+            publicId: base64,
+            base64
+        }]);
+    }
+
     const handlePhotoRemove = photoId => {
         const filteredPhotos = portfolio.filter(photo => photo._id !== photoId);
         setPortfolio(filteredPhotos);
@@ -322,7 +330,7 @@ const ArtistProfile = ({
                         photos={portfolio}
                         photosLimit={13}
                         onClose={() => setShowImagesModal(false)}
-                        onRemoveCover={() => setCover(null)}
+                        onAddPhoto={addPhotoHandler}
                         onRemovePhoto={handlePhotoRemove}
                         onChangeCover={setCover}
                         onChangePhoto={handlePhotoChange}

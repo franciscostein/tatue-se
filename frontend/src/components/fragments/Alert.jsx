@@ -5,7 +5,7 @@ import { FaCheckSquare, FaExclamationTriangle } from 'react-icons/fa';
 
 const AlertComponent = ({ alert: { message, variant, showAlert }}) => {
     return showAlert && (
-        <Alert variant={variant} className="m-3">
+        <Alert variant={variant} className="m-3 text-center">
             { variant === 'success' ? <FaCheckSquare /> : <FaExclamationTriangle /> }
             <span className="font-80 ms-3">{message}</span>
         </Alert>

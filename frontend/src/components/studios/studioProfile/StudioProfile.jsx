@@ -88,6 +88,14 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
         });
     }
 
+    const addPhotoHandler = base64 => {
+        setPhotos(prevPhotos => [ ...prevPhotos, {
+            _id: '',
+            publicId: base64,
+            base64
+        }]);
+    }
+
     const handlePhotosRemove = photoId => {
         const filteredPhotos = photos.filter(photo => photo._id !== photoId);
         setPhotos(filteredPhotos);
@@ -311,7 +319,7 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                         photos={photos}
                         photosLimit={7}
                         onClose={() => setShowImagesModal(false)}
-                        onRemoveCover={() => setCover(null)}
+                        onAddPhoto={addPhotoHandler}
                         onRemovePhoto={handlePhotosRemove}
                         onChangeCover={setCover}
                         onChangePhoto={handlePhotosChange}

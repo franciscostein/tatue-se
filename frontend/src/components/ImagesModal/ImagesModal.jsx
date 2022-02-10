@@ -14,14 +14,14 @@ import { FaTimes } from 'react-icons/fa';
 import add_dark from '../../assets/add_dark.png';
 import add1_dark from '../../assets/add1_dark.png';
 
-const ImagesModal = ({ show, cover, photos, photosLimit, onClose, onRemoveCover, onRemovePhoto, onChangePhoto, onChangeCover, onSave, setAlertTimeout }) => {
+const ImagesModal = ({ show, cover, photos, photosLimit, onClose, onRemovePhoto, onAddPhoto, onChangePhoto, onChangeCover, onSave, setAlertTimeout }) => {
     const [fileInput, setFileInput] = useState('');
     const [previewSource, setPreviewSource] = useState(null);
     const inputFile = useRef(null);
 
     useEffect(() => {
         setPreviewSource(cover);
-    }, [cover]);
+    }, [cover, photos]);
 
     const onImageClick = () => inputFile.current.click();
 
@@ -65,15 +65,15 @@ const ImagesModal = ({ show, cover, photos, photosLimit, onClose, onRemoveCover,
                     />
                     <Image src={previewSource || add_dark} className="add-photos_cover clickable" onClick={onImageClick} />
                     {
-                        cover && <FaTimes size={30} className="remove-cover" onClick={onRemoveCover} />
+                        cover && <FaTimes size={30} className="remove-cover" onClick={() => onChangeCover(null)} />
                     }
                 </div>
                 <hr />
                 <div className="d-flex flex-wrap justify-content-center my-3 mx-4">
                     {
-                        photos && photos.map(photo => (
+                        photos && photos.map((photo, index) => (
                             <ImageModal
-                                key={photo._id}
+                                key={photo._id || index}
                                 photo={photo}
                                 onRemovePhoto={onRemovePhoto}
                                 onChangePhoto={image64 => onChangePhoto(photo._id, image64)}
@@ -81,7 +81,13 @@ const ImagesModal = ({ show, cover, photos, photosLimit, onClose, onRemoveCover,
                         ))
                     }
                     {
-                        photos.length < photosLimit && <Image src={add1_dark} className="m-2 studio-img studio-img-modal clickable" />
+                        photos.length < photosLimit && (
+                            <ImageModal
+                                photo={add1_dark}
+                                type="add"
+                                onChangePhoto={onAddPhoto}
+                            />
+                        )
                     }
                 </div>
             </Modal.Body>
