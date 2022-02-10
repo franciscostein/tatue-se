@@ -7,6 +7,7 @@ import {
     ARTIST_PROFILE_ERROR,
     RESET_ARTISTS,
     SAVE_ARTIST_IMAGE,
+    SAVE_ARTIST_COVER,
     SAVE_ARTIST_IMAGE_ERROR
 } from '../actions/types';
 
@@ -38,6 +39,13 @@ export default function(state = initialState, action) {
                 ...state,
                 profile: {
                     profilePicture: payload
+                }
+            }
+        case SAVE_ARTIST_COVER:
+            return {
+                ...state,
+                profile: {
+                    cover: payload
                 }
             }
         case ARTIST_PROFILE_ERROR:

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { setAlert } from './alert';
 
 import {
     FETCH_ARTISTS,
@@ -9,6 +8,7 @@ import {
     ARTIST_PROFILE_ERROR,
     RESET_ARTISTS,
     SAVE_ARTIST_IMAGE,
+    SAVE_ARTIST_COVER,
     SAVE_ARTIST_IMAGE_ERROR
 } from './types';
 
@@ -81,15 +81,22 @@ export const saveProfile = (formData) => async dispatch => {
     }
 }
 
-export const saveProfileImage = image64 => async dispatch => {
+export const saveArtistImage = (base64, type) => async dispatch => {
     try {
-        const { data } = await axios.post('/api/artists/image', { image64 });
+        const { data } = await axios.post('/api/artists/image', { base64, type });
 
-        dispatch({
-            type: SAVE_ARTIST_IMAGE,
-            payload: data
-        });
-        dispatch(setAlertTimeout('Image saved!'));
+        if (type === 'profilePicture') {
+            dispatch({
+                type: SAVE_ARTIST_IMAGE,
+                payload: data.profilePicture
+            });
+        } else if (type === 'cover') {
+            dispatch({
+                type: SAVE_ARTIST_COVER,
+                payload: data.cover
+            });
+        }
+        dispatch(setAlertTimeout(`Image saved!`));
     } catch (error) {
         dispatch({
             type: SAVE_ARTIST_IMAGE_ERROR

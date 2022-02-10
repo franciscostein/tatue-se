@@ -13,6 +13,7 @@ import {
 } from './types';
 
 import { setAlertTimeout } from './alert';
+import { capitalizeFirstLetter } from '../utils/text';
 
 export const fetchStudios = search => async dispatch => {
     try {
@@ -74,7 +75,7 @@ export const saveStudioImage = (base64, type) => async dispatch => {
                 payload: data.cover
             });
         }
-        dispatch(setAlertTimeout(`${type} saved!`));
+        dispatch(setAlertTimeout(`${capitalizeFirstLetter(type)} saved!`));
     } catch (error) {
         dispatch({
             type: SAVE_IMAGE_FAIL

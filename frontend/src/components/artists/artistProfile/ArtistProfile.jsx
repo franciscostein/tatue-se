@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { fetchArtistProfile, saveProfile, saveProfileImage } from '../../../actions/artist';
+import { fetchArtistProfile, saveProfile, saveArtistImage } from '../../../actions/artist';
 
 import StudioMiniCard from '../../studios/fragments/StudioMiniCard';
 import ConfirmationModal from '../../modals/ConfirmationModal';
@@ -32,7 +32,7 @@ const ArtistProfile = ({
     },
     fetchArtistProfile,
     saveProfile,
-    saveProfileImage
+    saveArtistImage
 }) => {
     const [formData, setFormData] = useState({
         fullName: '',
@@ -139,7 +139,7 @@ const ArtistProfile = ({
 
     const handleProtosSave = () => {
         if (cover !== profile.cover.publicId) {
-            
+            saveArtistImage(cover, 'cover');
         }
         if (portfolio.some(photo => photo.base64)) {
 
@@ -169,7 +169,7 @@ const ArtistProfile = ({
                         setImageBase64={img => setProfilePicture(img)}
                     />
                     <div>
-                        <Button variant="dark" className="mb-3" onClick={() => saveProfileImage(profilePicture)}>Save image</Button>
+                        <Button variant="dark" className="mb-3" onClick={() => saveArtistImage(profilePicture, 'profilePicture')}>Save image</Button>
                     </div>
                 </div>
                 <Row className="mb-3">
@@ -430,4 +430,4 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-export default connect(mapStateToProps, { fetchArtistProfile, saveProfile, saveProfileImage })(withRouter(ArtistProfile));
+export default connect(mapStateToProps, { fetchArtistProfile, saveProfile, saveArtistImage })(withRouter(ArtistProfile));
