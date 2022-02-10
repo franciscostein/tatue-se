@@ -8,6 +8,7 @@ import {
     RESET_ARTISTS,
     SAVE_ARTIST_IMAGE,
     SAVE_ARTIST_COVER,
+    SAVE_ARTIST_PORTFOLIO,
     SAVE_ARTIST_IMAGE_ERROR
 } from '../actions/types';
 
@@ -48,9 +49,21 @@ export default function(state = initialState, action) {
                     cover: payload
                 }
             }
+        case SAVE_ARTIST_PORTFOLIO:
+            return {
+                ...state,
+                profile: {
+                    portfolio: payload
+                }
+            }
+        case SAVE_ARTIST_IMAGE_ERROR:
+            return {
+                ...state,
+                error: true,
+                loading: false
+            }
         case ARTIST_PROFILE_ERROR:
         case FETCH_ARTISTS_ERROR:
-        case SAVE_ARTIST_IMAGE_ERROR:
             return {
                 ...state,
                 error: payload,

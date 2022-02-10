@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { fetchArtistProfile, saveProfile, saveArtistImage } from '../../../actions/artist';
+import { fetchArtistProfile, saveProfile, saveArtistImage, saveArtistPortfolio } from '../../../actions/artist';
 
 import StudioMiniCard from '../../studios/fragments/StudioMiniCard';
 import ConfirmationModal from '../../modals/ConfirmationModal';
@@ -32,7 +32,8 @@ const ArtistProfile = ({
     },
     fetchArtistProfile,
     saveProfile,
-    saveArtistImage
+    saveArtistImage,
+    saveArtistPortfolio
 }) => {
     const [formData, setFormData] = useState({
         fullName: '',
@@ -142,7 +143,7 @@ const ArtistProfile = ({
             saveArtistImage(cover, 'cover');
         }
         if (portfolio.some(photo => photo.base64)) {
-
+            saveArtistPortfolio(portfolio);
         }
     }
 
@@ -430,4 +431,4 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-export default connect(mapStateToProps, { fetchArtistProfile, saveProfile, saveArtistImage })(withRouter(ArtistProfile));
+export default connect(mapStateToProps, { fetchArtistProfile, saveProfile, saveArtistImage, saveArtistPortfolio })(withRouter(ArtistProfile));

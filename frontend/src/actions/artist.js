@@ -9,6 +9,7 @@ import {
     RESET_ARTISTS,
     SAVE_ARTIST_IMAGE,
     SAVE_ARTIST_COVER,
+    SAVE_ARTIST_PORTFOLIO,
     SAVE_ARTIST_IMAGE_ERROR
 } from './types';
 
@@ -102,6 +103,23 @@ export const saveArtistImage = (base64, type) => async dispatch => {
             type: SAVE_ARTIST_IMAGE_ERROR
         });
         dispatch(setAlertTimeout('There was an error saving image, please try again.', 'danger'));
+    }
+}
+
+export const saveArtistPortfolio = images => async dispatch => {
+    try {
+        const { data } = await axios.post('/api/artists/images', images);
+
+        dispatch({
+            type: SAVE_ARTIST_PORTFOLIO,
+            payload: data
+        });
+        dispatch(setAlertTimeout('Photos saved!'));
+    } catch (error) {
+        dispatch({
+            type: SAVE_ARTIST_IMAGE_ERROR
+        });
+        dispatch(setAlertTimeout(`Couldn't save photos, please try again.`, 'danger'))
     }
 }
 
