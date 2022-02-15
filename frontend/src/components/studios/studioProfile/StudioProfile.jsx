@@ -90,7 +90,6 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
 
     const addPhotoHandler = base64 => {
         setPhotos(prevPhotos => [ ...prevPhotos, {
-            _id: '',
             publicId: base64,
             base64
         }]);

@@ -125,7 +125,6 @@ const ArtistProfile = ({
 
     const addPhotoHandler = base64 => {
         setPortfolio(prevPortfolio => [ ...prevPortfolio, {
-            _id: '',
             publicId: base64,
             base64
         }]);
