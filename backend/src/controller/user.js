@@ -14,7 +14,7 @@ exports.register = async (req, res, next) => {
 exports.registerAdmin = async (req, res, next) => {
 	try {
 		const { email, password } = req.body;
-		const { status, payload } = await create(email, password, userType = 'admin');
+		const { status, payload } = await create(email, password, 'admin');
 
 		res.status(status).json(payload);
 	} catch (error) {
