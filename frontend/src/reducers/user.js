@@ -3,9 +3,9 @@ import {
     SAVE_USER_SUCCESS,
     SAVE_USER_FAIL,
     SAVE_PICTURE_SUCCESS,
-    SAVE_PICTURE_FAIL,
     FETCH_USER_INFO,
-    FETCH_USER_PICTURE
+    FETCH_USER_PICTURE,
+    USER_ERROR
 } from '../actions/types';
 
 const initialState = {
@@ -16,7 +16,7 @@ const initialState = {
         }
     },
     loading: true,
-    error: {}
+    error: false
 }
 
 export default function(state = initialState, action) {
@@ -28,33 +28,31 @@ export default function(state = initialState, action) {
                 ...state,
                 user: payload,
                 loading: false,
-                error: {}
+                error: false
             }
         case SAVE_USER_FAIL:
             return {
                 ...state,
                 user: {},
-                error: {
-                    msg: payload
-                }
+                error: true
             }
         case SAVE_PICTURE_SUCCESS:
         case FETCH_USER_PICTURE:
             return {
                 ...state,
                 user: payload,
-                error: {}
-            }
-        case SAVE_PICTURE_FAIL:
-            return {
-                ...state,
-                error: payload
+                error: false
             }
         case FETCH_USER_INFO:
             return {
                 ...state,
                 user: payload,
-                error: null
+                error: false
+            }
+        case USER_ERROR:
+            return {
+                ...state,
+                error: true
             }
         default:
             return state;

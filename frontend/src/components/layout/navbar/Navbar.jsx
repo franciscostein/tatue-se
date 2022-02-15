@@ -46,7 +46,7 @@ const NavbarComponent = ({ user: { user: { email, profilePicture }}, fetchUserIn
 
             <Dropdown className="px-4">
                 <Dropdown.Toggle variant="dark" id="dropdown-profile">
-                    <Image src={profilePicture.publicId || userSolid} className="min-user px-3" roundedCircle />
+                    <Image src={(profilePicture && profilePicture.publicId) || userSolid} className="min-user px-3" roundedCircle />
                     <FaBars size={25} />
                 </Dropdown.Toggle>
 
