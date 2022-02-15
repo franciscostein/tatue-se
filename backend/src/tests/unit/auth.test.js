@@ -33,7 +33,9 @@ describe('authController.authenticate', () => {
         await authController.authenticate(req, res, next);
 
         expect(res.statusCode).toBe(400);
-        expect(res._getJSONData()).toStrictEqual({ errors: [{ msg: 'Invalid credentials' }]});
+        expect(res._getJSONData()).toStrictEqual({
+            errors: [{ msg: 'Invalid credentials' }],
+        });
     });
 
     it('should return HTTP 400 with error message if user password doesnt match', async () => {
@@ -43,25 +45,35 @@ describe('authController.authenticate', () => {
         await authController.authenticate(req, res, next);
 
         expect(res.statusCode).toBe(400);
-        expect(res._getJSONData()).toStrictEqual({ errors: [{ msg: 'Invalid credentials' }]});
+        expect(res._getJSONData()).toStrictEqual({
+            errors: [{ msg: 'Invalid credentials' }],
+        });
     });
 
     it('should return token if password matchs', async () => {
         userModel.findOne.mockReturnValue(insertedUser);
         bcrypt.compare.mockReturnValue(true);
-        authUtils.generateToken.mockResolvedValue({ error: null, token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9' });
+        authUtils.generateToken.mockResolvedValue({
+            error: null,
+            token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+        });
 
         await authController.authenticate(req, res, next);
 
         expect(res.statusCode).toBe(200);
-		expect(res._isEndCalled()).toBeTruthy();
-        expect(res._getJSONData()).toStrictEqual({ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9' });
+        expect(res._isEndCalled()).toBeTruthy();
+        expect(res._getJSONData()).toStrictEqual({
+            token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+        });
     });
 
     it('should return error if token generation doesnt work', async () => {
         userModel.findOne.mockReturnValue(insertedUser);
         bcrypt.compare.mockReturnValue(true);
-        authUtils.generateToken.mockResolvedValue({ error: 'Server error', token: null });
+        authUtils.generateToken.mockResolvedValue({
+            error: 'Server error',
+            token: null,
+        });
 
         await authController.authenticate(req, res, next);
 
