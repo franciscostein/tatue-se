@@ -9,7 +9,7 @@ cloudinary.config({
 const uploadImage = async (image, folder, name) => {
     return await cloudinary.uploader.upload(image, {
         upload_preset: 'ml_default',
-        folder,
+        folder: `tatue-se/${folder}`,
         public_id: name
     });
 }

@@ -4,9 +4,9 @@ import {
     SAVE_USER_SUCCESS,
     SAVE_USER_FAIL,
     SAVE_PICTURE_SUCCESS,
-    SAVE_PICTURE_FAIL,
     FETCH_USER_INFO,
-    FETCH_USER_PICTURE
+    FETCH_USER_PICTURE,
+    USER_ERROR
 } from './types';
 
 import { setAuthToken } from '../utils/authToken';
@@ -26,9 +26,9 @@ export const saveUser = userData => async dispatch => {
         }
     } catch (error) {
         dispatch({
-            type: SAVE_USER_FAIL,
-            payload: error.message
+            type: SAVE_USER_FAIL
         });
+        dispatch(setAlertTimeout(error.message, 'danger'));
     }
 }
 
@@ -40,12 +40,12 @@ export const savePicture = base64 => async dispatch => {
             type: SAVE_PICTURE_SUCCESS,
             payload: data
         });
-        dispatch(setAlertTimeout('Picture saved!', 'success'));
+        dispatch(setAlertTimeout('Picture saved!'));
     } catch (error) {
         dispatch({
-            type: SAVE_PICTURE_FAIL,
-            payload: { msg: 'There was an error saving the picture, please try again.' }
+            type: USER_ERROR
         });
+        dispatch(setAlertTimeout('There was an error saving the picture, please try again.', 'danger'));
     }
 }
 
@@ -58,7 +58,10 @@ export const fetchUserInfo = () => async dispatch => {
             payload: data
         });
     } catch (error) {
-        console.error(error);
+        dispatch({
+            type: USER_ERROR
+        });
+        dispatch(setAlertTimeout(error.message, 'danger'));
     }
 }
 
@@ -71,6 +74,9 @@ export const fetchUserPicture = () => async dispatch => {
             payload: data.profilePicture
         });
     } catch (error) {
-        console.error(error);
+        dispatch({
+            type: USER_ERROR
+        });
+        dispatch(setAlertTimeout(error.message, 'danger'));
     }
 }

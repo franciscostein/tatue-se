@@ -12,7 +12,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 
-const SignUp = ({ user: { user, error }, saveUser, removeAlert, history }) => {
+const SignUp = ({ user: { error }, saveUser, removeAlert, history }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
