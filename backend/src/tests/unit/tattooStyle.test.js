@@ -12,7 +12,7 @@ tattooStyleModel.findOneAndUpdate = jest.fn();
 tattooStyleModel.findById = jest.fn();
 tattooStyleModel.deleteOne = jest.fn();
 
-const errorMessage = { message: 'Error, something went wrong!' }
+const errorMessage = { message: 'Error, something went wrong!' };
 const rejectedPromiseWithErrorMessage = Promise.reject(errorMessage);
 
 let req, res, next;
@@ -82,16 +82,18 @@ describe('tattooStyleController.getAll', () => {
     });
 
     it('should handle errors', async () => {
-		tattooStyleModel.find.mockReturnValue(rejectedPromiseWithErrorMessage);
+        tattooStyleModel.find.mockReturnValue(rejectedPromiseWithErrorMessage);
 
-		await tattooStyleController.getAll(req, res, next);
+        await tattooStyleController.getAll(req, res, next);
 
-		expect(next).toBeCalledWith(errorMessage);
-	});
+        expect(next).toBeCalledWith(errorMessage);
+    });
 });
 
 describe('tattooStyleController.getMany', () => {
-    const tattooStyleIds = insertedTattooStyles.map(tattooStyle => tattooStyle._id);
+    const tattooStyleIds = insertedTattooStyles.map(
+        tattooStyle => tattooStyle._id
+    );
 
     beforeEach(() => {
         jest.resetAllMocks();
@@ -106,7 +108,7 @@ describe('tattooStyleController.getMany', () => {
 
         await tattooStyleController.getMany(req, res, next);
 
-        expect(tattooStyleModel.find).toBeCalledWith({ '_id': tattooStyleIds });
+        expect(tattooStyleModel.find).toBeCalledWith({ _id: tattooStyleIds });
     });
 
     it('should return requested tattoo styles if ids match', async () => {
@@ -115,8 +117,8 @@ describe('tattooStyleController.getMany', () => {
         await tattooStyleController.getMany(req, res, next);
 
         expect(res.statusCode).toBe(200);
-		expect(res._isEndCalled()).toBeTruthy();
-		expect(res._getJSONData()).toStrictEqual(insertedTattooStyles);
+        expect(res._isEndCalled()).toBeTruthy();
+        expect(res._getJSONData()).toStrictEqual(insertedTattooStyles);
     });
 
     it('shouldnt return any tattoo styles if there isnt a match', async () => {
@@ -125,16 +127,16 @@ describe('tattooStyleController.getMany', () => {
         await tattooStyleController.getMany(req, res, next);
 
         expect(res.statusCode).toBe(404);
-		expect(res._isEndCalled()).toBeTruthy();
-		expect(res._getJSONData()).toStrictEqual({});
+        expect(res._isEndCalled()).toBeTruthy();
+        expect(res._getJSONData()).toStrictEqual({});
     });
 
     it('should handle errors', async () => {
-		tattooStyleModel.find.mockReturnValue(rejectedPromiseWithErrorMessage);
+        tattooStyleModel.find.mockReturnValue(rejectedPromiseWithErrorMessage);
 
-		await tattooStyleController.getMany(req, res, next);
+        await tattooStyleController.getMany(req, res, next);
 
-		expect(next).toHaveBeenCalledWith(errorMessage);
+        expect(next).toHaveBeenCalledWith(errorMessage);
     });
 });
 
@@ -154,7 +156,9 @@ describe('tattooStyleController.deleteOne', () => {
 
         await tattooStyleController.deleteOne(req, res, next);
 
-        expect(tattooStyleModel.deleteOne).toBeCalledWith({ '_id': tattooStyleId });
+        expect(tattooStyleModel.deleteOne).toBeCalledWith({
+            _id: tattooStyleId,
+        });
     });
 
     it('should return HTTP 200 if it was deleted', async () => {
@@ -163,8 +167,8 @@ describe('tattooStyleController.deleteOne', () => {
         await tattooStyleController.deleteOne(req, res, next);
 
         expect(res.statusCode).toBe(200);
-		expect(res._isEndCalled()).toBeTruthy();
-		expect(res._getJSONData()).toStrictEqual({});
+        expect(res._isEndCalled()).toBeTruthy();
+        expect(res._getJSONData()).toStrictEqual({});
     });
 
     it('should return HTTP 404 if it wasnt deleted', async () => {
@@ -173,15 +177,17 @@ describe('tattooStyleController.deleteOne', () => {
         await tattooStyleController.deleteOne(req, res, next);
 
         expect(res.statusCode).toBe(404);
-		expect(res._isEndCalled()).toBeTruthy();
-		expect(res._getJSONData()).toStrictEqual({});
+        expect(res._isEndCalled()).toBeTruthy();
+        expect(res._getJSONData()).toStrictEqual({});
     });
 
     it('should handle errors', async () => {
-		tattooStyleModel.deleteOne.mockReturnValue(rejectedPromiseWithErrorMessage);
+        tattooStyleModel.deleteOne.mockReturnValue(
+            rejectedPromiseWithErrorMessage
+        );
 
-		await tattooStyleController.deleteOne(req, res, next);
+        await tattooStyleController.deleteOne(req, res, next);
 
-		expect(next).toHaveBeenCalledWith(errorMessage);
+        expect(next).toHaveBeenCalledWith(errorMessage);
     });
 });

@@ -1,6 +1,14 @@
 const express = require('express');
 const auth = require('../middleware/auth/auth');
-const { save, savePhoto, savePortfolio, getAll, getOne, getOwnProfile, deleteOne } = require('../controller/artist');
+const {
+    save,
+    savePhoto,
+    savePortfolio,
+    getAll,
+    getOne,
+    getOwnProfile,
+    deleteOne,
+} = require('../controller/artist');
 const { artistValidation } = require('../middleware/validation/validation');
 
 const router = express.Router();
