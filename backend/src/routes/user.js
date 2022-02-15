@@ -1,11 +1,5 @@
 const express = require('express');
-const {
-    register,
-    updateProfilePicture,
-    registerAdmin,
-    getUserInfo,
-    getUserProfilePicture,
-} = require('../controller/user');
+const { register, updateProfilePicture, registerAdmin, getUserInfo, getUserProfilePicture } = require('../controller/user');
 const { userValidation } = require('../middleware/validation/validation');
 const adminAuth = require('../middleware/auth/authAdmin');
 const auth = require('../middleware/auth/auth');

@@ -136,19 +136,15 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                     </div>
                 </div>
                 <Alert />
-                {
-                    studio && (
-                        <div>
-                            <ImageUploader
-                                image={logo}
-                                setImageBase64={img => setLogo(img)}
-                            />
-                            <div>
-                                <Button variant="dark" className="mb-3" onClick={() => saveStudioImage(logo, 'logo')}>Save logo</Button>
-                            </div>
-                        </div>
-                    )
-                }
+                <div>
+                    <ImageUploader
+                        image={logo}
+                        setImageBase64={img => setLogo(img)}
+                    />
+                    <div>
+                        <Button variant="dark" className="mb-3" onClick={() => saveStudioImage(logo, 'logo')}>Save logo</Button>
+                    </div>
+                </div>
                 <Row className="mb-3">
                     <Col>
                         <Form.Group controlId="formStudioName">
@@ -306,32 +302,29 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                     onChangeClose={e => setFormData({ ...formData, businessHours: { ...businessHours, sunday: { ...businessHours.sunday, closes: e.target.value }}})}
                 />
                 <hr className="mt-3"/>
-                {
-                    studio && (
-                        <div className="d-flex justify-content-between align-items-center mt-5 pb-4">
-                            <div>
-                                <h3>Photos</h3>
-                            </div>
-                            <div>
-                                <Button variant="dark" onClick={() => setShowImagesModal(true)}>
-                                    <FaPlus size={23} />
-                                </Button>
-                            </div>
-                            <ImagesModal
-                                show={showImagesModal}
-                                cover={cover}
-                                photos={photos}
-                                photosLimit={7}
-                                onClose={() => setShowImagesModal(false)}
-                                onAddPhoto={addPhotoHandler}
-                                onRemovePhoto={handlePhotosRemove}
-                                onChangeCover={setCover}
-                                onChangePhoto={handlePhotosChange}
-                                onSave={handlePhotosSave}
-                            />
-                        </div>
-                    )
-                }
+
+                <div className="d-flex justify-content-between align-items-center mt-5 pb-4">
+                    <div>
+                        <h3>Photos</h3>
+                    </div>
+                    <div>
+                        <Button variant="dark" onClick={() => setShowImagesModal(true)}>
+                            <FaPlus size={23} />
+                        </Button>
+                    </div>
+                    <ImagesModal
+                        show={showImagesModal}
+                        cover={cover}
+                        photos={photos}
+                        photosLimit={7}
+                        onClose={() => setShowImagesModal(false)}
+                        onAddPhoto={addPhotoHandler}
+                        onRemovePhoto={handlePhotosRemove}
+                        onChangeCover={setCover}
+                        onChangePhoto={handlePhotosChange}
+                        onSave={handlePhotosSave}
+                    />
+                </div>
                 <hr />
                 <h3 className="d-flex">Delete account</h3>
                 <p className="font-55">

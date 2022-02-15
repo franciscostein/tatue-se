@@ -1,13 +1,6 @@
 const express = require('express');
-const {
-    save,
-    getAll,
-    getMany,
-    deleteOne,
-} = require('../controller/tattooStyle');
-const {
-    tattooStylesValidation,
-} = require('../middleware/validation/validation');
+const { save, getAll, getMany, deleteOne } = require('../controller/tattooStyle');
+const { tattooStylesValidation } = require('../middleware/validation/validation');
 const authAdmin = require('../middleware/auth/authAdmin');
 
 const router = express.Router();

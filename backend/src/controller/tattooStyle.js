@@ -1,9 +1,4 @@
-const {
-    save,
-    getAll,
-    getManyByIds,
-    deleteById,
-} = require('../service/tattooStyle');
+const { save, getAll, getManyByIds, deleteById } = require('../service/tattooStyle');
 
 exports.save = async (req, res, next) => {
     try {
@@ -15,7 +10,7 @@ exports.save = async (req, res, next) => {
     } catch (err) {
         next(err);
     }
-};
+}
 
 exports.getAll = async (req, res, next) => {
     try {
@@ -25,7 +20,7 @@ exports.getAll = async (req, res, next) => {
     } catch (err) {
         next(err);
     }
-};
+}
 
 exports.getMany = async (req, res, next) => {
     try {
@@ -37,14 +32,14 @@ exports.getMany = async (req, res, next) => {
     } catch (err) {
         next(err);
     }
-};
+}
 
 exports.deleteOne = async (req, res, next) => {
-    try {
-        const { status, payload } = await deleteById(req.params.id);
+	try {
+		const { status, payload } = await deleteById(req.params.id);
 
-        res.status(status).json(payload);
-    } catch (err) {
-        next(err);
-    }
-};
+		res.status(status).json(payload);
+	} catch (err) {
+		next(err);
+	}
+}

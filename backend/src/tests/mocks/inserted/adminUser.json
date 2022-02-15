@@ -1,8 +1,8 @@
 {
-    "userType": "admin",
-    "_id": "60b56e905d17b128f3c3a4dc",
-    "email": "'admin@email.com'",
-    "createdAt": "2021-05-31T23:22:08.026Z",
-    "updatedAt": "2021-05-31T23:22:08.026Z",
-    "__v": 0
+	"userType": "admin",
+	"_id": "60b56e905d17b128f3c3a4dc",
+	"email": "'admin@email.com'",
+	"createdAt": "2021-05-31T23:22:08.026Z",
+	"updatedAt": "2021-05-31T23:22:08.026Z",
+	"__v": 0
 }

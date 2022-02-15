@@ -7,13 +7,13 @@ exports.generateResetPasswordEmail = (emailTo, onetimeLink) => {
         to: emailTo,
         from: {
             name: 'tatue-se',
-            email: process.env.SENDGRID_HOST_EMAIL,
+            email: process.env.SENDGRID_HOST_EMAIL
         },
         subject: 'Reset password',
         body: onetimeLink,
-        html: `link: ${onetimeLink}`,
-    };
-};
+        html: `link: ${onetimeLink}`
+    }
+}
 
 exports.sendEmail = async email => {
     try {
@@ -23,4 +23,4 @@ exports.sendEmail = async email => {
         console.error(error);
         return false;
     }
-};
+}

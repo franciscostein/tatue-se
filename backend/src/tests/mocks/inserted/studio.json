@@ -11,7 +11,9 @@
             "saturday": {},
             "sunday": {}
         },
-        "owners": ["60b6d5df90c30f23f464f996"],
+        "owners": [
+            "60b6d5df90c30f23f464f996"
+        ],
         "_id": "60bfd3224f9a4c6bd97b242b",
         "name": "Studio 77",
         "location": {

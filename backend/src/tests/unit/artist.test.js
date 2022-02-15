@@ -13,7 +13,7 @@ artistModel.findOne = jest.fn();
 artistModel.findOneAndUpdate = jest.fn();
 artistModel.deleteOne = jest.fn();
 
-const errorMessage = { message: 'Error, something went wrong!' };
+const errorMessage = { message: 'Error, something went wrong!' }
 const rejectedPromiseWithErrorMessage = Promise.reject(errorMessage);
 
 let req, res, next;
@@ -30,7 +30,7 @@ describe('artistController.save', () => {
         req.user.id = insertedUser._id;
         jest.resetAllMocks();
     });
-
+    
     it('should contain a save function', () => {
         expect(typeof artistController.save).toBe('function');
     });
@@ -52,7 +52,7 @@ describe('artistController.save', () => {
         req.body = newArtist;
         artistModel.findOne.mockReturnValue(undefined);
         saveMock.mockReturnValue(insertedArtist);
-
+        
         await artistController.save(req, res, next);
 
         expect(res.statusCode).toBe(201);
@@ -86,22 +86,22 @@ describe('artistController.getAll', () => {
         expect(res._isEndCalled()).toBeTruthy();
         expect(res._getJSONData()).toStrictEqual(insertedArtist._doc);
     });
-
+    
     it('should not retrieve artists if there isnt', async () => {
         await artistController.getAll(req, res, next);
 
         expect(res.statusCode).toBe(404);
         expect(res._isEndCalled()).toBeTruthy();
-        expect(res._getJSONData()).toStrictEqual({});
+		expect(res._getJSONData()).toStrictEqual({});
     });
 
     it('should handle errors', async () => {
-        artistModel.find.mockReturnValue(rejectedPromiseWithErrorMessage);
+		artistModel.find.mockReturnValue(rejectedPromiseWithErrorMessage);
 
-        await artistController.getAll(req, res, next);
+		await artistController.getAll(req, res, next);
 
-        expect(next).toBeCalledWith(errorMessage);
-    });
+		expect(next).toBeCalledWith(errorMessage);
+	});
 });
 
 describe('artistController.getOne', () => {
@@ -128,24 +128,24 @@ describe('artistController.getOne', () => {
         await artistController.getOne(req, res, next);
 
         expect(res.statusCode).toBe(200);
-        expect(res._isEndCalled()).toBeTruthy();
-        expect(res._getJSONData()).toStrictEqual(insertedArtist._doc);
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual(insertedArtist._doc);
     });
 
     it('shouldnt return any artist if there isnt a match', async () => {
         await artistController.getOne(req, res, next);
 
         expect(res.statusCode).toBe(404);
-        expect(res._isEndCalled()).toBeTruthy();
-        expect(res._getJSONData()).toStrictEqual({});
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual({});
     });
 
     it('should handle errors', async () => {
-        artistModel.findById.mockReturnValue(rejectedPromiseWithErrorMessage);
+		artistModel.findById.mockReturnValue(rejectedPromiseWithErrorMessage);
 
-        await artistController.getOne(req, res, next);
+		await artistController.getOne(req, res, next);
 
-        expect(next).toHaveBeenCalledWith(errorMessage);
+		expect(next).toHaveBeenCalledWith(errorMessage);
     });
 });
 
@@ -165,7 +165,7 @@ describe('artistController.deleteOne', () => {
     it('should call deleteOne on artistModel with the userId', async () => {
         await artistController.deleteOne(req, res, next);
 
-        expect(artistModel.deleteOne).toBeCalledWith({ user: userId });
+        expect(artistModel.deleteOne).toBeCalledWith({ 'user': userId });
     });
 
     it('should return HTTP 200 if it was deleted', async () => {
@@ -174,8 +174,8 @@ describe('artistController.deleteOne', () => {
         await artistController.deleteOne(req, res, next);
 
         expect(res.statusCode).toBe(200);
-        expect(res._isEndCalled()).toBeTruthy();
-        expect(res._getJSONData()).toStrictEqual({});
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual({});
     });
 
     it('should return HTTP 404 if it wasnt deleted', async () => {
@@ -184,15 +184,15 @@ describe('artistController.deleteOne', () => {
         await artistController.deleteOne(req, res, next);
 
         expect(res.statusCode).toBe(404);
-        expect(res._isEndCalled()).toBeTruthy();
-        expect(res._getJSONData()).toStrictEqual({});
+		expect(res._isEndCalled()).toBeTruthy();
+		expect(res._getJSONData()).toStrictEqual({});
     });
 
     it('should handle errors', async () => {
-        artistModel.deleteOne.mockReturnValue(rejectedPromiseWithErrorMessage);
+		artistModel.deleteOne.mockReturnValue(rejectedPromiseWithErrorMessage);
 
-        await artistController.deleteOne(req, res, next);
+		await artistController.deleteOne(req, res, next);
 
-        expect(next).toHaveBeenCalledWith(errorMessage);
+		expect(next).toHaveBeenCalledWith(errorMessage);
     });
 });

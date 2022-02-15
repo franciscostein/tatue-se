@@ -1,15 +1,7 @@
 const express = require('express');
 const auth = require('../middleware/auth/auth');
 const { studioValidation } = require('../middleware/validation/validation');
-const {
-    save,
-    saveImage,
-    saveImages,
-    getAll,
-    getOne,
-    getOwn,
-    deleteOne,
-} = require('../controller/studio');
+const { save, saveImage, saveImages, getAll, getOne, getOwn, deleteOne } = require('../controller/studio');
 
 const router = express.Router();
 
