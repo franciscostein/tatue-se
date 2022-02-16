@@ -157,7 +157,7 @@ const ArtistProfile = ({
     return (
         <Container>
             <Form>
-                <div className="d-flex justify-content-between solid-bottom-border-secondary mt-5">
+                <div className="d-flex justify-content-between solid-bottom-border-secondary mt-5 mb-4">
                     <div>
                         <h1>Artist</h1>
                     </div>
@@ -171,16 +171,18 @@ const ArtistProfile = ({
                     </div>
                 </div>
                 <Alert />
-                <div>
-                    <ImageUploader 
-                        image={profilePicture}
-                        setImageBase64={img => setProfilePicture(img)}
-                    />
-                    <div>
-                        <Button variant="dark" className="mb-3" onClick={() => saveArtistImage(profilePicture, 'profilePicture')}>Save image</Button>
-                    </div>
-                </div>
-                <Row className="mb-3">
+                {
+                    profile && (
+                        <div>
+                            <ImageUploader 
+                                image={profilePicture}
+                                onImageChange={imageBase64 => setProfilePicture(imageBase64)}
+                                onSave={() => saveArtistImage(profilePicture, 'profilePicture')}
+                            />
+                        </div>
+                    )
+                }
+                <Row className="my-3">
                     <Col>
                         <Form.Group controlId="formArtistName">
                             <Form.Label className="font-75">Name</Form.Label>

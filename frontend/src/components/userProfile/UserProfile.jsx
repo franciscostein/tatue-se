@@ -37,19 +37,15 @@ const UserProfile = ({ user: { user: { profilePicture, email }}, savePicture, de
     return (
         <Container>
             <Form>
-                <div className="d-flex solid-bottom-border-secondary mt-5">
+                <div className="d-flex solid-bottom-border-secondary mt-5 mb-3">
                     <h1>Profile</h1>
                 </div>
                 <Alert />
                 <ImageUploader
                     image={profilePicture && profilePicture.publicId}
-                    setImageBase64={img => setProfilePictureBase64(img)}
+                    onImageChange={imageBase64 => setProfilePictureBase64(imageBase64)}
+                    onSave={handleSavePicture}
                 />
-                <div>
-                    <Button variant="dark" className="mb-3" onClick={handleSavePicture}>
-                        Save picture
-                    </Button>
-                </div>
                 <hr />
                 <div className="d-flex justify-content-between align-items-center mt-5 pb-4">
                     <div>
@@ -62,7 +58,7 @@ const UserProfile = ({ user: { user: { profilePicture, email }}, savePicture, de
                     </div>
                 </div>
                 <hr/>
-                <h3 className="d-flex mb-3">Delete account</h3>
+                <h3 className="d-flex pt-3 mb-3">Delete account</h3>
                 <p className="font-55">
                     Deleting your tatue-se account will permanently remove your profile, 
                     along with all data you have produced while on tatue-se, 

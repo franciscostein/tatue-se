@@ -122,7 +122,7 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
     return (
         <Container>
             <Form>
-                <div className="d-flex justify-content-between solid-bottom-border-secondary mt-5">
+                <div className="d-flex justify-content-between solid-bottom-border-secondary mt-5 mb-4">
                     <div>
                         <h1>Studio</h1>
                     </div>
@@ -136,16 +136,17 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                     </div>
                 </div>
                 <Alert />
-                <div>
-                    <ImageUploader
-                        image={logo}
-                        setImageBase64={img => setLogo(img)}
-                    />
-                    <div>
-                        <Button variant="dark" className="mb-3" onClick={() => saveStudioImage(logo, 'logo')}>Save logo</Button>
-                    </div>
-                </div>
-                <Row className="mb-3">
+                {
+                    studio && (
+                        <ImageUploader
+                            buttonText="Save logo"
+                            image={logo}
+                            onImageChange={imageBase64 => setLogo(imageBase64)}
+                            onSave={() => saveStudioImage(logo, 'logo')}
+                        />
+                    )
+                }
+                <Row className="my-3">
                     <Col>
                         <Form.Group controlId="formStudioName">
                             <Form.Label className="font-75">Name</Form.Label>

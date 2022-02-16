@@ -5,10 +5,11 @@ import { connect } from 'react-redux';
 import { setAlertTimeout } from '../../actions/alert';
 
 import Image from 'react-bootstrap/Image';
+import Button from 'react-bootstrap/Button';
 
 import avatarPlaceholder from '../../assets/user_w.png';
 
-const ImageUploader = ({ image, setImageBase64, setAlertTimeout }) => {
+const ImageUploader = ({ image, buttonText = "Save image", onImageChange, onSave, setAlertTimeout }) => {
     const [fileInput, setFileInput] = useState('');
     const [previewSource, setPreviewSource] = useState(null);
     const inputFile = useRef(null);
@@ -35,7 +36,7 @@ const ImageUploader = ({ image, setImageBase64, setAlertTimeout }) => {
         reader.readAsDataURL(file);
         reader.onloadend = () => {
             setPreviewSource(reader.result);
-            setImageBase64(reader.result);
+            onImageChange(reader.result);
         }
     }
 
@@ -53,10 +54,13 @@ const ImageUploader = ({ image, setImageBase64, setAlertTimeout }) => {
             />
             <Image 
                 src={previewSource ?? avatarPlaceholder} 
-                className="profile-picture my-4 image-uploader" 
+                className="profile-picture mb-3 image-uploader" 
                 roundedCircle
                 onClick={onImageClick}
             />
+            <div>
+                <Button variant="dark" onClick={onSave}>{buttonText}</Button>
+            </div>
         </Fragment>
     );
 }
