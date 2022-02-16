@@ -24,7 +24,8 @@ export const saveUser = (userData, history) => async dispatch => {
 
         if (data.token) {
             setAuthToken(data.token);
-            history.push('/');
+            history.push('/user/profile');
+            dispatch(fetchUserInfo());
         }
     } catch (error) {
         dispatch({

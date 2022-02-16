@@ -12,7 +12,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 
-const SignUp = ({ saveUser, removeAlert, history }) => {
+const SignUp = ({ saveUser, setAlert, removeAlert, history }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
@@ -105,4 +105,4 @@ SignUp.propTypes = {
     saveUser: PropTypes.func.isRequired,
 }
 
-export default connect(null, { saveUser, removeAlert })(withRouter(SignUp));
+export default connect(null, { saveUser, setAlert, removeAlert })(withRouter(SignUp));
