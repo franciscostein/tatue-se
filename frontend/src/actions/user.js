@@ -6,7 +6,8 @@ import {
     SAVE_PICTURE_SUCCESS,
     FETCH_USER_INFO,
     FETCH_USER_PICTURE,
-    USER_ERROR
+    USER_ERROR,
+    USER_DELETED
 } from './types';
 
 import { setAuthToken } from '../utils/authToken';
@@ -62,7 +63,6 @@ export const fetchUserInfo = () => async dispatch => {
         dispatch({
             type: USER_ERROR
         });
-        dispatch(setAlertTimeout(error.message, 'danger'));
     }
 }
 
@@ -79,5 +79,27 @@ export const fetchUserPicture = () => async dispatch => {
             type: USER_ERROR
         });
         dispatch(setAlertTimeout(error.message, 'danger'));
+    }
+}
+
+export const deleteUser = history => async dispatch => {
+    try {
+        const { data } = await axios.delete('/api/users');
+
+        dispatch({
+            type: USER_DELETED,
+            payload: data
+        });
+        dispatch(setAlertTimeout('User deleted!'));
+        setAuthToken();
+
+        setTimeout(() => {
+            history.push('/');
+        }, 1500);
+    } catch (error) {
+        dispatch({
+            type: USER_ERROR
+        });
+        dispatch(setAlertTimeout('There was an error, please try again.', 'danger'));
     }
 }

@@ -26,7 +26,7 @@ const NavbarComponent = ({ user: { user: { email, profilePicture }}, fetchUserIn
     }, [fetchUserInfo, email, profilePicture]);
 
     const handleLogout = () => {
-        setAuthToken('');
+        setAuthToken();
         window.location.reload();
     }
 

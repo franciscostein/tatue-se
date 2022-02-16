@@ -5,7 +5,8 @@ import {
     SAVE_PICTURE_SUCCESS,
     FETCH_USER_INFO,
     FETCH_USER_PICTURE,
-    USER_ERROR
+    USER_ERROR,
+    USER_DELETED
 } from '../actions/types';
 
 const initialState = {
@@ -35,6 +36,12 @@ export default function(state = initialState, action) {
                 ...state,
                 user: {},
                 error: true
+            }
+        case USER_DELETED:
+            return {
+                ...state,
+                user: {},
+                error: false
             }
         case SAVE_PICTURE_SUCCESS:
         case FETCH_USER_PICTURE:

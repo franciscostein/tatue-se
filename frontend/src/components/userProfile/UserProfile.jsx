@@ -2,19 +2,21 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { savePicture } from '../../actions/user';
+import { savePicture, deleteUser } from '../../actions/user';
 import { removeAlert } from '../../actions/alert';
 import ImageUploader from '../fragments/ImageUploader';
 import Alert from '../fragments/Alert';
+import ConfirmationModal from '../modals/ConfirmationModal';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { FaTrashAlt } from 'react-icons/fa';
 
-const UserProfile = ({ user: { user: { profilePicture }}, savePicture, removeAlert }) => {
+const UserProfile = ({ user: { user: { profilePicture }}, savePicture, deleteUser, removeAlert }) => {
     const history = useHistory();
     const [profilePictureBase64, setProfilePictureBase64] = useState('');
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
     const handleSavePicture = () => {
         savePicture(profilePictureBase64);
@@ -25,6 +27,11 @@ const UserProfile = ({ user: { user: { profilePicture }}, savePicture, removeAle
         history.push('/forgot-password');
     }
 
+    const handleUserDeletion = () => {
+        deleteUser(history);
+        setShowDeleteConfirmation(false);
+    }
+
     return (
         <Container>
             <Form>
@@ -33,7 +40,7 @@ const UserProfile = ({ user: { user: { profilePicture }}, savePicture, removeAle
                 </div>
                 <Alert />
                 <ImageUploader
-                    image={profilePicture.publicId}
+                    image={profilePicture && profilePicture.publicId}
                     setImageBase64={img => setProfilePictureBase64(img)}
                 />
                 <div>
@@ -60,10 +67,18 @@ const UserProfile = ({ user: { user: { profilePicture }}, savePicture, removeAle
                     including permanent removal of photos, comments, saved boards, workplace history, 
                     and subscription and billing info, booking history, your account information and settings.
                 </p>
-                <Button variant="danger" className="d-flex mt-4 mb-5" onClick={() => alert('deleted')}>
+                <Button variant="danger" className="d-flex mt-4 mb-5" onClick={() => setShowDeleteConfirmation(true)}>
                     <FaTrashAlt size={19} />
                     <span className="ps-2">Delete my account</span>
                 </Button>
+                <ConfirmationModal
+                    show={showDeleteConfirmation}
+                    onClose={() => setShowDeleteConfirmation(false)}
+                    title="Are you sure?"
+                    bodyText="All information will be lost. This action can't be undone."
+                    acceptVariant="danger"
+                    onAccept={handleUserDeletion}
+                />
             </Form>
         </Container>
     );
@@ -73,4 +88,4 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-export default connect(mapStateToProps, { savePicture, removeAlert })(UserProfile);
+export default connect(mapStateToProps, { savePicture, deleteUser, removeAlert })(UserProfile);

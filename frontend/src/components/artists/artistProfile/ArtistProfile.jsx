@@ -302,7 +302,7 @@ const ArtistProfile = ({
                             titleColor="text-danger"
                             bodyText="Are you sure you want to remove it?"
                             acceptVariant="danger"
-                            acceptFunction={handleRemoveWorkplaceConfirmation}
+                            onAccept={handleRemoveWorkplaceConfirmation}
                         />
                     </div>
                 </div>
@@ -416,7 +416,7 @@ const ArtistProfile = ({
                                 bodyText="Are you sure? It can't be undone!"
                                 declineText="Cancel"
                                 acceptVariant="danger"
-                                acceptFunction={() => alert('Account deleted!')}
+                                onAccept={() => alert('Account deleted!')}
                                 acceptText="Yes, delete it"
                             />
                         </div>

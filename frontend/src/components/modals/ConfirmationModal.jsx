@@ -10,11 +10,11 @@ const ConfirmationModal = ({
     bodyText,
     bodyColor,
     declineVariant = 'secondary', 
-    declineFunction = onClose, 
     declineText = 'No', 
+    onDecline = onClose, 
     acceptVariant = 'primary', 
-    acceptFunction, 
-    acceptText = 'Yes' 
+    acceptText = 'Yes',
+    onAccept
 }) => {
     return  (
         <Modal centered={centered} show={show} onHide={onClose}>
@@ -31,10 +31,10 @@ const ConfirmationModal = ({
                 : null
             }
             <Modal.Footer className={!title && !bodyText ? 'd-flex justify-content-center' : ''}>
-                <Button variant={declineVariant} onClick={declineFunction}>
+                <Button variant={declineVariant} onClick={onDecline}>
                     {declineText}
                 </Button>
-                <Button variant={acceptVariant} onClick={acceptFunction}>
+                <Button variant={acceptVariant} onClick={onAccept}>
                     {acceptText}
                 </Button>
             </Modal.Footer>

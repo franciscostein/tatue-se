@@ -22,6 +22,7 @@ export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
 export const SIGNIN_FAIL = 'SIGNIN_FAIL';
 export const FETCH_USER_INFO = 'FETCH_USER_INFO';
 export const FETCH_USER_PICTURE = 'FETCH_USER_PICTURE';
+export const USER_DELETED = 'USER_DELETED';
 export const USER_ERROR = 'USER_ERROR';
 
 export const FETCH_STUDIOS = 'FETCH_STUDIOS';
