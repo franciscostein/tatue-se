@@ -54,13 +54,13 @@ const NavbarComponent = ({ user: { user: { email, profilePicture }}, fetchUserIn
                     {
                         email ? (
                             <Fragment>
-                                <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/user/profile')}>
+                                <Dropdown.Item className="dropdown-item text-white" onClick={() => resetStateAndGoTo('/user/profile')}>
                                     <FaUserAlt className="me-2" /> User
                                 </Dropdown.Item>
-                                <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/artists/profile')}>
+                                <Dropdown.Item className="dropdown-item text-white" onClick={() => resetStateAndGoTo('/artists/profile')}>
                                     <FaPaintBrush className="me-2" /> Artist
                                 </Dropdown.Item>
-                                <Dropdown.Item className="dropdown-item text-white" onClick={() => history.push('/studios/profile')}>
+                                <Dropdown.Item className="dropdown-item text-white" onClick={() => resetStateAndGoTo('/studios/profile')}>
                                     <FaAnchor className="me-2" /> Studio
                                 </Dropdown.Item>
                                 <Dropdown.Item className="dropdown-item text-white" onClick={handleLogout}>

@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { savePicture, deleteUser } from '../../actions/user';
+import { sendForgotPasswordEmail } from '../../actions/auth';
 import { removeAlert } from '../../actions/alert';
 import ImageUploader from '../fragments/ImageUploader';
 import Alert from '../fragments/Alert';
@@ -13,7 +14,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { FaTrashAlt } from 'react-icons/fa';
 
-const UserProfile = ({ user: { user: { profilePicture }}, savePicture, deleteUser, removeAlert }) => {
+const UserProfile = ({ user: { user: { profilePicture, email }}, savePicture, deleteUser, sendForgotPasswordEmail, removeAlert }) => {
     const history = useHistory();
     const [profilePictureBase64, setProfilePictureBase64] = useState('');
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
@@ -24,6 +25,7 @@ const UserProfile = ({ user: { user: { profilePicture }}, savePicture, deleteUse
 
     const handleLinkClick = () => {
         removeAlert();
+        sendForgotPasswordEmail(email);
         history.push('/forgot-password');
     }
 
@@ -88,4 +90,4 @@ const mapStateToProps = state => ({
     user: state.user
 });
 
-export default connect(mapStateToProps, { savePicture, deleteUser, removeAlert })(UserProfile);
+export default connect(mapStateToProps, { savePicture, deleteUser, sendForgotPasswordEmail, removeAlert })(UserProfile);

@@ -11,7 +11,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 
-const ResetPassword = ({ auth: { passwordChanged, error }, resetPassword, removeAlert, history }) => {
+const ResetPassword = ({ auth: { passwordChanged, error }, resetPassword, setAlert, removeAlert, history }) => {
     const { id, token } = useParams();
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -109,4 +109,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { resetPassword, removeAlert })(withRouter(ResetPassword));
+export default connect(mapStateToProps, { resetPassword, setAlert, removeAlert })(withRouter(ResetPassword));
