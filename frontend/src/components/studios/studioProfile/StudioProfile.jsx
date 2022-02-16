@@ -1,5 +1,5 @@
 import './StudioProfile.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PlacesAutoComplete from 'react-google-autocomplete';
 
@@ -302,30 +302,35 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                     onChangeOpen={e => setFormData({ ...formData, businessHours: { ...businessHours, sunday: { ...businessHours.sunday, opens: e.target.value }}})}
                     onChangeClose={e => setFormData({ ...formData, businessHours: { ...businessHours, sunday: { ...businessHours.sunday, closes: e.target.value }}})}
                 />
-                <hr className="mt-3"/>
-
-                <div className="d-flex justify-content-between align-items-center mt-5 pb-4">
-                    <div>
-                        <h3>Photos</h3>
-                    </div>
-                    <div>
-                        <Button variant="dark" onClick={() => setShowImagesModal(true)}>
-                            <FaPlus size={23} />
-                        </Button>
-                    </div>
-                    <ImagesModal
-                        show={showImagesModal}
-                        cover={cover}
-                        photos={photos}
-                        photosLimit={7}
-                        onClose={() => setShowImagesModal(false)}
-                        onAddPhoto={addPhotoHandler}
-                        onRemovePhoto={handlePhotosRemove}
-                        onChangeCover={setCover}
-                        onChangePhoto={handlePhotosChange}
-                        onSave={handlePhotosSave}
-                    />
-                </div>
+                {
+                    studio && (
+                        <Fragment>
+                            <hr />
+                            <div className="d-flex justify-content-between align-items-center mt-5 pb-4">
+                                <div>
+                                    <h3>Photos</h3>
+                                </div>
+                                <div>
+                                    <Button variant="dark" onClick={() => setShowImagesModal(true)}>
+                                        <FaPlus size={23} />
+                                    </Button>
+                                </div>
+                                <ImagesModal
+                                    show={showImagesModal}
+                                    cover={cover}
+                                    photos={photos}
+                                    photosLimit={7}
+                                    onClose={() => setShowImagesModal(false)}
+                                    onAddPhoto={addPhotoHandler}
+                                    onRemovePhoto={handlePhotosRemove}
+                                    onChangeCover={setCover}
+                                    onChangePhoto={handlePhotosChange}
+                                    onSave={handlePhotosSave}
+                                />
+                            </div>
+                        </Fragment>
+                    )
+                }
                 <hr />
                 <h3 className="d-flex">Delete account</h3>
                 <p className="font-55">

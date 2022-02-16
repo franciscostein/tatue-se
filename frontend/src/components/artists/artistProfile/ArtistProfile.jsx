@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -315,29 +315,35 @@ const ArtistProfile = ({
                         <TattooStyles selectedTattooStylesIds={selectedTattooStyles} />
                     </div>
                 </div>
-                <hr />
-                <div className="d-flex justify-content-between align-items-center mt-5 pb-4">
-                    <div>
-                        <h3>Photos</h3>
-                    </div>
-                    <div>
-                        <Button variant="dark" onClick={() => setShowImagesModal(true)}>
-                            <FaPlus size={23} />
-                        </Button>
-                    </div>
-                    <ImagesModal
-                        show={showImagesModal}
-                        cover={cover}
-                        photos={portfolio}
-                        photosLimit={13}
-                        onClose={() => setShowImagesModal(false)}
-                        onAddPhoto={addPhotoHandler}
-                        onRemovePhoto={handlePhotoRemove}
-                        onChangeCover={setCover}
-                        onChangePhoto={handlePhotoChange}
-                        onSave={handleProtosSave}
-                    />
-                </div>
+                {
+                    profile && (
+                        <Fragment>
+                            <hr />
+                            <div className="d-flex justify-content-between align-items-center mt-5 pb-4">
+                                <div>
+                                    <h3>Photos</h3>
+                                </div>
+                                <div>
+                                    <Button variant="dark" onClick={() => setShowImagesModal(true)}>
+                                        <FaPlus size={23} />
+                                    </Button>
+                                </div>
+                                <ImagesModal
+                                    show={showImagesModal}
+                                    cover={cover}
+                                    photos={portfolio}
+                                    photosLimit={13}
+                                    onClose={() => setShowImagesModal(false)}
+                                    onAddPhoto={addPhotoHandler}
+                                    onRemovePhoto={handlePhotoRemove}
+                                    onChangeCover={setCover}
+                                    onChangePhoto={handlePhotoChange}
+                                    onSave={handleProtosSave}
+                                />
+                            </div>
+                        </Fragment>
+                    )
+                }
                 <hr />
                 <div className="mb-5">
                     <h3>Pricing</h3>
