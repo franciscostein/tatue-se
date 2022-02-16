@@ -26,11 +26,9 @@ export const fetchArtists = (filter, customHeaders = {}) => async dispatch => {
         });
     } catch (error) {
         dispatch({
-            type: FETCH_ARTISTS_ERROR,
-            payload: {
-                msg: error.response.statusText
-            }
+            type: FETCH_ARTISTS_ERROR
         });
+        dispatch(setAlertTimeout(error.message, 'danger'));
     }
 }
 
@@ -45,16 +43,11 @@ export const fetchArtistProfile = artistId => async dispatch => {
         });
     } catch (error) {
         dispatch({
-            type: ARTIST_PROFILE_ERROR,
-            payload: { 
-                msg: error.response.statusText, 
-                status: error.response.status
-            }
+            type: ARTIST_PROFILE_ERROR
         });
     }
 }
 
-// create or update profile
 export const saveProfile = (formData) => async dispatch => {
     try {
         const res = await axios.post('/api/artists', formData);
@@ -63,22 +56,12 @@ export const saveProfile = (formData) => async dispatch => {
             type: SAVE_ARTIST_PROFILE,
             payload: res.data
         });
-
         dispatch(setAlertTimeout('Profile saved!'));
     } catch (error) {
-        const errors = error.response.data.errors;
-
-        if (errors) {
-            errors.forEach(err => dispatch(setAlertTimeout(err.msg, 'danger')));
-        }
-
         dispatch({
-            type: ARTIST_PROFILE_ERROR,
-            payload: {
-                msg: error.response.statusText,
-                status: error.response.status
-            }
-        })
+            type: ARTIST_PROFILE_ERROR
+        });
+        dispatch(setAlertTimeout(error.message, 'danger'));
     }
 }
 
