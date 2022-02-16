@@ -1,4 +1,4 @@
-const { create, saveProfilePicture, getUserInfo, getProfilePicture } = require('../service/user');
+const { create, saveProfilePicture, getUserInfo, getProfilePicture, deleteUser } = require('../service/user');
 
 exports.register = async (req, res, next) => {
 	try {
@@ -46,6 +46,16 @@ exports.getUserInfo = async (req, res, next) => {
 exports.getUserProfilePicture = async (req, res, next) => {
 	try {
 		const { status, payload } = await getProfilePicture(req.user.id);
+
+		res.status(status).json(payload);
+	} catch (error) {
+		next(error);
+	}
+}
+
+exports.deleteUser = async (req, res, next) => {
+	try {
+		const { status, payload } = await deleteUser(req.user.id);
 
 		res.status(status).json(payload);
 	} catch (error) {

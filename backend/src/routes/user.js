@@ -1,5 +1,5 @@
 const express = require('express');
-const { register, updateProfilePicture, registerAdmin, getUserInfo, getUserProfilePicture } = require('../controller/user');
+const { register, updateProfilePicture, registerAdmin, getUserInfo, getUserProfilePicture, deleteUser } = require('../controller/user');
 const { userValidation } = require('../middleware/validation/validation');
 const adminAuth = require('../middleware/auth/authAdmin');
 const auth = require('../middleware/auth/auth');
@@ -30,5 +30,10 @@ router.get('/info', auth, getUserInfo);
 // @desc    get basic info from artist and studio related to the user
 // @access  private
 router.get('/profile-picture', auth, getUserProfilePicture);
+
+// @route   DELETE api/users
+// @desc    delete authenticaded user
+// @access  private
+router.delete('/', auth, deleteUser);
 
 module.exports = router;

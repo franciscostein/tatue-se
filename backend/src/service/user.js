@@ -53,3 +53,13 @@ exports.getProfilePicture = async userId => {
 
     return apiResponse({ profilePicture: user.profilePicture });
 }
+
+exports.deleteUser = async userId => {
+    const user = await User.findById(userId);
+
+    if (!user) return apiResponse({ msg: 'User not found'}, 404);
+
+    await user.deleteOne();
+
+    return apiResponse({ userId });
+}

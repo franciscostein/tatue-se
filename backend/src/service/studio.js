@@ -60,6 +60,7 @@ exports.saveImages = async (userId, images) => {
 	}
 	return apiResponse({ photos: studio.photos });
 }
+
 exports.getAll = async search => {
     let studios = {};
 	

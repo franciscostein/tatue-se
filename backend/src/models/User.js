@@ -1,4 +1,6 @@
 const { Schema, model } = require('mongoose');
+const Artist = require('./Artist');
+const Studio = require('./Studio');
 
 const userSchema = new Schema({
 	email: {
@@ -25,6 +27,12 @@ const userSchema = new Schema({
 	}
 }, {
 	timestamps: true
+});
+
+userSchema.pre('deleteOne', { document: true }, function(next) {	// 'this' only refereces document on non-arrow functions
+	Artist.deleteOne({ user: this._id }).exec();
+	Studio.deleteOne({ owner: this._id }).exec();
+	next();
 });
 
 module.exports = User = model('user', userSchema);
