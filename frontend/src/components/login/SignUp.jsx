@@ -12,7 +12,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 
-const SignUp = ({ user: { error }, saveUser, removeAlert, history }) => {
+const SignUp = ({ saveUser, removeAlert, history }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
@@ -29,11 +29,7 @@ const SignUp = ({ user: { error }, saveUser, removeAlert, history }) => {
         saveUser({
             email: email,
             password: password
-        });
-
-        if (!error) {
-            history.push('/');
-        }
+        }, history);
     }
 
     const validate = () => {
@@ -109,8 +105,4 @@ SignUp.propTypes = {
     saveUser: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = state => ({
-    user: state.user
-});
-
-export default connect(mapStateToProps, { saveUser, removeAlert })(withRouter(SignUp));
+export default connect(null, { saveUser, removeAlert })(withRouter(SignUp));

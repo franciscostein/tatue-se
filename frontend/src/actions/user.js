@@ -12,7 +12,7 @@ import {
 import { setAuthToken } from '../utils/authToken';
 import { setAlertTimeout } from './alert';
 
-export const saveUser = userData => async dispatch => {
+export const saveUser = (userData, history) => async dispatch => {
     try {
         const { data } = await axios.post('/api/users', userData);
 
@@ -23,6 +23,7 @@ export const saveUser = userData => async dispatch => {
 
         if (data.token) {
             setAuthToken(data.token);
+            history.push('/');
         }
     } catch (error) {
         dispatch({
