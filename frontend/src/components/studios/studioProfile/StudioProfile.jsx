@@ -331,18 +331,24 @@ const StudioProfile = ({ studio: { studio }, user: { user: { userId }}, fetchStu
                         </Fragment>
                     )
                 }
-                <hr />
-                <h3 className="d-flex">Delete account</h3>
-                <p className="font-55">
-                    Deleting your tatue-se account will permanently remove your profile, 
-                    along with all data you have produced while on tatue-se, 
-                    including permanent removal of photos, comments, saved boards, workplace history, 
-                    and subscription and billing info, booking history, your account information and settings.
-                </p>
-                <Button variant="danger" className="d-flex mt-3 mb-5">
-                    <FaTrashAlt size={19} />
-                    <span className="ps-2">Delete my account</span>
-                </Button>
+                {
+                    studio && (
+                        <Fragment>
+                            <hr />
+                            <h3 className="d-flex pt-3 mb-3">Delete account</h3>
+                            <p className="font-55">
+                                Deleting your tatue-se account will permanently remove your profile, 
+                                along with all data you have produced while on tatue-se, 
+                                including permanent removal of photos, comments, saved boards, workplace history, 
+                                and subscription and billing info, booking history, your account information and settings.
+                            </p>
+                            <Button variant="danger" className="d-flex mt-4 mb-5">
+                                <FaTrashAlt size={19} />
+                                <span className="ps-2">Delete my account</span>
+                            </Button>
+                        </Fragment>
+                    )
+                }
             </Form>
         </Container>
     );
