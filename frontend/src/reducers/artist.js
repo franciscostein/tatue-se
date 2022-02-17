@@ -16,7 +16,7 @@ const initialState = {
     artists: [],
     profile: null,
     loading: true,
-    error: {}
+    error: false
 }
 
 export default function(state = initialState, action) {
@@ -57,18 +57,12 @@ export default function(state = initialState, action) {
                 }
             }
         case SAVE_ARTIST_IMAGE_ERROR:
-            return {
-                ...state,
-                error: true,
-                loading: false
-            }
         case ARTIST_PROFILE_ERROR:
         case FETCH_ARTISTS_ERROR:
             return {
                 ...state,
-                error: payload,
+                error: true,
                 loading: false,
-                profile: null
             }
         case RESET_ARTISTS:
             return {
