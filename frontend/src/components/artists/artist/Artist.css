@@ -1,36 +1,36 @@
 a {
-    text-decoration: none !important;
-    color: #cccaca !important;
+	text-decoration: none !important;
+	color: #cccaca !important;
 }
 
 #sidebar {
-    border: 1px solid;
-    border-radius: 1.3rem;
-    background-color: #212529;
-    color: #cccaca;
-    max-width: 300px;
+	border: 1px solid;
+	border-radius: 1.3rem;
+	background-color: #212529;
+	color: #cccaca;
+	max-width: 300px;
 }
 
 .artist-avatar {
-    height: 2.7em;
-    width: 2.7em;
+	height: 2.7em;
+	width: 2.7em;
 }
 
 .studio-avatar {
-    height: 3rem;
-    width: 3rem;
+	height: 3rem;
+	width: 3rem;
 }
 
 .tattoo-img {
-    width: 9.3em;
-    height: 11.9em;
-    padding: 0;
-    border-radius: 1.3rem;
-    object-fit: cover;
+	width: 9.3em;
+	height: 11.9em;
+	padding: 0;
+	border-radius: 1.3rem;
+	object-fit: cover;
 }
 
 .price-display {
-    background-color: #282c34;
-    border-radius: 1rem;
-    width: calc(50% - 1.1rem);
+	background-color: #282c34;
+	border-radius: 1rem;
+	width: calc(50% - 1.1rem);
 }

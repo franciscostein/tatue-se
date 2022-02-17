@@ -12,49 +12,57 @@ import ArtistCard from './fragments/ArtistCard';
 import TattooStyles from '../tattooStyles/TattooStyles';
 
 const Artists = ({ artist: { artists }, fetchArtists, history }) => {
-    const [selectedTattooStylesIds, setSelectedTattooStylesIds] = useState([]);
+	const [selectedTattooStylesIds, setSelectedTattooStylesIds] = useState([]);
 
-    useEffect(() => {
-        fetchArtists('cardInfo');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+	useEffect(() => {
+		fetchArtists('cardInfo');
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
-    return (
-        <div>
-            <div className="search-header">
-                <h1 className="mt-5">Artists</h1>
-                <p className="font-70 secondary-color">Find your next tattoo artist.</p>
-                <Form.Group controlId="formArtistLocation">
-                    <Form.Control type="text" placeholder="In which city?" />
-                </Form.Group>
+	return (
+		<div>
+			<div className="search-header">
+				<h1 className="mt-5">Artists</h1>
+				<p className="font-70 secondary-color">
+					Find your next tattoo artist.
+				</p>
+				<Form.Group controlId="formArtistLocation">
+					<Form.Control type="text" placeholder="In which city?" />
+				</Form.Group>
 
-                <div className="tattoo-styles-header">
-                    {
-                        <TattooStyles selectedTattooStylesIds={selectedTattooStylesIds} />
-                    }
-                </div>
-            </div>
-            <hr className="my-2" />
-            {
-                artists && (
-                    <div className="d-flex flex-wrap justify-content-center mx-5">
-                        {
-                            artists.map(artist => <ArtistCard key={artist._id} artist={artist} onClick={() => history.push(`/artists/${artist._id}`)} />)
-                        }
-                    </div>
-                )
-            }
-        </div>
-    );
-}
+				<div className="tattoo-styles-header">
+					{
+						<TattooStyles
+							selectedTattooStylesIds={selectedTattooStylesIds}
+						/>
+					}
+				</div>
+			</div>
+			<hr className="my-2" />
+			{artists && (
+				<div className="d-flex flex-wrap justify-content-center mx-5">
+					{artists.map(artist => (
+						<ArtistCard
+							key={artist._id}
+							artist={artist}
+							onClick={() =>
+								history.push(`/artists/${artist._id}`)
+							}
+						/>
+					))}
+				</div>
+			)}
+		</div>
+	);
+};
 
 Artists.propTypes = {
-    artist: PropTypes.object.isRequired,
-    fetchArtists: PropTypes.func.isRequired
-}
+	artist: PropTypes.object.isRequired,
+	fetchArtists: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = state => ({
-    artist: state.artist,
+	artist: state.artist,
 });
 
 export default connect(mapStateToProps, { fetchArtists })(withRouter(Artists));

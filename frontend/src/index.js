@@ -10,10 +10,10 @@ axios.defaults.baseURL = process.env.axiosURL || 'http://localhost:5000';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 ReactDOM.render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>,
-    document.getElementById('root')
+	<React.StrictMode>
+		<App />
+	</React.StrictMode>,
+	document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

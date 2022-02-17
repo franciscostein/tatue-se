@@ -8,10 +8,10 @@ import tattooStyles from './tattooStyles';
 import user from './user';
 
 export default combineReducers({
-    alert,
-    artist,
-    auth,
-    studio,
-    tattooStyles,
-    user
+	alert,
+	artist,
+	auth,
+	studio,
+	tattooStyles,
+	user,
 });

@@ -1,34 +1,34 @@
 /* parent and child so the component can be scrollable without showing the scrollbar */
 #parent {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
 }
 
 #child {
-    width: 100%;
-    height: 100%;
-    overflow-y: scroll;
-    padding-right: 17px; /* Increase/decrease this value for cross-browser compatibility */
-    box-sizing: content-box; /* So the width will be 100% + 17px */
+	width: 100%;
+	height: 100%;
+	overflow-y: scroll;
+	padding-right: 17px; /* Increase/decrease this value for cross-browser compatibility */
+	box-sizing: content-box; /* So the width will be 100% + 17px */
 }
 
 .remove-photos {
-    margin-left: -1.3rem;
-    color: #dc3545;
-    cursor: pointer;
+	margin-left: -1.3rem;
+	color: #dc3545;
+	cursor: pointer;
 }
 
 .remove-cover {
-    margin-top: -15.7rem;
-    margin-left: -0.7rem;
-    color: #dc3545;
-    cursor: pointer;
+	margin-top: -15.7rem;
+	margin-left: -0.7rem;
+	color: #dc3545;
+	cursor: pointer;
 }
 
 .add-photos_cover {
-    width: 97%;
-    height: 27vh;
-    object-fit: cover;
-    border-radius: 16px;
+	width: 97%;
+	height: 27vh;
+	object-fit: cover;
+	border-radius: 16px;
 }

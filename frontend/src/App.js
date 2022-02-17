@@ -11,27 +11,27 @@ import Footer from './components/layout/footer/Footer';
 import Routes from './routes/Routes';
 
 if (localStorage.token) {
-    setAuthToken(localStorage.token);
+	setAuthToken(localStorage.token);
 }
 
 function App() {
-    useEffect(() => {
-        store.dispatch(loadUser());
-    }, []);
+	useEffect(() => {
+		store.dispatch(loadUser());
+	}, []);
 
-    return (
-        <div className="App">
-            <Router>
-                <Provider store={store}>
-                    <Navbar />
-                    <div className="App-content">
-                        <Routes />
-                    </div>
-                    <Footer />
-                </Provider>
-            </Router>
-        </div>
-    );
+	return (
+		<div className="App">
+			<Router>
+				<Provider store={store}>
+					<Navbar />
+					<div className="App-content">
+						<Routes />
+					</div>
+					<Footer />
+				</Provider>
+			</Router>
+		</div>
+	);
 }
 
 export default App;

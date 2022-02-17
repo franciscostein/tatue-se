@@ -1,31 +1,31 @@
 #body {
-    font-size: calc(13px + 2vmin) !important;
+	font-size: calc(13px + 2vmin) !important;
 }
 
 label {
-    font-size: 75%;
-    margin-bottom: 0.5rem;
+	font-size: 75%;
+	margin-bottom: 0.5rem;
 }
 
 .modal-content {
-    background-color: #282c34 !important;
-    color: #dee2e6;
+	background-color: #282c34 !important;
+	color: #dee2e6;
 }
 
 .data-result {
-    margin-top: 5px;
-    height: 275px;
-    border-radius: 0.25rem;
-    overflow: hidden;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
+	margin-top: 5px;
+	height: 275px;
+	border-radius: 0.25rem;
+	overflow: hidden;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
 }
 
 .data-result::-webkit-scrollbar {
-    display: none;
+	display: none;
 }
 
 .search-item {
-    cursor: pointer;
+	cursor: pointer;
 }
