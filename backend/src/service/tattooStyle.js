@@ -13,7 +13,7 @@ exports.save = async (id, name) => {
         const inserted = await create(tattooStyleFields);
         return apiResponse(inserted._doc, 201);
     }
-}
+};
 
 exports.getAll = async () => {
     const tattooStyles = await TattooStyle.find();
@@ -23,33 +23,35 @@ exports.getAll = async () => {
     } else {
         return apiResponse({}, 404);
     }
-}
+};
 
 exports.getManyByIds = async ids => {
-    const tattooStyles = await TattooStyle.find({ '_id': ids });
+    const tattooStyles = await TattooStyle.find({ _id: ids });
 
     if (tattooStyles) {
         return apiResponse(tattooStyles);
     } else {
         return apiResponse({}, 404);
     }
-}
+};
 
 exports.deleteById = async tattooStyleId => {
-	const { deletedCount } = await TattooStyle.deleteOne({ '_id': tattooStyleId });
+    const { deletedCount } = await TattooStyle.deleteOne({
+        _id: tattooStyleId,
+    });
 
-	if (deletedCount > 0) {
-		return apiResponse();
-	} else {
-		return apiResponse({}, 404);
-	}
-}
+    if (deletedCount > 0) {
+        return apiResponse();
+    } else {
+        return apiResponse({}, 404);
+    }
+};
 
 const buildObject = name => {
     const tattooStyle = {};
     tattooStyle.name = name;
     return tattooStyle;
-}
+};
 
 const update = async (id, fields) => {
     return await TattooStyle.findOneAndUpdate(
@@ -57,9 +59,9 @@ const update = async (id, fields) => {
         { $set: fields },
         { new: true }
     );
-}
+};
 
 const create = async tattooStyleFields => {
     const tattooStyle = new TattooStyle(tattooStyleFields);
     return await tattooStyle.save();
-}
+};

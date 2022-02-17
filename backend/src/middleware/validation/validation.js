@@ -1,39 +1,44 @@
 const { check, validationResult } = require('express-validator');
 
 exports.userValidation = [
-	check('email', 'e-mail is required').exists(),
-	check('email', 'invalid e-mail address').isEmail(),
-	check('password', 'password is required').exists(),
-	check('password', 'password must be at least 7 characters long').isLength({ min: 7 }),
-	(req, res, next) => errorHandler(req, res, next)
+    check('email', 'e-mail is required').exists(),
+    check('email', 'invalid e-mail address').isEmail(),
+    check('password', 'password is required').exists(),
+    check('password', 'password must be at least 7 characters long').isLength({
+        min: 7,
+    }),
+    (req, res, next) => errorHandler(req, res, next),
 ];
 
 exports.artistValidation = [
-	check('fullName', 'fullName is required').exists(),
-	check('workplaces', 'workplaces are required').exists(),
-	check('portfolio', `portfolio can't be bigger than 13`).isArray({ max: 13 }),
-	(req, res, next) => errorHandler(req, res, next)
-]
+    check('fullName', 'fullName is required').exists(),
+    check('workplaces', 'workplaces are required').exists(),
+    check('portfolio', `portfolio can't be bigger than 13`).isArray({
+        max: 13,
+    }),
+    (req, res, next) => errorHandler(req, res, next),
+];
 
 exports.tattooStylesValidation = [
-	check('name', 'name is required').exists(),
-	(req, res, next) => errorHandler(req, res, next)
-]
+    check('name', 'name is required').exists(),
+    (req, res, next) => errorHandler(req, res, next),
+];
 
 exports.studioValidation = [
-	check('name', 'name is required').exists(),
-	check('location', 'location is required').exists(),
-	check('location.address', 'address is required').exists(),
-	check('location.latitude', 'latitude is required').exists(),
-	check('location.longitude', 'longitude is required').exists(),
-	check('photos', `photos can't have more than 7`).isArray({ max: 7 }),
-	(req, res, next) => errorHandler(req, res, next)
-]
+    check('name', 'name is required').exists(),
+    check('location', 'location is required').exists(),
+    check('location.address', 'address is required').exists(),
+    check('location.latitude', 'latitude is required').exists(),
+    check('location.longitude', 'longitude is required').exists(),
+    check('photos', `photos can't have more than 7`).isArray({ max: 7 }),
+    (req, res, next) => errorHandler(req, res, next),
+];
 
 const errorHandler = (req, res, next) => {
-	const errors = validationResult(req);
+    const errors = validationResult(req);
 
-	if (!errors.isEmpty()) return res.status(422).json({ errors: errors.array() });
+    if (!errors.isEmpty())
+        return res.status(422).json({ errors: errors.array() });
 
-	next();
-}
+    next();
+};

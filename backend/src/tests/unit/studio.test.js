@@ -14,7 +14,7 @@ studioModel.deleteOne = jest.fn();
 
 const userNotOwnerError = new Error('User must be an owner');
 const userIdNotInOwners = '60bfc57ba18525abd95efd8a';
-const errorMessage = { message: 'Error, something went wrong!' }
+const errorMessage = { message: 'Error, something went wrong!' };
 const rejectedPromiseWithErrorMessage = Promise.reject(errorMessage);
 
 let req, res, next;
@@ -30,7 +30,7 @@ describe('studioController.save', () => {
         req.user = {};
         jest.resetAllMocks();
     });
-    
+
     it('should have a save function', () => {
         expect(typeof studioController.save).toBe('function');
     });
@@ -90,7 +90,7 @@ describe('studioController.save', () => {
         req.body = newStudio;
         studioModel.findOne.mockReturnValue(undefined);
         saveMock.mockReturnValue(insertedStudio);
-        
+
         await studioController.save(req, res, next);
 
         expect(res.statusCode).toBe(201);
@@ -133,14 +133,14 @@ describe('studioController.getAll', () => {
     });
 
     it('should handle errors', async () => {
-		const errorMessage = { message: 'Error, something went wrong!' }
-		const rejectedPromise = Promise.reject(errorMessage);
-		studioModel.find.mockReturnValue(rejectedPromise);
+        const errorMessage = { message: 'Error, something went wrong!' };
+        const rejectedPromise = Promise.reject(errorMessage);
+        studioModel.find.mockReturnValue(rejectedPromise);
 
-		await studioController.getAll(req, res, next);
+        await studioController.getAll(req, res, next);
 
-		expect(next).toBeCalledWith(errorMessage);
-	});
+        expect(next).toBeCalledWith(errorMessage);
+    });
 });
 
 describe('studioController.getOne', () => {
@@ -167,24 +167,24 @@ describe('studioController.getOne', () => {
         await studioController.getOne(req, res, next);
 
         expect(res.statusCode).toBe(200);
-		expect(res._isEndCalled()).toBeTruthy();
-		expect(res._getJSONData()).toStrictEqual(insertedStudio._doc);
+        expect(res._isEndCalled()).toBeTruthy();
+        expect(res._getJSONData()).toStrictEqual(insertedStudio._doc);
     });
 
     it('shouldnt return any studio if there isnt a match', async () => {
         await studioController.getOne(req, res, next);
 
         expect(res.statusCode).toBe(404);
-		expect(res._isEndCalled()).toBeTruthy();
-		expect(res._getJSONData()).toStrictEqual({});
+        expect(res._isEndCalled()).toBeTruthy();
+        expect(res._getJSONData()).toStrictEqual({});
     });
 
     it('should handle errors', async () => {
-		studioModel.findById.mockReturnValue(rejectedPromiseWithErrorMessage);
+        studioModel.findById.mockReturnValue(rejectedPromiseWithErrorMessage);
 
-		await studioController.getOne(req, res, next);
+        await studioController.getOne(req, res, next);
 
-		expect(next).toHaveBeenCalledWith(errorMessage);
+        expect(next).toHaveBeenCalledWith(errorMessage);
     });
 });
 
@@ -227,7 +227,7 @@ describe('studioController.deleteOne', () => {
 
         await studioController.deleteOne(req, res, next);
 
-        expect(studioModel.deleteOne).toBeCalledWith({ '_id': studioId });
+        expect(studioModel.deleteOne).toBeCalledWith({ _id: studioId });
     });
 
     it('should return HTTP 200 if it was deleted', async () => {
@@ -239,8 +239,8 @@ describe('studioController.deleteOne', () => {
         await studioController.deleteOne(req, res, next);
 
         expect(res.statusCode).toBe(200);
-		expect(res._isEndCalled()).toBeTruthy();
-		expect(res._getJSONData()).toStrictEqual({});
+        expect(res._isEndCalled()).toBeTruthy();
+        expect(res._getJSONData()).toStrictEqual({});
     });
 
     it('should return HTTP 404 if it wasnt deleted', async () => {
@@ -252,18 +252,18 @@ describe('studioController.deleteOne', () => {
         await studioController.deleteOne(req, res, next);
 
         expect(res.statusCode).toBe(404);
-		expect(res._isEndCalled()).toBeTruthy();
-		expect(res._getJSONData()).toStrictEqual({});
+        expect(res._isEndCalled()).toBeTruthy();
+        expect(res._getJSONData()).toStrictEqual({});
     });
 
     it('should handle errors', async () => {
         req.params.id = studioId;
         req.user.id = userId;
         studioModel.findOne.mockReturnValue(insertedStudio._doc);
-		studioModel.deleteOne.mockReturnValue(rejectedPromiseWithErrorMessage);
+        studioModel.deleteOne.mockReturnValue(rejectedPromiseWithErrorMessage);
 
-		await studioController.deleteOne(req, res, next);
+        await studioController.deleteOne(req, res, next);
 
-		expect(next).toHaveBeenCalledWith(errorMessage);
+        expect(next).toHaveBeenCalledWith(errorMessage);
     });
 });

@@ -1,15 +1,15 @@
 exports.apiResponse = (payload = {}, status = 200) => {
-	return {
-		status,
-		payload
-	}
-}
+    return {
+        status,
+        payload,
+    };
+};
 
 exports.apiResponsePayloadName = (payloadName, payloadValue, status = 200) => {
-	return {
-		status,
-		payload: {
-			[payloadName]: payloadValue
-		}
-	}
-}
+    return {
+        status,
+        payload: {
+            [payloadName]: payloadValue,
+        },
+    };
+};
