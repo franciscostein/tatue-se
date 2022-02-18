@@ -9,6 +9,7 @@ import {
 	SAVE_IMAGE_FAIL,
 	SAVE_PHOTOS_SUCCESS,
 	SAVE_PHOTOS_FAIL,
+	STUDIO_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -61,6 +62,7 @@ export default function (state = initialState, action) {
 		case SAVE_STUDIO_FAIL:
 		case SAVE_IMAGE_FAIL:
 		case SAVE_PHOTOS_FAIL:
+		case STUDIO_ERROR:
 			return {
 				...state,
 				error: true,

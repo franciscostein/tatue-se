@@ -10,6 +10,7 @@ import {
 	SAVE_IMAGE_FAIL,
 	SAVE_PHOTOS_SUCCESS,
 	SAVE_PHOTOS_FAIL,
+	STUDIO_ERROR,
 } from './types';
 
 import { setAlertTimeout } from './alert';
@@ -25,7 +26,9 @@ export const fetchStudios = search => async dispatch => {
 			payload: data,
 		});
 	} catch (error) {
-		console.error(error);
+		dispatch({
+			type: STUDIO_ERROR,
+		});
 	}
 };
 
@@ -41,7 +44,9 @@ export const fetchStudio = studioId => async dispatch => {
 			payload: data,
 		});
 	} catch (error) {
-		console.error(error);
+		dispatch({
+			type: STUDIO_ERROR,
+		});
 	}
 };
 

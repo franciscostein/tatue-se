@@ -44,15 +44,15 @@ const StudioProfile = ({
 			longitude: '0',
 		},
 		about: '',
-		businessHours: {
-			monday: { opens: '', closes: '', isOpen: false },
-			tuesday: { opens: '', closes: '', isOpen: false },
-			wednesday: { opens: '', closes: '', isOpen: false },
-			thursday: { opens: '', closes: '', isOpen: false },
-			friday: { opens: '', closes: '', isOpen: false },
-			saturday: { opens: '', closes: '', isOpen: false },
-			sunday: { opens: '', closes: '', isOpen: false },
-		},
+	});
+	const [businessHours, setBusinessHours] = useState({
+		monday: { opens: '', closes: '', isOpen: false },
+		tuesday: { opens: '', closes: '', isOpen: false },
+		wednesday: { opens: '', closes: '', isOpen: false },
+		thursday: { opens: '', closes: '', isOpen: false },
+		friday: { opens: '', closes: '', isOpen: false },
+		saturday: { opens: '', closes: '', isOpen: false },
+		sunday: { opens: '', closes: '', isOpen: false },
 	});
 	const [logo, setLogo] = useState('');
 	const [showImagesModal, setShowImagesModal] = useState(false);
@@ -70,11 +70,11 @@ const StudioProfile = ({
 				instagram: studio.social.instagram,
 				location: studio.location,
 				about: studio.about,
-				businessHours: studio.businessHours,
 			});
-			setLogo(studio.logo.publicId);
-			setCover(studio.cover.publicId);
-			setPhotos(studio.photos);
+			if (studio.businessHours) setBusinessHours(studio.businessHours);
+			if (studio.logo) setLogo(studio.logo.publicId);
+			if (studio.cover) setCover(studio.cover.publicId);
+			if (studio.photos) setPhotos(studio.photos);
 		} else {
 			fetchStudio();
 		}
@@ -90,15 +90,17 @@ const StudioProfile = ({
 		instagram,
 		location,
 		about,
-		businessHours,
 	} = formData;
 
 	const onChange = e =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 
 	const handleSaveClick = () => {
-		console.log(formData);
-		// saveStudio(formData);
+		saveStudio({
+			...formData,
+			businessHours,
+			social: { email, website, phone, facebook, instagram },
+		});
 	};
 
 	const handlePlaceSelect = place => {
@@ -108,14 +110,14 @@ const StudioProfile = ({
 				location: { lat, lng },
 			},
 		} = place;
-		setFormData({
-			...formData,
+		setFormData(prevFormData => ({
+			...prevFormData,
 			location: {
 				address: formatted_address,
 				latitude: lat(),
 				longitude: lng(),
 			},
-		});
+		}));
 	};
 
 	const addPhotoHandler = base64 => {
@@ -144,7 +146,7 @@ const StudioProfile = ({
 	};
 
 	const handlePhotosSave = () => {
-		if (cover !== studio.cover.publicId) {
+		if (!studio.cover || cover !== studio.cover.publicId) {
 			saveStudioImage(cover, 'cover');
 		}
 		if (photos.some(photo => photo.base64)) {
@@ -304,38 +306,29 @@ const StudioProfile = ({
 					weekday="Monday"
 					day={businessHours.monday}
 					setChecked={value =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								monday: {
-									...businessHours.monday,
-									isOpen: value,
-								},
+						setBusinessHours({
+							...businessHours,
+							monday: {
+								...businessHours.monday,
+								isOpen: value,
 							},
 						})
 					}
 					onChangeOpen={e =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								monday: {
-									...businessHours.monday,
-									opens: e.target.value,
-								},
+						setBusinessHours({
+							...businessHours,
+							monday: {
+								...businessHours.monday,
+								opens: e.target.value,
 							},
 						})
 					}
 					onChangeClose={e =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								monday: {
-									...businessHours.monday,
-									closes: e.target.value,
-								},
+						setBusinessHours({
+							...businessHours,
+							monday: {
+								...businessHours.monday,
+								closes: e.target.value,
 							},
 						})
 					}
@@ -344,38 +337,29 @@ const StudioProfile = ({
 					weekday="Tuesday"
 					day={businessHours.tuesday}
 					setChecked={value =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								tuesday: {
-									...businessHours.tuesday,
-									isOpen: value,
-								},
+						setBusinessHours({
+							...businessHours,
+							tuesday: {
+								...businessHours.tuesday,
+								isOpen: value,
 							},
 						})
 					}
 					onChangeOpen={e =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								tuesday: {
-									...businessHours.tuesday,
-									opens: e.target.value,
-								},
+						setBusinessHours({
+							...businessHours,
+							tuesday: {
+								...businessHours.tuesday,
+								opens: e.target.value,
 							},
 						})
 					}
 					onChangeClose={e =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								tuesday: {
-									...businessHours.tuesday,
-									closes: e.target.value,
-								},
+						setBusinessHours({
+							...businessHours,
+							tuesday: {
+								...businessHours.tuesday,
+								closes: e.target.value,
 							},
 						})
 					}
@@ -384,38 +368,29 @@ const StudioProfile = ({
 					weekday="Wednesday"
 					day={businessHours.wednesday}
 					setChecked={value =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								wednesday: {
-									...businessHours.wednesday,
-									isOpen: value,
-								},
+						setBusinessHours({
+							...businessHours,
+							wednesday: {
+								...businessHours.wednesday,
+								isOpen: value,
 							},
 						})
 					}
 					onChangeOpen={e =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								wednesday: {
-									...businessHours.wednesday,
-									opens: e.target.value,
-								},
+						setBusinessHours({
+							...businessHours,
+							wednesday: {
+								...businessHours.wednesday,
+								opens: e.target.value,
 							},
 						})
 					}
 					onChangeClose={e =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								wednesday: {
-									...businessHours.wednesday,
-									closes: e.target.value,
-								},
+						setBusinessHours({
+							...businessHours,
+							wednesday: {
+								...businessHours.wednesday,
+								closes: e.target.value,
 							},
 						})
 					}
@@ -424,38 +399,29 @@ const StudioProfile = ({
 					weekday="Thursday"
 					day={businessHours.thursday}
 					setChecked={value =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								thursday: {
-									...businessHours.thursday,
-									isOpen: value,
-								},
+						setBusinessHours({
+							...businessHours,
+							thursday: {
+								...businessHours.thursday,
+								isOpen: value,
 							},
 						})
 					}
 					onChangeOpen={e =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								thursday: {
-									...businessHours.thursday,
-									opens: e.target.value,
-								},
+						setBusinessHours({
+							...businessHours,
+							thursday: {
+								...businessHours.thursday,
+								opens: e.target.value,
 							},
 						})
 					}
 					onChangeClose={e =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								thursday: {
-									...businessHours.thursday,
-									closes: e.target.value,
-								},
+						setBusinessHours({
+							...businessHours,
+							thursday: {
+								...businessHours.thursday,
+								closes: e.target.value,
 							},
 						})
 					}
@@ -464,38 +430,29 @@ const StudioProfile = ({
 					weekday="Friday"
 					day={businessHours.friday}
 					setChecked={value =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								friday: {
-									...businessHours.friday,
-									isOpen: value,
-								},
+						setBusinessHours({
+							...businessHours,
+							friday: {
+								...businessHours.friday,
+								isOpen: value,
 							},
 						})
 					}
 					onChangeOpen={e =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								friday: {
-									...businessHours.friday,
-									opens: e.target.value,
-								},
+						setBusinessHours({
+							...businessHours,
+							friday: {
+								...businessHours.friday,
+								opens: e.target.value,
 							},
 						})
 					}
 					onChangeClose={e =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								friday: {
-									...businessHours.friday,
-									closes: e.target.value,
-								},
+						setBusinessHours({
+							...businessHours,
+							friday: {
+								...businessHours.friday,
+								closes: e.target.value,
 							},
 						})
 					}
@@ -504,38 +461,29 @@ const StudioProfile = ({
 					weekday="Saturday"
 					day={businessHours.saturday}
 					setChecked={value =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								saturday: {
-									...businessHours.saturday,
-									isOpen: value,
-								},
+						setBusinessHours({
+							...businessHours,
+							saturday: {
+								...businessHours.saturday,
+								isOpen: value,
 							},
 						})
 					}
 					onChangeOpen={e =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								saturday: {
-									...businessHours.saturday,
-									opens: e.target.value,
-								},
+						setBusinessHours({
+							...businessHours,
+							saturday: {
+								...businessHours.saturday,
+								opens: e.target.value,
 							},
 						})
 					}
 					onChangeClose={e =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								saturday: {
-									...businessHours.saturday,
-									closes: e.target.value,
-								},
+						setBusinessHours({
+							...businessHours,
+							saturday: {
+								...businessHours.saturday,
+								closes: e.target.value,
 							},
 						})
 					}
@@ -544,38 +492,29 @@ const StudioProfile = ({
 					weekday="Sunday"
 					day={businessHours.sunday}
 					setChecked={value =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								sunday: {
-									...businessHours.sunday,
-									isOpen: value,
-								},
+						setBusinessHours({
+							...businessHours,
+							sunday: {
+								...businessHours.sunday,
+								isOpen: value,
 							},
 						})
 					}
 					onChangeOpen={e =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								sunday: {
-									...businessHours.sunday,
-									opens: e.target.value,
-								},
+						setBusinessHours({
+							...businessHours,
+							sunday: {
+								...businessHours.sunday,
+								opens: e.target.value,
 							},
 						})
 					}
 					onChangeClose={e =>
-						setFormData({
-							...formData,
-							businessHours: {
-								...businessHours,
-								sunday: {
-									...businessHours.sunday,
-									closes: e.target.value,
-								},
+						setBusinessHours({
+							...businessHours,
+							sunday: {
+								...businessHours.sunday,
+								closes: e.target.value,
 							},
 						})
 					}
