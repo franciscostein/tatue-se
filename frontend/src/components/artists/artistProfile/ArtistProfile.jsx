@@ -26,7 +26,7 @@ import Button from 'react-bootstrap/Button';
 import { FaPlus, FaTrashAlt } from 'react-icons/fa';
 
 const ArtistProfile = ({
-	artist: { profile, loading },
+	artist: { profile },
 	user: {
 		user: { userId },
 	},
@@ -61,58 +61,37 @@ const ArtistProfile = ({
 	const [idToRemove, setIdToRemove] = useState('');
 
 	useEffect(() => {
+		console.log(profile);
 		if (profile && profile.user === userId) {
 			setFormData({
-				fullName: loading || !profile.fullName ? '' : profile.fullName,
-				biography:
-					loading || !profile.biography ? '' : profile.biography,
-				workplaces:
-					loading || !profile.workplaces ? [] : profile.workplaces,
-				selectedTattooStyles:
-					loading || !profile.tattooStyles
-						? []
-						: profile.tattooStyles,
-				facebook:
-					loading || !profile.social.facebook
-						? ''
-						: profile.social.facebook,
-				instagram:
-					loading || !profile.social.instagram
-						? ''
-						: profile.social.instagram,
-				website:
-					loading || !profile.social.website
-						? ''
-						: profile.social.website,
-				phone:
-					loading || !profile.social.phone
-						? ''
-						: profile.social.phone,
-				email:
-					loading || !profile.social.email
-						? ''
-						: profile.social.email,
+				fullName: profile.fullName,
+				biography: profile.biography,
+				workplaces: profile.workplaces,
+				selectedTattooStyles: profile.tattooStyles,
+				facebook: profile.social.facebook,
+				instagram: profile.social.instagram,
+				website: profile.social.website,
+				phone: profile.social.phone,
+				email: profile.social.email,
 				hourRate:
-					loading || !profile.pricing.hourRate
-						? ''
-						: profile.pricing.hourRate,
+					profile.pricing && profile.pricing.hourRate
+						? profile.pricing.hourRate
+						: '',
 				minRate:
-					loading || !profile.pricing.minRate
-						? ''
-						: profile.pricing.minRate,
-				currency:
-					loading || !profile.pricing.currency
-						? ''
-						: profile.pricing.currency,
+					profile.pricing && profile.pricing.minRate
+						? profile.pricing.minRate
+						: '',
+				currency: profile.pricing.currency,
 			});
-			setProfilePicture(profile.profilePicture.publicId);
-			setCover(profile.cover.publicId);
-			setPortfolio(profile.portfolio);
+			if (profile.profilePicture)
+				setProfilePicture(profile.profilePicture.publicId);
+			if (profile.cover) setCover(profile.cover.publicId);
+			if (profile.portfolio) setPortfolio(profile.portfolio);
 		} else {
 			fetchArtistProfile();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [profile, loading]);
+	}, [profile]);
 
 	const {
 		fullName,
@@ -131,12 +110,13 @@ const ArtistProfile = ({
 	const onChange = e =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 
-	const onSubmit = e => {
-		e.preventDefault();
+	const saveHandler = e => {
+		// e.preventDefault();
+		console.log(formData);
 		saveProfile(formData);
 	};
 
-	const handleAddWorkplace = workplace => {
+	const addWorkplaceHandler = workplace => {
 		setShowAddWorkplaceModal(false);
 
 		if (!workplaces.some(item => item._id === workplace._id)) {
@@ -148,12 +128,12 @@ const ArtistProfile = ({
 		}
 	};
 
-	const handleRemoveWorkplace = workplaceId => {
+	const removeWorkplaceHandler = workplaceId => {
 		setIdToRemove(workplaceId);
 		setShowRemoveWorkplaceModal(true);
 	};
 
-	const handleRemoveWorkplaceConfirmation = () => {
+	const removeWorkplaceConfirmationHandler = () => {
 		setShowRemoveWorkplaceModal(false);
 
 		if (workplaces.some(workplace => workplace._id === idToRemove)) {
@@ -178,12 +158,12 @@ const ArtistProfile = ({
 		]);
 	};
 
-	const handlePhotoRemove = photoId => {
+	const removePhotoHandler = photoId => {
 		const filteredPhotos = portfolio.filter(photo => photo._id !== photoId);
 		setPortfolio(filteredPhotos);
 	};
 
-	const handlePhotoChange = (photoId, base64) => {
+	const changePhotoHandler = (photoId, base64) => {
 		const newPhotos = portfolio.map(photo => {
 			if (photo._id === photoId) {
 				photo.base64 = base64;
@@ -193,7 +173,7 @@ const ArtistProfile = ({
 		setPortfolio(newPhotos);
 	};
 
-	const handleProtosSave = () => {
+	const saveProtosHandler = () => {
 		if (cover !== profile.cover.publicId) {
 			saveArtistImage(cover, 'cover');
 		}
@@ -216,7 +196,7 @@ const ArtistProfile = ({
 						<Button
 							variant="dark"
 							className="px-3 mx-2"
-							onClick={e => onSubmit(e)}
+							onClick={saveHandler}
 						>
 							Save
 						</Button>
@@ -350,22 +330,21 @@ const ArtistProfile = ({
 						<AddWorkplaceModal
 							show={showAddWorkplaceModal}
 							onClose={() => setShowAddWorkplaceModal(false)}
-							addWorkplace={handleAddWorkplace}
+							addWorkplace={addWorkplaceHandler}
 							selectedWorplaces={workplaces}
 						/>
 					</div>
 					<div className="d-flex flex-wrap">
-						{workplaces
-							? workplaces.map(studio => (
-									<StudioMiniCard
-										key={studio._id}
-										studio={studio}
-										removeFunction={() =>
-											handleRemoveWorkplace(studio._id)
-										}
-									/>
-							  ))
-							: null}
+						{workplaces &&
+							workplaces.map(studio => (
+								<StudioMiniCard
+									key={studio._id}
+									studio={studio}
+									removeFunction={() =>
+										removeWorkplaceHandler(studio._id)
+									}
+								/>
+							))}
 						<ConfirmationModal
 							show={showRemoveWorkplaceModal}
 							objectId={idToRemove}
@@ -374,7 +353,7 @@ const ArtistProfile = ({
 							titleColor="text-danger"
 							bodyText="Are you sure you want to remove it?"
 							acceptVariant="danger"
-							onAccept={handleRemoveWorkplaceConfirmation}
+							onAccept={removeWorkplaceConfirmationHandler}
 						/>
 					</div>
 				</div>
@@ -409,10 +388,10 @@ const ArtistProfile = ({
 								photosLimit={13}
 								onClose={() => setShowImagesModal(false)}
 								onAddPhoto={addPhotoHandler}
-								onRemovePhoto={handlePhotoRemove}
+								onRemovePhoto={removePhotoHandler}
 								onChangeCover={setCover}
-								onChangePhoto={handlePhotoChange}
-								onSave={handleProtosSave}
+								onChangePhoto={changePhotoHandler}
+								onSave={saveProtosHandler}
 							/>
 						</div>
 					</Fragment>

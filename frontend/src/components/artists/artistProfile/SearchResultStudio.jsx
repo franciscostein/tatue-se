@@ -4,7 +4,7 @@ import logoPlaceholder from '../../../assets/studio/placeholder.png';
 
 const SearchResultStudio = ({
 	studio: {
-		logo,
+		logo = {},
 		name,
 		location: { address },
 	},
@@ -16,7 +16,7 @@ const SearchResultStudio = ({
 			onClick={onClick}
 		>
 			<Image
-				src={logo.publicId ?? logoPlaceholder}
+				src={logo.publicId || logoPlaceholder}
 				className="studio-avatar-img-mini"
 				roundedCircle
 			/>
