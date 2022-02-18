@@ -71,7 +71,7 @@ export const saveStudio = studio => async dispatch => {
 
 export const saveStudioImage = (base64, type) => async dispatch => {
 	try {
-		const { data } = await axios.post('/api/studios/image', {
+		const { data } = await axios.patch('/api/studios/image', {
 			base64,
 			type,
 		});
@@ -103,7 +103,7 @@ export const saveStudioImage = (base64, type) => async dispatch => {
 
 export const saveStudioImages = images => async dispatch => {
 	try {
-		const { data } = await axios.post('/api/studios/images', images);
+		const { data } = await axios.patch('/api/studios/images', images);
 
 		dispatch({
 			type: SAVE_PHOTOS_SUCCESS,

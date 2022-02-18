@@ -95,7 +95,7 @@ const StudioProfile = ({
 	const onChange = e =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 
-	const handleSaveClick = () => {
+	const saveHandler = () => {
 		saveStudio({
 			...formData,
 			businessHours,
@@ -103,7 +103,7 @@ const StudioProfile = ({
 		});
 	};
 
-	const handlePlaceSelect = place => {
+	const selectPlaceHandler = place => {
 		const {
 			formatted_address,
 			geometry: {
@@ -130,12 +130,12 @@ const StudioProfile = ({
 		]);
 	};
 
-	const handlePhotosRemove = photoId => {
+	const removePhotoHandler = photoId => {
 		const filteredPhotos = photos.filter(photo => photo._id !== photoId);
 		setPhotos(filteredPhotos);
 	};
 
-	const handlePhotosChange = (photoId, base64) => {
+	const changePhotoHandler = (photoId, base64) => {
 		const newPhotos = photos.map(photo => {
 			if (photo._id === photoId) {
 				photo.base64 = base64;
@@ -145,11 +145,12 @@ const StudioProfile = ({
 		setPhotos(newPhotos);
 	};
 
-	const handlePhotosSave = () => {
+	const savePhotosHandler = () => {
 		if (!studio.cover || cover !== studio.cover.publicId) {
 			saveStudioImage(cover, 'cover');
 		}
 		if (photos.some(photo => photo.base64)) {
+			console.log(photos);
 			saveStudioImages(photos);
 		}
 	};
@@ -168,7 +169,7 @@ const StudioProfile = ({
 						<Button
 							variant="dark"
 							className="px-3 mx-2"
-							onClick={handleSaveClick}
+							onClick={saveHandler}
 						>
 							Save
 						</Button>
@@ -283,7 +284,7 @@ const StudioProfile = ({
 									},
 								})
 							}
-							onPlaceSelected={handlePlaceSelect}
+							onPlaceSelected={selectPlaceHandler}
 						/>
 					</Form.Group>
 				</Row>
@@ -541,10 +542,10 @@ const StudioProfile = ({
 								photosLimit={7}
 								onClose={() => setShowImagesModal(false)}
 								onAddPhoto={addPhotoHandler}
-								onRemovePhoto={handlePhotosRemove}
+								onRemovePhoto={removePhotoHandler}
 								onChangeCover={setCover}
-								onChangePhoto={handlePhotosChange}
-								onSave={handlePhotosSave}
+								onChangePhoto={changePhotoHandler}
+								onSave={savePhotosHandler}
 							/>
 						</div>
 					</Fragment>

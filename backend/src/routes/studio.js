@@ -1,9 +1,6 @@
 const express = require('express');
 const auth = require('../middleware/auth/auth');
-const {
-	studioValidation,
-	studioPhotosValidation,
-} = require('../middleware/validation/validation');
+const { studioValidation } = require('../middleware/validation/validation');
 const {
 	save,
 	saveImage,
@@ -24,12 +21,12 @@ router.post('/', [auth, studioValidation], save);
 // @route   POST api/studios/image
 // @desc    save studio image for authenticated user
 // @access  private
-router.post('/image', auth, saveImage);
+router.patch('/image', auth, saveImage);
 
 // @route   POST api/studios/images
 // @desc    save studio images array for authenticated user
 // @access  private
-router.post('/images', [auth, studioPhotosValidation], saveImages);
+router.patch('/images', auth, saveImages);
 
 // @route   GET api/studios
 // @desc    get all studios
