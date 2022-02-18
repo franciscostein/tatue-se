@@ -150,7 +150,6 @@ const StudioProfile = ({
 			saveStudioImage(cover, 'cover');
 		}
 		if (photos.some(photo => photo.base64)) {
-			console.log(photos);
 			saveStudioImages(photos);
 		}
 	};

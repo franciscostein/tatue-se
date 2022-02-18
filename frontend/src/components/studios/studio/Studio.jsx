@@ -17,7 +17,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { FaCircle, FaMapMarkerAlt } from 'react-icons/fa';
 
-import profileImg from '../../../assets/user_w.png';
+import profilePlaceholder from '../../../assets/user_w.png';
+import coverPlaceholder from '../../../assets/cover.jpg';
 
 const Studio = ({
 	studio: { studio },
@@ -55,8 +56,8 @@ const Studio = ({
 				fetchArtists('cardInfo', { studioid: id });
 
 			setStudioInfo({
-				cover: studio.cover.publicId,
-				logoImage: studio.logo.publicId,
+				cover: studio.cover ? studio.cover.publicId : '',
+				logoImage: studio.logo ? studio.logo.publicId : '',
 				name: studio.name,
 				location: studio.location,
 				about: studio.about,
@@ -83,7 +84,7 @@ const Studio = ({
 	return (
 		<div>
 			<div id="cover">
-				<Image src={cover ?? cover} className="cover-img" />
+				<Image src={cover || coverPlaceholder} className="cover-img" />
 			</div>
 			<div
 				id="header"
@@ -91,7 +92,7 @@ const Studio = ({
 			>
 				<div className="d-flex">
 					<Image
-						src={logoImage ?? profileImg}
+						src={logoImage || profilePlaceholder}
 						className="avatar"
 						roundedCircle
 					/>
