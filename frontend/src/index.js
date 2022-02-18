@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import './index.css';
+import ErrorBoundary from './components/layout/pages/ErrorBoundary';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,7 +12,9 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 ReactDOM.render(
 	<React.StrictMode>
-		<App />
+		<ErrorBoundary>
+			<App />
+		</ErrorBoundary>
 	</React.StrictMode>,
 	document.getElementById('root')
 );
