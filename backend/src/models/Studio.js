@@ -103,7 +103,7 @@ const studioSchema = new Schema(
 					publicId: String,
 				},
 			],
-			validate: [arrayLimit7, '{Path} exceeds the limit of 7'],
+			validate: [arrayLimit7, 'Exceeds the limit of 7'],
 		},
 	},
 	{

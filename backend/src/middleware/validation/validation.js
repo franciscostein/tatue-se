@@ -33,13 +33,6 @@ exports.studioValidation = [
 	(req, res, next) => errorHandler(req, res, next),
 ];
 
-exports.studioPhotosValidation = [
-	check('photos', `photos can't have more than 7`).isArray({
-		max: 7,
-	}),
-	(req, res, next) => errorHandler(req, res, next),
-];
-
 const errorHandler = (req, res, next) => {
 	const errors = validationResult(req);
 
