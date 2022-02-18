@@ -18,12 +18,12 @@ const router = express.Router();
 // @access  private
 router.post('/', [auth, studioValidation], save);
 
-// @route   POST api/studios/image
+// @route   PATCH api/studios/image
 // @desc    save studio image for authenticated user
 // @access  private
 router.patch('/image', auth, saveImage);
 
-// @route   POST api/studios/images
+// @route   PATCH api/studios/images
 // @desc    save studio images array for authenticated user
 // @access  private
 router.patch('/images', auth, saveImages);

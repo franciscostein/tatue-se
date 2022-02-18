@@ -73,7 +73,7 @@ export const saveProfile = formData => async dispatch => {
 
 export const saveArtistImage = (base64, type) => async dispatch => {
 	try {
-		const { data } = await axios.post('/api/artists/image', {
+		const { data } = await axios.patch('/api/artists/image', {
 			base64,
 			type,
 		});
@@ -105,7 +105,7 @@ export const saveArtistImage = (base64, type) => async dispatch => {
 
 export const saveArtistPortfolio = images => async dispatch => {
 	try {
-		const { data } = await axios.post('/api/artists/images', images);
+		const { data } = await axios.patch('/api/artists/images', images);
 
 		dispatch({
 			type: SAVE_ARTIST_PORTFOLIO,

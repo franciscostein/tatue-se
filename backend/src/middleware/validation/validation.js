@@ -13,9 +13,6 @@ exports.userValidation = [
 exports.artistValidation = [
 	check('fullName', 'fullName is required').exists(),
 	check('workplaces', 'workplaces are required').exists(),
-	check('portfolio', `portfolio can't be bigger than 13`).isArray({
-		max: 13,
-	}),
 	(req, res, next) => errorHandler(req, res, next),
 ];
 
