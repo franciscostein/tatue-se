@@ -93,7 +93,10 @@ const StudioProfile = ({
 	} = formData;
 
 	const onChange = e =>
-		setFormData({ ...formData, [e.target.name]: e.target.value });
+		setFormData(prevFormData => ({
+			...prevFormData,
+			[e.target.name]: e.target.value,
+		}));
 
 	const saveHandler = () => {
 		saveStudio({
@@ -275,13 +278,13 @@ const StudioProfile = ({
 							options={{ types: ['address'] }}
 							value={location.address}
 							onChange={e =>
-								setFormData({
-									...formData,
+								setFormData(prevFormData => ({
+									...prevFormData,
 									location: {
 										...location,
 										address: e.target.value,
 									},
-								})
+								}))
 							}
 							onPlaceSelected={selectPlaceHandler}
 						/>

@@ -17,6 +17,7 @@ import TattooStyles from '../../tattooStyles/TattooStyles';
 import ImageUploader from '../../fragments/ImageUploader';
 import Alert from '../../fragments/Alert';
 import ImagesModal from '../../ImagesModal/ImagesModal';
+import CurrencySelect from '../fragments/CurrencySelect';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -108,7 +109,10 @@ const ArtistProfile = ({
 	} = formData;
 
 	const onChange = e =>
-		setFormData({ ...formData, [e.target.name]: e.target.value });
+		setFormData(prevFormData => ({
+			...prevFormData,
+			[e.target.name]: e.target.value,
+		}));
 
 	const saveHandler = e => {
 		saveProfile({
@@ -431,77 +435,15 @@ const ArtistProfile = ({
 							</Form.Group>
 						</Col>
 						<Col>
-							<Form.Group>
-								<Form.Label className="font-75" for="currency">
-									Currency
-								</Form.Label>
-								<Form.Control as="select" id="currency">
-									<option className="text-center" value="USD">
-										USD (US$)
-									</option>
-									<option
-										className="text-center"
-										value="EUR"
-										selected
-									>
-										EUR (€)
-									</option>
-									<option className="text-center" value="JPY">
-										JPY (¥)
-									</option>
-									<option className="text-center" value="GBP">
-										GBP (£)
-									</option>
-									<option className="text-center" value="AUD">
-										AUD (A$)
-									</option>
-									<option className="text-center" value="CAD">
-										CAD (C$)
-									</option>
-									<option className="text-center" value="CHF">
-										CHF (CHF)
-									</option>
-									<option className="text-center" value="CNY">
-										CNY (元 / ¥)
-									</option>
-									<option className="text-center" value="HKD">
-										HKD (HK$)
-									</option>
-									<option className="text-center" value="NZD">
-										NZD (NZ$)
-									</option>
-									<option className="text-center" value="SEK">
-										SEK (kr)
-									</option>
-									<option className="text-center" value="KRW">
-										KRW (₩)
-									</option>
-									<option className="text-center" value="SGD">
-										SGD (S$)
-									</option>
-									<option className="text-center" value="NOK">
-										NOK (kr)
-									</option>
-									<option className="text-center" value="MXN">
-										MXN ($)
-									</option>
-									<option className="text-center" value="INR">
-										INR (₹)
-									</option>
-									<option className="text-center" value="RUB">
-										RUB (₽)
-									</option>
-									<option className="text-center" value="ZAR">
-										ZAR (R)
-									</option>
-									<option className="text-center" value="TRY">
-										TRY (₺)
-									</option>
-									<option className="text-center" value="BRL">
-										BRL (R$)
-									</option>
-								</Form.Control>
-							</Form.Group>
+							<CurrencySelect
+								priceCurrency={currency}
+								onSelect={value =>
+									setFormData(prevFormData => ({
+										...prevFormData,
+										currency: value,
+									}))
+								}
+							/>
 						</Col>
 					</Row>
 				</div>
