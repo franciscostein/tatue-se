@@ -20,11 +20,13 @@ exports.save = async (
 	artistFields.user = userId;
 
 	if (artist) {
-		const updated = await update(userId, artistFields);
-		return apiResponse(updated._doc);
+		const { _doc } = await update(userId, artistFields);
+		const updatedArtist = findArtistWithWorkplaces(_doc._id);
+		return apiResponse(updatedArtist);
 	} else {
-		const inserted = await create(artistFields);
-		return apiResponse(inserted._doc, 201);
+		const { _doc } = await create(artistFields);
+		const insertedArtist = findArtistWithWorkplaces(_doc._id);
+		return apiResponse(insertedArtist, 201);
 	}
 };
 
@@ -180,4 +182,14 @@ const update = async (userId, fields) => {
 const create = async artistFields => {
 	const artist = new Artist(artistFields);
 	return await artist.save();
+};
+
+const findArtistWithWorkplaces = async artistId => {
+	return await Artist.findById(artistId)
+		.populate('workplaces', {
+			name: 1,
+			logo: 1,
+			location: { address: 1 },
+		})
+		.exec();
 };

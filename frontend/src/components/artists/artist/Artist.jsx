@@ -83,6 +83,7 @@ const Artist = ({ artist: { profile }, fetchArtistProfile, history }) => {
 				<h5 className="pt-4">Worplaces</h5>
 				{workplaces.map(workplace => (
 					<div
+						key={workplace._id}
 						className="align-items-center studio-card-mini clickable m-3 px-2"
 						onClick={() =>
 							history.push(`/studios/${workplace._id}`)
@@ -111,7 +112,10 @@ const Artist = ({ artist: { profile }, fetchArtistProfile, history }) => {
 						<h5 className="d-flex pt-3">Styles</h5>
 						<div className="d-flex flex-wrap py-1">
 							{tattooStyles.map(tattooStyle => (
-								<span className="tattoo-style-badge mx-1">
+								<span
+									key={tattooStyle._id}
+									className="tattoo-style-badge mx-1"
+								>
 									{tattooStyle.name}
 								</span>
 							))}
@@ -158,6 +162,7 @@ const Artist = ({ artist: { profile }, fetchArtistProfile, history }) => {
 					<div className="d-flex flex-wrap justify-content-center">
 						{portfolio.map(photo => (
 							<Image
+								key={photo._id}
 								src={photo.publicId}
 								className="m-2 tattoo-img"
 							/>

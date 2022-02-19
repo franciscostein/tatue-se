@@ -56,11 +56,11 @@ export const fetchArtistProfile = artistId => async dispatch => {
 
 export const saveProfile = formData => async dispatch => {
 	try {
-		const res = await axios.post('/api/artists', formData);
+		const { data } = await axios.post('/api/artists', formData);
 
 		dispatch({
 			type: SAVE_ARTIST_PROFILE,
-			payload: res.data,
+			payload: data,
 		});
 		dispatch(setAlertTimeout('Profile saved!'));
 	} catch (error) {

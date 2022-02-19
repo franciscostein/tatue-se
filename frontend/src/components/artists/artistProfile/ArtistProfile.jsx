@@ -39,7 +39,7 @@ const ArtistProfile = ({
 		fullName: '',
 		biography: '',
 		workplaces: [],
-		selectedTattooStyles: [],
+		tattooStyles: [],
 		portfolio: [],
 		facebook: '',
 		instagram: '',
@@ -61,13 +61,12 @@ const ArtistProfile = ({
 	const [idToRemove, setIdToRemove] = useState('');
 
 	useEffect(() => {
-		console.log(profile);
 		if (profile && profile.user === userId) {
 			setFormData({
 				fullName: profile.fullName,
 				biography: profile.biography,
 				workplaces: profile.workplaces,
-				selectedTattooStyles: profile.tattooStyles,
+				tattooStyles: profile.tattooStyles,
 				facebook: profile.social.facebook,
 				instagram: profile.social.instagram,
 				website: profile.social.website,
@@ -97,7 +96,7 @@ const ArtistProfile = ({
 		fullName,
 		biography,
 		workplaces,
-		selectedTattooStyles,
+		tattooStyles,
 		facebook,
 		instagram,
 		website,
@@ -105,15 +104,20 @@ const ArtistProfile = ({
 		email,
 		hourRate,
 		minRate,
+		currency,
 	} = formData;
 
 	const onChange = e =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 
 	const saveHandler = e => {
-		// e.preventDefault();
-		console.log(formData);
-		saveProfile(formData);
+		saveProfile({
+			fullName,
+			biography,
+			workplaces,
+			social: { email, website, phone, facebook, instagram },
+			pricing: { hourRate, minRate, currency },
+		});
 	};
 
 	const addWorkplaceHandler = workplace => {
@@ -235,7 +239,7 @@ const ArtistProfile = ({
 					</Col>
 					<Col>
 						<Form.Group controlId="formArtistEmail">
-							<Form.Label className="font-75">Email</Form.Label>
+							<Form.Label className="font-75">E-mail</Form.Label>
 							<Form.Control
 								type="email"
 								placeholder="example@email.com"
@@ -280,7 +284,7 @@ const ArtistProfile = ({
 							</Form.Label>
 							<Form.Control
 								type="text"
-								placeholder="Facebook"
+								placeholder="facebook.com/example"
 								name="facebook"
 								value={facebook}
 								onChange={e => onChange(e)}
@@ -294,7 +298,7 @@ const ArtistProfile = ({
 							</Form.Label>
 							<Form.Control
 								type="tel"
-								placeholder="Instagram"
+								placeholder="instagram.com/example"
 								name="instagram"
 								value={instagram}
 								onChange={e => onChange(e)}
@@ -361,9 +365,7 @@ const ArtistProfile = ({
 				<div className="mt-4 mb-5">
 					<h3 className="d-flex">Styles</h3>
 					<div className="d-flex flex-wrap py-1">
-						<TattooStyles
-							selectedTattooStylesIds={selectedTattooStyles}
-						/>
+						<TattooStyles selectedTattooStylesIds={tattooStyles} />
 					</div>
 				</div>
 				{profile && (
