@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import { FaTimes } from 'react-icons/fa';
 
-import logoPlaceholder from '../../../assets/studio/placeholder.png';
+import logoPlaceholder from '../../../assets/placeholder.png';
 
 const StudioMiniCard = ({
 	studio: { logo = { publicId: null }, name, location },
