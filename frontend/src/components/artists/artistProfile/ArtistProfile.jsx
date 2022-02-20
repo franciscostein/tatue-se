@@ -122,6 +122,7 @@ const ArtistProfile = ({
 			fullName,
 			biography,
 			workplaces,
+			tattooStyles,
 			social: { email, website, phone, facebook, instagram },
 			pricing: { hourRate, minRate, currency },
 		});
@@ -185,7 +186,7 @@ const ArtistProfile = ({
 	};
 
 	const saveProtosHandler = () => {
-		if (cover !== profile.cover.publicId) {
+		if (!profile.cover || cover !== profile.cover.publicId) {
 			saveArtistImage(cover, 'cover');
 		}
 		if (portfolio.some(photo => photo.base64)) {
