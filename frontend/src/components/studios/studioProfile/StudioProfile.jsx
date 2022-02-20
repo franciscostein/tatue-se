@@ -1,5 +1,6 @@
 import './StudioProfile.css';
 import { useState, useEffect, Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PlacesAutoComplete from 'react-google-autocomplete';
 
@@ -8,11 +9,13 @@ import {
 	saveStudio,
 	saveStudioImage,
 	saveStudioImages,
+	deleteStudio,
 } from '../../../actions/studio';
 import ImageUploader from '../../fragments/ImageUploader';
 import Alert from '../../fragments/Alert';
 import BusinessHour from '../fragments/BusinessHour';
 import ImagesModal from '../../ImagesModal/ImagesModal';
+import ConfirmationModal from '../../modals/ConfirmationModal';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -26,10 +29,12 @@ const StudioProfile = ({
 	user: {
 		user: { userId },
 	},
+	history,
 	fetchStudio,
 	saveStudio,
 	saveStudioImage,
 	saveStudioImages,
+	deleteStudio,
 }) => {
 	const [formData, setFormData] = useState({
 		name: '',
@@ -58,6 +63,7 @@ const StudioProfile = ({
 	const [showImagesModal, setShowImagesModal] = useState(false);
 	const [cover, setCover] = useState('');
 	const [photos, setPhotos] = useState([]);
+	const [showDeleteProfileModal, setShowDeleteProfileModal] = useState(false);
 
 	useEffect(() => {
 		if (studio && studio.owner === userId) {
@@ -550,24 +556,33 @@ const StudioProfile = ({
 								onSave={savePhotosHandler}
 							/>
 						</div>
-					</Fragment>
-				)}
-				{studio && (
-					<Fragment>
 						<hr />
-						<h3 className="d-flex pt-3 mb-3">Delete account</h3>
+						<h3 className="d-flex pt-3 mb-3">Delete profile</h3>
 						<p className="font-55">
-							Deleting your tatue-se account will permanently
-							remove your profile, along with all data you have
-							produced while on tatue-se, including permanent
-							removal of photos, comments, saved boards, workplace
-							history, and subscription and billing info, booking
-							history, your account information and settings.
+							Deleting your tatue-se profile will permanently
+							remove it, along with all data you have produced
+							while on tatue-se, including permanent removal of
+							photos, your profile information and settings.
 						</p>
-						<Button variant="danger" className="d-flex mt-4 mb-5">
+						<Button
+							variant="danger"
+							className="d-flex mt-4 mb-5"
+							onClick={() => setShowDeleteProfileModal(true)}
+						>
 							<FaTrashAlt size={19} />
-							<span className="ps-2">Delete my account</span>
+							<span className="ps-2">Delete my profile</span>
 						</Button>
+						<ConfirmationModal
+							show={showDeleteProfileModal}
+							onClose={() => setShowDeleteProfileModal(false)}
+							title="Delete profile"
+							titleColor="text-danger"
+							bodyText="Are you sure? It can't be undone!"
+							declineText="Cancel"
+							acceptVariant="danger"
+							onAccept={() => deleteStudio(history)}
+							acceptText="Yes, delete it"
+						/>
 					</Fragment>
 				)}
 			</Form>
@@ -585,4 +600,5 @@ export default connect(mapStateToProps, {
 	saveStudio,
 	saveStudioImage,
 	saveStudioImages,
-})(StudioProfile);
+	deleteStudio,
+})(withRouter(StudioProfile));

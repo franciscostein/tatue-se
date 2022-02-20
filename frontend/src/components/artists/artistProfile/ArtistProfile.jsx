@@ -60,7 +60,7 @@ const ArtistProfile = ({
 	const [showAddWorkplaceModal, setShowAddWorkplaceModal] = useState(false);
 	const [showRemoveWorkplaceModal, setShowRemoveWorkplaceModal] =
 		useState(false);
-	const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
+	const [showDeleteProfileModal, setShowDeleteProfileModal] = useState(false);
 	const [showImagesModal, setShowImagesModal] = useState(false);
 	const [idToRemove, setIdToRemove] = useState('');
 
@@ -453,27 +453,26 @@ const ArtistProfile = ({
 				{profile && (
 					<Fragment>
 						<hr />
-						<h3 className="d-flex pt-3 mb-3">Delete account</h3>
+						<h3 className="d-flex pt-3 mb-3">Delete profile</h3>
 						<p className="font-55">
-							Deleting your tatue-se account will permanently
-							remove your profile, along with all data you have
+							Deleting your tatue-se artist profile will
+							permanently remove it, along with all data you have
 							produced while on tatue-se, including permanent
-							removal of photos, comments, saved boards, workplace
-							history, and subscription and billing info, booking
-							history, your account information and settings.
+							removal of photos, workplaces history, your profile
+							information and settings.
 						</p>
 						<Button
 							variant="danger"
 							className="d-flex mt-4 mb-5"
-							onClick={() => setShowDeleteAccountModal(true)}
+							onClick={() => setShowDeleteProfileModal(true)}
 						>
 							<FaTrashAlt size={19} />
-							<span className="ps-2">Delete my account</span>
+							<span className="ps-2">Delete my profile</span>
 						</Button>
 						<ConfirmationModal
-							show={showDeleteAccountModal}
-							onClose={() => setShowDeleteAccountModal(false)}
-							title="Delete account"
+							show={showDeleteProfileModal}
+							onClose={() => setShowDeleteProfileModal(false)}
+							title="Delete profile"
 							titleColor="text-danger"
 							bodyText="Are you sure? It can't be undone!"
 							declineText="Cancel"

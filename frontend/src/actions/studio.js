@@ -10,6 +10,7 @@ import {
 	SAVE_IMAGE_FAIL,
 	SAVE_PHOTOS_SUCCESS,
 	SAVE_PHOTOS_FAIL,
+	DELETE_STUDIO,
 	STUDIO_ERROR,
 } from './types';
 
@@ -116,6 +117,29 @@ export const saveStudioImages = images => async dispatch => {
 		});
 		dispatch(
 			setAlertTimeout(`Couldn't save photos, please try again.`, 'danger')
+		);
+	}
+};
+
+export const deleteStudio = history => async dispatch => {
+	try {
+		const { data } = await axios.delete('/api/studios');
+
+		dispatch({
+			type: DELETE_STUDIO,
+			payload: data,
+		});
+		dispatch(setAlertTimeout('Studio profile deleted!'));
+
+		setTimeout(() => {
+			history.push('/');
+		}, [1500]);
+	} catch (error) {
+		dispatch({
+			type: STUDIO_ERROR,
+		});
+		dispatch(
+			setAlertTimeout('There was an error, please try again.', 'danger')
 		);
 	}
 };

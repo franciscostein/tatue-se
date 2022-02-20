@@ -116,11 +116,11 @@ exports.getOwnByUserId = async userId => {
 	}
 };
 
-exports.deleteById = async userId => {
+exports.deleteByUserId = async userId => {
 	const { deletedCount } = await Studio.deleteOne({ owner: userId });
 
 	if (deletedCount > 0) {
-		return apiResponse();
+		return apiResponse(null);
 	} else {
 		return apiResponse({}, 404);
 	}

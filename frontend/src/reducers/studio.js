@@ -9,6 +9,7 @@ import {
 	SAVE_IMAGE_FAIL,
 	SAVE_PHOTOS_SUCCESS,
 	SAVE_PHOTOS_FAIL,
+	DELETE_STUDIO,
 	STUDIO_ERROR,
 } from '../actions/types';
 
@@ -30,6 +31,7 @@ export default function (state = initialState, action) {
 			};
 		case FETCH_STUDIO:
 		case SAVE_STUDIO_SUCCESS:
+		case DELETE_STUDIO:
 			return {
 				...state,
 				studio: payload,

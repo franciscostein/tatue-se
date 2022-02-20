@@ -46,6 +46,6 @@ router.get('/profile/me', auth, getOwn);
 // @route   DELETE api/studios
 // @desc    delete studio by userId
 // @access  private
-router.delete('/:id', auth, deleteOne);
+router.delete('/', auth, deleteOne);
 
 module.exports = router;

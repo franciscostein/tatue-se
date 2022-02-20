@@ -5,7 +5,7 @@ const {
 	getAll,
 	getOneByStudioId,
 	getOwnByUserId,
-	deleteById,
+	deleteByUserId,
 } = require('../service/studio');
 
 exports.save = async (req, res, next) => {
@@ -71,7 +71,7 @@ exports.getOwn = async (req, res, next) => {
 
 exports.deleteOne = async (req, res, next) => {
 	try {
-		const { status, payload } = await deleteById(req.user.id);
+		const { status, payload } = await deleteByUserId(req.user.id);
 
 		res.status(status).json(payload);
 	} catch (error) {
