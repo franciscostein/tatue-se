@@ -8,6 +8,7 @@ import {
 	saveProfile,
 	saveArtistImage,
 	saveArtistPortfolio,
+	deleteArtist,
 } from '../../../actions/artist';
 
 import StudioMiniCard from '../../studios/fragments/StudioMiniCard';
@@ -31,10 +32,12 @@ const ArtistProfile = ({
 	user: {
 		user: { userId },
 	},
+	history,
 	fetchArtistProfile,
 	saveProfile,
 	saveArtistImage,
 	saveArtistPortfolio,
+	deleteArtist,
 }) => {
 	const [formData, setFormData] = useState({
 		fullName: '',
@@ -475,7 +478,7 @@ const ArtistProfile = ({
 							bodyText="Are you sure? It can't be undone!"
 							declineText="Cancel"
 							acceptVariant="danger"
-							onAccept={() => alert('Account deleted!')}
+							onAccept={() => deleteArtist(history)}
 							acceptText="Yes, delete it"
 						/>
 					</Fragment>
@@ -501,4 +504,5 @@ export default connect(mapStateToProps, {
 	saveProfile,
 	saveArtistImage,
 	saveArtistPortfolio,
+	deleteArtist,
 })(withRouter(ArtistProfile));

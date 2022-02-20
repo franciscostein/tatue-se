@@ -1,8 +1,8 @@
 import Form from 'react-bootstrap/Form';
 
 const currencies = [
-	{ value: 'USD', description: 'USD (US$)' },
 	{ value: 'EUR', description: 'EUR (€)' },
+	{ value: 'USD', description: 'USD (US$)' },
 	{ value: 'JPY', description: 'JPY (¥)' },
 	{ value: 'GBP', description: 'GBP (£)' },
 	{ value: 'AUD', description: 'AUD (A$)' },

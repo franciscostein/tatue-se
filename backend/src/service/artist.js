@@ -135,7 +135,7 @@ exports.deleteByUserId = async userId => {
 	const { deletedCount } = await Artist.deleteOne({ user: userId });
 
 	if (deletedCount > 0) {
-		return apiResponse();
+		return apiResponse(null);
 	} else {
 		return apiResponse({}, 404);
 	}

@@ -2,15 +2,14 @@ import axios from 'axios';
 
 import {
 	FETCH_ARTISTS,
-	FETCH_ARTISTS_ERROR,
 	GET_ARTIST_PROFILE,
 	SAVE_ARTIST_PROFILE,
-	ARTIST_PROFILE_ERROR,
 	RESET_ARTISTS,
 	SAVE_ARTIST_IMAGE,
 	SAVE_ARTIST_COVER,
 	SAVE_ARTIST_PORTFOLIO,
-	SAVE_ARTIST_IMAGE_ERROR,
+	DELETE_ARTIST,
+	ARTIST_ERROR,
 } from './types';
 
 import { setAlertTimeout } from './alert';
@@ -30,7 +29,7 @@ export const fetchArtists =
 			});
 		} catch (error) {
 			dispatch({
-				type: FETCH_ARTISTS_ERROR,
+				type: ARTIST_ERROR,
 			});
 			dispatch(setAlertTimeout(error.message, 'danger'));
 		}
@@ -49,7 +48,7 @@ export const fetchArtistProfile = artistId => async dispatch => {
 		});
 	} catch (error) {
 		dispatch({
-			type: ARTIST_PROFILE_ERROR,
+			type: ARTIST_ERROR,
 		});
 	}
 };
@@ -65,7 +64,7 @@ export const saveProfile = formData => async dispatch => {
 		dispatch(setAlertTimeout('Profile saved!'));
 	} catch (error) {
 		dispatch({
-			type: ARTIST_PROFILE_ERROR,
+			type: ARTIST_ERROR,
 		});
 		dispatch(setAlertTimeout(error.message, 'danger'));
 	}
@@ -92,7 +91,7 @@ export const saveArtistImage = (base64, type) => async dispatch => {
 		dispatch(setAlertTimeout(`Image saved!`));
 	} catch (error) {
 		dispatch({
-			type: SAVE_ARTIST_IMAGE_ERROR,
+			type: ARTIST_ERROR,
 		});
 		dispatch(
 			setAlertTimeout(
@@ -114,10 +113,36 @@ export const saveArtistPortfolio = images => async dispatch => {
 		dispatch(setAlertTimeout('Photos saved!'));
 	} catch (error) {
 		dispatch({
-			type: SAVE_ARTIST_IMAGE_ERROR,
+			type: ARTIST_ERROR,
 		});
 		dispatch(
 			setAlertTimeout(`Couldn't save photos, please try again.`, 'danger')
+		);
+	}
+};
+
+export const deleteArtist = history => async dispatch => {
+	try {
+		const { data } = await axios.delete('/api/artists');
+
+		dispatch({
+			type: DELETE_ARTIST,
+			payload: data,
+		});
+		dispatch(setAlertTimeout('Profile delete!'));
+
+		setTimeout(() => {
+			history.push('/');
+		}, [1500]);
+	} catch (error) {
+		dispatch({
+			type: ARTIST_ERROR,
+		});
+		dispatch(
+			setAlertTimeout(
+				'There was an error deleting it, please try again.',
+				'danger'
+			)
 		);
 	}
 };
