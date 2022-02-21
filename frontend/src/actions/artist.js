@@ -53,9 +53,9 @@ export const fetchArtistProfile = artistId => async dispatch => {
 	}
 };
 
-export const saveProfile = formData => async dispatch => {
+export const saveProfile = artist => async dispatch => {
 	try {
-		const { data } = await axios.post('/api/artists', formData);
+		const { data } = await axios.post('/api/artists', artist);
 
 		dispatch({
 			type: SAVE_ARTIST_PROFILE,

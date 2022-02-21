@@ -373,7 +373,10 @@ const ArtistProfile = ({
 				<div className="mt-4 mb-5">
 					<h3 className="d-flex">Styles</h3>
 					<div className="d-flex flex-wrap py-1">
-						<TattooStyles selectedTattooStylesIds={tattooStyles} />
+						<TattooStyles
+							selectedTattooStylesIds={tattooStyles}
+							onSelect={() => {}}
+						/>
 					</div>
 				</div>
 				{profile && (

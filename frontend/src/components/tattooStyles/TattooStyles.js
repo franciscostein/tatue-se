@@ -9,6 +9,7 @@ const TattooStyles = ({
 	tattooStyles: { tattooStyles, loading },
 	fetchTattooStyles,
 	selectedTattooStylesIds,
+	onSelect,
 }) => {
 	const [localTattooStyles, setLocalTattooStyles] = useState([]);
 
@@ -47,13 +48,14 @@ const TattooStyles = ({
 			selectedTattooStylesIds.push(tattooStyleId);
 		}
 		selectTattooStyles();
+		onSelect();
 	};
 
 	return localTattooStyles.map(tattooStyle => (
 		<TattooStyle
 			key={tattooStyle._id}
 			tattooStyle={tattooStyle}
-			onClick={() => handleTattooStyleClick(tattooStyle._id)}
+			onClick={handleTattooStyleClick}
 		/>
 	));
 };

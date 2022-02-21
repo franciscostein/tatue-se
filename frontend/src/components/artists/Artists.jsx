@@ -12,12 +12,29 @@ import ArtistCard from './fragments/ArtistCard';
 import TattooStyles from '../tattooStyles/TattooStyles';
 
 const Artists = ({ artist: { artists }, fetchArtists, history }) => {
-	const [selectedTattooStylesIds, setSelectedTattooStylesIds] = useState([]);
+	const [selectedIds, setSelectedIds] = useState([]);
+	const [filteredArtists, setFilteredArtists] = useState([]);
 
 	useEffect(() => {
-		fetchArtists('cardInfo');
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+		if (artists.length === 0) {
+			fetchArtists('cardInfo');
+		} else {
+			setFilteredArtists([...artists]);
+		}
+	}, [artists, fetchArtists]);
+
+	const selectTattooStylesHandler = () => {
+		if (selectedIds.length > 0) {
+			const newArray = artists.filter(artist =>
+				artist.tattooStyles.some(
+					tattooStyle => selectedIds.indexOf(tattooStyle._id) >= 0
+				)
+			);
+			setFilteredArtists([...newArray]);
+		} else {
+			setFilteredArtists([...artists]);
+		}
+	};
 
 	return (
 		<div>
@@ -31,17 +48,17 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 				</Form.Group>
 
 				<div className="tattoo-styles-header">
-					{
-						<TattooStyles
-							selectedTattooStylesIds={selectedTattooStylesIds}
-						/>
-					}
+					<TattooStyles
+						selectedTattooStylesIds={selectedIds}
+						onSelect={selectTattooStylesHandler}
+					/>
 				</div>
+				{/* <button onClick={selectTattooStylesHandler}>log</button> */}
 			</div>
 			<hr className="my-2" />
-			{artists && (
+			{filteredArtists && (
 				<div className="d-flex flex-wrap justify-content-center mx-5">
-					{artists.map(artist => (
+					{filteredArtists.map(artist => (
 						<ArtistCard
 							key={artist._id}
 							artist={artist}

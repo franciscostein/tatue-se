@@ -5,10 +5,10 @@ const TattooStyle = ({ tattooStyle, onClick }) => {
 		<span
 			className={
 				tattooStyle.selected
-					? 'tattoo-style-badge-active tattoo-style-badge font-50 m-1'
-					: 'tattoo-style-badge font-50 m-1'
+					? 'font-50 m-1 tattoo-style-badge tattoo-style-badge-active'
+					: 'font-50 m-1 tattoo-style-badge'
 			}
-			onClick={onClick}
+			onClick={() => onClick(tattooStyle._id)}
 			id="tattoo-style"
 		>
 			{tattooStyle.name}
