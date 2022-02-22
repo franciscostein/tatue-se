@@ -89,7 +89,13 @@ exports.getAll = async (filter, studioId) => {
 
 	if (filter === 'cardInfo') {
 		select = ['fullName', 'tattooStyles', 'profilePicture', 'cover'];
-		populate = ['tattooStyles'];
+		populate = [
+			'tattooStyles',
+			{
+				path: 'workplaces',
+				select: { location: { city: 1, region: 1, country: 1 } },
+			},
+		];
 	} else {
 		select = ['-user'];
 		populate = ['workplaces', 'tattooStyles'];

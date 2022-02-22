@@ -26,6 +26,8 @@ exports.studioValidation = [
 	check('location', 'location is required').exists(),
 	check('location.address', 'address is required').exists(),
 	check('location.city', 'city is required').exists(),
+	check('location.region', 'region is required').exists(),
+	check('location.country', 'country is required').exists(),
 	check('location.latitude', 'latitude is required').exists(),
 	check('location.longitude', 'longitude is required').exists(),
 	(req, res, next) => errorHandler(req, res, next),

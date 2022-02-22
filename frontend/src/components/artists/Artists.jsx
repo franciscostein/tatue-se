@@ -1,11 +1,12 @@
 import './Artists.css';
-
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import PlacesAutoComplete from 'react-google-autocomplete';
 
 import { fetchArtists } from '../../actions/artist';
+import { findLocation } from '../../utils/location';
 
 import Form from 'react-bootstrap/Form';
 import ArtistCard from './fragments/ArtistCard';
@@ -14,6 +15,7 @@ import TattooStyles from '../tattooStyles/TattooStyles';
 const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 	const [selectedIds, setSelectedIds] = useState([]);
 	const [filteredArtists, setFilteredArtists] = useState([]);
+	const [location, setLocation] = useState('');
 
 	useEffect(() => {
 		if (artists.length === 0) {
@@ -36,6 +38,23 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 		}
 	};
 
+	const selectPlaceHandler = place => {
+		const { address_components } = place;
+		const { city, region, country } = findLocation(address_components);
+
+		console.log(city, region, country);
+
+		const newArray = artists.filter(artist =>
+			artist.workplaces.some(
+				workplace => workplace.location.city === city
+			)
+		);
+
+		console.log(newArray);
+
+		setFilteredArtists(newArray);
+	};
+
 	return (
 		<div>
 			<div className="search-header">
@@ -44,7 +63,15 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 					Find your next tattoo artist.
 				</p>
 				<Form.Group controlId="formArtistLocation">
-					<Form.Control type="text" placeholder="In which city?" />
+					<PlacesAutoComplete
+						className="places-autocomplete"
+						placeholder="In which city?"
+						apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
+						options={{ types: ['(cities)'] }}
+						value={location}
+						onChange={e => setLocation(e.target.value)}
+						onPlaceSelected={selectPlaceHandler}
+					/>
 				</Form.Group>
 
 				<div className="tattoo-styles-header">
@@ -53,7 +80,6 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 						onSelect={selectTattooStylesHandler}
 					/>
 				</div>
-				{/* <button onClick={selectTattooStylesHandler}>log</button> */}
 			</div>
 			<hr className="my-2" />
 			{filteredArtists && (

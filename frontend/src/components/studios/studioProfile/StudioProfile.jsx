@@ -11,6 +11,7 @@ import {
 	saveStudioImages,
 	deleteStudio,
 } from '../../../actions/studio';
+import { findLocation } from '../../../utils/location';
 import ImageUploader from '../../fragments/ImageUploader';
 import Alert from '../../fragments/Alert';
 import BusinessHour from '../fragments/BusinessHour';
@@ -46,6 +47,8 @@ const StudioProfile = ({
 		location: {
 			address: '',
 			city: '',
+			region: '',
+			country: '',
 			latitude: '0',
 			longitude: '0',
 		},
@@ -121,31 +124,19 @@ const StudioProfile = ({
 				location: { lat, lng },
 			},
 		} = place;
-		const city = findCity(address_components);
+		const { city, region, country } = findLocation(address_components);
 
 		setFormData(prevFormData => ({
 			...prevFormData,
 			location: {
 				address: formatted_address,
 				city,
+				region,
+				country,
 				latitude: lat(),
 				longitude: lng(),
 			},
 		}));
-	};
-
-	const findCity = addressComponents => {
-		for (const address of addressComponents) {
-			if (address.types.some(type => type === 'locality')) {
-				return address.long_name;
-			} else if (
-				address.types.some(
-					type => type === 'administrative_area_level_2'
-				)
-			) {
-				return address.long_name;
-			}
-		}
 	};
 
 	const addPhotoHandler = base64 => {
