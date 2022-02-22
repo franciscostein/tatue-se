@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import { setAuthToken } from '../../../utils/authToken';
 import { fetchUserInfo } from '../../../actions/user';
+import { resetArtists } from '../../../actions/artist';
 import { removeAlert } from '../../../actions/alert';
 
 import Navbar from 'react-bootstrap/Navbar';
@@ -29,6 +30,7 @@ const NavbarComponent = ({
 		user: { email, profilePicture },
 	},
 	fetchUserInfo,
+	resetArtists,
 	removeAlert,
 	history,
 }) => {
@@ -40,7 +42,12 @@ const NavbarComponent = ({
 		}
 	}, [fetchUserInfo, email, profilePicture]);
 
-	const handleLogout = () => {
+	const artistsClickHandler = () => {
+		resetArtists();
+		history.push('/');
+	};
+
+	const logoutHandler = () => {
 		setAuthToken();
 		window.location.reload();
 	};
@@ -57,7 +64,7 @@ const NavbarComponent = ({
 			<Navbar.Collapse id="navbar-nav">
 				<Nav.Link
 					className={pathname === '/' && 'selected-link'}
-					onClick={() => history.push('/')}
+					onClick={artistsClickHandler}
 				>
 					Artists
 				</Nav.Link>
@@ -111,7 +118,7 @@ const NavbarComponent = ({
 							</Dropdown.Item>
 							<Dropdown.Item
 								className="dropdown-item text-white"
-								onClick={handleLogout}
+								onClick={logoutHandler}
 							>
 								<FaSignOutAlt className="me-2" /> Log out
 							</Dropdown.Item>
@@ -147,6 +154,8 @@ const mapStateToProps = state => ({
 	user: state.user,
 });
 
-export default connect(mapStateToProps, { fetchUserInfo, removeAlert })(
-	withRouter(NavbarComponent)
-);
+export default connect(mapStateToProps, {
+	fetchUserInfo,
+	resetArtists,
+	removeAlert,
+})(withRouter(NavbarComponent));

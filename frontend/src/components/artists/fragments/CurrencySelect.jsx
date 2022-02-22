@@ -26,7 +26,7 @@ const currencies = [
 const CurrencySelect = ({ priceCurrency = 'EUR', onSelect }) => {
 	return (
 		<Form.Group>
-			<Form.Label className="font-75" for="currency">
+			<Form.Label className="font-75" htmlFor="currency">
 				Currency
 			</Form.Label>
 			<Form.Control

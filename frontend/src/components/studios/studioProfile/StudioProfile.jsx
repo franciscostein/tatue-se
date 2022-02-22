@@ -181,7 +181,11 @@ const StudioProfile = ({
 						<h1>Studio</h1>
 					</div>
 					<div>
-						<Button variant="secondary" className="px-3 mx-2">
+						<Button
+							variant="secondary"
+							className="px-3 mx-2"
+							onClick={() => history.goBack()}
+						>
 							Cancel
 						</Button>
 						<Button

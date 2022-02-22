@@ -144,22 +144,23 @@ const Studio = ({
 					<Social social={social} />
 				</Col>
 			</div>
-			<div className="m-5 px-4">
-				<Row className="solid-bottom-border-secondary">
-					<h4 className="d-flex mt-2 font-w-300">Studio</h4>
-				</Row>
-				<div className="d-flex flex-wrap justify-content-center my-3">
-					{photos &&
-						photos.map(photo => (
+			{photos.length > 0 && (
+				<div className="m-5 px-4">
+					<Row className="solid-bottom-border-secondary">
+						<h4 className="d-flex mt-2 font-w-300">Studio</h4>
+					</Row>
+					<div className="d-flex flex-wrap justify-content-center my-3">
+						{photos.map(photo => (
 							<Image
 								src={photo.publicId}
 								key={photo._id}
 								className="m-2 studio-img"
 							/>
 						))}
+					</div>
+					{artists.length > 0 && <hr />}
 				</div>
-				{artists.length > 0 && <hr />}
-			</div>
+			)}
 			{artists.length > 0 && (
 				<div className="ms-4">
 					<h3 className="d-flex ms-5">Artists</h3>

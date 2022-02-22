@@ -10,7 +10,6 @@ import {
 const Social = ({ social: { instagram, facebook, website, phone, email } }) => {
 	return (
 		<Fragment>
-			{!instagram && !facebook && !website && !phone && !email && <hr />}
 			{instagram && (
 				<div
 					className={`p-2 ${
