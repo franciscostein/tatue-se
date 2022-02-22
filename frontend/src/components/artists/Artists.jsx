@@ -7,34 +7,47 @@ import PlacesAutoComplete from 'react-google-autocomplete';
 
 import { fetchArtists } from '../../actions/artist';
 import { findLocation } from '../../utils/location';
-
-import Form from 'react-bootstrap/Form';
 import ArtistCard from './fragments/ArtistCard';
 import TattooStyles from '../tattooStyles/TattooStyles';
+
+import Form from 'react-bootstrap/Form';
+
+const searchText = 'Find your next tattoo artist.';
 
 const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 	const [selectedIds, setSelectedIds] = useState([]);
 	const [filteredArtists, setFilteredArtists] = useState([]);
+	const [filteredArtistsByRegion, setFilteredArtistsByRegion] = useState([]);
 	const [location, setLocation] = useState('');
+	const [searchedText, setSearchedLocation] = useState(searchText);
 
 	useEffect(() => {
 		if (artists.length === 0) {
 			fetchArtists('cardInfo');
-		} else {
+		} else if (!location && filteredArtists.length === 0) {
 			setFilteredArtists([...artists]);
+			setFilteredArtistsByRegion([...artists]);
 		}
-	}, [artists, fetchArtists]);
+	}, [artists, fetchArtists, location, filteredArtists.length]);
 
 	const selectTattooStylesHandler = () => {
+		console.log('artists', artists);
+		console.log('filteredArtists', filteredArtists);
+		console.log('filteredArtistsByRegion', filteredArtistsByRegion);
+
 		if (selectedIds.length > 0) {
-			const newArray = artists.filter(artist =>
+			const newArray = filteredArtistsByRegion.filter(artist =>
 				artist.tattooStyles.some(
 					tattooStyle => selectedIds.indexOf(tattooStyle._id) >= 0
 				)
 			);
 			setFilteredArtists([...newArray]);
 		} else {
-			setFilteredArtists([...artists]);
+			if (filteredArtistsByRegion) {
+				setFilteredArtists([...filteredArtistsByRegion]);
+			} else {
+				setFilteredArtists([...artists]);
+			}
 		}
 	};
 
@@ -42,27 +55,36 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 		const { address_components } = place;
 		const { city, region, country } = findLocation(address_components);
 
-		console.log(city, region, country);
-
-		const newArray = artists.filter(artist =>
-			artist.workplaces.some(
-				workplace => workplace.location.city === city
-			)
+		setSearchedLocation(
+			`Tattoo artists in ${city}, ${region} - ${country}`
 		);
+		const filteredByLocation = artists.filter(
+			artist =>
+				artist.workplaces.some(
+					workplace => workplace.location.city === city
+				) &&
+				artist.workplaces.some(
+					workplace => workplace.location.region === region
+				) &&
+				artist.workplaces.some(
+					workplace => workplace.location.country === country
+				)
+		);
+		setFilteredArtists([...filteredByLocation]);
+		setFilteredArtistsByRegion([...filteredByLocation]);
+	};
 
-		console.log(newArray);
-
-		setFilteredArtists(newArray);
+	const cleanSearchHandler = () => {
+		setLocation('');
+		setSearchedLocation(searchText);
 	};
 
 	return (
 		<div>
 			<div className="search-header">
 				<h1 className="mt-5">Artists</h1>
-				<p className="font-70 secondary-color">
-					Find your next tattoo artist.
-				</p>
-				<Form.Group controlId="formArtistLocation">
+				<p className="font-70 secondary-color">{searchedText}</p>
+				<Form.Group controlId="formArtistLocation" className="d-flex">
 					<PlacesAutoComplete
 						className="places-autocomplete"
 						placeholder="In which city?"
@@ -72,6 +94,14 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 						onChange={e => setLocation(e.target.value)}
 						onPlaceSelected={selectPlaceHandler}
 					/>
+					{location && (
+						<span
+							className="clickable ps-2"
+							onClick={cleanSearchHandler}
+						>
+							X
+						</span>
+					)}
 				</Form.Group>
 
 				<div className="tattoo-styles-header">
