@@ -132,6 +132,7 @@ const buildObject = (name, location, about, social, businessHours) => {
 	if (location) {
 		studioFields.location = {};
 		if (location.address) studioFields.location.address = location.address;
+		if (location.city) studioFields.location.city = location.city;
 		if (location.latitude)
 			studioFields.location.latitude = location.latitude;
 		if (location.longitude)

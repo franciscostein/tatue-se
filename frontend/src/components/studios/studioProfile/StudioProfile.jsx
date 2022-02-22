@@ -45,6 +45,7 @@ const StudioProfile = ({
 		instagram: '',
 		location: {
 			address: '',
+			city: '',
 			latitude: '0',
 			longitude: '0',
 		},
@@ -115,18 +116,36 @@ const StudioProfile = ({
 	const selectPlaceHandler = place => {
 		const {
 			formatted_address,
+			address_components,
 			geometry: {
 				location: { lat, lng },
 			},
 		} = place;
+		const city = findCity(address_components);
+
 		setFormData(prevFormData => ({
 			...prevFormData,
 			location: {
 				address: formatted_address,
+				city,
 				latitude: lat(),
 				longitude: lng(),
 			},
 		}));
+	};
+
+	const findCity = addressComponents => {
+		for (const address of addressComponents) {
+			if (address.types.some(type => type === 'locality')) {
+				return address.long_name;
+			} else if (
+				address.types.some(
+					type => type === 'administrative_area_level_2'
+				)
+			) {
+				return address.long_name;
+			}
+		}
 	};
 
 	const addPhotoHandler = base64 => {
