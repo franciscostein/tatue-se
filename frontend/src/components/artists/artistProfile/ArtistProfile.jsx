@@ -43,7 +43,6 @@ const ArtistProfile = ({
 		fullName: '',
 		biography: '',
 		workplaces: [],
-		tattooStyles: [],
 		portfolio: [],
 		facebook: '',
 		instagram: '',
@@ -57,6 +56,7 @@ const ArtistProfile = ({
 	const [profilePicture, setProfilePicture] = useState('');
 	const [cover, setCover] = useState('');
 	const [portfolio, setPortfolio] = useState([]);
+	const [tattooStyles, setTattooStyles] = useState([]);
 	const [showAddWorkplaceModal, setShowAddWorkplaceModal] = useState(false);
 	const [showRemoveWorkplaceModal, setShowRemoveWorkplaceModal] =
 		useState(false);
@@ -86,6 +86,7 @@ const ArtistProfile = ({
 						: '',
 				currency: profile.pricing.currency,
 			});
+			if (profile.tattooStyles) setTattooStyles(profile.tattooStyles);
 			if (profile.profilePicture)
 				setProfilePicture(profile.profilePicture.publicId);
 			if (profile.cover) setCover(profile.cover.publicId);
@@ -100,7 +101,6 @@ const ArtistProfile = ({
 		fullName,
 		biography,
 		workplaces,
-		tattooStyles,
 		facebook,
 		instagram,
 		website,
@@ -378,8 +378,8 @@ const ArtistProfile = ({
 					<h3 className="d-flex">Styles</h3>
 					<div className="d-flex flex-wrap py-1">
 						<TattooStyles
-							selectedTattooStylesIds={tattooStyles}
-							onSelect={() => {}}
+							selectedIds={tattooStyles}
+							onSelectedIds={ids => setTattooStyles(ids)}
 						/>
 					</div>
 				</div>

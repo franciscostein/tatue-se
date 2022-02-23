@@ -1,10 +1,10 @@
 import './TattooStyle.css';
 
-const TattooStyle = ({ tattooStyle, onClick }) => {
+const TattooStyle = ({ tattooStyle, selected, onClick }) => {
 	return (
 		<span
 			className={
-				tattooStyle.selected
+				selected
 					? 'font-50 m-1 tattoo-style-badge tattoo-style-badge-active'
 					: 'font-50 m-1 tattoo-style-badge'
 			}

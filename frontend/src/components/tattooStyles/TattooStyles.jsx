@@ -1,68 +1,41 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import { fetchTattooStyles } from '../../actions/tattooStyles';
 import TattooStyle from './tattooStyle/TattooStyle';
 
 const TattooStyles = ({
-	tattooStyles: { tattooStyles, loading },
+	tattooStyles: { tattooStyles },
 	fetchTattooStyles,
-	selectedTattooStylesIds,
-	onSelect,
+	selectedIds,
+	onSelectedIds,
 }) => {
-	const [localTattooStyles, setLocalTattooStyles] = useState([]);
-
 	useEffect(() => {
 		if (tattooStyles.length === 0) {
 			fetchTattooStyles();
-		} else {
-			setLocalTattooStyles(tattooStyles);
-
-			if (selectedTattooStylesIds) selectTattooStyles();
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [loading, selectedTattooStylesIds]);
+	}, [tattooStyles, fetchTattooStyles]);
 
-	const selectTattooStyles = () => {
-		const newArray = [];
+	const tattooStyleClickHandler = clickedId => {
+		let newSelectedIds = [];
 
-		tattooStyles.forEach(tattooStyle => {
-			newArray.push({
-				...tattooStyle,
-				selected: selectedTattooStylesIds.some(
-					_id => _id === tattooStyle._id
-				),
-			});
-		});
-		setLocalTattooStyles(newArray);
+		if (selectedIds.includes(clickedId)) {
+			newSelectedIds = selectedIds.filter(id => id !== clickedId);
+		} else {
+			newSelectedIds = [...selectedIds];
+			newSelectedIds.push(clickedId);
+		}
+		onSelectedIds([...newSelectedIds]);
 	};
 
-	const handleTattooStyleClick = tattooStyleId => {
-		if (selectedTattooStylesIds.some(_id => _id === tattooStyleId)) {
-			selectedTattooStylesIds.splice(
-				selectedTattooStylesIds.indexOf(tattooStyleId),
-				1
-			);
-		} else {
-			selectedTattooStylesIds.push(tattooStyleId);
-		}
-		selectTattooStyles();
-		onSelect();
-	};
-
-	return localTattooStyles.map(tattooStyle => (
+	return tattooStyles.map(tattooStyle => (
 		<TattooStyle
 			key={tattooStyle._id}
 			tattooStyle={tattooStyle}
-			onClick={handleTattooStyleClick}
+			onClick={tattooStyleClickHandler}
+			selected={selectedIds.includes(tattooStyle._id)}
 		/>
 	));
-};
-
-TattooStyles.propTypes = {
-	fetchTattooStyles: PropTypes.func.isRequired,
-	tattooStyles: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
