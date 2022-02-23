@@ -1,14 +1,16 @@
 import './Studios.css';
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { fetchStudios } from '../../actions/studio';
 import { resetArtists } from '../../actions/artist';
+import { findLocation } from '../../utils/location';
+import LocationSearcher from '../fragments/LocationSearcher';
 import StudioCard from './fragments/StudioCard';
 
-import Form from 'react-bootstrap/Form';
+const searchTitle = 'Find tattoo studios near you.';
 
 const Studios = ({
 	studio: { studios },
@@ -16,10 +18,34 @@ const Studios = ({
 	resetArtists,
 	history,
 }) => {
+	const [filteredStudios, setFilteredStudios] = useState([...studios]);
+	const [location, setLocation] = useState('');
+	const [searchedTitle, setSearchedTitle] = useState(searchTitle);
+
 	useEffect(() => {
 		fetchStudios();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [fetchStudios]);
+
+	const selectPlaceHandler = place => {
+		const { city, region, country } = findLocation(
+			place.address_components
+		);
+		setSearchedTitle(
+			`Find tattoo studios in ${city} - ${region}, ${country}`
+		);
+		const filteredByLocation = studios.filter(
+			studio =>
+				studio.location.city === city &&
+				studio.location.region === region &&
+				studio.location.country === country
+		);
+		setFilteredStudios([...filteredByLocation]);
+	};
+
+	const cleanSearchHandler = () => {
+		setLocation('');
+		setFilteredStudios([...studios]);
+	};
 
 	const handleStudioCardClick = studioId => {
 		resetArtists();
@@ -30,26 +56,26 @@ const Studios = ({
 		<div className="full-content">
 			<div className="search-header">
 				<h1 className="mt-5">Studios</h1>
-				<p className="font-70 secondary-color">
-					Find tattoo studios near you.
-				</p>
-				<Form.Group controlId="formArtistLocation">
-					<Form.Control type="text" placeholder="In which city?" />
-				</Form.Group>
+				<p className="font-70 secondary-color">{searchedTitle}</p>
+				<LocationSearcher
+					location={location}
+					onChange={e => setLocation(e.target.value)}
+					onPlaceSelected={selectPlaceHandler}
+					onClean={cleanSearchHandler}
+				/>
 			</div>
-
-			<hr className="my-3" />
-
-			<div className="d-flex flex-wrap justify-content-center mx-5">
-				{studios &&
-					studios.map(studio => (
+			<hr />
+			{filteredStudios && (
+				<div className="d-flex flex-wrap justify-content-center mx-5">
+					{filteredStudios.map(studio => (
 						<StudioCard
 							key={studio._id}
 							studio={studio}
 							onClick={() => handleStudioCardClick(studio._id)}
 						/>
 					))}
-			</div>
+				</div>
+			)}
 		</div>
 	);
 };
