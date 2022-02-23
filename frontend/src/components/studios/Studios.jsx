@@ -18,26 +18,30 @@ const Studios = ({
 	resetArtists,
 	history,
 }) => {
-	const [filteredStudios, setFilteredStudios] = useState([...studios]);
+	const [filteredStudios, setFilteredStudios] = useState([]);
 	const [location, setLocation] = useState('');
 	const [searchedTitle, setSearchedTitle] = useState(searchTitle);
 
 	useEffect(() => {
-		fetchStudios();
-	}, [fetchStudios]);
+		if (studios.length === 0) {
+			fetchStudios();
+		} else if (!location) {
+			setFilteredStudios([...studios]);
+		}
+	}, [studios, fetchStudios, location]);
 
 	const selectPlaceHandler = place => {
 		const { city, region, country } = findLocation(
 			place.address_components
-		);
-		setSearchedTitle(
-			`Find tattoo studios in ${city} - ${region}, ${country}`
 		);
 		const filteredByLocation = studios.filter(
 			studio =>
 				studio.location.city === city &&
 				studio.location.region === region &&
 				studio.location.country === country
+		);
+		setSearchedTitle(
+			`Find tattoo studios in ${city} - ${region}, ${country}`
 		);
 		setFilteredStudios([...filteredByLocation]);
 	};
