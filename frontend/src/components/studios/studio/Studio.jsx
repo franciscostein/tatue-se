@@ -53,7 +53,7 @@ const Studio = ({
 			fetchStudio(id);
 		} else {
 			if (artists.length === 0)
-				fetchArtists('cardInfo', { studioid: id });
+				fetchArtists('card_info', { studioid: id });
 
 			setStudioInfo({
 				cover: studio.cover ? studio.cover.publicId : '',

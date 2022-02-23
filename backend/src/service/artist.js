@@ -87,7 +87,7 @@ exports.getAll = async (filter, studioId) => {
 		populate = [];
 	const find = studioId ? { workplaces: ObjectId(studioId) } : {};
 
-	if (filter === 'cardInfo') {
+	if (filter === 'card_info') {
 		select = ['fullName', 'tattooStyles', 'profilePicture', 'cover'];
 		populate = [
 			'tattooStyles',
