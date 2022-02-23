@@ -3,62 +3,56 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import PlacesAutoComplete from 'react-google-autocomplete';
 
 import { fetchArtists } from '../../actions/artist';
 import { findLocation } from '../../utils/location';
 import ArtistCard from './fragments/ArtistCard';
 import TattooStyles from '../tattooStyles/TattooStyles';
+import LocationSearcher from '../fragments/LocationSearcher';
 
-import Form from 'react-bootstrap/Form';
-
-const searchText = 'Find your next tattoo artist.';
+const searchTitle = 'Find your next tattoo artist.';
 
 const Artists = ({ artist: { artists }, fetchArtists, history }) => {
-	const [selectedIds, setSelectedIds] = useState([]);
-	const [filteredArtists, setFilteredArtists] = useState([]);
-	const [filteredArtistsByRegion, setFilteredArtistsByRegion] = useState([]);
 	const [location, setLocation] = useState('');
-	const [searchedText, setSearchedLocation] = useState(searchText);
+	const [searchedTitle, setSearchedTitle] = useState(searchTitle);
+	const [filteredArtists, setFilteredArtists] = useState([]);
+	const [selectedTattooStyleIds, setSelectedTattooStyleIds] = useState([]);
 
 	useEffect(() => {
 		if (artists.length === 0) {
-			fetchArtists('cardInfo');
-		} else if (!location && filteredArtists.length === 0) {
+			fetchArtists('card_info');
+		} else if (!location && selectedTattooStyleIds.length === 0) {
 			setFilteredArtists([...artists]);
-			setFilteredArtistsByRegion([...artists]);
 		}
-	}, [artists, fetchArtists, location, filteredArtists.length]);
 
-	const selectTattooStylesHandler = () => {
-		console.log('artists', artists);
-		console.log('filteredArtists', filteredArtists);
-		console.log('filteredArtistsByRegion', filteredArtistsByRegion);
+		if (selectedTattooStyleIds.length > 0) {
+			filterByTattooStyles();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [artists, fetchArtists, location, selectedTattooStyleIds.length]);
 
-		if (selectedIds.length > 0) {
-			const newArray = filteredArtistsByRegion.filter(artist =>
-				artist.tattooStyles.some(
-					tattooStyle => selectedIds.indexOf(tattooStyle._id) >= 0
-				)
-			);
-			setFilteredArtists([...newArray]);
+	const selectPlaceHandler = place => {
+		const { city, region, country } = findLocation(
+			place.address_components
+		);
+		const filteredByLocation = filterByLocation(city, region, country);
+		setSearchedTitle(`Tattoo artists in ${city} - ${region}, ${country}`);
+		setFilteredArtists([...filteredByLocation]);
+	};
+
+	const cleanSearchHandler = () => {
+		setLocation('');
+		setSearchedTitle(searchTitle);
+
+		if (selectedTattooStyleIds.length === 0) {
+			setFilteredArtists([...artists]);
 		} else {
-			if (filteredArtistsByRegion) {
-				setFilteredArtists([...filteredArtistsByRegion]);
-			} else {
-				setFilteredArtists([...artists]);
-			}
+			filterByTattooStyles();
 		}
 	};
 
-	const selectPlaceHandler = place => {
-		const { address_components } = place;
-		const { city, region, country } = findLocation(address_components);
-
-		setSearchedLocation(
-			`Tattoo artists in ${city}, ${region} - ${country}`
-		);
-		const filteredByLocation = artists.filter(
+	const filterByLocation = (city, region, country) => {
+		return artists.filter(
 			artist =>
 				artist.workplaces.some(
 					workplace => workplace.location.city === city
@@ -70,44 +64,32 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 					workplace => workplace.location.country === country
 				)
 		);
-		setFilteredArtists([...filteredByLocation]);
-		setFilteredArtistsByRegion([...filteredByLocation]);
 	};
 
-	const cleanSearchHandler = () => {
-		setLocation('');
-		setSearchedLocation(searchText);
+	const filterByTattooStyles = () => {
+		const filteredByTattooStyle = filteredArtists.filter(artist =>
+			artist.tattooStyles.some(tattooStyle =>
+				selectedTattooStyleIds.includes(tattooStyle._id)
+			)
+		);
+		setFilteredArtists([...filteredByTattooStyle]);
 	};
 
 	return (
 		<div>
 			<div className="search-header">
 				<h1 className="mt-5">Artists</h1>
-				<p className="font-70 secondary-color">{searchedText}</p>
-				<Form.Group controlId="formArtistLocation" className="d-flex">
-					<PlacesAutoComplete
-						className="places-autocomplete"
-						placeholder="In which city?"
-						apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
-						options={{ types: ['(cities)'] }}
-						value={location}
-						onChange={e => setLocation(e.target.value)}
-						onPlaceSelected={selectPlaceHandler}
-					/>
-					{location && (
-						<span
-							className="clickable ps-2"
-							onClick={cleanSearchHandler}
-						>
-							X
-						</span>
-					)}
-				</Form.Group>
-
+				<p className="font-70 secondary-color">{searchedTitle}</p>
+				<LocationSearcher
+					location={location}
+					onChange={e => setLocation(e.target.value)}
+					onClean={cleanSearchHandler}
+					onPlaceSelected={selectPlaceHandler}
+				/>
 				<div className="tattoo-styles-header">
 					<TattooStyles
-						selectedTattooStylesIds={selectedIds}
-						onSelect={selectTattooStylesHandler}
+						selectedIds={selectedTattooStyleIds}
+						onSelectedIds={setSelectedTattooStyleIds}
 					/>
 				</div>
 			</div>
