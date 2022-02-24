@@ -35,7 +35,10 @@ const ArtistCard = ({
 			{tattooStyles.length > 0 && (
 				<div className="dashed-top-border-secondary d-flex flex-wrap pt-2 pb-1">
 					{tattooStyles.map(tattooStyle => (
-						<span className="tattoo-style-badge mx-1">
+						<span
+							key={tattooStyle._id}
+							className="tattoo-style-badge mx-1"
+						>
 							{tattooStyle.name}
 						</span>
 					))}

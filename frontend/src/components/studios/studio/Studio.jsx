@@ -20,13 +20,7 @@ import { FaCircle, FaMapMarkerAlt } from 'react-icons/fa';
 import profilePlaceholder from '../../../assets/user_w.png';
 import coverPlaceholder from '../../../assets/cover.jpg';
 
-const Studio = ({
-	studio: { studio },
-	artist: { artists },
-	fetchStudio,
-	fetchArtists,
-	history,
-}) => {
+const Studio = ({ studio: { studio }, fetchStudio, fetchArtists, history }) => {
 	const { id } = useParams();
 	const [studioInfo, setStudioInfo] = useState({
 		cover: '',
@@ -45,6 +39,7 @@ const Studio = ({
 		},
 		photos: [],
 		social: {},
+		artists: [],
 	});
 	const [openNow, setOpenNow] = useState(false);
 
@@ -52,9 +47,6 @@ const Studio = ({
 		if (!studio || studio._id !== id) {
 			fetchStudio(id);
 		} else {
-			if (artists.length === 0)
-				fetchArtists('card_info', { studioid: id });
-
 			setStudioInfo({
 				cover: studio.cover ? studio.cover.publicId : '',
 				logoImage: studio.logo ? studio.logo.publicId : '',
@@ -64,6 +56,7 @@ const Studio = ({
 				businessHours: studio.businessHours,
 				photos: studio.photos,
 				social: studio.social,
+				artists: studio.artists,
 			});
 			setOpenNow(isOpenNow(studio));
 		}
@@ -79,6 +72,7 @@ const Studio = ({
 		businessHours,
 		photos,
 		social,
+		artists,
 	} = studioInfo;
 
 	return (

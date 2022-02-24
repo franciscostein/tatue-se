@@ -98,9 +98,12 @@ exports.getAll = async search => {
 
 exports.getOneByStudioId = async studioId => {
 	const studio = await Studio.findById(studioId);
+	const relatedArtists = await Artist.find({ workplaces: studio._id })
+		.select(['_id', 'fullName', 'profilePicture', 'cover'])
+		.populate({ path: 'tattooStyles', select: { _id: 1, name: 1 } });
 
 	if (studio) {
-		return apiResponse(studio._doc);
+		return apiResponse({ ...studio._doc, artists: relatedArtists });
 	} else {
 		return apiResponse({}, 404);
 	}
