@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
-	fetchArtistProfile,
+	fetchArtist,
 	saveProfile,
 	saveArtistImage,
 	saveArtistPortfolio,
@@ -33,7 +33,7 @@ const ArtistProfile = ({
 		user: { userId },
 	},
 	history,
-	fetchArtistProfile,
+	fetchArtist,
 	saveProfile,
 	saveArtistImage,
 	saveArtistPortfolio,
@@ -65,7 +65,9 @@ const ArtistProfile = ({
 	const [idToRemove, setIdToRemove] = useState('');
 
 	useEffect(() => {
-		if (profile && profile.user === userId) {
+		if (!profile || profile.user !== userId) {
+			fetchArtist();
+		} else {
 			setFormData({
 				fullName: profile.fullName,
 				biography: profile.biography,
@@ -91,8 +93,6 @@ const ArtistProfile = ({
 				setProfilePicture(profile.profilePicture.publicId);
 			if (profile.cover) setCover(profile.cover.publicId);
 			if (profile.portfolio) setPortfolio(profile.portfolio);
-		} else {
-			fetchArtistProfile();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [profile]);
@@ -496,7 +496,7 @@ const ArtistProfile = ({
 };
 
 ArtistProfile.propTypes = {
-	fetchArtistProfile: PropTypes.func.isRequired,
+	fetchArtist: PropTypes.func.isRequired,
 	saveProfile: PropTypes.func.isRequired,
 	artist: PropTypes.object.isRequired,
 };
@@ -507,7 +507,7 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-	fetchArtistProfile,
+	fetchArtist,
 	saveProfile,
 	saveArtistImage,
 	saveArtistPortfolio,

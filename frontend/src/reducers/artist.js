@@ -1,7 +1,8 @@
 /* eslint-disable import/no-anonymous-default-export */
 import {
 	FETCH_ARTISTS,
-	GET_ARTIST_PROFILE,
+	FETCH_ARTIST,
+	FETCH_ARTIST_PROFILE,
 	SAVE_ARTIST_PROFILE,
 	SAVE_ARTIST_IMAGE,
 	SAVE_ARTIST_COVER,
@@ -12,6 +13,7 @@ import {
 
 const initialState = {
 	artists: [],
+	artist: null,
 	profile: null,
 	loading: true,
 	error: false,
@@ -26,7 +28,12 @@ export default function (state = initialState, action) {
 				...state,
 				artists: payload,
 			};
-		case GET_ARTIST_PROFILE:
+		case FETCH_ARTIST:
+			return {
+				...state,
+				artist: payload,
+			};
+		case FETCH_ARTIST_PROFILE:
 		case SAVE_ARTIST_PROFILE:
 		case DELETE_ARTIST:
 			return {

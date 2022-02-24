@@ -2,13 +2,11 @@
 import {
 	FETCH_STUDIOS,
 	FETCH_STUDIO,
+	FETCH_STUDIO_PROFILE,
 	SAVE_STUDIO_SUCCESS,
-	SAVE_STUDIO_FAIL,
 	SAVE_LOGO_SUCCESS,
 	SAVE_COVER_SUCCESS,
-	SAVE_IMAGE_FAIL,
 	SAVE_PHOTOS_SUCCESS,
-	SAVE_PHOTOS_FAIL,
 	DELETE_STUDIO,
 	STUDIO_ERROR,
 } from '../actions/types';
@@ -16,6 +14,7 @@ import {
 const initialState = {
 	studios: [],
 	studio: null,
+	profile: null,
 	error: false,
 };
 
@@ -30,11 +29,17 @@ export default function (state = initialState, action) {
 				error: false,
 			};
 		case FETCH_STUDIO:
+			return {
+				...state,
+				studio: payload,
+				error: false,
+			};
+		case FETCH_STUDIO_PROFILE:
 		case SAVE_STUDIO_SUCCESS:
 		case DELETE_STUDIO:
 			return {
 				...state,
-				studio: payload,
+				profile: payload,
 				error: false,
 			};
 		case SAVE_LOGO_SUCCESS:
@@ -61,9 +66,6 @@ export default function (state = initialState, action) {
 				},
 				error: false,
 			};
-		case SAVE_STUDIO_FAIL:
-		case SAVE_IMAGE_FAIL:
-		case SAVE_PHOTOS_FAIL:
 		case STUDIO_ERROR:
 			return {
 				...state,

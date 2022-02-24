@@ -4,16 +4,16 @@ import { useParams, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { fetchArtistProfile } from '../../../actions/artist';
+import { fetchArtist } from '../../../actions/artist';
 import Social from '../../fragments/Social';
 
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import avatar from '../../../assets/user_w.png';
 
-const Artist = ({ artist: { profile }, fetchArtistProfile, history }) => {
+const Artist = ({ artist: { artist }, fetchArtist, history }) => {
 	const { id } = useParams();
-	const [artist, setArtist] = useState({
+	const [artistInfo, setArtistInfo] = useState({
 		fullName: '',
 		biography: '',
 		profilePicture: '',
@@ -27,25 +27,25 @@ const Artist = ({ artist: { profile }, fetchArtistProfile, history }) => {
 	});
 
 	useEffect(() => {
-		if (!profile || profile._id !== id) {
-			fetchArtistProfile(id);
+		if (!artist || artist._id !== id) {
+			fetchArtist(id);
 		} else {
-			setArtist({
-				fullName: profile.fullName,
-				biography: profile.biography,
-				profilePicture: profile.profilePicture
-					? profile.profilePicture.publicId
+			setArtistInfo({
+				fullName: artist.fullName,
+				biography: artist.biography,
+				profilePicture: artist.profilePicture
+					? artist.profilePicture.publicId
 					: '',
-				tattooStyles: profile.tattooStyles,
-				workplaces: profile.workplaces ?? profile.workplaces,
-				social: profile.social,
-				hourRate: profile.pricing.hourRate,
-				minRate: profile.pricing.minRate,
-				currency: profile.pricing.currency,
-				portfolio: profile.portfolio,
+				tattooStyles: artist.tattooStyles,
+				workplaces: artist.workplaces ?? artist.workplaces,
+				social: artist.social,
+				hourRate: artist.pricing.hourRate,
+				minRate: artist.pricing.minRate,
+				currency: artist.pricing.currency,
+				portfolio: artist.portfolio,
 			});
 		}
-	}, [fetchArtistProfile, id, profile]);
+	}, [fetchArtist, id, artist]);
 
 	const {
 		fullName,
@@ -58,7 +58,7 @@ const Artist = ({ artist: { profile }, fetchArtistProfile, history }) => {
 		minRate,
 		currency,
 		portfolio,
-	} = artist;
+	} = artistInfo;
 
 	return (
 		<div id="main" className="d-flex align-items-start m-5">
@@ -176,13 +176,11 @@ const Artist = ({ artist: { profile }, fetchArtistProfile, history }) => {
 
 Artist.propTypes = {
 	artist: PropTypes.object.isRequired,
-	fetchArtistProfile: PropTypes.func.isRequired,
+	fetchArtist: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
 	artist: state.artist,
 });
 
-export default connect(mapStateToProps, { fetchArtistProfile })(
-	withRouter(Artist)
-);
+export default connect(mapStateToProps, { fetchArtist })(withRouter(Artist));

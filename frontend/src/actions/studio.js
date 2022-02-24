@@ -3,13 +3,11 @@ import axios from 'axios';
 import {
 	FETCH_STUDIOS,
 	FETCH_STUDIO,
+	FETCH_STUDIO_PROFILE,
 	SAVE_STUDIO_SUCCESS,
-	SAVE_STUDIO_FAIL,
 	SAVE_LOGO_SUCCESS,
 	SAVE_COVER_SUCCESS,
-	SAVE_IMAGE_FAIL,
 	SAVE_PHOTOS_SUCCESS,
-	SAVE_PHOTOS_FAIL,
 	DELETE_STUDIO,
 	STUDIO_ERROR,
 } from './types';
@@ -41,7 +39,7 @@ export const fetchStudio = studioId => async dispatch => {
 		const { data } = await axios.get(url);
 
 		dispatch({
-			type: FETCH_STUDIO,
+			type: studioId ? FETCH_STUDIO : FETCH_STUDIO_PROFILE,
 			payload: data,
 		});
 	} catch (error) {
@@ -62,7 +60,7 @@ export const saveStudio = studio => async dispatch => {
 		dispatch(setAlertTimeout('Studio profile saved!'));
 	} catch (error) {
 		dispatch({
-			type: SAVE_STUDIO_FAIL,
+			type: STUDIO_ERROR,
 		});
 		dispatch(
 			setAlertTimeout('There was an error, please try again.', 'danger')
@@ -91,7 +89,7 @@ export const saveStudioImage = (base64, type) => async dispatch => {
 		dispatch(setAlertTimeout(`${capitalizeFirstLetter(type)} saved!`));
 	} catch (error) {
 		dispatch({
-			type: SAVE_IMAGE_FAIL,
+			type: STUDIO_ERROR,
 		});
 		dispatch(
 			setAlertTimeout(
@@ -113,7 +111,7 @@ export const saveStudioImages = images => async dispatch => {
 		dispatch(setAlertTimeout('Photos saved!'));
 	} catch (error) {
 		dispatch({
-			type: SAVE_PHOTOS_FAIL,
+			type: STUDIO_ERROR,
 		});
 		dispatch(
 			setAlertTimeout(`Couldn't save photos, please try again.`, 'danger')

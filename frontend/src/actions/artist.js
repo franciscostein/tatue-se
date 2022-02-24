@@ -2,9 +2,9 @@ import axios from 'axios';
 
 import {
 	FETCH_ARTISTS,
-	GET_ARTIST_PROFILE,
+	FETCH_ARTIST,
+	FETCH_ARTIST_PROFILE,
 	SAVE_ARTIST_PROFILE,
-	RESET_ARTISTS,
 	SAVE_ARTIST_IMAGE,
 	SAVE_ARTIST_COVER,
 	SAVE_ARTIST_PORTFOLIO,
@@ -35,7 +35,7 @@ export const fetchArtists =
 		}
 	};
 
-export const fetchArtistProfile = artistId => async dispatch => {
+export const fetchArtist = artistId => async dispatch => {
 	try {
 		const url = artistId
 			? `/api/artists/${artistId}`
@@ -43,7 +43,7 @@ export const fetchArtistProfile = artistId => async dispatch => {
 		const res = await axios.get(url);
 
 		dispatch({
-			type: GET_ARTIST_PROFILE,
+			type: artistId ? FETCH_ARTIST : FETCH_ARTIST_PROFILE,
 			payload: res.data,
 		});
 	} catch (error) {

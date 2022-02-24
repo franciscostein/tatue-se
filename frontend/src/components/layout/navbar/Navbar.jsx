@@ -49,7 +49,7 @@ const NavbarComponent = ({
 		window.location.reload();
 	};
 
-	const resetStateAndGoTo = route => {
+	const clearAlertStateAndGoTo = route => {
 		removeAlert();
 		history.push(route);
 	};
@@ -92,7 +92,7 @@ const NavbarComponent = ({
 							<Dropdown.Item
 								className="dropdown-item text-white"
 								onClick={() =>
-									resetStateAndGoTo('/user/profile')
+									clearAlertStateAndGoTo('/user/profile')
 								}
 							>
 								<FaUserAlt className="me-2" /> User
@@ -100,7 +100,7 @@ const NavbarComponent = ({
 							<Dropdown.Item
 								className="dropdown-item text-white"
 								onClick={() =>
-									resetStateAndGoTo('/artists/profile')
+									clearAlertStateAndGoTo('/artists/profile')
 								}
 							>
 								<FaPaintBrush className="me-2" /> Artist
@@ -108,7 +108,7 @@ const NavbarComponent = ({
 							<Dropdown.Item
 								className="dropdown-item text-white"
 								onClick={() =>
-									resetStateAndGoTo('/studios/profile')
+									clearAlertStateAndGoTo('/studios/profile')
 								}
 							>
 								<FaAnchor className="me-2" /> Studio
@@ -124,13 +124,17 @@ const NavbarComponent = ({
 						<Fragment>
 							<Dropdown.Item
 								className="dropdown-item text-white"
-								onClick={() => resetStateAndGoTo('/signin')}
+								onClick={() =>
+									clearAlertStateAndGoTo('/signin')
+								}
 							>
 								<FaSignInAlt className="me-2" /> Sign in
 							</Dropdown.Item>
 							<Dropdown.Item
 								className="dropdown-item text-white"
-								onClick={() => resetStateAndGoTo('/signup')}
+								onClick={() =>
+									clearAlertStateAndGoTo('/signup')
+								}
 							>
 								<FaUserPlus className="me-2" /> Sign up
 							</Dropdown.Item>

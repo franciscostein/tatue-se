@@ -26,7 +26,7 @@ import Button from 'react-bootstrap/Button';
 import { FaTrashAlt, FaPlus } from 'react-icons/fa';
 
 const StudioProfile = ({
-	studio: { studio },
+	studio: { profile },
 	user: {
 		user: { userId },
 	},
@@ -70,26 +70,26 @@ const StudioProfile = ({
 	const [showDeleteProfileModal, setShowDeleteProfileModal] = useState(false);
 
 	useEffect(() => {
-		if (studio && studio.owner === userId) {
-			setFormData({
-				name: studio.name,
-				email: studio.social.email,
-				website: studio.social.website,
-				phone: studio.social.phone,
-				facebook: studio.social.facebook,
-				instagram: studio.social.instagram,
-				location: studio.location,
-				about: studio.about,
-			});
-			if (studio.businessHours) setBusinessHours(studio.businessHours);
-			if (studio.logo) setLogo(studio.logo.publicId);
-			if (studio.cover) setCover(studio.cover.publicId);
-			if (studio.photos) setPhotos(studio.photos);
-		} else {
+		if (!profile || profile.owner !== userId) {
 			fetchStudio();
+		} else {
+			setFormData({
+				name: profile.name,
+				email: profile.social.email,
+				website: profile.social.website,
+				phone: profile.social.phone,
+				facebook: profile.social.facebook,
+				instagram: profile.social.instagram,
+				location: profile.location,
+				about: profile.about,
+			});
+			if (profile.businessHours) setBusinessHours(profile.businessHours);
+			if (profile.logo) setLogo(profile.logo.publicId);
+			if (profile.cover) setCover(profile.cover.publicId);
+			if (profile.photos) setPhotos(profile.photos);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [studio]);
+	}, [profile]);
 
 	const {
 		name,
@@ -165,7 +165,7 @@ const StudioProfile = ({
 	};
 
 	const savePhotosHandler = () => {
-		if (!studio.cover || cover !== studio.cover.publicId) {
+		if (!profile.cover || cover !== profile.cover.publicId) {
 			saveStudioImage(cover, 'cover');
 		}
 		if (photos.some(photo => photo.base64)) {
@@ -198,7 +198,7 @@ const StudioProfile = ({
 					</div>
 				</div>
 				<Alert />
-				{studio && (
+				{profile && (
 					<ImageUploader
 						buttonText="Save logo"
 						image={logo}
@@ -542,7 +542,7 @@ const StudioProfile = ({
 						})
 					}
 				/>
-				{studio && (
+				{profile && (
 					<Fragment>
 						<hr />
 						<div className="d-flex justify-content-between align-items-center mt-5 pb-4">
