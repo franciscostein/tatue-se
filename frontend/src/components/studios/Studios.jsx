@@ -5,19 +5,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { fetchStudios } from '../../actions/studio';
-import { resetArtists } from '../../actions/artist';
 import { findLocation } from '../../utils/location';
 import LocationSearcher from '../fragments/LocationSearcher';
 import StudioCard from './fragments/StudioCard';
 
 const searchTitle = 'Find tattoo studios near you.';
 
-const Studios = ({
-	studio: { studios },
-	fetchStudios,
-	resetArtists,
-	history,
-}) => {
+const Studios = ({ studio: { studios }, fetchStudios, history }) => {
 	const [filteredStudios, setFilteredStudios] = useState([]);
 	const [location, setLocation] = useState('');
 	const [searchedTitle, setSearchedTitle] = useState(searchTitle);
@@ -52,7 +46,6 @@ const Studios = ({
 	};
 
 	const handleStudioCardClick = studioId => {
-		resetArtists();
 		history.push(`/studios/${studioId}`);
 	};
 
@@ -93,6 +86,4 @@ const mapStateToProps = state => ({
 	studio: state.studio,
 });
 
-export default connect(mapStateToProps, { fetchStudios, resetArtists })(
-	withRouter(Studios)
-);
+export default connect(mapStateToProps, { fetchStudios })(withRouter(Studios));

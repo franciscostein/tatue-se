@@ -146,9 +146,3 @@ export const deleteArtist = history => async dispatch => {
 		);
 	}
 };
-
-export const resetArtists = () => dispatch => {
-	dispatch({
-		type: RESET_ARTISTS,
-	});
-};

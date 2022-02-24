@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 
 import { setAuthToken } from '../../../utils/authToken';
 import { fetchUserInfo } from '../../../actions/user';
-import { resetArtists } from '../../../actions/artist';
 import { removeAlert } from '../../../actions/alert';
 
 import Navbar from 'react-bootstrap/Navbar';
@@ -30,7 +29,6 @@ const NavbarComponent = ({
 		user: { email, profilePicture },
 	},
 	fetchUserInfo,
-	resetArtists,
 	removeAlert,
 	history,
 }) => {
@@ -43,7 +41,6 @@ const NavbarComponent = ({
 	}, [fetchUserInfo, email, profilePicture]);
 
 	const artistsClickHandler = () => {
-		resetArtists();
 		history.push('/');
 	};
 
@@ -156,6 +153,5 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
 	fetchUserInfo,
-	resetArtists,
 	removeAlert,
 })(withRouter(NavbarComponent));

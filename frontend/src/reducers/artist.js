@@ -3,7 +3,6 @@ import {
 	FETCH_ARTISTS,
 	GET_ARTIST_PROFILE,
 	SAVE_ARTIST_PROFILE,
-	RESET_ARTISTS,
 	SAVE_ARTIST_IMAGE,
 	SAVE_ARTIST_COVER,
 	SAVE_ARTIST_PORTFOLIO,
@@ -61,11 +60,6 @@ export default function (state = initialState, action) {
 				...state,
 				error: true,
 				loading: false,
-			};
-		case RESET_ARTISTS:
-			return {
-				...state,
-				artists: [],
 			};
 		default:
 			return state;
