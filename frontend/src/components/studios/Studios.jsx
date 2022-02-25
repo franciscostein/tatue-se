@@ -2,7 +2,6 @@ import './Studios.css';
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import { fetchStudios } from '../../actions/studio';
 import { findLocation } from '../../utils/location';
@@ -75,11 +74,6 @@ const Studios = ({ studio: { studios }, fetchStudios, history }) => {
 			)}
 		</div>
 	);
-};
-
-Studios.propTypes = {
-	studio: PropTypes.object.isRequired,
-	fetchStudios: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

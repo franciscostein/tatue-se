@@ -1,7 +1,6 @@
 import './Artist.css';
 import { Fragment, useEffect, useState } from 'react';
 import { useParams, withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { fetchArtist } from '../../../actions/artist';
@@ -172,11 +171,6 @@ const Artist = ({ artist: { artist }, fetchArtist, history }) => {
 			)}
 		</div>
 	);
-};
-
-Artist.propTypes = {
-	artist: PropTypes.object.isRequired,
-	fetchArtist: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

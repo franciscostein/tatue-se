@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import PropTypes from 'prop-types';
 
 import { saveUser } from '../../actions/user';
 import { setAlert, removeAlert } from '../../actions/alert';
@@ -117,10 +116,6 @@ const SignUp = ({ saveUser, setAlert, removeAlert, history }) => {
 			</Form>
 		</Container>
 	);
-};
-
-SignUp.propTypes = {
-	saveUser: PropTypes.func.isRequired,
 };
 
 export default connect(null, { saveUser, setAlert, removeAlert })(

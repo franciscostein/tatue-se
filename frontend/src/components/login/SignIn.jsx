@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import PropTypes from 'prop-types';
 
 import { removeAlert } from '../../actions/alert';
 import { authenticate } from '../../actions/auth';
@@ -91,10 +90,6 @@ const SignIn = ({
 			</Form>
 		</Container>
 	);
-};
-
-SignIn.propTypes = {
-	authenticate: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

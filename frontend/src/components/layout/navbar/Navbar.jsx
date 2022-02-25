@@ -2,7 +2,6 @@ import './Navbar.css';
 import { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import PropTypes from 'prop-types';
 
 import { setAuthToken } from '../../../utils/authToken';
 import { fetchUserInfo } from '../../../actions/user';
@@ -144,11 +143,6 @@ const NavbarComponent = ({
 			</Dropdown>
 		</Navbar>
 	);
-};
-
-NavbarComponent.propTypes = {
-	userInfo: PropTypes.object.isRequired,
-	fetchUserInfo: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

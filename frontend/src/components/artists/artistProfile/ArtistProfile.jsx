@@ -1,7 +1,6 @@
 import { useState, useEffect, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import {
 	fetchArtist,
@@ -493,12 +492,6 @@ const ArtistProfile = ({
 			</Form>
 		</Container>
 	);
-};
-
-ArtistProfile.propTypes = {
-	fetchArtist: PropTypes.func.isRequired,
-	saveProfile: PropTypes.func.isRequired,
-	artist: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
