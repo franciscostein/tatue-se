@@ -1,11 +1,11 @@
 import './Artists.css';
-import React, { useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { fetchArtists } from '../../actions/artist';
 import { findLocation } from '../../utils/location';
+import { isEmpty, isNotEmpty, intersect } from '../../utils/arrays';
 import ArtistCard from './fragments/ArtistCard';
 import TattooStyles from '../tattooStyles/TattooStyles';
 import LocationSearcher from '../fragments/LocationSearcher';
@@ -16,39 +16,87 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 	const [location, setLocation] = useState('');
 	const [searchedTitle, setSearchedTitle] = useState(searchTitle);
 	const [filteredArtists, setFilteredArtists] = useState([]);
+	const [filteredByStyles, setFilteredByStyles] = useState([]);
+	const [filteredByLocation, setFilteredByLocation] = useState([]);
 	const [selectedTattooStyleIds, setSelectedTattooStyleIds] = useState([]);
 
 	useEffect(() => {
 		if (artists.length === 0) {
 			fetchArtists('card_info');
-		} else if (!location && selectedTattooStyleIds.length === 0) {
-			setFilteredArtists([...artists]);
-		}
-
-		if (selectedTattooStyleIds.length > 0) {
-			filterByTattooStyles();
+		} else {
+			filter();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [artists, fetchArtists, location, selectedTattooStyleIds.length]);
+	}, [artists, filteredByLocation, filteredByStyles]);
+
+	const filter = () => {
+		if (
+			!location &&
+			isEmpty(selectedTattooStyleIds) &&
+			isEmpty(filteredByLocation) &&
+			isEmpty(filteredByStyles)
+		) {
+			setFilteredArtists([...artists]);
+		} else if (
+			location &&
+			isNotEmpty(selectedTattooStyleIds) &&
+			isNotEmpty(filteredByLocation) &&
+			isNotEmpty(filteredByStyles)
+		) {
+			const locationsAndStyles = intersect(
+				filteredByLocation,
+				filteredByStyles
+			);
+			setFilteredArtists([...locationsAndStyles]);
+		} else if (
+			(location &&
+				isNotEmpty(selectedTattooStyleIds) &&
+				isNotEmpty(filteredByLocation) &&
+				isEmpty(filteredByStyles)) ||
+			(location &&
+				isEmpty(selectedTattooStyleIds) &&
+				isNotEmpty(filteredByLocation) &&
+				isEmpty(filteredByStyles))
+		) {
+			setFilteredArtists([...filteredByLocation]);
+		} else if (
+			(location &&
+				isNotEmpty(selectedTattooStyleIds) &&
+				isEmpty(filteredByLocation) &&
+				isNotEmpty(filteredByStyles)) ||
+			(!location &&
+				isNotEmpty(selectedTattooStyleIds) &&
+				isEmpty(filteredByLocation) &&
+				isNotEmpty(filteredByStyles))
+		) {
+			setFilteredArtists([...filteredByStyles]);
+		} else if (
+			(location || isNotEmpty(selectedTattooStyleIds)) &&
+			isEmpty(filteredByLocation) &&
+			isEmpty(filteredByStyles)
+		) {
+			setFilteredArtists([]);
+		}
+	};
 
 	const selectPlaceHandler = place => {
 		const { city, region, country } = findLocation(
 			place.address_components
 		);
 		const filteredByLocation = filterByLocation(city, region, country);
+		setFilteredByLocation([...filteredByLocation]);
 		setSearchedTitle(`Tattoo artists in ${city} - ${region}, ${country}`);
-		setFilteredArtists([...filteredByLocation]);
 	};
 
 	const cleanSearchHandler = () => {
 		setLocation('');
+		setFilteredByLocation([]);
 		setSearchedTitle(searchTitle);
+	};
 
-		if (selectedTattooStyleIds.length === 0) {
-			setFilteredArtists([...artists]);
-		} else {
-			filterByTattooStyles();
-		}
+	const tattooStylesClickedHandler = ids => {
+		setSelectedTattooStyleIds(ids);
+		filterByTattooStyles(ids);
 	};
 
 	const filterByLocation = (city, region, country) => {
@@ -66,17 +114,17 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 		);
 	};
 
-	const filterByTattooStyles = () => {
-		const filteredByTattooStyle = filteredArtists.filter(artist =>
+	const filterByTattooStyles = ids => {
+		const filteredByTattooStyle = artists.filter(artist =>
 			artist.tattooStyles.some(tattooStyle =>
-				selectedTattooStyleIds.includes(tattooStyle._id)
+				ids.includes(tattooStyle._id)
 			)
 		);
-		setFilteredArtists([...filteredByTattooStyle]);
+		setFilteredByStyles([...filteredByTattooStyle]);
 	};
 
 	return (
-		<div>
+		<Fragment>
 			<div className="search-header">
 				<h1 className="mt-5">Artists</h1>
 				<p className="font-70 secondary-color">{searchedTitle}</p>
@@ -89,7 +137,7 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 				<div className="tattoo-styles-header">
 					<TattooStyles
 						selectedIds={selectedTattooStyleIds}
-						onSelectedIds={setSelectedTattooStyleIds}
+						onSelectedIds={tattooStylesClickedHandler}
 					/>
 				</div>
 			</div>
@@ -107,13 +155,8 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 					))}
 				</div>
 			)}
-		</div>
+		</Fragment>
 	);
-};
-
-Artists.propTypes = {
-	artist: PropTypes.object.isRequired,
-	fetchArtists: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
