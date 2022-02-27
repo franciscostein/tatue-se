@@ -33,10 +33,10 @@ const Studios = ({ studio: { studios }, fetchStudios, history }) => {
 				studio.location.region === region &&
 				studio.location.country === country
 		);
+		setFilteredStudios([...filteredByLocation]);
 		setSearchedTitle(
 			`Find tattoo studios in ${city} - ${region}, ${country}`
 		);
-		setFilteredStudios([...filteredByLocation]);
 	};
 
 	const cleanSearchHandler = () => {

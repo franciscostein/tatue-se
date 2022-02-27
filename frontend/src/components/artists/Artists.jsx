@@ -30,12 +30,7 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 	}, [artists, filteredByLocation, filteredByStyles]);
 
 	const filter = () => {
-		if (
-			!location &&
-			isEmpty(selectedTattooStyleIds) &&
-			isEmpty(filteredByLocation) &&
-			isEmpty(filteredByStyles)
-		) {
+		if (!location && isEmpty(selectedTattooStyleIds)) {
 			setFilteredArtists([...artists]);
 		} else if (
 			location &&
@@ -49,32 +44,20 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 			);
 			setFilteredArtists([...locationsAndStyles]);
 		} else if (
-			(location &&
-				isNotEmpty(selectedTattooStyleIds) &&
-				isNotEmpty(filteredByLocation) &&
-				isEmpty(filteredByStyles)) ||
-			(location &&
-				isEmpty(selectedTattooStyleIds) &&
-				isNotEmpty(filteredByLocation) &&
-				isEmpty(filteredByStyles))
+			location &&
+			isEmpty(selectedTattooStyleIds) &&
+			isNotEmpty(filteredByLocation) &&
+			isEmpty(filteredByStyles)
 		) {
 			setFilteredArtists([...filteredByLocation]);
 		} else if (
-			(location &&
-				isNotEmpty(selectedTattooStyleIds) &&
-				isEmpty(filteredByLocation) &&
-				isNotEmpty(filteredByStyles)) ||
-			(!location &&
-				isNotEmpty(selectedTattooStyleIds) &&
-				isEmpty(filteredByLocation) &&
-				isNotEmpty(filteredByStyles))
+			!location &&
+			isNotEmpty(selectedTattooStyleIds) &&
+			isEmpty(filteredByLocation) &&
+			isNotEmpty(filteredByStyles)
 		) {
 			setFilteredArtists([...filteredByStyles]);
-		} else if (
-			(location || isNotEmpty(selectedTattooStyleIds)) &&
-			isEmpty(filteredByLocation) &&
-			isEmpty(filteredByStyles)
-		) {
+		} else {
 			setFilteredArtists([]);
 		}
 	};
