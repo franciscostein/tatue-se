@@ -1,3 +1,5 @@
+import { isNotEmpty } from '../../../utils/arrays';
+
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
@@ -32,7 +34,7 @@ const ArtistCard = ({
 					<Row className="font-60 ps-3">{fullName}</Row>
 				</Col>
 			</div>
-			{tattooStyles.length > 0 && (
+			{isNotEmpty(tattooStyles) && (
 				<div className="dashed-top-border-secondary d-flex flex-wrap pt-2 pb-1">
 					{tattooStyles.map(tattooStyle => (
 						<span

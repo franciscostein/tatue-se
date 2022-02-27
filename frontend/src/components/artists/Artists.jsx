@@ -21,7 +21,7 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 	const [selectedTattooStyleIds, setSelectedTattooStyleIds] = useState([]);
 
 	useEffect(() => {
-		if (artists.length === 0) {
+		if (isEmpty(artists)) {
 			fetchArtists('card_info');
 		} else {
 			filter();
@@ -46,14 +46,12 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 		} else if (
 			location &&
 			isEmpty(selectedTattooStyleIds) &&
-			isNotEmpty(filteredByLocation) &&
-			isEmpty(filteredByStyles)
+			isNotEmpty(filteredByLocation)
 		) {
 			setFilteredArtists([...filteredByLocation]);
 		} else if (
 			!location &&
 			isNotEmpty(selectedTattooStyleIds) &&
-			isEmpty(filteredByLocation) &&
 			isNotEmpty(filteredByStyles)
 		) {
 			setFilteredArtists([...filteredByStyles]);
@@ -124,7 +122,7 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 					/>
 				</div>
 			</div>
-			<hr className="my-2" />
+			<hr />
 			{filteredArtists && (
 				<div className="d-flex flex-wrap justify-content-center mx-5">
 					{filteredArtists.map(artist => (

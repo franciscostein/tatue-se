@@ -3,6 +3,7 @@ import { useState, useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import { fetchStudios } from '../../../actions/studio';
+import { isEmpty, isNotEmpty } from '../../../utils/arrays';
 import SearchResultStudio from './SearchResultStudio';
 
 import Modal from 'react-bootstrap/Modal';
@@ -20,7 +21,7 @@ const AddWorkplaceModal = ({
 	const [error, setError] = useState(false);
 
 	useEffect(() => {
-		if (studios.length === 0) {
+		if (isEmpty(studios)) {
 			fetchStudios('idNameLogoAddress');
 		} else {
 			setSearchInput('');
@@ -30,7 +31,7 @@ const AddWorkplaceModal = ({
 	}, [studios, selectedWorplaces]);
 
 	const filterSelectedStudios = studios => {
-		if (studios.length > 0) {
+		if (isNotEmpty(studios)) {
 			return studios.filter(
 				studio =>
 					!selectedWorplaces.some(
@@ -43,7 +44,7 @@ const AddWorkplaceModal = ({
 	};
 
 	const handleFilter = event => {
-		if (studios.length > 0) {
+		if (isNotEmpty(studios)) {
 			const search = event.target.value;
 			setSearchInput(search);
 

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { fetchTattooStyles } from '../../actions/tattooStyles';
+import { isEmpty } from '../../utils/arrays';
 import TattooStyle from './tattooStyle/TattooStyle';
 
 const TattooStyles = ({
@@ -11,7 +12,7 @@ const TattooStyles = ({
 	onSelectedIds,
 }) => {
 	useEffect(() => {
-		if (tattooStyles.length === 0) {
+		if (isEmpty(tattooStyles)) {
 			fetchTattooStyles();
 		}
 	}, [tattooStyles, fetchTattooStyles]);

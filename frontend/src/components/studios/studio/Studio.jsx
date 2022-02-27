@@ -6,6 +6,7 @@ import { useParams, withRouter } from 'react-router-dom';
 import { fetchStudio } from '../../../actions/studio';
 import { fetchArtists } from '../../../actions/artist';
 import { isOpenNow } from '../../../utils/datetime';
+import { isNotEmpty } from '../../../utils/arrays';
 import ArtistCard from '../../artists/fragments/ArtistCard';
 import StudioMap from '../fragments/StudioMap';
 import BusinessHoursDisplay from '../fragments/BusinessHoursDisplay';
@@ -137,7 +138,7 @@ const Studio = ({ studio: { studio }, fetchStudio, fetchArtists, history }) => {
 					<Social social={social} />
 				</Col>
 			</div>
-			{photos.length > 0 && (
+			{isNotEmpty(photos) && (
 				<div className="m-5 px-4">
 					<Row className="solid-bottom-border-secondary">
 						<h4 className="d-flex mt-2 font-w-300">Studio</h4>
@@ -151,10 +152,10 @@ const Studio = ({ studio: { studio }, fetchStudio, fetchArtists, history }) => {
 							/>
 						))}
 					</div>
-					{artists.length > 0 && <hr />}
+					{isNotEmpty(artists) && <hr />}
 				</div>
 			)}
-			{artists.length > 0 && (
+			{isNotEmpty(artists) && (
 				<div className="ms-4">
 					<h3 className="d-flex ms-5">Artists</h3>
 					<div className="d-flex flex-wrap mx-5">

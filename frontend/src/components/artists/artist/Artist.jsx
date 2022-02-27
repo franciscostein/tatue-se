@@ -4,6 +4,7 @@ import { useParams, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { fetchArtist } from '../../../actions/artist';
+import { isNotEmpty } from '../../../utils/arrays';
 import Social from '../../fragments/Social';
 
 import Image from 'react-bootstrap/Image';
@@ -105,7 +106,7 @@ const Artist = ({ artist: { artist }, fetchArtist, history }) => {
 						</div>
 					</div>
 				))}
-				{tattooStyles.length > 0 && (
+				{isNotEmpty(tattooStyles) && (
 					<Fragment>
 						<hr />
 						<h5 className="d-flex pt-3">Styles</h5>
@@ -153,7 +154,7 @@ const Artist = ({ artist: { artist }, fetchArtist, history }) => {
 					</Fragment>
 				)}
 			</div>
-			{portfolio.length > 0 && (
+			{isNotEmpty(portfolio) && (
 				<div id="content" className="mx-3">
 					<div className="solid-bottom-border-secondary">
 						<h4 className="d-flex m-2 font-w-300">Tattoos</h4>

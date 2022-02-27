@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { fetchStudios } from '../../actions/studio';
 import { findLocation } from '../../utils/location';
+import { isEmpty } from '../../utils/arrays';
 import LocationSearcher from '../fragments/LocationSearcher';
 import StudioCard from './fragments/StudioCard';
 
@@ -16,7 +17,7 @@ const Studios = ({ studio: { studios }, fetchStudios, history }) => {
 	const [searchedTitle, setSearchedTitle] = useState(searchTitle);
 
 	useEffect(() => {
-		if (studios.length === 0) {
+		if (isEmpty(studios)) {
 			fetchStudios();
 		} else if (!location) {
 			setFilteredStudios([...studios]);
