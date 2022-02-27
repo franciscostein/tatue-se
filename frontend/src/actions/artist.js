@@ -62,11 +62,17 @@ export const saveProfile = artist => async dispatch => {
 			payload: data,
 		});
 		dispatch(setAlertTimeout('Profile saved!'));
+		dispatch(fetchArtists('card_info'));
 	} catch (error) {
 		dispatch({
 			type: ARTIST_ERROR,
 		});
-		dispatch(setAlertTimeout(error.message, 'danger'));
+		dispatch(
+			setAlertTimeout(
+				'There was an error saving, please try again.',
+				'danger'
+			)
+		);
 	}
 };
 

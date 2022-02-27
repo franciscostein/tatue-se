@@ -12,7 +12,10 @@ export const findLocation = addressComponents => {
 		if (hasType('administrative_area_level_1', types)) {
 			region = short_name;
 		}
-		if (hasType('locality', types)) {
+		if (
+			hasType('locality', types) ||
+			hasType('administrative_area_level_2', types)
+		) {
 			city = long_name;
 		}
 	}

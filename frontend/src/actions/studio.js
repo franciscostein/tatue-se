@@ -58,6 +58,7 @@ export const saveStudio = studio => async dispatch => {
 			payload: data,
 		});
 		dispatch(setAlertTimeout('Studio profile saved!'));
+		dispatch(fetchStudios('card_info'));
 	} catch (error) {
 		dispatch({
 			type: STUDIO_ERROR,

@@ -78,14 +78,20 @@ exports.getAll = async search => {
 
 	if (!search) {
 		studios = await Studio.find().select('-owner');
-	} else if (search === 'idName') {
-		studios = await Studio.find().select(['_id', 'name']);
-	} else if (search === 'idNameLogoAddress') {
+	} else if (search === 'min-card_info') {
 		studios = await Studio.find().select([
 			'_id',
 			'name',
 			'logo',
 			'location.address',
+		]);
+	} else if (search === 'card_info') {
+		studios = await Studio.find().select([
+			'_id',
+			'name',
+			'logo',
+			'cover',
+			'location',
 		]);
 	}
 
