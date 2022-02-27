@@ -18,6 +18,7 @@ const ImageUploader = ({
 }) => {
 	const [fileInput, setFileInput] = useState('');
 	const [previewSource, setPreviewSource] = useState(null);
+	const [wasTouched, setWasTouched] = useState(false);
 	const inputFile = useRef(null);
 
 	useEffect(() => {
@@ -37,6 +38,7 @@ const ImageUploader = ({
 			}
 			previewFile(files[0]);
 			setFileInput(event.target.value);
+			setWasTouched(true);
 		}
 	};
 
@@ -50,6 +52,11 @@ const ImageUploader = ({
 	};
 
 	const onImageClick = () => inputFile.current.click();
+
+	const saveHandler = () => {
+		onSave();
+		setWasTouched(false);
+	};
 
 	return (
 		<Fragment>
@@ -67,11 +74,13 @@ const ImageUploader = ({
 				roundedCircle
 				onClick={onImageClick}
 			/>
-			<div>
-				<Button variant="dark" onClick={onSave}>
-					{buttonText}
-				</Button>
-			</div>
+			{previewSource && wasTouched && (
+				<div>
+					<Button variant="dark" onClick={saveHandler}>
+						{buttonText}
+					</Button>
+				</div>
+			)}
 		</Fragment>
 	);
 };
