@@ -106,7 +106,7 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 
 	return (
 		<Fragment>
-			<div className="search-header">
+			<div className="search-header solid-bottom-border-secondary pb-3">
 				<h1 className="mt-5">Artists</h1>
 				<p className="font-70 secondary-color">{searchedTitle}</p>
 				<LocationSearcher

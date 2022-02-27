@@ -7,7 +7,7 @@ const LocationSearcher = ({ location, onChange, onPlaceSelected, onClean }) => {
 	return (
 		<Form.Group controlId="location-searcher" className="d-flex">
 			<PlacesAutoComplete
-				className="places-autocomplete"
+				className="form-control"
 				placeholder="In which city?"
 				apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
 				options={{ types: ['(cities)'] }}

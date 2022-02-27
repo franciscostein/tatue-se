@@ -33,7 +33,7 @@ const StudioCard = ({
 					<div className="d-flex font-60 my-1">{name}</div>
 					<div className="d-flex align-items-center">
 						<FaMapMarkerAlt size={13} />
-						<span className="font-45 ms-1">{location.address}</span>
+						<span className="font-45 ms-1">{`${location.city} - ${location.region}, ${location.country}`}</span>
 					</div>
 				</Col>
 			</div>

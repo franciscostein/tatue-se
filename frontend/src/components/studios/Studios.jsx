@@ -18,7 +18,7 @@ const Studios = ({ studio: { studios }, fetchStudios, history }) => {
 
 	useEffect(() => {
 		if (isEmpty(studios)) {
-			fetchStudios();
+			fetchStudios('card_info');
 		} else if (!location) {
 			setFilteredStudios([...studios]);
 		}
@@ -51,7 +51,7 @@ const Studios = ({ studio: { studios }, fetchStudios, history }) => {
 
 	return (
 		<div className="full-content">
-			<div className="search-header">
+			<div className="search-header solid-bottom-border-secondary pb-4">
 				<h1 className="mt-5">Studios</h1>
 				<p className="font-70 secondary-color">{searchedTitle}</p>
 				<LocationSearcher
@@ -61,9 +61,8 @@ const Studios = ({ studio: { studios }, fetchStudios, history }) => {
 					onClean={cleanSearchHandler}
 				/>
 			</div>
-			<hr />
 			{filteredStudios && (
-				<div className="d-flex flex-wrap justify-content-center mx-5">
+				<div className="d-flex flex-wrap justify-content-center mx-5 mt-3">
 					{filteredStudios.map(studio => (
 						<StudioCard
 							key={studio._id}

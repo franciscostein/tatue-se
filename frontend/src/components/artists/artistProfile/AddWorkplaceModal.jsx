@@ -22,7 +22,7 @@ const AddWorkplaceModal = ({
 
 	useEffect(() => {
 		if (isEmpty(studios)) {
-			fetchStudios('idNameLogoAddress');
+			fetchStudios('min-card_info');
 		} else {
 			setSearchInput('');
 			setFilteredStudios(filterSelectedStudios(studios));

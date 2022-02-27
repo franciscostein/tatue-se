@@ -1,3 +1,5 @@
+import './BusinessHour.css';
+
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Switch from 'react-switch';
@@ -35,7 +37,7 @@ const BusinessHour = ({
 						/>
 					</div>
 				) : (
-					<span className="ms-5 ps-5">Closed</span>
+					<span className="closed">Closed</span>
 				)}
 			</Col>
 		</Row>
