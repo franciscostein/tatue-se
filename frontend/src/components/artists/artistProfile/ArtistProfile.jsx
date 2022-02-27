@@ -9,7 +9,7 @@ import {
 	saveArtistPortfolio,
 	deleteArtist,
 } from '../../../actions/artist';
-
+import { setAlertTimeout } from '../../../actions/alert';
 import StudioMiniCard from '../../studios/fragments/StudioMiniCard';
 import ConfirmationModal from '../../modals/ConfirmationModal';
 import AddWorkplaceModal from './AddWorkplaceModal';
@@ -37,6 +37,7 @@ const ArtistProfile = ({
 	saveArtistImage,
 	saveArtistPortfolio,
 	deleteArtist,
+	setAlertTimeout,
 }) => {
 	const [formData, setFormData] = useState({
 		fullName: '',
@@ -61,6 +62,8 @@ const ArtistProfile = ({
 		useState(false);
 	const [showDeleteProfileModal, setShowDeleteProfileModal] = useState(false);
 	const [showImagesModal, setShowImagesModal] = useState(false);
+	const [isNameInvalid, setIsNameInvalid] = useState(false);
+	const [isWorkplaceInvalid, setIsWorkplaceInvalid] = useState(false);
 	const [idToRemove, setIdToRemove] = useState('');
 
 	useEffect(() => {
@@ -116,15 +119,35 @@ const ArtistProfile = ({
 			[e.target.name]: e.target.value,
 		}));
 
-	const saveHandler = e => {
-		saveProfile({
-			fullName,
-			biography,
-			workplaces,
-			tattooStyles,
-			social: { email, website, phone, facebook, instagram },
-			pricing: { hourRate, minRate, currency },
-		});
+	const saveHandler = () => {
+		if (validate()) {
+			saveProfile({
+				fullName,
+				biography,
+				workplaces,
+				tattooStyles,
+				social: { email, website, phone, facebook, instagram },
+				pricing: { hourRate, minRate, currency },
+			});
+			setIsNameInvalid(false);
+			setIsWorkplaceInvalid(false);
+		}
+	};
+
+	const validate = () => {
+		let isValid = true;
+
+		if (formData.fullName.trim() === '') {
+			setAlertTimeout('Name is required', 'danger');
+			setIsNameInvalid(true);
+			isValid = false;
+		}
+		if (formData.workplaces.length === 0) {
+			setAlertTimeout('At least one workplace is required', 'danger');
+			setIsWorkplaceInvalid(true);
+			isValid = false;
+		}
+		return isValid;
 	};
 
 	const addWorkplaceHandler = workplace => {
@@ -136,6 +159,7 @@ const ArtistProfile = ({
 				...formData,
 				workplaces,
 			});
+			setIsWorkplaceInvalid(false);
 		}
 	};
 
@@ -193,6 +217,11 @@ const ArtistProfile = ({
 		}
 	};
 
+	const nameChangeHandler = event => {
+		onChange(event);
+		setIsNameInvalid(false);
+	};
+
 	return (
 		<Container>
 			<Form>
@@ -244,7 +273,8 @@ const ArtistProfile = ({
 								placeholder="Full name"
 								name="fullName"
 								value={fullName}
-								onChange={e => onChange(e)}
+								onChange={nameChangeHandler}
+								isInvalid={isNameInvalid}
 							/>
 						</Form.Group>
 					</Col>
@@ -336,7 +366,8 @@ const ArtistProfile = ({
 						</div>
 						<div>
 							<Button
-								variant="dark"
+								variant={isWorkplaceInvalid ? 'danger' : 'dark'}
+								className="button"
 								onClick={() => setShowAddWorkplaceModal(true)}
 							>
 								<FaPlus size={23} />
@@ -505,4 +536,5 @@ export default connect(mapStateToProps, {
 	saveArtistImage,
 	saveArtistPortfolio,
 	deleteArtist,
+	setAlertTimeout,
 })(withRouter(ArtistProfile));

@@ -1,4 +1,3 @@
-import './StudioProfile.css';
 import { useState, useEffect, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -12,6 +11,7 @@ import {
 	deleteStudio,
 } from '../../../actions/studio';
 import { findLocation } from '../../../utils/location';
+import { setAlertTimeout } from '../../../actions/alert';
 import ImageUploader from '../../fragments/ImageUploader';
 import Alert from '../../fragments/Alert';
 import BusinessHour from '../fragments/BusinessHour';
@@ -36,6 +36,7 @@ const StudioProfile = ({
 	saveStudioImage,
 	saveStudioImages,
 	deleteStudio,
+	setAlertTimeout,
 }) => {
 	const [formData, setFormData] = useState({
 		name: '',
@@ -64,10 +65,12 @@ const StudioProfile = ({
 		sunday: { opens: '', closes: '', isOpen: false },
 	});
 	const [logo, setLogo] = useState('');
-	const [showImagesModal, setShowImagesModal] = useState(false);
 	const [cover, setCover] = useState('');
 	const [photos, setPhotos] = useState([]);
+	const [showImagesModal, setShowImagesModal] = useState(false);
 	const [showDeleteProfileModal, setShowDeleteProfileModal] = useState(false);
+	const [isNameInvalid, setIsNameInvalid] = useState(false);
+	const [isAddressInvalid, setIsAddressInvalid] = useState(false);
 
 	useEffect(() => {
 		if (!profile || profile.owner !== userId) {
@@ -109,11 +112,34 @@ const StudioProfile = ({
 		}));
 
 	const saveHandler = () => {
-		saveStudio({
-			...formData,
-			businessHours,
-			social: { email, website, phone, facebook, instagram },
-		});
+		if (validate()) {
+			saveStudio({
+				...formData,
+				businessHours,
+				social: { email, website, phone, facebook, instagram },
+			});
+			setIsNameInvalid(false);
+			setIsAddressInvalid(false);
+		}
+	};
+
+	const validate = () => {
+		let isValid = true;
+
+		if (name.trim() === '') {
+			setIsNameInvalid(true);
+			setAlertTimeout('Name is required', 'danger');
+			isValid = false;
+		}
+		if (location.address.trim() === '' || location.city === '') {
+			setIsAddressInvalid(true);
+			setAlertTimeout(
+				'Address is required, enter and select it',
+				'danger'
+			);
+			isValid = false;
+		}
+		return isValid;
 	};
 
 	const selectPlaceHandler = place => {
@@ -173,6 +199,22 @@ const StudioProfile = ({
 		}
 	};
 
+	const nameChangeHandler = event => {
+		onChange(event);
+		setIsNameInvalid(false);
+	};
+
+	const addressChangeHandler = event => {
+		setFormData(prevFormData => ({
+			...prevFormData,
+			location: {
+				...location,
+				address: event.target.value,
+			},
+		}));
+		setIsAddressInvalid(false);
+	};
+
 	return (
 		<Container>
 			<Form>
@@ -215,7 +257,8 @@ const StudioProfile = ({
 								placeholder="Name"
 								name="name"
 								value={name}
-								onChange={e => onChange(e)}
+								onChange={nameChangeHandler}
+								isInvalid={isNameInvalid}
 							/>
 						</Form.Group>
 					</Col>
@@ -292,20 +335,16 @@ const StudioProfile = ({
 					<Form.Group controlId="formStudioLocation">
 						<Form.Label className="font-75">Address</Form.Label>
 						<PlacesAutoComplete
-							className="places-autocomplete"
+							className={
+								isAddressInvalid
+									? 'form-control is-invalid'
+									: 'form-control'
+							}
 							placeholder="Where it is?"
 							apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
 							options={{ types: ['address'] }}
 							value={location.address}
-							onChange={e =>
-								setFormData(prevFormData => ({
-									...prevFormData,
-									location: {
-										...location,
-										address: e.target.value,
-									},
-								}))
-							}
+							onChange={addressChangeHandler}
 							onPlaceSelected={selectPlaceHandler}
 						/>
 					</Form.Group>
@@ -615,4 +654,5 @@ export default connect(mapStateToProps, {
 	saveStudioImage,
 	saveStudioImages,
 	deleteStudio,
+	setAlertTimeout,
 })(withRouter(StudioProfile));
