@@ -7,7 +7,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-axios.defaults.baseURL = process.env.axiosURL || 'http://localhost:5000';
+axios.defaults.baseURL =
+	process.env.REACT_APP_AXIOS_URL || 'http://localhost:5000';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 ReactDOM.render(
