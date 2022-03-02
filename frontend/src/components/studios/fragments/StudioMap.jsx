@@ -1,20 +1,20 @@
-import React from 'react';
-import {
-	GoogleMap,
-	Marker,
-	withScriptjs,
-	withGoogleMap,
-} from 'react-google-maps';
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 
 const StudioMap = ({ location: { latitude, longitude } }) => {
-	const Map = () => {
-		return (
+	const { isLoaded } = useJsApiLoader({
+		id: 'google-map-script',
+		googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+	});
+
+	return (
+		isLoaded && (
 			<GoogleMap
-				defaultZoom={13}
-				defaultCenter={{
+				zoom={13}
+				center={{
 					lat: parseFloat(latitude),
 					lng: parseFloat(longitude),
 				}}
+				mapContainerClassName="map-card"
 			>
 				<Marker
 					position={{
@@ -23,20 +23,7 @@ const StudioMap = ({ location: { latitude, longitude } }) => {
 					}}
 				/>
 			</GoogleMap>
-		);
-	};
-
-	const WrappedMap = withScriptjs(withGoogleMap(Map));
-
-	return (
-		<div className="map-card">
-			<WrappedMap
-				googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
-				loadingElement={<div style={{ height: `100%` }} />}
-				containerElement={<div style={{ height: `100%` }} />}
-				mapElement={<div style={{ height: `100%` }} />}
-			/>
-		</div>
+		)
 	);
 };
 
