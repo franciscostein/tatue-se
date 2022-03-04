@@ -14,6 +14,7 @@ a {
 .artist-avatar {
 	height: 2.7em;
 	width: 2.7em;
+	object-fit: cover;
 }
 
 .studio-avatar {
