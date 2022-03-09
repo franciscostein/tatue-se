@@ -88,6 +88,7 @@ export const saveStudioImage = (base64, type) => async dispatch => {
 			});
 		}
 		dispatch(setAlertTimeout(`${capitalizeFirstLetter(type)} saved!`));
+		dispatch(fetchStudios('card_info'));
 	} catch (error) {
 		dispatch({
 			type: STUDIO_ERROR,
@@ -110,6 +111,7 @@ export const saveStudioImages = images => async dispatch => {
 			payload: data,
 		});
 		dispatch(setAlertTimeout('Photos saved!'));
+		dispatch(fetchStudios('card_info'));
 	} catch (error) {
 		dispatch({
 			type: STUDIO_ERROR,
@@ -129,6 +131,7 @@ export const deleteStudio = history => async dispatch => {
 			payload: data,
 		});
 		dispatch(setAlertTimeout('Studio profile deleted!'));
+		dispatch(fetchStudios('card_info'));
 
 		setTimeout(() => {
 			history.push('/');

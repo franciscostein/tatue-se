@@ -95,6 +95,7 @@ export const saveArtistImage = (base64, type) => async dispatch => {
 			});
 		}
 		dispatch(setAlertTimeout(`Image saved!`));
+		dispatch(fetchArtists('card_info'));
 	} catch (error) {
 		dispatch({
 			type: ARTIST_ERROR,
@@ -117,6 +118,7 @@ export const saveArtistPortfolio = images => async dispatch => {
 			payload: data,
 		});
 		dispatch(setAlertTimeout('Photos saved!'));
+		dispatch(fetchArtists('card_info'));
 	} catch (error) {
 		dispatch({
 			type: ARTIST_ERROR,
@@ -136,6 +138,7 @@ export const deleteArtist = history => async dispatch => {
 			payload: data,
 		});
 		dispatch(setAlertTimeout('Profile delete!'));
+		dispatch(fetchArtists('card_info'));
 
 		setTimeout(() => {
 			history.push('/');
