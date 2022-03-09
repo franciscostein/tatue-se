@@ -24,6 +24,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import TextArea from 'react-textarea-autosize';
 import { FaPlus, FaTrashAlt } from 'react-icons/fa';
 
 const ArtistProfile = ({
@@ -350,9 +351,8 @@ const ArtistProfile = ({
 				<Row className="pb-3">
 					<Form.Group controlId="formArtistBiography">
 						<Form.Label className="font-75">Biography</Form.Label>
-						<Form.Control
-							as="textarea"
-							rows={3}
+						<TextArea
+							className="form-control"
 							name="biography"
 							value={biography}
 							onChange={e => onChange(e)}
