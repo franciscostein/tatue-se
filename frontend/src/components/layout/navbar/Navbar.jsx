@@ -72,17 +72,22 @@ const NavbarComponent = ({
 				</Nav.Link>
 			</Navbar.Collapse>
 
-			<Dropdown className="px-4">
-				<Dropdown.Toggle variant="dark" id="dropdown-profile">
-					<Image
-						src={
-							(profilePicture && profilePicture.publicId) ||
-							userSolid
-						}
-						className="min-user px-3"
-						roundedCircle
-					/>
-					<FaBars size={25} />
+			<Dropdown className="px-3">
+				<Dropdown.Toggle
+					variant="dark"
+					className="d-flex justify-content-center align-items-center"
+					id="toggle-button"
+				>
+					<div className="avatar--navbar me-3">
+						<Image
+							src={
+								(profilePicture && profilePicture.publicId) ||
+								userSolid
+							}
+							roundedCircle
+						/>
+					</div>
+					<FaBars size={29} />
 				</Dropdown.Toggle>
 
 				<Dropdown.Menu className="dropdown-menu">
