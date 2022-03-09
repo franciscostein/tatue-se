@@ -23,6 +23,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import TextArea from 'react-textarea-autosize';
 import { FaTrashAlt, FaPlus } from 'react-icons/fa';
 
 const StudioProfile = ({
@@ -352,9 +353,8 @@ const StudioProfile = ({
 				<Row className="mb-3">
 					<Form.Group controlId="formStudioAbout">
 						<Form.Label className="font-75">About</Form.Label>
-						<Form.Control
-							as="textarea"
-							rows={3}
+						<TextArea
+							className="form-control"
 							name="about"
 							value={about}
 							onChange={e => onChange(e)}
