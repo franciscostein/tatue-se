@@ -1,6 +1,7 @@
 import { useState, useEffect, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import PlacesAutoComplete from 'react-google-autocomplete';
 
 import {
@@ -170,6 +171,7 @@ const StudioProfile = ({
 		setPhotos(prevPhotos => [
 			...prevPhotos,
 			{
+				_id: uuidv4(),
 				publicId: base64,
 				base64,
 			},
