@@ -190,7 +190,6 @@ const ArtistProfile = ({
 			...prevPortfolio,
 			{
 				_id: uuidv4(),
-				publicId: base64,
 				base64,
 			},
 		]);
@@ -434,7 +433,7 @@ const ArtistProfile = ({
 								show={showImagesModal}
 								cover={cover}
 								photos={portfolio}
-								photosLimit={13}
+								photosLimit={12}
 								onClose={() => setShowImagesModal(false)}
 								onAddPhoto={addPhotoHandler}
 								onRemovePhoto={removePhotoHandler}

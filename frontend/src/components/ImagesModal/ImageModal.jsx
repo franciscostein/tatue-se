@@ -22,7 +22,10 @@ const ImageModal = ({
 			if (type === 'add') {
 				setPreviewSource(photo);
 			} else {
-				setPreviewSource(photo.publicId);
+				const photoPreview = photo.publicId
+					? photo.publicId
+					: photo.base64;
+				setPreviewSource(photoPreview);
 			}
 			setFileInput('');
 		}

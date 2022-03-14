@@ -172,7 +172,6 @@ const StudioProfile = ({
 			...prevPhotos,
 			{
 				_id: uuidv4(),
-				publicId: base64,
 				base64,
 			},
 		]);
@@ -602,7 +601,7 @@ const StudioProfile = ({
 								show={showImagesModal}
 								cover={cover}
 								photos={photos}
-								photosLimit={7}
+								photosLimit={6}
 								onClose={() => setShowImagesModal(false)}
 								onAddPhoto={addPhotoHandler}
 								onRemovePhoto={removePhotoHandler}
