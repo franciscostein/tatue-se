@@ -1,6 +1,7 @@
 import { useState, useEffect, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 
 import {
 	fetchArtist,
@@ -188,6 +189,7 @@ const ArtistProfile = ({
 		setPortfolio(prevPortfolio => [
 			...prevPortfolio,
 			{
+				_id: uuidv4(),
 				publicId: base64,
 				base64,
 			},

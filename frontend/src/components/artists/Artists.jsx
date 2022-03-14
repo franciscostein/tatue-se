@@ -124,7 +124,7 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 			</div>
 			<hr />
 			{filteredArtists && (
-				<div className="d-flex flex-wrap justify-content-center mx-5">
+				<div className="artists-row">
 					{filteredArtists.map(artist => (
 						<ArtistCard
 							key={artist._id}
