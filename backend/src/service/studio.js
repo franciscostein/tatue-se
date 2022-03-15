@@ -1,3 +1,4 @@
+const ObjectId = require('mongodb').ObjectID;
 const { uploadImage } = require('../utils/cloudinary');
 const { apiResponse } = require('../utils/messages');
 const Studio = require('../models/Studio');
@@ -64,6 +65,10 @@ exports.saveImages = async (userId, images) => {
 					index
 				);
 				image.publicId = secure_url;
+
+				if (image._id && !ObjectId.isValid(image._id)) {
+					delete image._id;
+				}
 			}
 			changedImages.push(image);
 		}

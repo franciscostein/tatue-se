@@ -73,6 +73,10 @@ exports.savePortfolio = async (userId, photos) => {
 					index
 				);
 				photo.publicId = secure_url;
+
+				if (photo._id && !ObjectId.isValid(photo._id)) {
+					delete photo._id;
+				}
 			}
 			changedPhotos.push(photo);
 		}
