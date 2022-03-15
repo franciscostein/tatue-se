@@ -13,7 +13,7 @@ const app = express();
 connectDB();
 
 app.use(cors());
-app.use(express.json({ limit: '50mb' }));
+app.use(express.json({ limit: '125mb' }));
 
 app.use('/api/auth', auth);
 app.use('/api/users', users);

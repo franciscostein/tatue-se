@@ -29,9 +29,9 @@ const ImageUploader = ({
 		const { files } = event.target;
 
 		if (files && files.length) {
-			if (files[0].size > 9999999) {
+			if (files[0].size > 5242880) {
 				setAlertTimeout(
-					'File too large, the maximum size is 10mb.',
+					'File too large, the maximum size is 5mb.',
 					'danger'
 				);
 				return;
