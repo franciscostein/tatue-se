@@ -3,7 +3,9 @@ import { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import ImageModal from './ImageModal';
+import Loading from '../fragments/Loading';
 import { setAlertTimeout } from '../../actions/alert';
+import { isNotEmpty } from '../../utils/arrays';
 
 import Modal from 'react-bootstrap/Modal';
 import Image from 'react-bootstrap/Image';
@@ -29,10 +31,17 @@ const ImagesModal = ({
 }) => {
 	const [fileInput, setFileInput] = useState('');
 	const [previewSource, setPreviewSource] = useState(null);
+	const [isWaiting, setIsWaiting] = useState(false);
 	const inputFile = useRef(null);
 
 	useEffect(() => {
 		setPreviewSource(cover);
+
+		if (isNotEmpty(photos)) {
+			setIsWaiting(false);
+		} else {
+			setIsWaiting(true);
+		}
 	}, [cover, photos]);
 
 	const onImageClick = () => inputFile.current.click();
@@ -60,6 +69,11 @@ const ImagesModal = ({
 			setPreviewSource(reader.result);
 			onChangeCover(reader.result);
 		};
+	};
+
+	const saveHandler = () => {
+		onSave();
+		setIsWaiting(true);
 	};
 
 	return (
@@ -93,7 +107,9 @@ const ImagesModal = ({
 				</div>
 				<hr />
 				<div className="d-flex flex-wrap justify-content-center my-3 mx-4">
+					{isWaiting && <Loading />}
 					{photos &&
+						!isWaiting &&
 						photos.map((photo, index) => (
 							<ImageModal
 								key={photo._id || index}
@@ -104,7 +120,7 @@ const ImagesModal = ({
 								}
 							/>
 						))}
-					{photos.length < photosLimit && (
+					{photos.length < photosLimit && !isWaiting && (
 						<ImageModal
 							photo={add1_dark}
 							type="add"
@@ -117,7 +133,7 @@ const ImagesModal = ({
 				<Button variant="secondary" onClick={onClose}>
 					Cancel
 				</Button>
-				<Button variant="dark" onClick={onSave}>
+				<Button variant="dark" onClick={saveHandler}>
 					Save
 				</Button>
 			</Modal.Footer>
