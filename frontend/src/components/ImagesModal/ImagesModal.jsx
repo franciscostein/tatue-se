@@ -39,8 +39,6 @@ const ImagesModal = ({
 
 		if (isNotEmpty(photos)) {
 			setIsWaiting(false);
-		} else {
-			setIsWaiting(true);
 		}
 	}, [cover, photos]);
 
