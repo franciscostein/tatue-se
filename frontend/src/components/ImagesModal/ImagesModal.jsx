@@ -18,6 +18,7 @@ import add1_dark from '../../assets/add1_dark.png';
 
 const ImagesModal = ({
 	show,
+	hasError = false,
 	cover,
 	photos,
 	photosLimit,
@@ -37,10 +38,10 @@ const ImagesModal = ({
 	useEffect(() => {
 		setPreviewSource(cover);
 
-		if (isNotEmpty(photos)) {
+		if (isNotEmpty(photos) || hasError) {
 			setIsWaiting(false);
 		}
-	}, [cover, photos]);
+	}, [cover, photos, hasError]);
 
 	const onImageClick = () => inputFile.current.click();
 
@@ -71,7 +72,10 @@ const ImagesModal = ({
 
 	const saveHandler = () => {
 		onSave();
-		setIsWaiting(true);
+
+		if (isNotEmpty(photos)) {
+			setIsWaiting(true);
+		}
 	};
 
 	return (

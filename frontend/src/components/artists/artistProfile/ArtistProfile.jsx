@@ -32,6 +32,7 @@ const ArtistProfile = ({
 	artist: { profile },
 	user: {
 		user: { userId },
+		error: hasError,
 	},
 	history,
 	fetchArtist,
@@ -434,6 +435,7 @@ const ArtistProfile = ({
 								cover={cover}
 								photos={portfolio}
 								photosLimit={12}
+								hasError={hasError}
 								onClose={() => setShowImagesModal(false)}
 								onAddPhoto={addPhotoHandler}
 								onRemovePhoto={removePhotoHandler}

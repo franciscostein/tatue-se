@@ -94,7 +94,8 @@ export const saveArtistImage = (base64, type) => async dispatch => {
 				payload: data.cover,
 			});
 		}
-		dispatch(setAlertTimeout(`Image saved!`));
+		const imageType = type === 'cover' ? 'Cover' : 'Profile image';
+		dispatch(setAlertTimeout(`${imageType} saved!`));
 		dispatch(fetchArtists('card_info'));
 	} catch (error) {
 		dispatch({
