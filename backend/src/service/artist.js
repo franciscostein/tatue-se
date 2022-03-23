@@ -38,10 +38,11 @@ exports.savePhoto = async (userId, base64Image, type) => {
 	let response = null;
 
 	if (base64Image) {
+		const imageType = type === 'cover' ? 'cover' : 'profile';
 		response = await uploadImage(
 			base64Image,
 			`${userId}/artist`,
-			'profile'
+			imageType
 		);
 	}
 
