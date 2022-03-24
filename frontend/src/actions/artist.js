@@ -121,7 +121,7 @@ export const saveArtistPortfolio = images => async dispatch => {
 
 		dispatch({
 			type: SAVE_ARTIST_PORTFOLIO,
-			payload: data,
+			payload: data.portfolio,
 		});
 		dispatch(setAlertTimeout('Photos saved!'));
 		dispatch(fetchArtists('card_info'));

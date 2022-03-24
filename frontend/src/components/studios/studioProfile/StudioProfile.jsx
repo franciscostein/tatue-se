@@ -89,12 +89,12 @@ const StudioProfile = ({
 				about: profile.about,
 			});
 			if (profile.businessHours) setBusinessHours(profile.businessHours);
-			if (profile.logo) setLogo(profile.logo.publicId);
-			if (profile.cover) setCover(profile.cover.publicId);
-			if (profile.photos) setPhotos(profile.photos);
 		}
+		if (profile && profile.logo) setLogo(profile.logo.publicId);
+		if (profile && profile.cover) setCover(profile.cover.publicId);
+		if (profile && profile.photos) setPhotos(profile.photos);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [profile]);
+	}, [profile, isLoading]);
 
 	const {
 		name,
@@ -196,7 +196,10 @@ const StudioProfile = ({
 		if (!profile.cover || cover !== profile.cover.publicId) {
 			saveStudioImage(cover, 'cover');
 		}
-		if (photos.some(photo => photo.base64)) {
+		if (
+			photos.some(photo => photo.base64) ||
+			photos.length !== profile.photos.length
+		) {
 			saveStudioImages(photos);
 		}
 	};

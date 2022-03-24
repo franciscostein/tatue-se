@@ -29,10 +29,9 @@ import TextArea from 'react-textarea-autosize';
 import { FaPlus, FaTrashAlt } from 'react-icons/fa';
 
 const ArtistProfile = ({
-	artist: { profile },
+	artist: { profile, loading: isLoading },
 	user: {
 		user: { userId },
-		error: hasError,
 	},
 	history,
 	fetchArtist,
@@ -94,13 +93,13 @@ const ArtistProfile = ({
 				currency: profile.pricing.currency,
 			});
 			if (profile.tattooStyles) setTattooStyles(profile.tattooStyles);
-			if (profile.profilePicture)
-				setProfilePicture(profile.profilePicture.publicId);
-			if (profile.cover) setCover(profile.cover.publicId);
-			if (profile.portfolio) setPortfolio(profile.portfolio);
 		}
+		if (profile && profile.profilePicture)
+			setProfilePicture(profile.profilePicture.publicId);
+		if (profile && profile.cover) setCover(profile.cover.publicId);
+		if (profile && profile.portfolio) setPortfolio(profile.portfolio);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [profile]);
+	}, [profile, isLoading]);
 
 	const {
 		fullName,
@@ -215,7 +214,10 @@ const ArtistProfile = ({
 		if (!profile.cover || cover !== profile.cover.publicId) {
 			saveArtistImage(cover, 'cover');
 		}
-		if (portfolio.some(photo => photo.base64)) {
+		if (
+			portfolio.some(photo => photo.base64) ||
+			portfolio.length !== profile.portfolio.length
+		) {
 			saveArtistPortfolio(portfolio);
 		}
 	};
@@ -435,7 +437,7 @@ const ArtistProfile = ({
 								cover={cover}
 								photos={portfolio}
 								photosLimit={12}
-								hasError={hasError}
+								isLoading={isLoading}
 								onClose={() => setShowImagesModal(false)}
 								onAddPhoto={addPhotoHandler}
 								onRemovePhoto={removePhotoHandler}

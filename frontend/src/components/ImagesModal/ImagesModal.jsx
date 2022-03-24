@@ -35,7 +35,7 @@ const ImagesModal = ({
 
 	useEffect(() => {
 		setPreviewSource(cover);
-	}, [cover, photos, isLoading]);
+	}, [cover, photos]);
 
 	const onImageClick = () => inputFile.current.click();
 

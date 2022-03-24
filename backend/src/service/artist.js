@@ -61,9 +61,9 @@ exports.savePortfolio = async (userId, photos) => {
 
 	if (!artist) return apiResponse({ msg: 'Artist not found' }, 404);
 
-	if (photos.some(photo => photo.base64)) {
-		const changedPhotos = [];
+	let changedPhotos = [];
 
+	if (photos.some(photo => photo.base64)) {
 		for (let index = 0; index < photos.length; index++) {
 			const photo = photos[index];
 
@@ -81,9 +81,14 @@ exports.savePortfolio = async (userId, photos) => {
 			}
 			changedPhotos.push(photo);
 		}
-		artist.portfolio = changedPhotos;
-		await artist.save();
+	} else if (artist.portfolio.length !== photos.length) {
+		changedPhotos = photos;
+	} else {
+		changedPhotos = artist.portfolio;
 	}
+	artist.portfolio = changedPhotos;
+	await artist.save();
+
 	return apiResponse({ portfolio: artist.portfolio });
 };
 

@@ -113,7 +113,7 @@ export const saveStudioImages = images => async dispatch => {
 
 		dispatch({
 			type: SAVE_PHOTOS_SUCCESS,
-			payload: data,
+			payload: data.photos,
 		});
 		dispatch(setAlertTimeout('Photos saved!'));
 		dispatch(fetchStudios('card_info'));

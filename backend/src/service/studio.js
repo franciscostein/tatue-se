@@ -52,9 +52,9 @@ exports.saveImages = async (userId, images) => {
 
 	if (!studio) return apiResponse({ msg: 'Studio not found' }, 404);
 
-	if (images.some(image => image.base64)) {
-		const changedImages = [];
+	let changedImages = [];
 
+	if (images.some(image => image.base64)) {
 		for (let index = 0; index < images.length; index++) {
 			const image = images[index];
 
@@ -72,9 +72,14 @@ exports.saveImages = async (userId, images) => {
 			}
 			changedImages.push(image);
 		}
-		studio.photos = changedImages;
-		await studio.save();
+	} else if (studio.photos.length !== images.length) {
+		changedImages = images;
+	} else {
+		changedImages = studio.photos;
 	}
+	studio.photos = changedImages;
+	await studio.save();
+
 	return apiResponse({ photos: studio.photos });
 };
 
