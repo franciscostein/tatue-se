@@ -93,11 +93,11 @@ const ArtistProfile = ({
 				currency: profile.pricing.currency,
 			});
 			if (profile.tattooStyles) setTattooStyles(profile.tattooStyles);
+			if (profile.profilePicture)
+				setProfilePicture(profile.profilePicture.publicId);
+			if (profile.cover) setCover(profile.cover.publicId);
+			if (profile.portfolio) setPortfolio(profile.portfolio);
 		}
-		if (profile && profile.profilePicture)
-			setProfilePicture(profile.profilePicture.publicId);
-		if (profile && profile.cover) setCover(profile.cover.publicId);
-		if (profile && profile.portfolio) setPortfolio(profile.portfolio);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [profile, isLoading]);
 
@@ -314,7 +314,7 @@ const ArtistProfile = ({
 							<Form.Label className="font-75">Phone</Form.Label>
 							<Form.Control
 								type="tel"
-								placeholder="Phone number"
+								placeholder="+55 (13) 3137-6790"
 								name="phone"
 								value={phone}
 								onChange={e => onChange(e)}
@@ -330,7 +330,7 @@ const ArtistProfile = ({
 							</Form.Label>
 							<Form.Control
 								type="text"
-								placeholder="facebook.com/example"
+								placeholder="https://facebook.com/example"
 								name="facebook"
 								value={facebook}
 								onChange={e => onChange(e)}
@@ -344,7 +344,7 @@ const ArtistProfile = ({
 							</Form.Label>
 							<Form.Control
 								type="tel"
-								placeholder="instagram.com/example"
+								placeholder="https://instagram.com/example"
 								name="instagram"
 								value={instagram}
 								onChange={e => onChange(e)}

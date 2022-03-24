@@ -89,10 +89,10 @@ const StudioProfile = ({
 				about: profile.about,
 			});
 			if (profile.businessHours) setBusinessHours(profile.businessHours);
+			if (profile.logo) setLogo(profile.logo.publicId);
+			if (profile.cover) setCover(profile.cover.publicId);
+			if (profile.photos) setPhotos(profile.photos);
 		}
-		if (profile && profile.logo) setLogo(profile.logo.publicId);
-		if (profile && profile.cover) setCover(profile.cover.publicId);
-		if (profile && profile.photos) setPhotos(profile.photos);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [profile, isLoading]);
 
@@ -298,7 +298,7 @@ const StudioProfile = ({
 							<Form.Label className="font-75">Phone</Form.Label>
 							<Form.Control
 								type="tel"
-								placeholder="Phone number"
+								placeholder="+55 (13) 3137-6790"
 								name="phone"
 								value={phone}
 								onChange={e => onChange(e)}
@@ -314,7 +314,7 @@ const StudioProfile = ({
 							</Form.Label>
 							<Form.Control
 								type="text"
-								placeholder="Facebook"
+								placeholder="https://facebook.com/example"
 								name="facebook"
 								value={facebook}
 								onChange={e => onChange(e)}
@@ -328,7 +328,7 @@ const StudioProfile = ({
 							</Form.Label>
 							<Form.Control
 								type="tel"
-								placeholder="Instagram"
+								placeholder="https://instagram.com/example"
 								name="instagram"
 								value={instagram}
 								onChange={e => onChange(e)}
