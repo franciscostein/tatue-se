@@ -10,6 +10,7 @@ import {
 	SAVE_PHOTOS_SUCCESS,
 	DELETE_STUDIO,
 	STUDIO_ERROR,
+	LOADING,
 } from './types';
 
 import { setAlertTimeout } from './alert';
@@ -104,6 +105,10 @@ export const saveStudioImage = (base64, type) => async dispatch => {
 
 export const saveStudioImages = images => async dispatch => {
 	try {
+		dispatch({
+			type: LOADING,
+		});
+
 		const { data } = await axios.patch('/api/studios/images', images);
 
 		dispatch({

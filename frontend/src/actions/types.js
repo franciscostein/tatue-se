@@ -1,6 +1,8 @@
 export const SET_ALERT = 'SET_ALERT';
 export const REMOVE_ALERT = 'REMOVE_ALERT';
 
+export const LOADING = 'LOADING';
+
 export const FETCH_ARTISTS = 'FETCH_ARTISTS';
 export const FETCH_ARTIST = 'FETCH_ARTIST';
 export const FETCH_ARTIST_PROFILE = 'FETCH_ARTIST_PROFILE';

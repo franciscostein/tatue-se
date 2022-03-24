@@ -9,13 +9,14 @@ import {
 	SAVE_ARTIST_PORTFOLIO,
 	DELETE_ARTIST,
 	ARTIST_ERROR,
+	LOADING,
 } from '../actions/types';
 
 const initialState = {
 	artists: [],
 	artist: null,
 	profile: null,
-	loading: true,
+	loading: false,
 	error: false,
 };
 
@@ -61,12 +62,20 @@ export default function (state = initialState, action) {
 				profile: {
 					portfolio: payload,
 				},
+				error: false,
+				loading: false,
 			};
 		case ARTIST_ERROR:
 			return {
 				...state,
 				error: true,
 				loading: false,
+			};
+		case LOADING:
+			return {
+				...state,
+				error: false,
+				loading: true,
 			};
 		default:
 			return state;

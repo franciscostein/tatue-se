@@ -39,10 +39,6 @@ const NavbarComponent = ({
 		}
 	}, [fetchUserInfo, email, profilePicture]);
 
-	const artistsClickHandler = () => {
-		history.push('/');
-	};
-
 	const logoutHandler = () => {
 		setAuthToken();
 		window.location.reload();
@@ -60,7 +56,7 @@ const NavbarComponent = ({
 			<Navbar.Collapse id="navbar-nav">
 				<Nav.Link
 					className={pathname === '/' && 'selected-link'}
-					onClick={artistsClickHandler}
+					onClick={() => history.push('/')}
 				>
 					Artists
 				</Nav.Link>

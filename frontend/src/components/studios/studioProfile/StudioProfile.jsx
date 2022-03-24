@@ -28,7 +28,7 @@ import TextArea from 'react-textarea-autosize';
 import { FaTrashAlt, FaPlus } from 'react-icons/fa';
 
 const StudioProfile = ({
-	studio: { profile },
+	studio: { profile, loading: isLoading },
 	user: {
 		user: { userId },
 	},
@@ -602,6 +602,7 @@ const StudioProfile = ({
 								cover={cover}
 								photos={photos}
 								photosLimit={6}
+								isLoading={isLoading}
 								onClose={() => setShowImagesModal(false)}
 								onAddPhoto={addPhotoHandler}
 								onRemovePhoto={removePhotoHandler}

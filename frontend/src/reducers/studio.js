@@ -9,6 +9,7 @@ import {
 	SAVE_PHOTOS_SUCCESS,
 	DELETE_STUDIO,
 	STUDIO_ERROR,
+	LOADING,
 } from '../actions/types';
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
 	studio: null,
 	profile: null,
 	error: false,
+	loading: false,
 };
 
 export default function (state = initialState, action) {
@@ -65,11 +67,19 @@ export default function (state = initialState, action) {
 					photos: payload,
 				},
 				error: false,
+				loading: false,
 			};
 		case STUDIO_ERROR:
 			return {
 				...state,
 				error: true,
+				loading: false,
+			};
+		case LOADING:
+			return {
+				...state,
+				error: false,
+				loading: true,
 			};
 		default:
 			return state;
