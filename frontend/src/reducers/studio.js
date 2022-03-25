@@ -47,7 +47,7 @@ export default function (state = initialState, action) {
 		case SAVE_LOGO_SUCCESS:
 			return {
 				...state,
-				studio: {
+				profile: {
 					logo: payload,
 				},
 				error: false,
@@ -55,7 +55,7 @@ export default function (state = initialState, action) {
 		case SAVE_COVER_SUCCESS:
 			return {
 				...state,
-				studio: {
+				profile: {
 					cover: payload,
 				},
 				error: false,
@@ -63,7 +63,7 @@ export default function (state = initialState, action) {
 		case SAVE_PHOTOS_SUCCESS:
 			return {
 				...state,
-				studio: {
+				profile: {
 					photos: payload,
 				},
 				error: false,
