@@ -19,6 +19,10 @@ export const fetchArtists =
 	(filter, customHeaders = {}) =>
 	async dispatch => {
 		try {
+			dispatch({
+				type: LOADING,
+			});
+
 			const url = filter
 				? `/api/artists?filter=${filter}`
 				: '/api/artists';

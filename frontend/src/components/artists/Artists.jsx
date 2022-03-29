@@ -9,10 +9,11 @@ import { isEmpty, isNotEmpty, intersect } from '../../utils/arrays';
 import ArtistCard from './fragments/ArtistCard';
 import TattooStyles from '../tattooStyles/TattooStyles';
 import LocationSearcher from '../fragments/LocationSearcher';
+import Loading from '../fragments/Loading';
 
 const searchTitle = 'Find your next tattoo artist.';
 
-const Artists = ({ artist: { artists }, fetchArtists, history }) => {
+const Artists = ({ artist: { artists, loading }, fetchArtists, history }) => {
 	const [location, setLocation] = useState('');
 	const [searchedTitle, setSearchedTitle] = useState(searchTitle);
 	const [filteredArtists, setFilteredArtists] = useState([]);
@@ -123,7 +124,8 @@ const Artists = ({ artist: { artists }, fetchArtists, history }) => {
 				</div>
 			</div>
 			<hr />
-			{filteredArtists && (
+			{loading && <Loading />}
+			{filteredArtists && !loading && (
 				<div className="artists-row">
 					{filteredArtists.map(artist => (
 						<ArtistCard

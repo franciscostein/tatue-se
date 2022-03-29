@@ -18,6 +18,10 @@ import { capitalizeFirstLetter } from '../utils/text';
 
 export const fetchStudios = search => async dispatch => {
 	try {
+		dispatch({
+			type: LOADING,
+		});
+
 		const url = search ? `/api/studios?search=${search}` : '/api/studios';
 		const { data } = await axios.get(url);
 

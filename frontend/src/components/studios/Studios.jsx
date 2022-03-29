@@ -8,10 +8,11 @@ import { findLocation } from '../../utils/location';
 import { isEmpty } from '../../utils/arrays';
 import LocationSearcher from '../fragments/LocationSearcher';
 import StudioCard from './fragments/StudioCard';
+import Loading from '../fragments/Loading';
 
 const searchTitle = 'Find tattoo studios near you.';
 
-const Studios = ({ studio: { studios }, fetchStudios, history }) => {
+const Studios = ({ studio: { studios, loading }, fetchStudios, history }) => {
 	const [filteredStudios, setFilteredStudios] = useState([]);
 	const [location, setLocation] = useState('');
 	const [searchedTitle, setSearchedTitle] = useState(searchTitle);
@@ -61,7 +62,8 @@ const Studios = ({ studio: { studios }, fetchStudios, history }) => {
 					onClean={cleanSearchHandler}
 				/>
 			</div>
-			{filteredStudios && (
+			{loading && <Loading />}
+			{filteredStudios && !loading && (
 				<div className="d-flex flex-wrap justify-content-center mx-5 mt-3">
 					{filteredStudios.map(studio => (
 						<StudioCard

@@ -29,6 +29,7 @@ export default function (state = initialState, action) {
 				...state,
 				studios: payload,
 				error: false,
+				loading: false,
 			};
 		case FETCH_STUDIO:
 			return {

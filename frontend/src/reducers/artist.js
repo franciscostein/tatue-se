@@ -28,6 +28,8 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				artists: payload,
+				loading: false,
+				error: false,
 			};
 		case FETCH_ARTIST:
 			return {
