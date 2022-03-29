@@ -10,7 +10,7 @@ import {
 	SAVE_ARTIST_PORTFOLIO,
 	DELETE_ARTIST,
 	ARTIST_ERROR,
-	LOADING,
+	ARTIST_LOADING,
 } from './types';
 
 import { setAlertTimeout } from './alert';
@@ -20,7 +20,7 @@ export const fetchArtists =
 	async dispatch => {
 		try {
 			dispatch({
-				type: LOADING,
+				type: ARTIST_LOADING,
 			});
 
 			const url = filter
@@ -118,7 +118,7 @@ export const saveArtistImage = (base64, type) => async dispatch => {
 export const saveArtistPortfolio = images => async dispatch => {
 	try {
 		dispatch({
-			type: LOADING,
+			type: ARTIST_LOADING,
 		});
 
 		const { data } = await axios.patch('/api/artists/images', images);

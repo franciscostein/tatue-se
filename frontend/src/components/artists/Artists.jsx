@@ -28,7 +28,7 @@ const Artists = ({ artist: { artists, loading }, fetchArtists, history }) => {
 			filter();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [artists, filteredByLocation, filteredByStyles]);
+	}, [artists, loading, filteredByLocation, filteredByStyles]);
 
 	const filter = () => {
 		if (!location && isEmpty(selectedTattooStyleIds)) {

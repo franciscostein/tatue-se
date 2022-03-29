@@ -9,7 +9,7 @@ import {
 	SAVE_ARTIST_PORTFOLIO,
 	DELETE_ARTIST,
 	ARTIST_ERROR,
-	LOADING,
+	ARTIST_LOADING,
 } from '../actions/types';
 
 const initialState = {
@@ -73,7 +73,7 @@ export default function (state = initialState, action) {
 				error: true,
 				loading: false,
 			};
-		case LOADING:
+		case ARTIST_LOADING:
 			return {
 				...state,
 				error: false,

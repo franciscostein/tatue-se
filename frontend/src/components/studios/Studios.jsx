@@ -23,7 +23,7 @@ const Studios = ({ studio: { studios, loading }, fetchStudios, history }) => {
 		} else if (!location) {
 			setFilteredStudios([...studios]);
 		}
-	}, [studios, fetchStudios, location]);
+	}, [studios, loading, fetchStudios, location]);
 
 	const selectPlaceHandler = place => {
 		const { city, region, country } = findLocation(

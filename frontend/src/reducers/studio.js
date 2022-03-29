@@ -9,7 +9,7 @@ import {
 	SAVE_PHOTOS_SUCCESS,
 	DELETE_STUDIO,
 	STUDIO_ERROR,
-	LOADING,
+	STUDIO_LOADING,
 } from '../actions/types';
 
 const initialState = {
@@ -76,7 +76,7 @@ export default function (state = initialState, action) {
 				error: true,
 				loading: false,
 			};
-		case LOADING:
+		case STUDIO_LOADING:
 			return {
 				...state,
 				error: false,

@@ -10,7 +10,7 @@ import {
 	SAVE_PHOTOS_SUCCESS,
 	DELETE_STUDIO,
 	STUDIO_ERROR,
-	LOADING,
+	STUDIO_LOADING,
 } from './types';
 
 import { setAlertTimeout } from './alert';
@@ -19,7 +19,7 @@ import { capitalizeFirstLetter } from '../utils/text';
 export const fetchStudios = search => async dispatch => {
 	try {
 		dispatch({
-			type: LOADING,
+			type: STUDIO_LOADING,
 		});
 
 		const url = search ? `/api/studios?search=${search}` : '/api/studios';
@@ -110,7 +110,7 @@ export const saveStudioImage = (base64, type) => async dispatch => {
 export const saveStudioImages = images => async dispatch => {
 	try {
 		dispatch({
-			type: LOADING,
+			type: STUDIO_LOADING,
 		});
 
 		const { data } = await axios.patch('/api/studios/images', images);
